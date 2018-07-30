@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/kotlin-demos/index.html">kotlin-demos</a></span><span> &gt; </span><span class="repo-name">kotlin-reified-type-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Kotlin Reified Type Demo
+=======================
+
+```
+./gradlew run
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-reified-type-demo/blob/master/build.gradle" target="_blank">build.gradle</a></div>
+            <div class="path">build.gradle</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = '1.2.31'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+mainClassName = 'example.Hello'
+
+defaultTasks 'run'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.jetbrains.kotlin:kotlin-reflect:$kotlin_version&quot;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile 'org.assertj:assertj-core:3.9.0'
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-reified-type-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a></div>
+            <div class="path">src/main/kotlin/example/Hello.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">package example
+
+inline fun &lt;reified T&gt; membersOf() = T::class.members
+
+object Hello {
+    @JvmStatic
+    fun main(args: Array&lt;String&gt;) {
+        println(membersOf&lt;StringBuilder&gt;())
+    }
+    
+}
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-reified-type-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a></div>
+            <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/kotlin-demos/kotlin-reified-type-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/kotlin-demos/kotlin-reified-type-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,497 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">express-router-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Express Routing Demo
+--------------------
+
+```
+npm install
+```
+
+Documents
+---------
+
+- http://expressjs.com/en/guide/routing.html
+- http://expressjs.com/en/4x/api.html
+
+---------
+
+1. Route paths
+--------------
+
+```
+node route-paths.js
+```
+
+Good urls:
+
+```
+curl http://localhost:3000
+curl http://localhost:3000/users/mike
+curl http://localhost:3000/products/123
+curl http://localhost:3000/google
+curl http://localhost:3000/gooooooooooooooogle
+```
+
+Bad urls:
+
+```
+curl http://localhost:3000/products/not-numbers
+curl http://localhost:3000/gogle
+curl http://localhost:3000/googggggle
+```
+
+2. All kinds of http methods
+----------------------------
+
+```
+node http-methods.js
+```
+
+```
+curl http://localhost:3000/
+curl -X PUT http://localhost:3000/
+curl -X M-SEARCH http://localhost:3000/
+```
+
+3. `all` method
+---------------
+
+```
+node route-all.js
+```
+
+```
+curl http://localhost:3000/
+curl -X PUT http://localhost:3000/
+curl -X DELETE http://localhost:3000/
+```
+
+4. Global handlers
+------------------
+
+```
+node global-handlers.js
+```
+
+```
+curl http://localhost:3000/
+```
+
+5. Chain handlers
+-----------------
+
+```
+node route-handlers.js
+```
+
+```
+curl http://localhost:3000/multi-handlers
+curl http://localhost:3000/handler-array
+curl http://localhost:3000/handler-combine1
+curl http://localhost:3000/handler-combine2
+```
+
+6. Same path with different route handlers
+------------------------------------------
+
+```
+node same-route-paths.js
+```
+
+```
+curl http://localhost:3000
+curl -X PUT http://localhost:3000
+```
+
+7. All kinds of response methods
+--------------------------------
+
+```
+node responses.js
+```
+
+```
+curl -v http://localhost:3000/send1
+curl -v http://localhost:3000/send2
+curl -v http://localhost:3000/send3
+curl -v http://localhost:3000/download1
+curl -v http://localhost:3000/download2
+curl -v http://localhost:3000/end
+curl -v http://localhost:3000/json
+curl http://localhost:3000/jsonp?callback=hello
+curl -v http://localhost:3000/redirect
+curl -v http://localhost:3000/render
+curl -v http://localhost:3000/sendFile
+curl -v http://localhost:3000/sendStatus
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/global-handlers.js" target="_blank">global-handlers.js</a></div>
+            <div class="path">global-handlers.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var app = express();
+
+app.use(function (req, res, next) {
+  console.log(&quot;Global route handler 1&quot;);
+  next();
+});
+
+app.get('/', function (req, res, next) {
+  console.log(&quot;Handler for /&quot;);
+  res.send(&quot;Hello, world&quot;);
+  next();
+});
+
+app.use(function (req, res, next) {
+  console.log(&quot;Global route handler 2&quot;);
+  next();
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/http-methods.js" target="_blank">http-methods.js</a></div>
+            <div class="path">http-methods.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var _ = require('lodash');
+var app = express();
+
+var AVALIABLE_METHODS = [
+  &quot;get&quot;, &quot;post&quot;, &quot;put&quot;, &quot;head&quot;, &quot;delete&quot;, &quot;options&quot;,
+  &quot;trace&quot;, &quot;copy&quot;, &quot;lock&quot;, &quot;mkcol&quot;, &quot;move&quot;, &quot;purge&quot;,
+  &quot;propfind&quot;, &quot;proppatch&quot;, &quot;unlock&quot;, &quot;report&quot;, &quot;mkactivity&quot;,
+  &quot;checkout&quot;, &quot;merge&quot;, &quot;m-search&quot;, &quot;notify&quot;,
+  &quot;subscribe&quot;, &quot;unsubscribe&quot;, &quot;patch&quot;, &quot;search&quot;, &quot;connect&quot;
+];
+
+_.each(AVALIABLE_METHODS, function (method) {
+  app[method]('/', function (req, res) {
+    res.send(&quot;Your http method is: &quot; + req.method);
+  });
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/responses.js" target="_blank">responses.js</a></div>
+            <div class="path">responses.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var _ = require('lodash');
+var app = express();
+
+app.engine('mustache', require('mustache-express4'));
+app.set('view engine', 'mustache');
+app.set('partials', __dirname + '/views/partials');
+app.set('views', __dirname + '/views');
+
+app.get('/send1', function (req, res) {
+  res.send('send some text');
+});
+app.get('/send2', function (req, res) {
+  res.send([1, 2, 3]);
+});
+app.get('/send3', function (req, res) {
+  res.send({aaa: 111});
+});
+
+app.get('/download1', function (req, res) {
+  res.download(&quot;./package.json&quot;);
+});
+
+app.get('/download2', function (req, res) {
+  res.download('./package.json', 'my.json');
+});
+
+app.get('/end', function (req, res) {
+  res.end();
+});
+
+app.get('/json', function (req, res) {
+  res.json({aaa: 111});
+});
+
+app.get('/jsonp', function (req, res) {
+  res.jsonp({user: 'tobi'});
+});
+
+app.get('/redirect', function (req, res) {
+  res.redirect(&quot;http://google.com&quot;);
+});
+
+app.get('/render', function (req, res) {
+  res.render(&quot;hello&quot;, {name: &quot;Freewind&quot;});
+});
+
+app.get('/sendFile', function (req, res) {
+  // must be absolute file
+  res.sendFile(__dirname + &quot;/package.json&quot;);
+});
+
+app.get('/sendStatus', function (req, res) {
+  res.sendStatus(999);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/route-all.js" target="_blank">route-all.js</a></div>
+            <div class="path">route-all.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var app = express();
+
+app.all('/', function (req, res, next) {
+  console.log(&quot;You http method is: &quot; + req.method);
+  next();
+});
+
+app.get('/', function (req, res) {
+  res.send(&quot;handle in get handler&quot;);
+});
+
+app.put('/', function (req, res) {
+  res.send(&quot;handle in put handler&quot;);
+});
+
+app.all('/', function (req, res) {
+  res.send(&quot;other method: &quot; + req.method);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/route-handlers.js" target="_blank">route-handlers.js</a></div>
+            <div class="path">route-handlers.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var _ = require('lodash');
+var app = express();
+
+app.get('/', function (req, res) {
+  res.send(&quot;Hello&quot;);
+});
+
+function handler1(req, res, next) {
+  console.log(&quot;In handler 1&quot;);
+  next();
+}
+
+function handler2(req, res, next) {
+  console.log(&quot;In handler 2&quot;);
+  next();
+}
+
+function handler3(req, res, next) {
+  console.log(&quot;In handler 3&quot;);
+  next();
+}
+
+app.get(&quot;/multi-handlers&quot;, handler1, handler2);
+app.get(&quot;/handler-array&quot;, [handler1, handler2]);
+app.get(&quot;/handler-combine1&quot;, [handler1, handler2], handler3);
+app.get(&quot;/handler-combine2&quot;, handler1, [handler2, handler3]);
+
+app.use(function (req, res) {
+  console.log(&quot;In final handler&quot;);
+  res.send(&quot;ok&quot;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/route-paths.js" target="_blank">route-paths.js</a></div>
+            <div class="path">route-paths.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var app = express();
+
+app.get('/', function (req, res) {
+  res.send(&quot;index page&quot;);
+});
+
+app.get('/users/:name', function (req, res) {
+  res.send(&quot;The name is: &quot; + req.params.name);
+});
+
+app.get(&quot;/products/:id(\\d+)&quot;, function (req, res) {
+  res.send(&quot;Id: &quot; + req.params.id);
+});
+
+app.get(/go{2,}gle/, function (req, res) {
+  res.send(&quot;Google!&quot;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/routers/rooms.js" target="_blank">rooms.js</a></div>
+            <div class="path">routers/rooms.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var router = require('express').Router();
+
+router.get('/', function (req, res) {
+  res.send('rooms');
+});
+
+router.post('/', function (req, res) {
+  res.send(&quot;Your posted room data is: &quot; + JSON.stringify(req.body));
+});
+
+router.get('/:id', function (req, res) {
+  res.send('room: ' + req.params.id);
+});
+
+module.exports = router;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/routers/users.js" target="_blank">users.js</a></div>
+            <div class="path">routers/users.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var router = require('express').Router();
+
+router.get('/', function (req, res) {
+  res.send('users');
+});
+
+router.post('/', function (req, res) {
+  res.send(&quot;Your posted user data is: &quot; + JSON.stringify(req.body));
+});
+
+router.get('/:id', function (req, res) {
+  res.send('user: ' + req.params.id);
+});
+
+
+module.exports = router;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/routers.js" target="_blank">routers.js</a></div>
+            <div class="path">routers.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+
+// This will applied to all router modules
+app.use(bodyParser.json());
+
+app.use('/users', require('./routers/users'));
+app.use('/rooms', require('./routers/rooms'));
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-router-demo/blob/master/same-route-path.js" target="_blank">same-route-path.js</a></div>
+            <div class="path">same-route-path.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var app = express();
+
+app.route('/')
+  .get(function (req, res) {
+    res.send(&quot;get&quot;);
+  })
+  .put(function (req, res) {
+    res.send(&quot;put&quot;);
+  });
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/express-router-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/express-router-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

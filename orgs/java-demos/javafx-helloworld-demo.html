@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">javafx-helloworld-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">JavaFX Helloworld Demo
+=======================
+
+Run it in IDEA, you will see a window with a button. When click on it, the console will show &quot;Hello!&quot;.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/javafx-helloworld-demo/blob/master/src/Main.java" target="_blank">Main.java</a></div>
+            <div class="path">src/Main.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    @Override
+    public void start(Stage primaryStage) {
+        Button button = new Button();
+        button.setText(&quot;Hello, JavaFX!&quot;);
+        button.setOnAction(event -&gt; System.out.println(&quot;Hello!&quot;));
+
+        StackPane root = new StackPane();
+        root.getChildren().add(button);
+
+        Scene scene = new Scene(root, 300, 200);
+        primaryStage.setTitle(&quot;JavaFX Demo&quot;);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/javafx-helloworld-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/javafx-helloworld-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/golang-demos/index.html">golang-demos</a></span><span> &gt; </span><span class="repo-name">go-crypto-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Go Crypto Demo
+==============
+
+```
+brew install go
+go get
+go run hello.go
+```
+
+Resources
+---------
+
+- &lt;http://github.com/tendermint/go-crypto&gt;</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/golang-demos/go-crypto-demo/blob/master/hello.go" target="_blank">hello.go</a></div>
+            <div class="path">hello.go</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="go">package main
+
+import (
+	&quot;github.com/tendermint/go-crypto&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+	fmt.Println(&quot;-------------- generate private and public key ----------------------&quot;)
+	privateKey := crypto.GenPrivKeyEd25519()
+	fmt.Printf(&quot;Private key: %02X\n&quot;, privateKey)
+	pubKey1 := privateKey.PubKey()
+	fmt.Printf(&quot;Public key1: %02X\n&quot;, pubKey1)
+	pubKey2 := privateKey.PubKey()
+	fmt.Printf(&quot;Public key2: %02X\n&quot;, pubKey2)
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/golang-demos/go-crypto-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/golang-demos/go-crypto-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

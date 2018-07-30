@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">superagent-nock-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Superagent Mocking with Nock Demo
+=================================
+
+- superagent: send http request
+- nock: mocking
+
+```
+npm install -g jasmine
+npm install
+jasmine
+```
+
+
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-nock-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+const request = require('superagent');
+const nock = require('nock');
+
+function login({username, password}, callback) {
+  request.post('/api/sessions')
+    .send({username, password})
+    .end((err, res) =&gt; {
+      callback(err, res &amp;&amp; res.ok, res &amp;&amp; res.body.message);
+    });
+}
+
+module.exports = {login};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-nock-demo/blob/master/spec/login-spec.js" target="_blank">login-spec.js</a></div>
+            <div class="path">spec/login-spec.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const superagent = require('superagent');
+const nock = require('nock');
+const {login} = require('../index');
+
+describe('login', () =&gt; {
+
+  beforeEach(() =&gt; {
+    nock.cleanAll();
+  });
+
+  it('successfully', (done) =&gt; {
+    nock(/.*/)
+      .post('/api/sessions')
+      .reply(201, {
+        message: 'login successful'
+      });
+
+    login({username: 'freewind', password: '123456'}, (err, ok, message) =&gt; {
+      expect(err).toBeNull();
+      expect(ok).toBeTruthy();
+      expect(message).toEqual(&quot;login successful&quot;);
+      done();
+    });
+  });
+
+  it('failed', (done) =&gt; {
+    nock(/.*/)
+      .post('/api/sessions')
+      .reply(401, {
+        message: 'invalid username or password'
+      });
+
+    login({username: 'freewind', password: '123456'}, (err, ok, message) =&gt; {
+      expect(ok).toBeFalsy();
+      expect(err).not.toBeNull();
+      expect(message).toEqual('invalid username or password');
+      done();
+    });
+  })
+});</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/superagent-nock-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/superagent-nock-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

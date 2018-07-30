@@ -1,0 +1,2449 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">using-promise-q</span><span class="repo-description">[JavaScript][promise][tutorial] Using promises with &quot;Q&quot;</span></div>
+        <div id="readme">
+          <div class="markdown markdown-body"># Using promises with &quot;Q&quot;
+
+JavaScript platform heavily uses asyncronous actions that requires
+continuation callbacks. 
+Codes using them easily become complex for nested callbacks.
+
+One of profit of using promises is 
+changing the callback nesting style to more clean.
+
+The promises may be integrated to 
+[ES6 (harmony)](http://wiki.ecmascript.org/doku.php?id=strawman:concurrency).
+[Q](https://github.com/kriskowal/q) is an implementation of the promises.
+
+## What is &quot;Q&quot;
+
+[Q](https://github.com/kriskowal/q) is a module for 
+[promises](http://en.wikipedia.org/wiki/Futures_and_promises) in JavaScript.
+
+In node.js or JS on HTML, using asynchronous actions is usually 
+coded as the function callback style. e.g.:
+
+```javascript
+// using-callback.js
+http.get(url.parse(&quot;http://example.org/&quot;), function (res) {
+   console.log(res.statusCode);  // maybe 302
+});
+```
+
+If you want to chain continuous asynchronous actions,
+following callbacks are *nested* in the callback of the former action;
+e.g.:
+
+```javascript
+// using-nested-callback.js
+http.get(url.parse(&quot;http://example.org/&quot;), function (res) {
+    console.log(res.statusCode);  // maybe 302
+    http.get(url.parse(res.headers[&quot;location&quot;]), function (res) {
+        console.log(res.statusCode);  // maybe 200
+    });
+});
+```
+
+Using promises with ``Q`` *transform*s 
+the nested style to *flatten manner*, as:
+
+```javascript
+// using-promise.js
+httpGet(url.parse(&quot;http://example.org/&quot;)).then(function (res) {
+    console.log(res.statusCode);  // maybe 302
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    console.log(res.statusCode);  // maybe 200
+});
+```
+
+From the flatten style, promises introduce many ways of clearer coding 
+to JavaScript programmings.
+
+At last, the promised action ``httpGet`` can be just defined as:
+
+```javascript
+// using-promise.js
+var httpGet = function (opts) {
+     var deferred = Q.defer();
+     http.get(opts, deferred.resolve);
+     return deferred.promise;
+};
+```
+
+Making promise actions is also *transforming* from callback style actions.
+
+## Setup Q module
+
+If you use in node.js, simply install with npm:
+
+```bash
+npm install q
+```
+
+then using in js file as an usual module:
+```javascript
+var Q = require(&quot;q&quot;);
+...
+```
+
+If you use in browsers, loading ``q.min.js`` in former of your JavaScript code:
+
+```html
+&lt;!-- using-q.html --&gt;
+&lt;script src=&quot;q.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var loadText = function (url) {
+    var deferred = Q.defer();
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function () {
+        if (req.readyState !== 4) return;
+        if (/^[^2]\d\d$/.exec(req.status)) return deferred.reject(req.status);
+        deferred.resolve(req.responseText);
+    };
+    req.open(&quot;GET&quot;, url, true);
+    req.send();
+    return deferred.promise;
+};
+&lt;/script&gt;
+```
+
+``q.min.js`` is in 
+[the source repository of q](https://github.com/kriskowal/q).
+
+
+## Making promise based action
+
+At first using ``Q``, you make actions return &quot;promise&quot;.
+For example, make node.js action ``http.get`` as  promised action:
+
+```javascript
+// using-promise.js
+var httpGet = function (opts) {
+     var deferred = Q.defer();
+     http.get(opts, deferred.resolve);
+     return deferred.promise;
+};
+```
+
+then you can use as:
+
+```javascript
+httpGet(...).then(function (res) {...});
+```
+
+It is important that functions returns promise.
+
+The first ``Q.defer()`` returns set of an empty promise and operations for it.
+``deferred.promise`` is the empty promise and ``deferred.resolve(value)``
+makes the promise resolved as the ``value``.
+
+The simplest example of them is:
+
+```javascript
+// promise-resolve-then-flow.js
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    console.log(obj);
+});
+deferred.resolve(&quot;Hello World&quot;);
+```
+
+It prints ``&quot;Hello World&quot;`` to the console.
+
+In generally, you can transform usual callback actions:
+
+```javascript
+// promise-translate-action.js
+action(arg1, arg2, function (result) {
+    doSomething(result);
+});
+```
+
+to promise actions:
+
+```javascript
+// promise-translate-action.js
+var promiseAction = function (arg1, arg2) {
+    var deferred = Q.defer();
+    action(arg1, arg2, deferred.resolve);
+    return deferred.promise;
+}
+
+promiseAction(arg1, arg2).then(function (result) {
+    doSomething(result);
+});
+```
+
+## Action chain
+
+Using continuous actions is call next action in the former callback. e.g.:
+
+```javascript
+// chain-nested-callback.js
+http.get(url.parse(&quot;http://example.org&quot;), function (res) {
+    http.get(url.parse(res.headers[&quot;location&quot;]), function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+        });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+```
+
+You can simply transform it to promise actions and ``then`` callback style:
+
+```javascript
+// chain-nested-promise.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    httpGet(url.parse(res.headers[&quot;location&quot;])).then(function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+        });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+```
+
+If you can &quot;return&quot; any value in ``then`` callback, you can catch the value to
+a next``then`` callback:
+
+```javascript
+// chain-by-value.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return res.headers[&quot;location&quot;];
+}).then(function (location) {
+    httpGet(url.parse(location)).then(function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+        });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+```
+
+If you return a &quot;promise&quot; in ``then`` callback, 
+you can catch a resolved value of the promise to the next ``then`` callback:
+
+```javascript
+// chain-by-promise.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        console.log(body);
+    });
+});
+```
+
+You can transforn the ``body`` loading action to promise action as:
+
+```javascript
+// chain-to-action.js
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+```
+
+Apply it:
+
+```javascript
+// chain-to-action.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    loadBody(res).then(function (body) {
+        console.log(body);
+    });
+});
+```
+
+It can also go outside of ``then`` callback as:
+
+```javascript
+// chain-to-action-flatten.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    return loadBody(res);
+}).then(function (body) {
+    console.log(body);
+});
+```
+
+Make it more simple as:
+
+```javascript
+// chain-to-action-simplify.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).then(console.log);
+```
+
+### Condition branch in promise action
+
+You can use ``if`` branch in promise as:
+
+```javascript
+// chain-branch.js
+var getBody = function (uri) {
+    return httpGet(url.parse(uri)).then(function (res) {
+       if (res.statusCode.toString()[0] === &quot;3&quot;) {
+           return httpGet(url.parse(res.headers[&quot;location&quot;]));
+       } else {
+           return res;
+       }
+    }).then(loadBody);
+};
+
+getBody(&quot;http://example.org&quot;).then(console.log);
+```
+
+The first returns promise of ``res``(http.ClientResponse) 
+that returns ``res``.
+The second returns just ``res``.
+every ``return`` of branch should finally resolve same type object.
+
+Branch in promise action is with this manner.
+
+### Loop in promise action
+
+You can use loop in promise with recursive call:
+
+```javascript
+// chain-loop.js
+var redirectGet = function (uri) {
+    return httpGet(url.parse(uri)).then(function (res) {
+       if (res.statusCode.toString()[0] === &quot;3&quot;) {
+           return redirectGet(res.headers[&quot;location&quot;]);
+       } else {
+           return res;
+       }
+    });
+};
+var getBody = function (uri) {
+    return redirectGet(uri).then(loadBody);
+};
+
+getBody(&quot;http://example.org&quot;).then(console.log);
+```
+
+## Uniform error handling
+
+Q includes standard error handling ways.
+
+The ``then`` method accept two callback args;
+the first callback catches successful result,
+and the second catches error as failure.
+
+```javascript
+// promise-failure-action.js
+promisedAction(arg1, arg2).then(function (value) {
+    doSomething(value);
+}, function (error) {
+    doErrorHandle(error);
+});
+```
+
+``Q.defer()`` set has ``reject(error)`` function for passing error handler.
+A simple example is:
+
+```javascript
+// promise-reject-then-flow.js
+var deferred = Q.defer();
+deferred.promise.then(null, console.log);
+deferred.reject(new Error(&quot;failure&quot;));
+```
+
+It prints ``[Error: failure]``.
+
+If you can pass only error handing callback, use 'fail(handler)':
+
+```javascript
+// promise-reject-fail-flow.js
+var deferred = Q.defer();
+deferred.promise.fail(console.log);
+deferred.reject(new Error(&quot;failure&quot;));
+```
+
+The real example ``httpGet`` with error handling becomes as:
+
+```javascript
+// using-promise-with-error.js
+var httpGet = function (opts) {
+     var deferred = Q.defer();
+     try {
+         http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+     } catch (error) {deferred.reject(error);}
+     return deferred.promise;
+};
+```
+
+## Promise chain with error handling
+
+In a promise chain, when error occured in middle promise action,
+following actions not executed,
+the error is passed through to the latter promises that has an error handler.
+If all latter promises have not error handler, error is ignored.
+
+
+For example:
+
+```javascript
+// chain-with-error.js
+httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).then(console.log).fail(function (error) {
+    console.log(&quot;error occured: &quot; + error);
+});
+```
+
+The last error handler catches an error occured at any point in 
+``httpGet``, ``loadBody``, or ``console.log`` of ``then``.
+
+### Error thrown from callback
+
+An error thrown in the ``then`` callback also becomes failure flow. e.g.: 
+
+```javascript
+// promise-throw-fail-flow.js
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    throw new Error(&quot;thrown error&quot;);
+}).fail(console.log);
+deferred.resolve({});
+```
+
+It prints ``[Error: thrown error]``.
+
+Notice that a thrown error can be catched in the &quot;following&quot; promise.
+
+So, the code:
+
+```javascript
+// promise-throw-uncaught-flow.js
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    throw new Error(&quot;thrown error&quot;);
+}, console.log);
+deferred.resolve({});
+```
+
+It prints nothing.
+
+### Retrieve flow from errors
+
+The error flow is also a part of promise.
+Retrieving from error is just return a value in error callback. as:
+
+```javascript
+// chain-with-error-recover.js
+httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+}).then(console.log);
+```
+
+If error occured in ``httpGet`` or ``loadBody``,
+it prints &quot;Not Found&quot; as successful flow.
+
+## A promise of multiple values and ``spread``
+
+The `then` callback always accepts just one argument.
+So you want to pass multiple values as a array like `[value1, value2]`.
+In callback, extract with array access like: `var value1 = result[0];`.
+
+If you want to use multiple arguments directly, 
+you can use `spread` instead of `then`:
+
+```javascript
+// promise-multiple-resolve-spread-flow.js
+var deferred = Q.defer();
+deferred.promise.spread(function (value1, value2) {
+    return value1 + value2;
+}).then(console.log);
+deferred.resolve([10, 30]);
+```
+
+## A promise of immediate values
+
+### Resolved promise
+
+Not only async action, usual value transform as a promise.
+`Q.resolve` transforms value to promise:
+
+```javascript
+// promise-resolve.js
+Q.resolve(&quot;Hello&quot;).then(console.log);
+```
+
+Not only a returned value of ``then`` callback,
+other types of value is handled with same manner of promises.
+
+### ``when``
+
+`Q.when(value, success, failure)` is same as
+`Q.resolve(value).then(success, failure)`
+(but `then` is implemented with `when` in really)
+
+```javascript
+// promise-when.js
+Q.when(&quot;Hello&quot;, console.log);
+```
+
+### Rejected promise
+
+`Q.reject(obj)` is &quot;rejected&quot; promise.
+it spawn only error handler. e.g.:
+
+```javascript
+// promise-reject.js
+Q.reject(&quot;abc&quot;).then(function (value) {
+    console.log(&quot;OK&quot;);
+}, function (error) {
+    console.log(&quot;FAIL&quot;);
+});
+```
+It just prints ``&quot;FAIL&quot;``.
+
+If you return rejected promises in ``then`` callback,
+It spawn error handler. e.g.:
+
+```javascript
+// promise-return-reject-flow.js
+Q.resolve(&quot;abc&quot;).then(function (value) {
+    return Q.reject(&quot;FAIL&quot;);
+}).then(null, function (error) {
+    console.log(error);
+});
+```
+
+It also prints ``&quot;FAIL&quot;``.
+
+Returning a reject promise is same effect of ``throw error`` on flows.
+
+## Object handling promises
+
+The ``then`` callback can use the result anyway.
+Each handling is decomposed primitives of
+property accesses or function calls.
+
+For example:
+
+```javascript
+// object-unsued.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return res.headers[&quot;location&quot;].replace(/^http:/, &quot;&quot;);
+}).then(console.log);
+```
+
+It can decompose continuous actions of each primitive access as:
+
+```javascript
+// object-decomposed.js
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return res.headers;
+}).then(function (handlers) {
+    return handlers[&quot;location&quot;];
+}).then(function (location) {
+    return location.replace(/^http:/, &quot;&quot;);
+}).then(console.log);
+```
+
+Promises of ``Q`` have support methods of primitive access
+as a promise.
+
+By them, the decomposed actions also translate to:
+
+```javascript
+// object.primitive.js
+httpGet(url.parse(&quot;http://example.org&quot;))
+    .get(&quot;headers&quot;).get(&quot;location&quot;).post(&quot;replace&quot;, [/^http:/, &quot;&quot;])
+    .then(console.log);
+```
+
+### Promise methods of object handling promises
+
+``promise.get(name)``:
+```javascript
+promise.then(function (value) {
+    return value[name];
+})
+```
+
+``promise.put(name, value)``:
+```javascript
+promise.then(function (value) {
+    return value[name] = value;
+})
+```
+
+``promise.del(name)``:
+```javascript
+promise.then(function (value) {
+    return delete value[name];
+})
+```
+
+``promise.post(name, arglist)``
+```javascript
+promise.then(function (value) {
+    return value[name].apply(value, arglist);
+})
+```
+
+``promise.send(name, arg1, arg2,...)``:
+```javascript
+promise.then(function (value) {
+    return value[name].call(value, arg1, arg2, ...);
+})
+```
+
+``promise.fapply(arglist)``:
+```javascript
+promise.then(function (value) {
+    return value.apply(undefined, arglist);
+})
+```
+
+``promise.fcall(arg1, arg2, ...)``:
+```javascript
+promise.then(function (value) {
+    return value.call(undefined, arg1, arg2, ...);
+})
+```
+
+``promise.fbind(arg1, arg2, ...)``:
+```javascript
+(function (promise) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return function () {
+        var all = args.concat(Array.prototype.slice.call(arguments));
+        return promise.then(function (value) {
+            return value.apply(undefined, all);
+        });
+    };
+})
+```
+
+(note: result of fbind is a function, not a promise)
+
+``promise.apply(thisp, arglist)``:
+```javascript
+promise.then(function (value) {
+    return value.apply(thisp, arglist);
+})
+```
+
+``promise.call(thisp, arg1, arg2, ...)``:
+```javascript
+promise.then(function (value) {
+    return value.call(thisp, arg1, arg2, ...);
+})
+```
+
+``promise.bind(thisp, arg1, arg2, ...)``:
+```javascript
+(function (promise, thisp) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return function () {
+        var all = args.concat(Array.prototype.slice.call(arguments));
+        return promise.then(function (value) {
+            return value.apply(thisp, all);
+        });
+    };
+})
+```
+
+(note: result of bind is a function, not a promise)
+
+
+``promise.keys()``:
+```javascript
+promise.then(function (value) {
+    return Object.keys(value);
+})
+```
+
+### ``view`` make all methods to promise method
+
+The ``promise.post(name)`` or ``promise.send(name)`` 
+convert a method of the promise value to a promise of the method result.
+
+A result of ``view()``  has methods for all methods of the promise value.
+You can use view in ``then`` callback of ``view()``.
+e.g.:
+
+```javascript
+// object-view.js
+Q.resolve(new Date()).view().then(function (dateView) {
+    return dateView.toTimeString().then(function (str) {
+        return /\((.*)\)/.exec(str)[0]
+    });
+}).then(console.log);
+```
+
+## Composing flow 
+
+The former promise chains are just only single flow style.
+``Q`` supports flow graph for complex flows.
+
+### Concurrent flow from a promise
+
+Not only single flow of promise in chain, 
+you can use a promise for multiple flows.
+
+For example, at processing a result text, 
+one flow is to print to log, other flows are to converting.
+
+```javascript
+// chain-concurrent.js
+var text = httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+});
+
+text.then(console.log);
+text.post(&quot;toUpperCase&quot;).then(console.log);
+text.post(&quot;toLowerCase&quot;).then(console.log);
+```
+
+In the code, printing order is not stable 
+beacuse of the end of three flows are independent each other.
+
+### Joined promise of multiple promises
+
+Joining multiple flows also supported with ``Q.all(promiselist)`` 
+
+For example, the former code of print out at the ordered.
+
+```javascript
+// chain-concurrent-join.js
+var text = httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+});
+
+var texts = Q.all([
+    text,
+    text.post(&quot;toUpperCase&quot;),
+    text.post(&quot;toLowerCase&quot;),
+]);
+
+texts.spread(function (normal, upper, lower) {
+    console.log(normal);
+    console.log(upper);
+    console.log(lower);
+});
+```
+
+When all of ``promiselist`` are resolved, ``Q.all(promiselist)`` is resolved.
+When one of ``promiselist`` is rejected, ``Q.all(promiselist)`` is rejected.
+
+Other case is join multiple accesses:
+```javascript
+Q.all([
+    httpGet(&quot;fragment.glsl&quot;),
+    httpGet(&quot;vertex.glsl&quot;),
+]).spread(function (fragmentCode, vertexCode) {
+    return makeShaderProgram(fragmentCode, vertexCode);
+});
+```
+
+
+``Q.allSettled(promiselist)`` is similar ``Q.all``.
+``Q.all(ps)`` is a promise of values of ``ps``,
+but ``Q.allSettled(ps)`` is a promise of settled(success or failure)
+promise list. The ``then`` callback arg is an array of result object as:
+
+- ``{state: &quot;fulfilled&quot;, value: resolvedValue}``
+- or
+- ``{state: &quot;rejected&quot;, reason: rejectedError}``
+
+Joining with ``allSettled`` is better for execution based programs
+that focus on spawning procedures (not use the result values).
+
+(``allSettled`` is renamed form ``allResolved`` after q-0.9.4).
+
+### `done` for abort
+
+``promise.done()`` is for abort the program entirely.
+
+If the ``promise`` is rejected (and not catched error before),
+`done()` forcely spawn uncaughtable error (e.g. 
+``setTimeout(function () {throw ex;}, 0)``).
+
+On node.js REPL, run ``Q.reject(&quot;uncaught&quot;).done()``, then exit with an error.
+
+If error reached to the ``done()``, you could think it just a *programming bug*
+(not exception state).
+
+### ``fin`` for common processing success or fail handlers
+
+``fin`` is for invoking common process for ``then`` handelrs. e.g.
+
+```javascript
+// promise-fin-flow.js
+promise.fin(function () {
+    console.log(&quot;resolved&quot;);
+}).then(function (value) {
+    console.log(&quot;success &quot; + value);
+}, function (error) {
+    console.log(&quot;failure &quot; + error);
+});
+```
+
+If ``promise = Q.resolve(&quot;OK&quot;)``, prints ``&quot;resolved\nsuccess OK&quot;``.
+If ``promise = Q.reject(&quot;FAIL&quot;)``, prints ``&quot;resolved\nfailure FAIL&quot;``.
+
+``fin`` callback has no arguments.
+
+
+## Timing control promise
+
+promise has two time control methods:
+
+- ``promise.delay(ms)``
+- ``promise.timeout(ms)``
+
+``promise.delay(ms)`` is a promise that
+spawns ``then`` callback after ``ms`` milliseconds. e.g.
+
+```javascript
+// promise-delay.js
+Q.resolve(&quot;OK&quot;).delay(5000).then(console.log)
+```
+
+It prints ``&quot;OK&quot;`` when 5-sec after.
+
+``promise.timeout(ms)`` is a promise that
+spawns reject callback after ``ms`` seconds when not yet resolved.
+
+For example, 
+
+```javascript
+// promise-timeout.js
+Q.resolve(&quot;OK&quot;).timeout(5000).then(console.log)
+```
+
+It prints ``&quot;OK&quot;`` just now. But:
+
+```javascript
+// promise-timeout.js
+Q.resolve(&quot;OK&quot;).delay(10000).timeout(5000).then(null, console.log)
+```
+
+It prints ``[Error: Timed out after 5000ms]`` when 5-sec after.
+
+## node.js utilities
+
+``Q`` has simple utility for node.js modules.
+
+- ``Q.nfapply(func, args)``
+- ``Q.nfcall(func, arg1, arg2, ...)``
+- ``Q.nfbind(func, arg1, arg2,...)``
+- ``Q.npost(obj, name, args)``
+- ``Q.nsend(obj, name, arg1, arg2, ...)``
+
+It is just for node.js standard IO module callback style, e.g.:
+
+```javascript
+fs.readFile(filename, encoding, function (error, result) {
+   if (!error) console.log(result);
+});
+```
+
+- the callback arg of actions is at the last argument
+- the first argument of callback functions is for error
+- the second argument is a result of action
+
+(You can not use them for http module because its style is different)
+
+The transformed examples are:
+
+```javascript
+Q.nfapply(fs.readFile, [filename, encoding]).then(console.log);
+```
+
+```javascript
+Q.nfcall(fs.readFile, filename, encoding).then(console.log);
+```
+
+```javascript
+Q.nfbind(fs.readFile)(filename, encoding).then(console.log);
+```
+
+```javascript
+Q.npost(fs, &quot;readFile&quot;, [filename, encoding]).then(console.log);
+```
+
+```javascript
+Q.nsend(fs, &quot;readFile&quot;, filename, encoding).then(console.log);
+```
+
+
+## New method names
+
+ECMAScript5 spritted 
+[Identifier and IdentifierName](http://es5.github.com/#x7.6).
+The IdentifierName allows to use keyword names.
+
+Property names of ECMAScript5 uses IdentifierName (not Identifier).
+e.g.
+
+```javascript
+var obj = {
+    new: function () {return Object.create(null)},
+};
+obj.new();
+```
+
+``Q`` promise supports new property names that 
+includes some of ES keywords names.
+
+- ``Q.begin(obj)`` is same as ``Q.resolve(obj)``
+- ``promise.delete(name)`` is same as ``promise.del(name)``
+- ``promise.try(arg1, arg2, ...)`` is same as ``promise.fcall(arg1, arg2, ...)``
+- ``promise.catch(callback)`` is same as ``promise.fail(callback)``
+- ``promise.finally(callback)`` is same as ``promise.fin(callback)``
+
+## Interoperability with other promise implementations
+
+There are many promise implementations in JavaScript.
+
+- [node-promise](https://github.com/kriszyp/node-promise)
+- [jQuery Deferred](http://api.jquery.com/category/deferred-object/)
+- [when](https://github.com/cujojs/when)
+
+All of them support
+[CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A)
+interface.
+
+&quot;CommonJS Promise/A&quot; sets standard interface for promise methods:
+
+- ``promise.then(fulfilledHandler, errorHandler, progressHandler)``
+- ``promise.get(propertyName)``
+- ``promise.call(functionName, arg1, arg2, ...)``
+
+``Q`` also supports them (progressHandler is just ignored).
+
+``Q.when(value)`` accepts &quot;CommosJS Promise/A&quot; promise 
+(which has the ``then`` method).
+``Q`` promise can chain from other implementation of promises.
+
+from ``jQuery-Deferred``:
+```javascript
+// interop-jquery-deferred.js
+var Q = require(&quot;q&quot;);
+var $ = require(&quot;jquery-deferred&quot;);
+
+var otherPromise = $.Deferred();
+Q.when(otherPromise).then(console.log);
+otherPromise.resolve(&quot;OK from other&quot;);
+```
+
+from ``node-promise``:
+```javascript
+// interop-node-promise.js
+var Q = require(&quot;q&quot;);
+var promise = require(&quot;node-promise&quot;);
+
+var otherPromise = new promise.Promise();
+Q.when(otherPromise).then(console.log);
+otherPromise.resolve(&quot;OK from other&quot;);
+```
+
+from ``when``:
+```javascript
+var Q = require(&quot;q&quot;);
+var when = require(&quot;when&quot;);
+
+var otherDeferred = when.defer();
+var otherPromise = otherDeferred.promise;
+Q.when(otherPromise).then(console.log);
+otherDeferred.resolver.resolve(&quot;OK from other&quot;);
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-branch.js" target="_blank">chain-branch.js</a></div>
+            <div class="path">examples/chain-branch.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+
+var getBody = function (uri) {
+    return httpGet(url.parse(uri)).then(function (res) {
+       if (res.statusCode.toString()[0] === &quot;3&quot;) {
+           return httpGet(url.parse(res.headers[&quot;location&quot;]));
+       } else {
+           return res;
+       }
+    }).then(loadBody);
+};
+
+getBody(&quot;http://example.org&quot;).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-by-promise.js" target="_blank">chain-by-promise.js</a></div>
+            <div class="path">examples/chain-by-promise.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        console.log(body);
+    });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-by-value.js" target="_blank">chain-by-value.js</a></div>
+            <div class="path">examples/chain-by-value.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return res.headers[&quot;location&quot;];
+}).then(function (location) {
+    httpGet(url.parse(location)).then(function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+        });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-concurrent-join.js" target="_blank">chain-concurrent-join.js</a></div>
+            <div class="path">examples/chain-concurrent-join.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    try {
+        http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    res.on(&quot;close&quot;, deferred.reject);
+    return deferred.promise;
+};
+
+
+var text = httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+});
+
+var texts = Q.all([
+    text,
+    text.post(&quot;toUpperCase&quot;),
+    text.post(&quot;toLowerCase&quot;),
+]);
+
+texts.spread(function (normal, upper, lower) {
+    console.log(normal);
+    console.log(upper);
+    console.log(lower);
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-concurrent.js" target="_blank">chain-concurrent.js</a></div>
+            <div class="path">examples/chain-concurrent.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    try {
+        http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    res.on(&quot;close&quot;, deferred.reject);
+    return deferred.promise;
+};
+
+
+var text = httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+});
+
+text.then(console.log);
+text.post(&quot;toUpperCase&quot;).then(console.log);
+text.post(&quot;toLowerCase&quot;).then(console.log);
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-loop.js" target="_blank">chain-loop.js</a></div>
+            <div class="path">examples/chain-loop.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+
+
+var redirectGet = function (uri) {
+    return httpGet(url.parse(uri)).then(function (res) {
+       if (res.statusCode.toString()[0] === &quot;3&quot;) {
+           return redirectGet(res.headers[&quot;location&quot;]);
+       } else {
+           return res;
+       }
+    });
+};
+var getBody = function (uri) {
+    return redirectGet(uri).then(loadBody);
+};
+
+getBody(&quot;http://example.org&quot;).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-nested-callback.js" target="_blank">chain-nested-callback.js</a></div>
+            <div class="path">examples/chain-nested-callback.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+
+http.get(url.parse(&quot;http://example.org&quot;), function (res) {
+    http.get(url.parse(res.headers[&quot;location&quot;]), function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+            });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-nested-promise.js" target="_blank">chain-nested-promise.js</a></div>
+            <div class="path">examples/chain-nested-promise.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    httpGet(url.parse(res.headers[&quot;location&quot;])).then(function (res) {
+        var body = &quot;&quot;;
+        res.on(&quot;data&quot;, function (chunk) {
+            body += chunk;
+        });
+        res.on(&quot;end&quot;, function () {
+            console.log(body);
+        });
+    });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-to-action-flatten.js" target="_blank">chain-to-action-flatten.js</a></div>
+            <div class="path">examples/chain-to-action-flatten.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    return loadBody(res);
+}).then(function (body) {
+    console.log(body);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-to-action-simplify.js" target="_blank">chain-to-action-simplify.js</a></div>
+            <div class="path">examples/chain-to-action-simplify.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-to-action.js" target="_blank">chain-to-action.js</a></div>
+            <div class="path">examples/chain-to-action.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.org&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    loadBody(res).then(function (body) {
+        console.log(body);
+    });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-with-error-recover.js" target="_blank">chain-with-error-recover.js</a></div>
+            <div class="path">examples/chain-with-error-recover.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    try {
+        http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    res.on(&quot;close&quot;, deferred.reject);
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).fail(function (error) {
+    return &quot;Not Found&quot;;
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/chain-with-error.js" target="_blank">chain-with-error.js</a></div>
+            <div class="path">examples/chain-with-error.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    try {
+        http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+var loadBody = function (res) {
+    var deferred = Q.defer();
+    var body = &quot;&quot;;
+    res.on(&quot;data&quot;, function (chunk) {
+        body += chunk;
+    });
+    res.on(&quot;end&quot;, function () {
+        deferred.resolve(body);
+    });
+    res.on(&quot;close&quot;, deferred.reject);
+    return deferred.promise;
+};
+
+
+httpGet(url.parse(&quot;http://example.biz&quot;)).then(function (res) {
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(loadBody).then(console.log).fail(function (error) {
+    console.log(&quot;error occured: &quot; + error);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/interop-jquery-deferred.js" target="_blank">interop-jquery-deferred.js</a></div>
+            <div class="path">examples/interop-jquery-deferred.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+var $ = require(&quot;jquery-deferred&quot;); // npm install jquery-deferred
+
+var otherPromise = $.Deferred();
+Q.when(otherPromise).then(console.log);
+otherPromise.resolve(&quot;OK from other&quot;);
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/interop-node-promise.js" target="_blank">interop-node-promise.js</a></div>
+            <div class="path">examples/interop-node-promise.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+var promise = require(&quot;node-promise&quot;); // npm install node-proimse
+
+var otherPromise = new promise.Promise();
+Q.when(otherPromise).then(console.log);
+otherPromise.resolve(&quot;OK from other&quot;);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/interop-when.js" target="_blank">interop-when.js</a></div>
+            <div class="path">examples/interop-when.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+var when = require(&quot;when&quot;); // npm install when
+
+var otherDeferred = when.defer();
+var otherPromise = otherDeferred.promise;
+Q.when(otherPromise).then(console.log);
+otherDeferred.resolver.resolve(&quot;OK from other&quot;);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-direct-api.js" target="_blank">node-direct-api.js</a></div>
+            <div class="path">examples/node-direct-api.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+fs.readFile(filename, encoding, function (error, result) {
+    if (!error) console.log(result);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-napply.js" target="_blank">node-napply.js</a></div>
+            <div class="path">examples/node-napply.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+var Q = require(&quot;q&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+Q.nfapply(fs.readFile, [filename, encoding]).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-nbind.js" target="_blank">node-nbind.js</a></div>
+            <div class="path">examples/node-nbind.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+var Q = require(&quot;q&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+Q.nfbind(fs.readFile)(filename, encoding).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-ncall.js" target="_blank">node-ncall.js</a></div>
+            <div class="path">examples/node-ncall.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+var Q = require(&quot;q&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+Q.nfcall(fs.readFile, filename, encoding).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-ninvoke.js" target="_blank">node-ninvoke.js</a></div>
+            <div class="path">examples/node-ninvoke.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+var Q = require(&quot;q&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+Q.nsend(fs, &quot;readFile&quot;, filename, encoding).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/node-npost.js" target="_blank">node-npost.js</a></div>
+            <div class="path">examples/node-npost.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require(&quot;fs&quot;);
+var Q = require(&quot;q&quot;);
+
+var filename = &quot;00readme.md&quot;;
+var encoding = &quot;utf-8&quot;;
+
+Q.npost(fs, &quot;readFile&quot;, [filename, encoding]).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-apply.js" target="_blank">object-apply.js</a></div>
+            <div class="path">examples/object-apply.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.sqrt).apply(null, [5]).then(console.log);
+Q.resolve(Math.sqrt).then(function (obj) {
+    return obj.apply(null, [5]);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-bind.js" target="_blank">object-bind.js</a></div>
+            <div class="path">examples/object-bind.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.atan2).bind(null, 1.0)(1.0).then(console.log);
+(function (promise, thisp) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return function () {
+        var all = args.concat(Array.prototype.slice.call(arguments));
+        return promise.then(function (obj) {
+            return obj.apply(thisp, all);
+        });
+    };
+})(Q.resolve(Math.atan2), null, 1.0)(1.0).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-call.js" target="_blank">object-call.js</a></div>
+            <div class="path">examples/object-call.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.sqrt).call(null, 5).then(console.log);
+Q.resolve(Math.sqrt).then(function (obj) {
+    return obj.call(null, 5);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-decomposed.js" target="_blank">object-decomposed.js</a></div>
+            <div class="path">examples/object-decomposed.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+httpGet(url.parse(&quot;http://example.org/&quot;)).then(function (res) {
+    return res.headers;
+}).then(function (headers) {
+    return headers[&quot;location&quot;];
+}).then(function (location) {
+    return location.replace(/^http:/, &quot;&quot;);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-del.js" target="_blank">object-del.js</a></div>
+            <div class="path">examples/object-del.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve({foo: &quot;foo&quot;}).del(&quot;foo&quot;).then(console.log);
+Q.resolve({foo: &quot;foo&quot;}).then(function (obj) {
+    return delete obj[&quot;foo&quot;];
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-fapply.js" target="_blank">object-fapply.js</a></div>
+            <div class="path">examples/object-fapply.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.sqrt).fapply([5]).then(console.log);
+Q.resolve(Math.sqrt).then(function (obj) {
+    return obj.apply(undefined, [5]);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-fbind.js" target="_blank">object-fbind.js</a></div>
+            <div class="path">examples/object-fbind.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.atan2).fbind(1.0)(1.0).then(console.log);
+(function (promise) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return function () {
+        var all = args.concat(Array.prototype.slice.call(arguments));
+        return promise.then(function (obj) {
+            return obj.apply(undefined, all);
+        });
+    };
+})(Q.resolve(Math.atan2), 1.0)(1.0).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-fcall.js" target="_blank">object-fcall.js</a></div>
+            <div class="path">examples/object-fcall.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(Math.sqrt).fcall(5).then(console.log);
+Q.resolve(Math.sqrt).then(function (obj) {
+    return obj.call(undefined, 5);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-get.js" target="_blank">object-get.js</a></div>
+            <div class="path">examples/object-get.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve([1,2,3]).get(&quot;length&quot;).then(console.log);
+Q.resolve([1,2,3]).then(function (obj) {
+    return obj[&quot;length&quot;];
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-invoke.js" target="_blank">object-invoke.js</a></div>
+            <div class="path">examples/object-invoke.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;Hello&quot;).invoke(&quot;substring&quot;, 2, 4).then(console.log);
+Q.resolve(&quot;Hello&quot;).then(function (obj) {
+    return obj.substring.call(obj, 2, 4);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-keys.js" target="_blank">object-keys.js</a></div>
+            <div class="path">examples/object-keys.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve([1,2,3]).keys().then(console.log);
+Q.resolve([1,2,3]).then(function (obj) {
+    return Object.keys(obj);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-post.js" target="_blank">object-post.js</a></div>
+            <div class="path">examples/object-post.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;Hello&quot;).post(&quot;substring&quot;, [2, 4]).then(console.log);
+Q.resolve(&quot;Hello&quot;).then(function (obj) {
+    return obj.substring.apply(obj, [2, 4]);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-primitive.js" target="_blank">object-primitive.js</a></div>
+            <div class="path">examples/object-primitive.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+httpGet(url.parse(&quot;http://example.org/&quot;))
+    .get(&quot;headers&quot;).get(&quot;location&quot;)
+    .post(&quot;replace&quot;, [/^http:/, &quot;&quot;])
+    .then(console.log);
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-put.js" target="_blank">object-put.js</a></div>
+            <div class="path">examples/object-put.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve([1,2,3]).put(3, 0).then(console.log);
+Q.resolve([1,2,3]).then(function (obj) {
+    return obj[3] = 0;
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-unused.js" target="_blank">object-unused.js</a></div>
+            <div class="path">examples/object-unused.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+httpGet(url.parse(&quot;http://example.org/&quot;)).then(function (res) {
+    return res.headers[&quot;location&quot;].replace(/^http:/, &quot;&quot;);
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/object-view.js" target="_blank">object-view.js</a></div>
+            <div class="path">examples/object-view.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(new Date()).view().then(function (dateView) {
+    return dateView.toTimeString().then(function (str) {
+        return /\((.*)\)/.exec(str)[1];
+    });
+}).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-delay.js" target="_blank">promise-delay.js</a></div>
+            <div class="path">examples/promise-delay.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;OK&quot;).delay(5000).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-end-flow.js" target="_blank">promise-end-flow.js</a></div>
+            <div class="path">examples/promise-end-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.reject(&quot;uncaught&quot;).done();  // abort
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-failure-action.js" target="_blank">promise-failure-action.js</a></div>
+            <div class="path">examples/promise-failure-action.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var action = function (arg1, arg2, callback) {
+    if (typeof arg1 !== &quot;number&quot; || typeof arg2 !== &quot;number&quot;) {
+        throw Error(&quot;arg1 and arg2 should be number&quot;);
+    }
+    callback(arg1 + arg2);
+};
+
+var promiseAction = function (arg1, arg2) {
+    var deferred = Q.defer();
+    try {
+        action(arg1, arg2, deferred.resolve);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+var arg1 = 10;
+var arg2 = &quot;20&quot;;
+var doSomething = console.log;
+var doErrorHandle = console.log;
+
+promiseAction(arg1, arg2).then(function (result) {
+    doSomething(result);
+}, function (error) {
+    doErrorHandle(error);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-fin-flow.js" target="_blank">promise-fin-flow.js</a></div>
+            <div class="path">examples/promise-fin-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var promise = Q.resolve(&quot;OK&quot;);
+promise.fin(function () {
+    console.log(&quot;resolved&quot;);
+}).then(function (value) {
+    console.log(&quot;success &quot; + value);
+}, function (error) {
+    console.log(&quot;failure &quot; + error);
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-fin-flow2.js" target="_blank">promise-fin-flow2.js</a></div>
+            <div class="path">examples/promise-fin-flow2.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var promise = Q.reject(&quot;FAIL&quot;);
+promise.fin(function () {
+    console.log(&quot;resolved&quot;);
+}).then(function (value) {
+    console.log(&quot;success &quot; + value);
+}, function (error) {
+    console.log(&quot;failure &quot; + error);
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-multiple-resolve-spread-flow.js" target="_blank">promise-multiple-resolve-spread-flow.js</a></div>
+            <div class="path">examples/promise-multiple-resolve-spread-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.then(function (result) {
+    var value1 = result[0];
+    var value2 = result[1];
+    return value1 + value2;
+}).then(console.log);
+deferred.resolve([10, 30]);
+
+
+var deferred = Q.defer();
+deferred.promise.spread(function (value1, value2) {
+    return value1 + value2;
+}).then(console.log);
+deferred.resolve([10, 30]);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-reject-fail-flow.js" target="_blank">promise-reject-fail-flow.js</a></div>
+            <div class="path">examples/promise-reject-fail-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.fail(console.log);
+deferred.reject(new Error(&quot;failure&quot;));
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-reject-then-flow.js" target="_blank">promise-reject-then-flow.js</a></div>
+            <div class="path">examples/promise-reject-then-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.then(null, console.log);
+deferred.reject(new Error(&quot;failure&quot;));
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-reject.js" target="_blank">promise-reject.js</a></div>
+            <div class="path">examples/promise-reject.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.reject(&quot;abc&quot;).then(function (value) {
+    console.log(&quot;OK &quot; + value);
+}, function (error) {
+    console.log(&quot;FAIL &quot; + error);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-resolve-then-flow.js" target="_blank">promise-resolve-then-flow.js</a></div>
+            <div class="path">examples/promise-resolve-then-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    console.log(obj);
+});
+deferred.resolve(&quot;Hello World&quot;);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-resolve.js" target="_blank">promise-resolve.js</a></div>
+            <div class="path">examples/promise-resolve.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;Hello&quot;).then(console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-return-reject-flow.js" target="_blank">promise-return-reject-flow.js</a></div>
+            <div class="path">examples/promise-return-reject-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;abc&quot;).then(function (value) {
+    return Q.reject(&quot;FAIL&quot;);
+}).then(null, function (error) {
+    console.log(error);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-throw-fail-flow.js" target="_blank">promise-throw-fail-flow.js</a></div>
+            <div class="path">examples/promise-throw-fail-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    throw new Error(&quot;thrown error&quot;);
+}).fail(console.log);
+deferred.resolve({});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-throw-uncaught-flow.js" target="_blank">promise-throw-uncaught-flow.js</a></div>
+            <div class="path">examples/promise-throw-uncaught-flow.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var deferred = Q.defer();
+deferred.promise.then(function (obj) {
+    throw new Error(&quot;thrown error&quot;);
+}, console.log);
+deferred.resolve({});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-timeout.js" target="_blank">promise-timeout.js</a></div>
+            <div class="path">examples/promise-timeout.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;OK&quot;).timeout(5000).then(console.log);
+Q.resolve(&quot;OK&quot;).delay(10000).timeout(5000).then(null, console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-translate-action.js" target="_blank">promise-translate-action.js</a></div>
+            <div class="path">examples/promise-translate-action.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+var action = function (arg1, arg2, callback) {
+    callback(arg1 + arg2);
+};
+
+var promiseAction = function (arg1, arg2) {
+    var deferred = Q.defer();
+    action(arg1, arg2, deferred.resolve);
+    return deferred.promise;
+};
+
+var arg1 = 10;
+var arg2 = 20;
+var doSomething = console.log;
+
+promiseAction(arg1, arg2).then(function (result) {
+    doSomething(result);
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/promise-when.js" target="_blank">promise-when.js</a></div>
+            <div class="path">examples/promise-when.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var Q = require(&quot;q&quot;);
+
+Q.resolve(&quot;Hello&quot;).then(console.log);
+Q.when(&quot;Hello&quot;, console.log);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/using-callback.js" target="_blank">using-callback.js</a></div>
+            <div class="path">examples/using-callback.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+
+http.get(url.parse(&quot;http://example.org/&quot;), function (res) {
+    console.log(res.statusCode);  // maybe 302
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/using-nested-callback.js" target="_blank">using-nested-callback.js</a></div>
+            <div class="path">examples/using-nested-callback.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+
+http.get(url.parse(&quot;http://example.org/&quot;), function (res) {
+    console.log(res.statusCode);  // maybe 302
+    http.get(url.parse(res.headers[&quot;location&quot;]), function (res) {
+        console.log(res.statusCode);  // maybe 200
+    });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/using-promise-with-error.js" target="_blank">using-promise-with-error.js</a></div>
+            <div class="path">examples/using-promise-with-error.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    try {
+        http.get(opts, deferred.resolve).on(&quot;error&quot;, deferred.reject);
+    } catch (error) {deferred.reject(error);}
+    return deferred.promise;
+};
+
+httpGet(url.parse(&quot;http://example.org/&quot;)).then(function (res) {
+    console.log(res.statusCode);  // maybe 302
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    console.log(res.statusCode);  // maybe 200
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/using-promise.js" target="_blank">using-promise.js</a></div>
+            <div class="path">examples/using-promise.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var http = require(&quot;http&quot;);
+var url = require(&quot;url&quot;);
+var Q = require(&quot;q&quot;);
+
+var httpGet = function (opts) {
+    var deferred = Q.defer();
+    http.get(opts, deferred.resolve);
+    return deferred.promise;
+};
+
+httpGet(url.parse(&quot;http://example.org/&quot;)).then(function (res) {
+    console.log(res.statusCode);  // maybe 302
+    return httpGet(url.parse(res.headers[&quot;location&quot;]));
+}).then(function (res) {
+    console.log(res.statusCode);  // maybe 200
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/using-promise-q/blob/master/examples/using-q.html" target="_blank">using-q.html</a></div>
+            <div class="path">examples/using-q.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;!--
+If you have python, run &quot;python -m SimpleHTTPServer&quot; 
+then access &quot;http://localhost:8000/using-q.html&quot; with your browser.
+--&gt;
+&lt;script src=&quot;https://raw.github.com/kriskowal/q/master/q.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var loadText = function (url) {
+    var deferred = Q.defer();
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function () {
+        if (req.readyState !== 4) return;
+        if (/^[^2]\d\d$/.exec(req.status)) return deferred.reject(req.status);
+        deferred.resolve(req.responseText);
+    };
+    req.open(&quot;GET&quot;, url, true);
+    req.send();
+    return deferred.promise;
+};
+
+window.addEventListener(&quot;load&quot;, function (event) {
+    var loadButton = document.getElementById(&quot;load&quot;);
+    var urlInput = document.getElementById(&quot;url&quot;);
+    var resultArea = document.getElementById(&quot;result&quot;);
+
+    loadButton.addEventListener(&quot;click&quot;, function (event) {
+        loadText(urlInput.value).then(function (text) {
+            resultArea.textContent = text;
+            // google-code-prettify
+            resultArea.innerHTML = prettyPrintOne(resultArea.innerHTML);
+        }).fail(alert);
+    }, false);
+}, false);
+&lt;/script&gt;
+&lt;script 
+  src=&quot;http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js&quot;
+&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; 
+  href=&quot;http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css&quot;
+/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;input id=&quot;url&quot; type=&quot;search&quot; value=&quot;using-q.html&quot; list=&quot;files&quot; /&gt;
+&lt;button id=&quot;load&quot; type=&quot;button&quot;&gt;load&lt;/button&gt;
+&lt;pre id=&quot;result&quot; class=&quot;prettyprint&quot;&gt;&lt;/pre&gt;
+
+&lt;!-- the option list generated by the emacs elisp:
+(progn
+  (search-forward (concat &quot;&lt;!-&quot; &quot;-BEGIN-&quot; &quot;-&gt;&quot;))
+  (setq begin-point (point))
+  (search-forward &quot;&lt;/datalist&gt;&quot;)
+  (delete-region begin-point (point))
+  (insert 
+     &quot;\n&quot;
+     (mapconcat
+       (lambda (name) (concat &quot;&lt;option value='&quot; name &quot;' /&gt;&quot;))
+       (butlast (split-string (shell-command-to-string &quot;ls&quot;) &quot;\n&quot;))
+       &quot;\n&quot;)
+     &quot;\n&lt;/datalist&gt;&quot;))  ;&lt;= run by C-x C-e
+--&gt;
+&lt;datalist id=&quot;files&quot;&gt;&lt;!--BEGIN--&gt;
+&lt;option value='chain-branch.js' /&gt;
+&lt;option value='chain-by-promise.js' /&gt;
+&lt;option value='chain-by-value.js' /&gt;
+&lt;option value='chain-concurrent-join.js' /&gt;
+&lt;option value='chain-concurrent.js' /&gt;
+&lt;option value='chain-loop.js' /&gt;
+&lt;option value='chain-nested-callback.js' /&gt;
+&lt;option value='chain-nested-promise.js' /&gt;
+&lt;option value='chain-to-action-flatten.js' /&gt;
+&lt;option value='chain-to-action-simplify.js' /&gt;
+&lt;option value='chain-to-action.js' /&gt;
+&lt;option value='chain-with-error-recover.js' /&gt;
+&lt;option value='chain-with-error.js' /&gt;
+&lt;option value='node-direct-api.js' /&gt;
+&lt;option value='node-napply.js' /&gt;
+&lt;option value='node-nbind.js' /&gt;
+&lt;option value='node-ncall.js' /&gt;
+&lt;option value='node-ninvoke.js' /&gt;
+&lt;option value='node-npost.js' /&gt;
+&lt;option value='object-apply.js' /&gt;
+&lt;option value='object-bind.js' /&gt;
+&lt;option value='object-call.js' /&gt;
+&lt;option value='object-decomposed.js' /&gt;
+&lt;option value='object-del.js' /&gt;
+&lt;option value='object-fapply.js' /&gt;
+&lt;option value='object-fbind.js' /&gt;
+&lt;option value='object-fcall.js' /&gt;
+&lt;option value='object-get.js' /&gt;
+&lt;option value='object-invoke.js' /&gt;
+&lt;option value='object-keys.js' /&gt;
+&lt;option value='object-post.js' /&gt;
+&lt;option value='object-primitive.js' /&gt;
+&lt;option value='object-put.js' /&gt;
+&lt;option value='object-unused.js' /&gt;
+&lt;option value='promise-delay.js' /&gt;
+&lt;option value='promise-end-flow.js' /&gt;
+&lt;option value='promise-failure-action.js' /&gt;
+&lt;option value='promise-fin-flow.js' /&gt;
+&lt;option value='promise-fin-flow2.js' /&gt;
+&lt;option value='promise-multiple-resolve-spread-flow.js' /&gt;
+&lt;option value='promise-reject-fail-flow.js' /&gt;
+&lt;option value='promise-reject-then-flow.js' /&gt;
+&lt;option value='promise-reject.js' /&gt;
+&lt;option value='promise-resolve-then-flow.js' /&gt;
+&lt;option value='promise-resolve.js' /&gt;
+&lt;option value='promise-return-reject-flow.js' /&gt;
+&lt;option value='promise-throw-fail-flow.js' /&gt;
+&lt;option value='promise-throw-uncaught-flow.js' /&gt;
+&lt;option value='promise-timeout.js' /&gt;
+&lt;option value='promise-translate-action.js' /&gt;
+&lt;option value='promise-when.js' /&gt;
+&lt;option value='shell.html' /&gt;
+&lt;option value='using-callback.js' /&gt;
+&lt;option value='using-nested-callback.js' /&gt;
+&lt;option value='using-promise-with-error.js' /&gt;
+&lt;option value='using-promise.js' /&gt;
+&lt;option value='using-q.html' /&gt;
+&lt;/datalist&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/using-promise-q">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/using-promise-q/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

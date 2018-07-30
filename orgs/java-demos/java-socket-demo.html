@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">java-socket-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Maven Demo
+==========
+
+A very simple maven project demo.
+
+```
+mvn clean install
+```
+
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-socket-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;7&lt;/source&gt;
+                    &lt;target&gt;7&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+            &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+            &lt;version&gt;3.8.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-socket-demo/blob/master/src/main/java/demo/Client.java" target="_blank">Client.java</a></div>
+            <div class="path">src/main/java/demo/Client.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import java.io.*;
+import java.net.Socket;
+
+public class Client {
+
+    public static void main(String[] args) throws IOException {
+        try (
+                Socket socket = new Socket(&quot;localhost&quot;, 9999);
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))
+        ) {
+            handleUserInput(output);
+
+            String line;
+            while (!socket.isClosed() &amp;&amp; (line = input.readLine()) != null) {
+                System.out.println(&quot;read from server&gt; &quot; + line);
+            }
+        }
+    }
+
+    private static void handleUserInput(final BufferedWriter output) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sendUserInput();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            private void sendUserInput() throws IOException {
+                try (BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in))) {
+                    String line;
+                    while ((line = userInput.readLine()) != null) {
+                        output.write(line + &quot;\n&quot;);
+                        output.flush();
+                    }
+                }
+
+            }
+        };
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-socket-demo/blob/master/src/main/java/demo/Server.java" target="_blank">Server.java</a></div>
+            <div class="path">src/main/java/demo/Server.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Server {
+
+    public static void main(String[] args) throws IOException {
+        try (
+                ServerSocket server = new ServerSocket(9999);
+                Socket socket = server.accept();
+                BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+        ) {
+            output.write(&quot;Hello!\n&quot;);
+            output.flush();
+
+            while (!socket.isClosed()) {
+                String line = input.readLine();
+                System.out.println(&quot;read from client&gt; &quot; + line);
+                output.write(line + &quot;\n&quot;);
+                output.flush();
+            }
+        }
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/java-socket-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/java-socket-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

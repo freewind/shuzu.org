@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/scala-demos/index.html">scala-demos</a></span><span> &gt; </span><span class="repo-name">scalikejdbc-hello-world-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">ScalikeJDBC Hello World Demo
+============================
+
+Use [ScalikeJDBC](http://scalikejdbc.org/) to run jdbc with Scala.
+
+The code is from the official site.
+
+```
+brew install sbt
+sbt run
+```
+
+You will see the data inserted and retrieved from database, and sql execution info with stacks in console</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/scalikejdbc-hello-world-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank">Hello.scala</a></div>
+            <div class="path">src/main/scala/my/Hello.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package my
+
+import scalikejdbc._
+
+object Hello extends App {
+  Class.forName(&quot;org.h2.Driver&quot;)
+  ConnectionPool.singleton(&quot;jdbc:h2:mem:hello&quot;, &quot;user&quot;, &quot;pass&quot;)
+
+  implicit val session = AutoSession
+
+  sql&quot;&quot;&quot;
+    create table members (
+      id serial not null primary key,
+      name varchar(64),
+      created_at timestamp not null
+    )
+  &quot;&quot;&quot;.execute().apply()
+  Seq(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Chris&quot;).foreach { name =&gt;
+    sql&quot;insert into members(name, created_at) values($name, current_timestamp)&quot;.update().apply()
+  }
+  val entities: List[Map[String, Any]] = sql&quot;select * from members&quot;.map(_.toMap).list.apply()
+
+  import java.time._
+
+  case class Member(id: Long, name: Option[String], createdAt: ZonedDateTime)
+  object Member extends SQLSyntaxSupport[Member] {
+    override val tableName = &quot;members&quot;
+    def apply(rs: WrappedResultSet) = new Member(
+      rs.long(&quot;id&quot;), rs.stringOpt(&quot;name&quot;), rs.zonedDateTime(&quot;created_at&quot;)
+    )
+  }
+
+  val members: List[Member] = sql&quot;select * from members&quot;.map(Member.apply).list.apply()
+  println(&quot;------- members --------&quot;)
+  members.foreach(println)
+
+  val m = Member.syntax(&quot;m&quot;)
+  val name = &quot;Alice&quot;
+  val alice: Option[Member] = withSQL {
+    select.from(Member as m).where.eq(m.name, name)
+  }.map(Member.apply).single.apply()
+  println(&quot;------ Alice ---------&quot;)
+  println(alice)
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/scala-demos/scalikejdbc-hello-world-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/scala-demos/scalikejdbc-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

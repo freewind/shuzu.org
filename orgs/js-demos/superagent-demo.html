@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">superagent-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Simplest Express Demo
+=====================
+
+```
+npm install
+```
+
+Run:
+
+```
+node index.js
+```
+
+Then visit: 
+
+1. &lt;http://localhost:3000&gt;, you will see `Hello, world!`
+2. &lt;http://localhost:3000/hello/Freewind&gt;,, you will see `Hello, Freewind`</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+
+var app = express();
+
+app.get('/', function(req, res) {
+  res.send('Hello, world!');
+});
+
+app.get('/hello/:name', function(req, res) {
+  res.send('Hello, ' + req.params.name);
+})
+
+app.listen(3000, function () {
+  console.log('Server listening at http://localhost:3000');
+});</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/superagent-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/superagent-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

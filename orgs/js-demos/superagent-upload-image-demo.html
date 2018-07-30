@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">superagent-upload-image-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Express Uploading Image Demo
+============================
+
+Instead of using form to upload an image, we can also use superagent to upload it.
+
+```
+npm install -g webpack
+npm install
+
+webpack
+node index.js
+```
+
+Then open your browser to open &lt;http://localhost:3000/&gt;, and you can upload an image now (note only image files can be selected).
+
+The uploaded image will be inside the `uploaded-images` directory of server side, with a timestamp added in the file name.
+
+Note: Don't forget to run `webpack` if you modify any js code under `public`.
+
+Articles
+-------
+
+- Uploading files with superagent in the browser:  &lt;https://blog.gaya.ninja/articles/uploading-files-superagent-in-browser/&gt;</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-upload-image-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const express = require('express');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+
+const app = express();
+app.use(fileUpload());
+
+app.use(express.static('./public'));
+
+app.get('/', function(req, res) {
+  res.send('Hello, world!');
+});
+
+app.post('/upload', function(req, res) {
+  const imageFile = req.files.image;
+  const targetName = generateTargetName(imageFile.name);
+  imageFile.mv('./uploaded-images/' + targetName, function(err) {
+    if(err) return res.status(500).send('Error happens when uploading');
+    res.status(201).send('Uploaded successfully!');
+  })
+});
+
+function generateTargetName(fileName) {
+  const extName = path.extname(fileName);
+  const prefixName = path.basename(fileName, extName);
+  const timestamp = Date.now();
+  return prefixName + '-' + timestamp + extName;
+}
+
+app.listen(3000, function () {
+  console.log('Server listening at http://localhost:3000');
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-upload-image-demo/blob/master/public/entry.js" target="_blank">entry.js</a></div>
+            <div class="path">public/entry.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const request = require('superagent');
+const $ = require('jquery');
+
+function uploadImage(event) {
+  event.preventDefault();
+
+  const file = event.target.image.files[0];
+  const formData = new FormData();
+  formData.append('image', file);
+
+  request.post('/upload')
+    .send(formData)
+    .end((err, res) =&gt; {
+        console.log(err);
+        console.log(res);
+    })
+}
+
+$('#form').bind('submit', uploadImage);</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-upload-image-demo/blob/master/public/index.html" target="_blank">index.html</a></div>
+            <div class="path">public/index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+	&lt;form id='form'&gt;
+		&lt;input type=&quot;file&quot; name=&quot;image&quot; 
+		accept=&quot;.jpg,.jpeg,.png,.gif&quot; /&gt;
+		&lt;input type='submit' value='Upload!' /&gt;
+	&lt;/form&gt;
+
+	&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/superagent-upload-image-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a></div>
+            <div class="path">webpack.config.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">module.exports = {
+  entry: './public/entry.js',
+  output: {
+    path: __dirname + '/public',
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: 'style!css' // note style is before css
+    }]
+  }
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/superagent-upload-image-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/superagent-upload-image-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

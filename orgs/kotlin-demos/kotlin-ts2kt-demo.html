@@ -1,0 +1,165 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/kotlin-demos/index.html">kotlin-demos</a></span><span> &gt; </span><span class="repo-name">kotlin-ts2kt-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Kotlin ts2kt Demo
+=================
+
+```
+npm install -g ts2kt
+ts2kt alertify.d.ts
+```</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-ts2kt-demo/blob/master/alertify.d.ts" target="_blank">alertify.d.ts</a></div>
+            <div class="path">alertify.d.ts</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="ts">// Type definitions for alertify 0.3.11
+// Project: http://fabien-d.github.io/alertify.js/
+// Definitions by: John Jeffery &lt;https://github.com/jjeffery&gt;
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare var alertify: alertify.IAlertifyStatic;
+
+declare namespace alertify {
+    interface IAlertifyStatic {
+        /**
+         * Create an alert dialog box
+         * @param message   The message passed from the callee
+         * @param fn        Callback function
+         * @param cssClass  Class(es) to append to dialog box
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        alert(message: string, fn?: Function, cssClass?: string): IAlertifyStatic;
+
+        /**
+         * Create a confirm dialog box
+         * @param message   The message passed from the callee
+         * @param fn        Callback function
+         * @param cssClass  Class(es) to append to dialog box
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        confirm(message: string, fn?: Function, cssClass?: string): IAlertifyStatic;
+
+        /**
+         * Extend the log method to create custom methods
+         * @param type  Custom method name
+         * @return function for logging
+         * @since 0.0.1
+         */
+        extend(type: string): (message: string, wait?: number) =&gt; IAlertifyStatic;
+
+        /**
+         * Initialize Alertify and create the 2 main elements.
+         * Initialization will happen automatically on the first
+         * use of alert, confirm, prompt or log.
+         * @since 0.0.1
+         */
+        init(): void;
+
+        /**
+         * Show a new log message box
+         * @param message   The message passed from the callee
+         * @param type      Optional type of log message
+         * @param wait      Optional time (in ms) to wait before auto-hiding
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        log(message: string, type?: string, wait?: number): IAlertifyStatic;
+
+        /**
+         * Create a prompt dialog box
+         * @param message   The message passed from the callee
+         * @param fn        Callback function
+         * @param placeholder Default value for prompt input
+         * @param cssClass  Class(es) to append to dialog
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        prompt(message: string, fn?: Function, placeholder?: string, cssClass?: string): IAlertifyStatic;
+
+        /**
+         * Shorthand for log messages
+         * @param message The message passed from the callee
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        success(message: string): IAlertifyStatic;
+
+        /**
+         * Shorthand for log messages
+         * @param message The message passed from the callee
+         * @return alertify (ie this)
+         * @since 0.0.1
+         */
+        error(message: string): IAlertifyStatic;
+
+        /**
+         * Used to set alertify properties
+         * @param Properties
+         * @since 0.2.11
+         */
+        set(args: IProperties): void;
+
+        /**
+         * The labels used for dialog buttons
+         */
+        labels: ILabels;
+
+        /**
+         * Attaches alertify.error to window.onerror method
+         * @since 0.3.8
+         */
+        debug(): void;
+    }
+
+    /**
+     * Properties for alertify.set function
+     */
+    interface IProperties {
+        /** Default value for milliseconds display of log messages */
+        delay?: number;
+
+        /** Default values for display of labels */
+        labels?: ILabels;
+
+        /** Default button for focus */
+        buttonFocus?: string;
+
+        /** Should buttons be displayed in reverse order */
+        buttonReverse?: boolean;
+    }
+
+    /** Labels for altertify.set function */
+    interface ILabels {
+        ok?: string;
+        cancel?: string;
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/kotlin-demos/kotlin-ts2kt-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/kotlin-demos/kotlin-ts2kt-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

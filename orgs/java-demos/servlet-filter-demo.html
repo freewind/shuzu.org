@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">servlet-filter-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Servlet Filters Demo
+=====================
+
+Filters and servlets.
+
+```
+mvn jetty:run
+```
+
+Then visit:
+- &lt;http://localhost:8080/&gt;
+
+See the output:
+
+```
+MyFilter1.doFilter() start
+MyFilter2.doFilter() start
+HelloWorldServlet.doGet() start
+HelloWorldServlet.doGet() end
+MyFilter2.doFilter() end
+MyFilter1.doFilter() end
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/servlet-filter-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-filter-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;servlet-filter-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;2.5&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
+                &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;9.3.14.v20161028&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/servlet-filter-demo/blob/master/src/main/java/example/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a></div>
+            <div class="path">src/main/java/example/HelloWorldServlet.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package example;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        System.out.println(&quot;HelloWorldServlet.doGet() start&quot;);
+        response.getWriter().append(&quot;Hello, filters!&quot;);
+        System.out.println(&quot;HelloWorldServlet.doGet() end&quot;);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/servlet-filter-demo/blob/master/src/main/java/example/MyFilter1.java" target="_blank">MyFilter1.java</a></div>
+            <div class="path">src/main/java/example/MyFilter1.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package example;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+public class MyFilter1 implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain filterChain) throws IOException, ServletException {
+        System.out.println(&quot;MyFilter1.doFilter() start&quot;);
+        filterChain.doFilter(request, response);
+        System.out.println(&quot;MyFilter1.doFilter() end&quot;);
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/servlet-filter-demo/blob/master/src/main/java/example/MyFilter2.java" target="_blank">MyFilter2.java</a></div>
+            <div class="path">src/main/java/example/MyFilter2.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package example;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+public class MyFilter2 implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain filterChain) throws IOException, ServletException {
+        System.out.println(&quot;MyFilter2.doFilter() start&quot;);
+        filterChain.doFilter(request, response);
+        System.out.println(&quot;MyFilter2.doFilter() end&quot;);
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a></div>
+            <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;example.HelloWorldServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;MyFilter1&lt;/filter-name&gt;
+        &lt;filter-class&gt;example.MyFilter1&lt;/filter-class&gt;
+    &lt;/filter&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;MyFilter2&lt;/filter-name&gt;
+        &lt;filter-class&gt;example.MyFilter2&lt;/filter-class&gt;
+    &lt;/filter&gt;
+
+    &lt;!-- Notice the orders! Run from top to bottom --&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    
+  
+
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;MyFilter2&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+      &lt;filter-mapping&gt;
+        &lt;filter-name&gt;MyFilter1&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/servlet-filter-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/servlet-filter-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

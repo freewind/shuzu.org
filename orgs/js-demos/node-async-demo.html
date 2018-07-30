@@ -1,0 +1,451 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">node-async-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Node Async and Event Loop
+==========================
+
+这一块非常复杂，有这些概念需要了解：
+
+- `Event Loop`以及在[libuv](https://github.com/libuv/libuv)上定义的各个phase的意义
+
+几个常用的异步函数：
+
+- `nextTick`
+- `setImmediate`
+- `setTimeout/setInterval`
+
+一些重要的文档
+------------
+
+- https://github.com/nodejs/node/blob/master/doc/topics/the-event-loop-timers-and-nexttick.md
+- http://docs.libuv.org/en/v1.x/design.html
+- 以及其它可以搜索到的有关文章
+
+我的心得
+-------
+
+关于Node.js上Event Loop的概念以及由libuv定义的几个phase非常重要，如果不努力理解它们，就无法解释这个项目中包含的各文件中的代码的输出。
+
+但是它们又非常复杂，我花了两三天的时间，依然无法细致的理解全部。好在目前大概了解的部分已经够用了，那些更复杂的只能等到真正用到的时候再花时间了。
+
+我现在所理解的东西大概有（可能不准确）：
+
+1. 通过`nextTick`, `setTimeout`, `setImmediate`定义的异步操作，以及各种IO操作，它们分属于不同的类别，将在不同的phase执行，有先后顺序
+
+2. 在一个事件循环过程中，新产生的异步操作（除了`nextTick`）会被排到下一次循环，它们的执行顺序会根据类别及其它因素重新调整
+
+3. `nextTick`会插队（在本轮循环的IO Poll前面）
+
+4. 上面提到的几种操作，它们在一个循环过程中的大概顺序是：
+
+        到期的timers(setTimeout/setInterval)
+        nextTick
+        I/O Poll
+        setImmediate
+
+    当然实际情况更复杂一些，参看前面提到的文档
+
+4. `setImmediate`与`setTimeout(func, 0)`相比，前者更好（更表意，性能更好）
+
+由于这里实在太复杂，项目中只是提供了一些js代码，但是并没有注释，可以试着自己运行并解释运行结果。。</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/all.js" target="_blank">all.js</a></div>
+            <div class="path">all.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require('fs');
+
+var stream = fs.createReadStream('./package.json');
+
+stream.on('open', function() {
+  console.log('=== I/O: open');
+});
+
+stream.on('data', function(data) {
+  console.log('=== I/O: data ' + data.length);
+});
+
+stream.on('end', function() {
+  console.log('=== I/O: end');
+});
+
+setImmediate(function() {
+  console.log('setImmediate 1');
+  setImmediate(function() {
+    console.log('setImmediate 2');
+    process.nextTick(function() {
+      console.log('nextTick in Immediate 2');
+    })
+  });
+});
+
+process.nextTick(function() {
+  console.log('nextTick 1');
+  process.nextTick(function() {
+    console.log('nextTick 2');
+    process.nextTick(function() {
+      console.log('nextTick in nextTick 2');
+    })
+  });
+});
+
+setTimeout(function() {
+  console.log('setTimeout 1');
+  setTimeout(function() {
+    console.log('setTimeout 2');
+    process.nextTick(function() {
+      console.log('nextTick in setTimeout 2');
+    })
+  }, 0);
+}, 0);
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/crazy-next-tick.js" target="_blank">crazy-next-tick.js</a></div>
+            <div class="path">crazy-next-tick.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require('fs');
+
+var stream = fs.createReadStream('./package.json');
+stream.on('open', function() {
+  console.log('=== I/O: open');
+});
+
+process.nextTick(function () {
+  console.log(&quot;nextTick: 1&quot;);
+  process.nextTick(function () {
+    console.log(&quot;nextTick: 2&quot;);
+    process.nextTick(function () {
+      console.log(&quot;nextTick: 3&quot;);
+    });
+    process.nextTick(function () {
+      console.log(&quot;nextTick: 4&quot;);
+    });
+  });
+
+  process.nextTick(function () {
+    console.log(&quot;nextTick: 5&quot;);
+    process.nextTick(function () {
+      console.log(&quot;nextTick: 6&quot;);
+    });
+    process.nextTick(function () {
+      console.log(&quot;nextTick: 7&quot;);
+    });
+  });
+});
+
+setTimeout(function() {
+  console.log('setTimeout');
+}, 0);</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/crazy-set-immediate.js" target="_blank">crazy-set-immediate.js</a></div>
+            <div class="path">crazy-set-immediate.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">setImmediate(function () {
+  console.log(&quot;setImmediate: 1&quot;);
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 2&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 3&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 4&quot;);
+    });
+  });
+
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 5&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 6&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 7&quot;);
+    });
+  });
+});
+
+setTimeout(function() {
+  console.log('setTimeout');
+}, 0);</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/inspect-event-queue.js" target="_blank">inspect-event-queue.js</a></div>
+            <div class="path">inspect-event-queue.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">function showRequests() {
+  // get a list of open handles/file descriptors.
+  console.log(process._getActiveHandles().length); 
+  // get a list of active I/O requests
+  console.log(process._getActiveRequests().length); 
+}
+
+showRequests();
+
+setImmediate(function() {
+  console.log('hello');
+});
+
+showRequests();</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/next-tick-recursive.js" target="_blank">next-tick-recursive.js</a></div>
+            <div class="path">next-tick-recursive.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">function myNextTick() {
+  process.nextTick(function() {
+    console.log('In nextTick');
+    myNextTick();
+  })
+}
+
+setImmediate(function() {
+  console.log('In setImmediate');
+  throw new Error('my-setImmediate-error');
+});
+
+myNextTick();</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/next-tick.js" target="_blank">next-tick.js</a></div>
+            <div class="path">next-tick.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">console.log('111');
+
+process.nextTick(function() {
+  console.log('nextTick: 111');
+});
+
+console.log('222');</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/read-file-and-sleep.js" target="_blank">read-file-and-sleep.js</a></div>
+            <div class="path">read-file-and-sleep.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require('fs');
+var sleep = require('sleep').sleep;
+
+function showQueue() {
+  console.log(process._getActiveRequests().length);  
+}
+
+showQueue();
+
+var stream = fs.createReadStream(&quot;./package.json&quot;);
+
+showQueue();
+
+// block the code for 3s
+sleep(3);
+
+showQueue();
+
+var i = 0;
+
+stream.on('open', function() {
+  console.log('file is opened');
+});
+
+stream.on('data', function(data) {
+  i += 1;
+  showQueue();
+  console.log('data ' + i + ': ' + data.length);
+});
+
+
+stream.on('end', function() {
+  console.log('------------ end -----------');
+  showQueue();
+})
+
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-immediate-next-tick.js" target="_blank">set-immediate-next-tick.js</a></div>
+            <div class="path">set-immediate-next-tick.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require('fs');
+
+console.log(&quot;111&quot;);
+
+var stream = fs.createReadStream('./package.json');
+
+stream.on('open', function() {
+  console.log('IO: file is opened');
+});
+
+stream.on('data', function(data) {
+  console.log('IO: read some data');
+});
+
+stream.on('end', function() {
+  console.log('IO: end');
+});
+
+
+setImmediate(function() {
+  console.log(&quot;setImmediate: 222&quot;);
+});
+
+process.nextTick(function() {
+  console.log(&quot;nextTick: 333&quot;);
+});
+
+setImmediate(function() {
+  console.log(&quot;setImmediate: 444&quot;);
+});
+
+process.nextTick(function() {
+  console.log(&quot;nextTick: 555&quot;);
+});
+
+setTimeout(function() {
+  console.log(&quot;setTimeout: 666&quot;);
+}, 0);
+
+
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-immediate.js" target="_blank">set-immediate.js</a></div>
+            <div class="path">set-immediate.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">console.log(&quot;111&quot;);
+
+setImmediate(function() {
+  console.log(&quot;setImmediate: 111&quot;);
+})
+
+console.log(&quot;222&quot;);</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-a-io-callback.js" target="_blank">set-timeout-set-immediate-in-a-io-callback.js</a></div>
+            <div class="path">set-timeout-set-immediate-in-a-io-callback.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var fs = require('fs')
+
+fs.readFile(__filename, () =&gt; {
+  setTimeout(() =&gt; {
+    console.log('timeout')
+  }, 0)
+  setImmediate(() =&gt; {
+    console.log('immediate')
+  })
+})</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-main.js" target="_blank">set-timeout-set-immediate-in-main.js</a></div>
+            <div class="path">set-timeout-set-immediate-in-main.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">setTimeout(function timeout () {
+  console.log('timeout');
+},0);
+
+setImmediate(function immediate () {
+  console.log('immediate');
+});
+
+/////////////////////////////
+/*
+$ node d.js
+immediate
+timeout
+$ node d.js
+timeout
+immediate
+*/</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-timeout-set-immediate.js" target="_blank">set-timeout-set-immediate.js</a></div>
+            <div class="path">set-timeout-set-immediate.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">setTimeout(function() {
+  console.log('setTimeout')
+}, 0)
+
+setImmediate(function() {
+  console.log('setImmediate')
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/node-async-demo/blob/master/set-timeout.js" target="_blank">set-timeout.js</a></div>
+            <div class="path">set-timeout.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">console.log(&quot;111&quot;);
+
+setTimeout(function() {
+  console.log(&quot;setTimeout: 111&quot;)
+}, 10);
+
+setTimeout(function() {
+  console.log(&quot;setTimeout: 222&quot;)
+}, 2);
+
+setTimeout(function() {
+  console.log(&quot;setTimeout: 333&quot;)
+}, 0);
+
+console.log(&quot;222&quot;);</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/node-async-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/node-async-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

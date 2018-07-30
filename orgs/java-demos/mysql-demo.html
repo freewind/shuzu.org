@@ -1,0 +1,429 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">mysql-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Mysql JDBC Demo
+==============
+
+Mysql simple demo.
+
+## install mysql
+
+My mysql version is `5.7.16`.
+
+On mac: `brew install mysql`
+
+## start mysql
+
+```
+mysqld
+```
+
+and stop it by `mysqld stop`.
+
+### create user
+
+Login with `root` and create the user for the demo:
+
+```
+$ mysql -uroot
+&gt; CREATE USER 'demo'@'localhost' IDENTIFIED BY 'demo';
+&gt; GRANT ALL PRIVILEGES ON `mysql-demo` . * TO 'demo'@'localhost';
+```
+
+You can also change the code from `DB.java` with an existent user.
+
+### create the database
+
+```
+$ mysql -udemo -p
+mysql&gt; create database `mysql-demo`;
+```
+
+### Run the code
+
+You don't need to create any table by command line, because we do that in Java code, see `DB.java`.
+
+```
+mvn clean compile
+mvn exec:java -Dexec.mainClass=&quot;my.Main&quot; -Dexec.cleanupDaemonThreads=false
+```
+
+You will see the output like:
+
+```
+------- creating table ------
+------- inserting ------
+id created by database is: 1
+id created by database is: 2
+------- load all ------
+Book #1, title=Java, description=一本好书
+Book #2, title=JavaScript, description=另一本好书
+------- query by id ------
+Book #1, title=Java, description=一本好书
+------- update by id ------
+Updated 1 rows
+------- load all ------
+Book #1, title=new-title, description=new-description
+Book #2, title=JavaScript, description=另一本好书
+------- delete by id ------
+Delete 1 rows
+------- load all ------
+Book #2, title=JavaScript, description=另一本好书
+```
+
+## Note
+
+You can also use the `data.sql` to create the table and data manually.
+
+
+
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/data.sql" target="_blank">data.sql</a></div>
+            <div class="path">data.sql</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="sql">DROP TABLE IF EXISTS `books`;
+
+CREATE TABLE `books` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(40) DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `books` WRITE;
+
+INSERT INTO `books` (`id`, `title`, `description`)
+VALUES
+	(1,'Java编程思想','学习Java的一本好书'),
+	(2,'JavaScript语言精粹','学习javaScript的一本好书');
+
+UNLOCK TABLES;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.40&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.5.0&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;exec&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/DB.java" target="_blank">DB.java</a></div>
+            <div class="path">src/main/java/my/DB.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DB {
+
+    public static final String PASSWORD = &quot;demo&quot;;
+    public static final String USERNAME = &quot;demo&quot;;
+    public static final String URL = &quot;jdbc:mysql://localhost:3306/mysql-demo?autoReconnect=true&amp;useSSL=false&quot;;
+
+    public static void createTable() throws SQLException {
+        System.out.println(&quot;------- creating table ------&quot;);
+        Connection conn = getConnection();
+        Statement stmt = conn.createStatement();
+        stmt.execute(&quot;DROP TABLE IF EXISTS `books`&quot;);
+        stmt.execute(&quot;CREATE TABLE `books` (\n&quot; +
+                &quot;  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n&quot; +
+                &quot;  `title` varchar(40) DEFAULT NULL,\n&quot; +
+                &quot;  `description` text,\n&quot; +
+                &quot;  PRIMARY KEY (`id`)\n&quot; +
+                &quot;) ENGINE=InnoDB DEFAULT CHARSET=utf8;&quot;);
+        stmt.close();
+        conn.close();
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB.URL, USERNAME, PASSWORD);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/JdbcDelete.java" target="_blank">JdbcDelete.java</a></div>
+            <div class="path">src/main/java/my/JdbcDelete.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcDelete {
+
+    public static void deleteById(Long bookId) throws SQLException {
+        System.out.println(&quot;------- delete by id ------&quot;);
+        Connection conn = DB.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(&quot;delete from books where id=?&quot;);
+        stmt.setLong(1, bookId);
+        int deletedCount = stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+
+        System.out.println(&quot;Delete &quot; + deletedCount + &quot; rows&quot;);
+    }
+
+    public static void main(String[] args) throws SQLException {
+        deleteById(1L);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/JdbcInsert.java" target="_blank">JdbcInsert.java</a></div>
+            <div class="path">src/main/java/my/JdbcInsert.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class JdbcInsert {
+
+    public static void insert() throws SQLException {
+        System.out.println(&quot;------- inserting ------&quot;);
+        Connection conn = DB.getConnection();
+        Map&lt;String, String&gt; books = new HashMap&lt;String, String&gt;();
+        books.put(&quot;Java&quot;, &quot;一本好书&quot;);
+        books.put(&quot;JavaScript&quot;, &quot;另一本好书&quot;);
+        for (String title : books.keySet()) {
+            String description = books.get(title);
+            PreparedStatement stmt = conn.prepareStatement(&quot;insert into books(title, description) values(?, ?)&quot;, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, title);
+            stmt.setString(2, description);
+            stmt.executeUpdate();
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            generatedKeys.next();
+            System.out.println(&quot;id created by database is: &quot; + generatedKeys.getLong(1));
+            generatedKeys.close();
+            stmt.close();
+        }
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        insert();
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/JdbcLoad.java" target="_blank">JdbcLoad.java</a></div>
+            <div class="path">src/main/java/my/JdbcLoad.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcLoad {
+
+    public static void loadAll() throws SQLException {
+        System.out.println(&quot;------- load all ------&quot;);
+        Connection conn = DB.getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(&quot;select * from books&quot;);
+        while (rs.next()) {
+            Long id = rs.getLong(&quot;id&quot;);
+            String title = rs.getString(&quot;title&quot;);
+            String description = rs.getString(&quot;description&quot;);
+            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        loadAll();
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/JdbcQuery.java" target="_blank">JdbcQuery.java</a></div>
+            <div class="path">src/main/java/my/JdbcQuery.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcQuery {
+
+    public static void queryById(Long bookId) throws SQLException {
+        System.out.println(&quot;------- query by id ------&quot;);
+        Connection conn = DB.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(&quot;select * from books where id=?&quot;);
+        stmt.setLong(1, bookId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Long id = rs.getLong(&quot;id&quot;);
+            String title = rs.getString(&quot;title&quot;);
+            String description = rs.getString(&quot;description&quot;);
+            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
+        }
+        stmt.close();
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        queryById(1L);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/JdbcUpdate.java" target="_blank">JdbcUpdate.java</a></div>
+            <div class="path">src/main/java/my/JdbcUpdate.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcUpdate {
+
+
+    public static void update(Long bookId) throws SQLException {
+        System.out.println(&quot;------- update by id ------&quot;);
+        Connection conn = DB.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(&quot;update books set title=?, description=? where id=?&quot;);
+        stmt.setString(1, &quot;new-title&quot;);
+        stmt.setString(2, &quot;new-description&quot;);
+        stmt.setLong(3, bookId);
+        int updatedCount = stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+        System.out.println(&quot;Updated &quot; + updatedCount + &quot; rows&quot;);
+    }
+
+    public static void main(String[] args) throws SQLException {
+        update(1L);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/mysql-demo/blob/master/src/main/java/my/Main.java" target="_blank">Main.java</a></div>
+            <div class="path">src/main/java/my/Main.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import java.sql.SQLException;
+
+public class Main {
+
+    public static void main(String[] args) throws SQLException {
+        DB.createTable();
+
+        JdbcInsert.insert();
+        JdbcLoad.loadAll();
+
+        JdbcQuery.queryById(1L);
+
+        JdbcUpdate.update(1L);
+        JdbcLoad.loadAll();
+
+        JdbcDelete.deleteById(1L);
+        JdbcLoad.loadAll();
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/mysql-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/mysql-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

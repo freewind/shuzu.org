@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">java-mustache-partial-template-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Java Mustache Demo
+==================
+
+How to render a simple mustache template in Java.
+
+Run `Hello.java` in your IDE.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-mustache-partial-template-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.github.spullara.mustache.java&lt;/groupId&gt;
+            &lt;artifactId&gt;compiler&lt;/artifactId&gt;
+            &lt;version&gt;0.9.5&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;freewind.github&lt;/groupId&gt;
+            &lt;artifactId&gt;lost-list-creator&lt;/artifactId&gt;
+            &lt;version&gt;0.5.4&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+            &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+            &lt;version&gt;3.10.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-mustache-partial-template-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/demo/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import static com.github.freewind.lostlist.Lists.list;
+
+public class Hello {
+
+    public static void main(String[] args) throws IOException {
+        Page page = new Page(
+                list(&quot;aaa@test.com&quot;, &quot;bbb@test.com&quot;),
+                list(
+                        new Item(&quot;Item 1&quot;, &quot;$19.99&quot;, list(new Feature(&quot;New!&quot;), new Feature(&quot;Awesome!&quot;))),
+                        new Item(&quot;Item 2&quot;, &quot;$29.99&quot;, list(new Feature(&quot;Old.&quot;), new Feature(&quot;Ugly.&quot;)))
+                ));
+        MustacheFactory factory = new DefaultMustacheFactory(&quot;templates&quot;);
+
+        Mustache mustache = factory.compile(factory.getReader(&quot;hello.html&quot;), &quot;hello&quot;);
+        mustache.execute(new PrintWriter(System.out), page).flush();
+    }
+
+}
+
+class Page {
+    final List&lt;String&gt; emails;
+    final List&lt;Item&gt; items;
+    public Page(List&lt;String&gt; emails, List&lt;Item&gt; items) {
+        this.emails = emails;
+        this.items = items;
+    }
+}
+
+class Feature {
+    final String description;
+    public Feature(String description) {
+        this.description = description;
+    }
+}
+
+class Item {
+    final String name;
+    final String price;
+    final List&lt;Feature&gt; features;
+    public Item(String name, String price, List&lt;Feature&gt; features) {
+        this.name = name;
+        this.price = price;
+        this.features = features;
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-mustache-partial-template-demo/blob/master/src/main/resources/templates/header.html" target="_blank">header.html</a></div>
+            <div class="path">src/main/resources/templates/header.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;head&gt;
+    {{#emails}}
+    &lt;meta name=&quot;email&quot; content=&quot;{{.}}&quot;&gt;
+    {{/emails}}
+&lt;/head&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-mustache-partial-template-demo/blob/master/src/main/resources/templates/hello.html" target="_blank">hello.html</a></div>
+            <div class="path">src/main/resources/templates/hello.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;html&gt;
+{{&gt; header.html }}
+&lt;body&gt;
+{{#items}}
+&lt;div&gt;
+    &lt;div&gt;Name: {{name}}&lt;/div&gt;
+    &lt;div&gt;Price: {{price}}&lt;/div&gt;
+    {{#features}}
+    &lt;ul&gt;
+        &lt;li&gt;Feature: {{description}}&lt;/li&gt;
+    &lt;/ul&gt;
+    {{/features}}
+&lt;/div&gt;
+{{/items}}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/java-mustache-partial-template-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/java-mustache-partial-template-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

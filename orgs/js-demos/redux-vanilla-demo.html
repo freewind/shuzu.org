@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">redux-vanilla-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Redux with vanilla JavaScript
+=============================
+
+Just open the `index.html` file in a browser.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/redux-vanilla-demo/blob/master/index.html" target="_blank">index.html</a></div>
+            <div class="path">index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Redux basic example&lt;/title&gt;
+    &lt;script src=&quot;https://npmcdn.com/redux@latest/dist/redux.min.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div&gt;
+      &lt;p&gt;
+        Clicked: &lt;span id=&quot;value&quot;&gt;0&lt;/span&gt; times
+        &lt;button id=&quot;increment&quot;&gt;+&lt;/button&gt;
+        &lt;button id=&quot;decrement&quot;&gt;-&lt;/button&gt;
+        &lt;button id=&quot;incrementIfOdd&quot;&gt;Increment if odd&lt;/button&gt;
+        &lt;button id=&quot;incrementAsync&quot;&gt;Increment async&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+      function counter(state, action) {
+        if (typeof state === 'undefined') {
+          return 0
+        }
+
+        switch (action.type) {
+          case 'INCREMENT':
+            return state + 1
+          case 'DECREMENT':
+            return state - 1
+          default:
+            return state
+        }
+      }
+
+      var store = Redux.createStore(counter)
+      var valueEl = document.getElementById('value')
+
+      function render() {
+        valueEl.innerHTML = store.getState().toString()
+      }
+
+      render()
+      store.subscribe(render)
+
+      document.getElementById('increment')
+        .addEventListener('click', function () {
+          store.dispatch({ type: 'INCREMENT' })
+        })
+
+      document.getElementById('decrement')
+        .addEventListener('click', function () {
+          store.dispatch({ type: 'DECREMENT' })
+        })
+
+      document.getElementById('incrementIfOdd')
+        .addEventListener('click', function () {
+          if (store.getState() % 2 !== 0) {
+            store.dispatch({ type: 'INCREMENT' })
+          }
+        })
+
+      document.getElementById('incrementAsync')
+        .addEventListener('click', function () {
+          setTimeout(function () {
+            store.dispatch({ type: 'INCREMENT' })
+          }, 1000)
+        })
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/redux-vanilla-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/redux-vanilla-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">express-conflict-file-operation-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">File Operation Conflict Demo
+============================
+
+Operate on the same file in route handlers without any synchronization may intro conflict.
+
+Reproduce
+---------
+
+```
+npm install
+node index.js
+```
+
+Then visit `http://localhost:3000` from multiple clients at the near same time.
+
+You will see the following in the server console:
+
+```
+Server listening at http://:::3000
+=========== new request
+visited: 1
+to read data file
+=========== new request
+visited: 2
+to read data file
+=========== new request
+visited: 3
+to read data file
+file content: 0
+=== old number: 0
+file content: 0
+=== old number: 0
+3 : 1
+file content:
+=== old number: NaN
+3 : 1
+3 : NaN
+```
+
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-conflict-file-operation-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var express = require('express');
+var fs = require('fs');
+var sleep = require('sleep').sleep;
+
+var app = express();
+
+fs.writeFileSync('./data.txt', '0');
+
+var visited = 0;
+
+app.get('/', function (req, res, next) {
+  console.log('=========== new request');
+  visited += 1;
+  console.log('visited: ' + visited);
+
+  sleep(3);
+  console.log('to read data file');
+  fs.readFile('./data.txt', function (err, data) {
+    if (err) return next(err);
+    console.log('file content: ' + data);
+    var oldNumber = parseInt(data);
+    console.log('=== old number: ' + oldNumber);
+    var newData = '' + (oldNumber + 1);
+    fs.writeFile('./data.txt', newData, function (err) {
+      if(err) return next(err);
+      console.log('' + visited + ' : ' + newData);
+      res.sendStatus(200);
+    })
+  });
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Server listening at http://%s:%s', host, port);
+});</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/express-conflict-file-operation-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/express-conflict-file-operation-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

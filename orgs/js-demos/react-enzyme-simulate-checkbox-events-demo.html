@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">react-enzyme-simulate-checkbox-events-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">React Enzyme Simulate Checkbox Events Demo
+==========================================
+
+How to simulate events to a checkbox, like `change`. 
+
+Run:
+
+```
+npm install
+npm run webpack
+npm start
+```
+
+Then open &lt;http://localhost:8080&gt;.
+
+Run test:
+
+```
+npm test
+```
+
+Bug?
+----
+
+See the content of test `checks the checkbox` in `hello-spec.js`. 
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/public/index.html" target="_blank">index.html</a></div>
+            <div class="path">public/index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id='content'&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a></div>
+            <div class="path">spec/hello-spec.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import Hello from &quot;../src/hello.jsx&quot;;
+import chai from &quot;chai&quot;;
+import {mount} from &quot;enzyme&quot;;
+import chaiEnzyme from &quot;chai-enzyme&quot;;
+import jsdomGlobal from &quot;jsdom-global&quot;;
+import spies  from 'chai-spies';
+
+function myAwesomeDebug(wrapper) {
+  let html = wrapper.html();
+  console.log(html);
+  return html
+}
+
+jsdomGlobal();
+chai.should();
+chai.use(spies);
+chai.use(chaiEnzyme(myAwesomeDebug));
+
+
+describe('&lt;Hello /&gt;', () =&gt; {
+
+  it('renders to html', () =&gt; {
+    const wrapper = mount(&lt;Hello /&gt;);
+    wrapper.html().should.equal('&lt;div&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;!-- react-text: 3 --&gt;not checked&lt;!-- /react-text --&gt;&lt;/div&gt;');
+  });
+
+  it('checks the checkbox', () =&gt; {
+    const onToggle = chai.spy();
+    const wrapper = mount(&lt;Hello onToggle={onToggle}/&gt;);
+
+    var checkbox = wrapper.find('input');
+    checkbox.should.not.be.checked();
+    checkbox.simulate('change', {target: {checked: true}});
+    onToggle.should.have.been.called.once();
+
+    // --------- debug information ---------
+
+    // it prints `false`, I think this is a bug
+    console.log(checkbox.get(0).checked);
+
+    // follow is failed, I think it's also a bug
+    // AssertionError: expected the node in &lt;Hello /&gt; to be checked &lt;input type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    // checkbox.should.be.checked();
+  });
+
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a></div>
+            <div class="path">webpack.config.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const webpack = require('webpack');
+
+module.exports = {
+  entry: [
+    './src/entry.jsx'
+  ],
+  output: {
+    path: __dirname + '/public/assets/',
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        presets: ['es2015', 'react']
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
+  }
+};
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/react-enzyme-simulate-checkbox-events-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/react-enzyme-simulate-checkbox-events-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

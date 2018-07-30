@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">gradle-publish-to-local-maven-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Gradle Publish to Local Maven Demo
+===================================
+
+How to publish current project to local maven repository `~/.m2`
+
+```
+./gradlew install
+```
+
+You will find the generated files under `~/.m2/repository/demos/gradle-publish-to-local-maven-demo/0.1.0`.
+
+Keys
+----
+
+- `apply plugin: 'maven'`
+- `group = &quot;demos&quot;`
+- `version = &quot;0.1.0&quot;`
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/gradle-publish-to-local-maven-demo/blob/master/build.gradle" target="_blank">build.gradle</a></div>
+            <div class="path">build.gradle</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="gradle">apply plugin: 'java'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.4'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.easytesting:fest-assert-core:2.0M10'
+}
+
+apply plugin: 'maven'
+
+// Required for `maven`
+group = &quot;demos&quot;
+version = &quot;0.1.0&quot;
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.6' //version required
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/gradle-publish-to-local-maven-demo/blob/master/src/main/java/gradle_publish_to_local_maven_demo/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/gradle_publish_to_local_maven_demo/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package gradle_publish_to_local_maven_demo;
+
+public class Hello {
+    public String hello(String name) {
+        return &quot;Hello, &quot; + name;
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/gradle-publish-to-local-maven-demo/blob/master/src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java" target="_blank">HelloSpec.java</a></div>
+            <div class="path">src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demos.gradle_publish_to_local_maven_demo;
+
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() throws Exception {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/gradle-publish-to-local-maven-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/gradle-publish-to-local-maven-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

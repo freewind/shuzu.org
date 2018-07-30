@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">express-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Start Server
+------------
+
+```
+npm install
+node index.js
+```
+
+Will listen on `3000`
+
+Client: Say hello
+-----------------
+
+```
+curl localhost:3000
+```
+
+Client: POST with form data
+---------------------------
+
+```
+curl -X POST -d '{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;bbb.com&quot;}' localhost:3000/user
+```
+
+Client: POST with JSON
+-----------------------
+
+```
+curl -X POST -d '{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;bbb.com&quot;}' -H &quot;Content-Type: application/json&quot; localhost:3000/user
+```
+
+Client: Show users
+-------------------
+
+```
+curl localhost:3000/users
+```</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/x-www-form-urlencoded
+// extended
+// - true: use https://www.npmjs.com/package/qs
+// - false: use https://www.npmjs.com/package/querystring
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const users = [];
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
+app.post('/user', function(req, res) {
+  const name = req.body.name;
+  const email = req.body.email;
+  users.push({
+  	name: name,
+  	email: email
+  })
+  res.sendStatus(201);
+});
+
+app.get('/users', function(req, res) {
+  res.send(users);
+})
+
+app.listen(3000, function () {
+  console.log('Listening on 3000');
+});</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/express-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/express-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

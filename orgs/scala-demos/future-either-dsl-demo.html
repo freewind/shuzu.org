@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/scala-demos/index.html">scala-demos</a></span><span> &gt; </span><span class="repo-name">future-either-dsl-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body"></div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/future-either-dsl-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a></div>
+            <div class="path">src/main/scala/example/Hello.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+
+import cats.data._
+import cats.implicits._
+import shapeless._
+
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.reflect.ClassTag
+
+object Hello extends App {
+
+  type Error = String
+  type ErrorOr[T] = Either[Error, T]
+  type FutureEither[A] = EitherT[Future, Error, A]
+
+  object ? {
+    def &lt;~[A](x: A): FutureEither[A] = x.pure[FutureEither]
+    def &lt;~[A](x: Either[Error, A]): FutureEither[A] = EitherT.fromEither[Future](x)
+    def &lt;~[A](x: Future[A])(implicit ev: A &lt;:!&lt; Either[_, _]): FutureEither[A] = EitherT.right(x)
+    def &lt;~[A](x: Future[Either[Error, A]]): FutureEither[A] = EitherT(x)
+    def &lt;~[A](x: List[Either[Error, A]]): FutureEither[List[A]] = EitherT.fromEither[Future](x.sequence[ErrorOr, A])
+    def &lt;~[A, X: ClassTag](x: List[Future[A]]): FutureEither[List[A]] = EitherT.right(x.sequence)
+    def &lt;~[A, X: ClassTag, Y: ClassTag](x: List[FutureEither[A]]): FutureEither[List[A]] = x.sequence[FutureEither, A]
+  }
+
+  val result = for {
+    x1 &lt;- ? &lt;~ 42
+    x2 &lt;- ? &lt;~ Right(&quot;42&quot;)
+    x3 &lt;- ? &lt;~ &quot;foo&quot;.pure[Future]
+    x4 &lt;- ? &lt;~ Right(List(&quot;foo&quot;, &quot;bar&quot;)).pure[Future]
+    x5 &lt;- ? &lt;~ List(Right(42), Right(1337))
+    x6 &lt;- ? &lt;~ List(32.pure[Future], 42.pure[Future])
+    x7 &lt;- ? &lt;~ List(&quot;42&quot;.pure[FutureEither], &quot;foo&quot;.pure[FutureEither])
+  } yield {
+    println(x1)
+    println(x2)
+    println(x3)
+    println(x4)
+    println(x5)
+    println(x6)
+    println(x7)
+  }
+
+  Await.result(result.value, 10.seconds)
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/future-either-dsl-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a></div>
+            <div class="path">src/test/scala/example/HelloSpec.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+//  test(&quot;The Hello object should say hello&quot;) {
+//    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+//  }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/scala-demos/future-either-dsl-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/scala-demos/future-either-dsl-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

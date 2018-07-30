@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/scala-demos/index.html">scala-demos</a></span><span> &gt; </span><span class="repo-name">scalatest-async-test-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">ScalaTest Async Test Demo
+==========================
+
+Demo with `Future`, `Future[Either]` and `EitherT[Future, xx, xx]`
+
+```
+sbt test
+```</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/scalatest-async-test-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a></div>
+            <div class="path">src/main/scala/example/Hello.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+import cats.data.EitherT
+
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
+object Hello extends App {
+
+  def hello(name: String): Future[String] = Future.apply {
+    Thread.sleep(500)
+    s&quot;Hello, $name!&quot;
+  }
+
+  def helloEither(name: String): Future[Either[Int, String]] = Future.apply {
+    try {
+      Left(name.toInt)
+    } catch {
+      case e: Throwable =&gt; Right(name)
+    }
+  }
+
+  def helloEitherT(name: String): EitherT[Future, Int, String] = EitherT.apply {
+    Future.apply {
+      try {
+        Left(name.toInt)
+      } catch {
+        case e: Throwable =&gt; Right(name)
+      }
+    }
+  }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/scalatest-async-test-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a></div>
+            <div class="path">src/test/scala/example/HelloSpec.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends AsyncFunSuite with Matchers {
+
+  test(&quot;The Hello object should say hello&quot;) {
+    Hello.hello(&quot;Scala&quot;) map { result =&gt;
+      result shouldEqual &quot;Hello, Scala!&quot;
+    }
+  }
+
+  test(&quot;helloEither Left&quot;) {
+    Hello.helloEither(&quot;123&quot;) map { result =&gt;
+      result shouldEqual Left(123)
+    }
+  }
+
+  test(&quot;helloEither Right&quot;) {
+    Hello.helloEither(&quot;abc&quot;) map { result =&gt;
+      result shouldEqual Right(&quot;abc&quot;)
+    }
+  }
+
+  test(&quot;helloEitherT Left&quot;) {
+    Hello.helloEitherT(&quot;123&quot;).value.map({ result =&gt;
+      result shouldEqual Left(123)
+    })
+  }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/scala-demos/scalatest-async-test-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/scala-demos/scalatest-async-test-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

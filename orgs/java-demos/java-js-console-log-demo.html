@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">java-js-console-log-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Call JavaScript Function in Java Demo
+=====================================
+
+Run `Hello.java` in you IDE.
+
+Notice: `Console` must be a public class, otherwise JS code can't find it</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-js-console-log-demo/blob/master/hello.js" target="_blank">hello.js</a></div>
+            <div class="path">hello.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">function hello(name) {
+    console.log(&quot;Hello, &quot; + name + &quot;!&quot;);
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-js-console-log-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;7&lt;/source&gt;
+                    &lt;target&gt;7&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-js-console-log-demo/blob/master/src/main/java/demo/Console.java" target="_blank">Console.java</a></div>
+            <div class="path">src/main/java/demo/Console.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+public class Console {
+    public void log(String text) {
+        System.out.println(text);
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-js-console-log-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/demo/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import org.apache.commons.io.FileUtils;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+public class Hello {
+
+
+    public static void main(String[] args) throws Exception {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName(&quot;JavaScript&quot;);
+        Invocable inv = (Invocable) engine;
+
+        hello(engine, inv);
+    }
+
+    private static void hello(ScriptEngine engine, Invocable inv) throws Exception {
+        engine.eval(contentOf(new File(&quot;./hello.js&quot;)));
+        engine.put(&quot;console&quot;, new Console());
+        inv.invokeFunction(&quot;hello&quot;, &quot;JS in Java&quot;);
+    }
+
+    private static String contentOf(File file) throws IOException {
+        return FileUtils.readFileToString(file, Charset.defaultCharset());
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/java-js-console-log-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/java-js-console-log-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

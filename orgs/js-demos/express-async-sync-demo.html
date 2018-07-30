@@ -1,0 +1,291 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">express-async-sync-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Start Server
+------------
+
+```
+npm install
+node app/index.js
+```
+
+Will listen on `3000`.
+
+Endpoints
+---------
+
+Use command `http` from [httppie](https://github.com/jkbrzt/httpie).
+
+Sync api:
+
+```
+http POST http://localhost:3000/sync/users username=aaa password=111
+http http://localhost:3000/sync/users
+```
+
+Async api:
+
+```
+http POST http://localhost:3000/async/users username=aaa password=111
+http http://localhost:3000/async/users
+```</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/async/db.js" target="_blank">db.js</a></div>
+            <div class="path">app/async/db.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+const makeErrorRandomly = require('../make-error-randomly');
+
+const users = [];
+
+function findAll(callback) {
+  setTimeout(() =&gt; {
+    const error = makeErrorRandomly();
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, users);
+    }
+  }, 1000);
+}
+
+function save(user, callback) {
+  setTimeout(() =&gt; {
+    const error = makeErrorRandomly();
+    if (error) {
+      return callback(error);
+    }
+    users.push(user);
+    callback(null, null);
+  }, 1000);
+}
+
+module.exports = {findAll, save};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/async/handlers.js" target="_blank">handlers.js</a></div>
+            <div class="path">app/async/handlers.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const userService = require('./service');
+const User = require('../user-model');
+
+function getAllUsers(req, res, next) {
+  userService.getAllUsers(function (err, users) {
+    if (err) return next(err);
+    res.json(users);
+  })
+}
+
+function saveUser(req, res, next) {
+  const {username, password} = req.body;
+  userService.saveUser(new User({username, password}), function (err, saved) {
+    if (err) return next(err);
+    res.sendStatus(201);
+  });
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/async/service.js" target="_blank">service.js</a></div>
+            <div class="path">app/async/service.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const db = require('./db');
+
+function getAllUsers(callback) {
+  return db.findAll(callback);
+}
+
+function saveUser(user, callback) {
+  return db.save(user, callback);
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/index.js" target="_blank">index.js</a></div>
+            <div class="path">app/index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const syncHandlers = require('./sync/handlers');
+const asyncHandlers = require('./async/handlers');
+const app = express();
+
+app.use(bodyParser.json());
+
+app.get('/sync/users', syncHandlers.getAllUsers);
+app.post('/sync/users', syncHandlers.saveUser);
+
+app.get('/async/users', asyncHandlers.getAllUsers);
+app.post('/async/users', asyncHandlers.saveUser);
+
+app.use(function (err, req, res, next) {
+  res.status(500).send(err.message);
+});
+
+app.listen(3000, function () {
+  console.log('Listening on 3000');
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/make-error-randomly.js" target="_blank">make-error-randomly.js</a></div>
+            <div class="path">app/make-error-randomly.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+function shouldMakeError() {
+  const millis = new Date().getMilliseconds()
+  return millis % 3 === 0;
+}
+
+module.exports = function () {
+  if (shouldMakeError()) {
+    return new Error('my-error');
+  }
+  return null;
+};
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/sync/db.js" target="_blank">db.js</a></div>
+            <div class="path">app/sync/db.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+const makeErrorRandomly = require('../make-error-randomly');
+
+const store = [];
+
+function findAll() {
+  const error = makeErrorRandomly();
+  if (error) {
+    throw error;
+  }
+  return store;
+}
+
+function save(user) {
+  const error = makeErrorRandomly();
+  if (error) {
+    throw error;
+  }
+  store.push(user);
+}
+
+module.exports = {findAll, save};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/sync/handlers.js" target="_blank">handlers.js</a></div>
+            <div class="path">app/sync/handlers.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+const userService = require('./service');
+const User = require('../user-model');
+
+function getAllUsers(req, res, next) {
+  try {
+    const users = userService.getAllUsers();
+    res.json(users);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+function saveUser(req, res, next) {
+  const {username, password} = req.body;
+  try {
+    userService.saveUser(new User({username, password}));
+    res.sendStatus(201);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/sync/service.js" target="_blank">service.js</a></div>
+            <div class="path">app/sync/service.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const db = require('./db');
+
+function getAllUsers() {
+  return db.findAll();
+}
+
+function saveUser(user) {
+  return db.save(user);
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/express-async-sync-demo/blob/master/app/user-model.js" target="_blank">user-model.js</a></div>
+            <div class="path">app/user-model.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">class User {
+  constructor({username, password}) {
+    this.username = username;
+    this.password = password;
+  }
+}
+
+module.exports = User;</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/express-async-sync-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/express-async-sync-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

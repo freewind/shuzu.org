@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">riotjs-tag-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body"></div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/riotjs-tag-demo/blob/master/index.html" target="_blank">index.html</a></div>
+            <div class="path">index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello Riot.&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- place the custom tag anywhere inside the body --&gt;
+
+&lt;sample1&gt;&lt;/sample1&gt;
+
+&lt;sample2&gt;
+    &lt;h3&gt;{ message }&lt;/h3&gt;
+    &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt;
+    &lt;button onclick=&quot;{click}&quot;&gt;Click&lt;/button&gt;
+&lt;/sample2&gt;
+
+&lt;sample3 message=&quot;ddd&quot;&gt;&lt;/sample3&gt;
+
+&lt;!-- include riot.js --&gt;
+&lt;script src=&quot;https://unpkg.com/riot@3.9.1/riot+compiler.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- include the tag --&gt;
+&lt;script src=&quot;./sample-tag1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag2.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag3.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- mount the tag --&gt;
+&lt;script&gt;
+    riot.mount('sample1');
+    riot.mount('sample2');
+    new SampleTag3(document.getElementsByTagName(&quot;sample3&quot;)[0])
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/riotjs-tag-demo/blob/master/sample-tag1.js" target="_blank">sample-tag1.js</a></div>
+            <div class="path">sample-tag1.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">riot.tag('sample1',
+  '&lt;div&gt;&lt;h3&gt;{ message }&lt;/h3&gt; &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt; &lt;button onclick=&quot;{ click }&quot;&gt;Click&lt;/button&gt;&lt;/div&gt;',
+  &quot;&quot;, // css
+  '', // attrs
+  function (opts) {
+    this.message = 'Hello, Sample 1!';
+    this.techs = [
+      { name: 'HTML' },
+      { name: 'JavaScript' },
+      { name: 'CSS' }
+    ];
+    this.click = function() {
+        alert('click on sample1');
+    };
+});
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/riotjs-tag-demo/blob/master/sample-tag2.js" target="_blank">sample-tag2.js</a></div>
+            <div class="path">sample-tag2.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">riot.tag('sample2', false, function(opts) {
+  this.message = 'Sample 2';
+  this.techs = [
+        { name: 'HTML' },
+        { name: 'JavaScript' },
+        { name: 'CSS' }
+      ];
+  this.click = function() {
+    alert('click on Sample2');
+  }
+})
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/riotjs-tag-demo/blob/master/sample-tag3.js" target="_blank">sample-tag3.js</a></div>
+            <div class="path">sample-tag3.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">class SampleTag3 extends riot.Tag {
+  // mandatory in order to use and identify this component
+  get name() {
+    return 'sample3'
+  }
+  get tmpl() {
+    return `&lt;div&gt;&lt;h1&gt;Sample3&lt;/h1&gt;&lt;p onclick=&quot;{ click }&quot;&gt;Dear user, { message }&lt;/p&gt;&lt;/div&gt;`
+  }
+  get attrs() {
+    return 'class=&quot;{ className }&quot;'
+  }
+  get css() {
+    return 'sample3 p{ color: blue; }'
+  }
+  onCreate(opts) {
+    console.log(&quot;### opts: &quot; + opts.message)
+    this.message = opts.message
+  }
+  click() {
+    this.message = 'goodbye'
+  }
+}
+
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/riotjs-tag-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/riotjs-tag-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

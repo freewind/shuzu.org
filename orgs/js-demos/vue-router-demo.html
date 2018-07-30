@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">vue-router-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Vue Router Demo
+===============
+
+```
+npm install
+npm install -g http-server
+http-server .
+```
+
+Then open &lt;http://localhost:8080&gt;</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/vue-router-demo/blob/master/index.css" target="_blank">index.css</a></div>
+            <div class="path">index.css</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="css">.router-link-active {
+    color: red;
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/vue-router-demo/blob/master/index.html" target="_blank">index.html</a></div>
+            <div class="path">index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./index.css&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+        &lt;router-link to=&quot;/bar&quot;&gt;Go to Bar&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/freewind&quot;&gt;Go to User Home&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/vue-router-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+
+const Index = {template: '&lt;div&gt;hello index!&lt;/div&gt;'};
+const Foo = {template: '&lt;div&gt;foo&lt;/div&gt;'};
+const Bar = {template: '&lt;div&gt;bar&lt;/div&gt;'};
+
+const UserHome = {
+    template: `
+    &lt;div&gt;
+    &lt;div&gt;
+        &lt;p&gt;{{ username }}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a @click=&quot;goBack&quot; href=&quot;javascript: void(0)&quot;&gt;Go Back&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    `,
+    
+    computed: {
+        username: function () {
+            return this.$route.params.username
+        }
+    },
+    methods: {
+        goBack: function () {
+            window.history.length &gt; 1 ? this.$router.go(-1) : this.$router.push('/')
+        }
+    }
+};
+
+const router = new VueRouter({
+    routes: [
+        {path: '/foo', component: Foo},
+        {path: '/bar', component: Bar},
+        {path: '/user/:username', component: UserHome},
+        {path: '', component: Index}
+    ]
+});
+
+
+new Vue({router: router}).$mount('#app');
+
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/vue-router-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/vue-router-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

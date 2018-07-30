@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/scala-demos/index.html">scala-demos</a></span><span> &gt; </span><span class="repo-name">sbt-buildinfo-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Sbt BuildInfo Plugin Demo
+=========================
+
+&lt;https://github.com/sbt/sbt-buildinfo&gt;
+
+```
+./sbt compile
+```
+
+Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/sbt-buildinfo-demo/blob/master/project/Dependencies.scala" target="_blank">Dependencies.scala</a></div>
+            <div class="path">project/Dependencies.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">import sbt._
+
+object Dependencies {
+  lazy val scalaTest = &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.3&quot;
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/sbt-buildinfo-demo/blob/master/sbt-dist/conf/sbtconfig.txt" target="_blank">sbtconfig.txt</a></div>
+            <div class="path">sbt-dist/conf/sbtconfig.txt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="txt"># Set the java args to high
+
+-Xmx512M
+
+-XX:MaxPermSize=256m
+
+-XX:ReservedCodeCacheSize=128m
+
+
+
+# Set the extra SBT options
+
+-Dsbt.log.format=true
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/sbt-buildinfo-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a></div>
+            <div class="path">src/main/scala/example/Hello.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+
+object Hello extends Greeting with App {
+  println(greeting)
+}
+
+trait Greeting {
+  lazy val greeting: String = &quot;hello&quot;
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/sbt-buildinfo-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a></div>
+            <div class="path">src/test/scala/example/HelloSpec.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FlatSpec with Matchers {
+  &quot;The Hello object&quot; should &quot;say hello&quot; in {
+    Hello.greeting shouldEqual &quot;hello&quot;
+  }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/scala-demos/sbt-buildinfo-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/scala-demos/sbt-buildinfo-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

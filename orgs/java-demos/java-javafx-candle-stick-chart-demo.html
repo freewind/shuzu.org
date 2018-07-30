@@ -1,0 +1,717 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">java-javafx-candle-stick-chart-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">JavaFX Candle Stick Demo
+========================
+
+Code is from &lt;https://gist.github.com/Nicolas56/e02b29431b820d7c8c218c804f0269b0&gt;
+
+&lt;https://i.stack.imgur.com/jEjf5.png&gt;
+
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/AdvCandleStickChart.java" target="_blank">AdvCandleStickChart.java</a></div>
+            <div class="path">src/main/java/demo/AdvCandleStickChart.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import javafx.collections.ObservableList;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.layout.Pane;
+
+import static demo.Apply.apply;
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class AdvCandleStickChart extends Pane {
+
+
+    public AdvCandleStickChart(double[][] data) {
+        final NumberAxis xAxis = apply(new NumberAxis(0, 32, 1), self -&gt; {
+            self.setMinorTickCount(0);
+            self.setLabel(&quot;Day&quot;);
+        });
+
+        final NumberAxis yAxis = apply(new NumberAxis(), self -&gt; {
+            self.setLabel(&quot;Price&quot;);
+            self.setForceZeroInRange(false);
+        });
+
+        final CandleStickChart chart = apply(new CandleStickChart(xAxis, yAxis, convertData(data)), self -&gt; {
+            self.setTitle(&quot;Custom Candle Stick Chart&quot;);
+        });
+
+        getChildren().add(chart);
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    private static ObservableList&lt;XYChart.Series&lt;Number, Number&gt;&gt; convertData(double[][] data) {
+        XYChart.Series&lt;Number, Number&gt; series = new XYChart.Series&lt;&gt;();
+        for (double[] day : data) {
+            series.getData().add(
+                    new XYChart.Data&lt;&gt;(day[0], day[1], new CandleStickExtraValues(day[2], day[3], day[4], day[5]))
+            );
+        }
+        return observableArrayList(series);
+    }
+
+}
+
+
+
+
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Apply.java" target="_blank">Apply.java</a></div>
+            <div class="path">src/main/java/demo/Apply.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+public interface Apply&lt;T&gt; {
+    void apply(T t);
+
+    static &lt;T&gt; T apply(T t, Apply&lt;T&gt; callback) {
+        callback.apply(t);
+        return t;
+    }
+}</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Candle.java" target="_blank">Candle.java</a></div>
+            <div class="path">src/main/java/demo/Candle.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import javafx.scene.Group;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
+
+/**
+ * Candle node used for drawing a candle
+ */
+class Candle extends Group {
+
+    private Line highLowLine = new Line();
+    private Region bar = new Region();
+    private String seriesStyleClass;
+    private String dataStyleClass;
+    private boolean openAboveClose = true;
+    private Tooltip tooltip = new Tooltip();
+
+    public Candle(String seriesStyleClass, String dataStyleClass) {
+        setAutoSizeChildren(false);
+        getChildren().addAll(highLowLine, bar);
+        this.seriesStyleClass = seriesStyleClass;
+        this.dataStyleClass = dataStyleClass;
+        updateStyleClasses();
+        tooltip.setGraphic(new TooltipContent());
+        Tooltip.install(bar, tooltip);
+    }
+
+    public void setSeriesAndDataStyleClasses(String seriesStyleClass, String dataStyleClass) {
+        this.seriesStyleClass = seriesStyleClass;
+        this.dataStyleClass = dataStyleClass;
+        updateStyleClasses();
+    }
+
+    public void update(double closeOffset, double highOffset, double lowOffset, double candleWidth) {
+        openAboveClose = closeOffset &gt; 0;
+        updateStyleClasses();
+        highLowLine.setStartY(highOffset);
+        highLowLine.setEndY(lowOffset);
+        if (candleWidth == -1) {
+            candleWidth = bar.prefWidth(-1);
+        }
+        if (openAboveClose) {
+            bar.resizeRelocate(-candleWidth / 2, 0, candleWidth, closeOffset);
+        } else {
+            bar.resizeRelocate(-candleWidth / 2, closeOffset, candleWidth, closeOffset * -1);
+        }
+    }
+
+    public void updateTooltip(double open, double close, double high, double low) {
+        TooltipContent tooltipContent = (TooltipContent) tooltip.getGraphic();
+        tooltipContent.update(open, close, high, low);
+    }
+
+    private void updateStyleClasses() {
+        getStyleClass().setAll(&quot;candlestick-candle&quot;, seriesStyleClass, dataStyleClass);
+        highLowLine.getStyleClass().setAll(&quot;candlestick-line&quot;, seriesStyleClass, dataStyleClass,
+                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
+        bar.getStyleClass().setAll(&quot;candlestick-bar&quot;, seriesStyleClass, dataStyleClass,
+                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/CandleStickChart.java" target="_blank">CandleStickChart.java</a></div>
+            <div class="path">src/main/java/demo/CandleStickChart.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * A candlestick chart is a style of bar-chart used primarily to describe
+ * price movements of a security, derivative, or currency over time.
+ * &lt;p&gt;
+ * The Data Y value is used for the opening price and then the close, high
+ * and low values are stored in the Data's extra value property using a
+ * CandleStickExtraValues object.
+ */
+class CandleStickChart extends XYChart&lt;Number, Number&gt; {
+
+    // -------------- CONSTRUCTORS ----------------------------------------------
+
+    public CandleStickChart(Axis&lt;Number&gt; xAxis, Axis&lt;Number&gt; yAxis) {
+        super(xAxis, yAxis);
+        setAnimated(false);
+        xAxis.setAnimated(false);
+        yAxis.setAnimated(false);
+    }
+
+    public CandleStickChart(Axis&lt;Number&gt; xAxis, Axis&lt;Number&gt; yAxis, ObservableList&lt;Series&lt;Number, Number&gt;&gt; data) {
+        this(xAxis, yAxis);
+        setData(data);
+    }
+
+    // -------------- METHODS ------------------------------------------------------------------------------------------
+
+    /**
+     * Called to update and layout the content for the plot
+     */
+    @Override
+    protected void layoutPlotChildren() {
+        if (getData() == null) return;
+        
+        // update candle positions
+        for (int seriesIndex = 0; seriesIndex &lt; getData().size(); seriesIndex++) {
+            Series&lt;Number, Number&gt; series = getData().get(seriesIndex);
+            Iterator&lt;Data&lt;Number, Number&gt;&gt; iter = getDisplayedDataIterator(series);
+            Path seriesPath = null;
+            if (series.getNode() instanceof Path) {
+                seriesPath = (Path) series.getNode();
+                seriesPath.getElements().clear();
+            }
+            while (iter.hasNext()) {
+                Data&lt;Number, Number&gt; item = iter.next();
+                double x = getXAxis().getDisplayPosition(getCurrentDisplayedXValue(item));
+                double y = getYAxis().getDisplayPosition(getCurrentDisplayedYValue(item));
+                Node itemNode = item.getNode();
+                CandleStickExtraValues extra = (CandleStickExtraValues) item.getExtraValue();
+                if (itemNode instanceof Candle &amp;&amp; extra != null) {
+                    Candle candle = (Candle) itemNode;
+
+                    double close = getYAxis().getDisplayPosition(extra.getClose());
+                    double high = getYAxis().getDisplayPosition(extra.getHigh());
+                    double low = getYAxis().getDisplayPosition(extra.getLow());
+                    // calculate candle width
+                    double candleWidth = -1;
+                    if (getXAxis() instanceof NumberAxis) {
+                        NumberAxis xa = (NumberAxis) getXAxis();
+                        candleWidth = xa.getDisplayPosition(xa.getTickUnit()) * 0.90; // use 90% width between ticks
+                    }
+                    // update candle
+                    candle.update(close - y, high - y, low - y, candleWidth);
+                    candle.updateTooltip(item.getYValue().doubleValue(), extra.getClose(), extra.getHigh(), extra.getLow());
+
+                    // position the candle
+                    candle.setLayoutX(x);
+                    candle.setLayoutY(y);
+                }
+                if (seriesPath != null) {
+                    if (seriesPath.getElements().isEmpty()) {
+                        seriesPath.getElements().add(new MoveTo(x, getYAxis().getDisplayPosition(extra.getAverage())));
+                    } else {
+                        seriesPath.getElements().add(new LineTo(x, getYAxis().getDisplayPosition(extra.getAverage())));
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void dataItemChanged(Data&lt;Number, Number&gt; item) {
+    }
+
+    @Override
+    protected void dataItemAdded(Series&lt;Number, Number&gt; series, int itemIndex, Data&lt;Number, Number&gt; item) {
+        Node candle = createCandle(getData().indexOf(series), item, itemIndex);
+        if (shouldAnimate()) {
+            candle.setOpacity(0);
+            getPlotChildren().add(candle);
+            // fade in new candle
+            FadeTransition ft = new FadeTransition(Duration.millis(500), candle);
+            ft.setToValue(1);
+            ft.play();
+        } else {
+            getPlotChildren().add(candle);
+        }
+        // always draw average line on top
+        if (series.getNode() != null) {
+            series.getNode().toFront();
+        }
+    }
+
+    @Override
+    protected void dataItemRemoved(Data&lt;Number, Number&gt; item, Series&lt;Number, Number&gt; series) {
+        final Node candle = item.getNode();
+        if (shouldAnimate()) {
+            // fade out old candle
+            FadeTransition ft = new FadeTransition(Duration.millis(500), candle);
+            ft.setToValue(0);
+            ft.setOnFinished(actionEvent -&gt; getPlotChildren().remove(candle));
+            ft.play();
+        } else {
+            getPlotChildren().remove(candle);
+        }
+    }
+
+    @Override
+    protected void seriesAdded(Series&lt;Number, Number&gt; series, int seriesIndex) {
+        // handle any data already in series
+        for (int j = 0; j &lt; series.getData().size(); j++) {
+            Data item = series.getData().get(j);
+            Node candle = createCandle(seriesIndex, item, j);
+            if (shouldAnimate()) {
+                candle.setOpacity(0);
+                getPlotChildren().add(candle);
+                // fade in new candle
+                FadeTransition ft = new FadeTransition(Duration.millis(500), candle);
+                ft.setToValue(1);
+                ft.play();
+            } else {
+                getPlotChildren().add(candle);
+            }
+        }
+        // create series path
+        Path seriesPath = new Path();
+        seriesPath.getStyleClass().setAll(&quot;candlestick-average-line&quot;, &quot;series&quot; + seriesIndex);
+        series.setNode(seriesPath);
+        getPlotChildren().add(seriesPath);
+    }
+
+    @Override
+    protected void seriesRemoved(Series&lt;Number, Number&gt; series) {
+        // remove all candle nodes
+        for (Data&lt;Number, Number&gt; d : series.getData()) {
+            final Node candle = d.getNode();
+            if (shouldAnimate()) {
+                // fade out old candle
+                FadeTransition ft = new FadeTransition(Duration.millis(500), candle);
+                ft.setToValue(0);
+                ft.setOnFinished(actionEvent -&gt; getPlotChildren().remove(candle));
+                ft.play();
+            } else {
+                getPlotChildren().remove(candle);
+            }
+        }
+    }
+
+    private Node createCandle(int seriesIndex, final Data item, int itemIndex) {
+        Node candle = item.getNode();
+        // check if candle has already been created
+        if (candle instanceof Candle) {
+            ((Candle) candle).setSeriesAndDataStyleClasses(&quot;series&quot; + seriesIndex, &quot;data&quot; + itemIndex);
+        } else {
+            candle = new Candle(&quot;series&quot; + seriesIndex, &quot;data&quot; + itemIndex);
+            item.setNode(candle);
+        }
+        return candle;
+    }
+
+    /**
+     * This is called when the range has been invalidated and we need to
+     * update it. If the axis are auto ranging then we compile a list of all
+     * data that the given axis has to plot and call invalidateRange() on
+     * the axis passing it that data.
+     */
+    @Override
+    protected void updateAxisRange() {
+        // For candle stick chart we need to override this method as we need to let the axis know that they need to be able
+        // to cover the whole area occupied by the high to low range not just its center data value
+        final Axis&lt;Number&gt; xa = getXAxis();
+        final Axis&lt;Number&gt; ya = getYAxis();
+        List&lt;Number&gt; xData = null;
+        List&lt;Number&gt; yData = null;
+        if (xa.isAutoRanging()) {
+            xData = new ArrayList&lt;&gt;();
+        }
+        if (ya.isAutoRanging()) {
+            yData = new ArrayList&lt;&gt;();
+        }
+        if (xData != null || yData != null) {
+            for (Series&lt;Number, Number&gt; series : getData()) {
+                for (Data&lt;Number, Number&gt; data : series.getData()) {
+                    if (xData != null) {
+                        xData.add(data.getXValue());
+                    }
+                    if (yData != null) {
+                        CandleStickExtraValues extras = (CandleStickExtraValues) data.getExtraValue();
+                        if (extras != null) {
+                            yData.add(extras.getHigh());
+                            yData.add(extras.getLow());
+                        } else {
+                            yData.add(data.getYValue());
+                        }
+                    }
+                }
+            }
+            if (xData != null) {
+                xa.invalidateRange(xData);
+            }
+            if (yData != null) {
+                ya.invalidateRange(yData);
+            }
+        }
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/CandleStickExtraValues.java" target="_blank">CandleStickExtraValues.java</a></div>
+            <div class="path">src/main/java/demo/CandleStickExtraValues.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+/**
+ * Data extra values for storing close, high and low.
+ */
+class CandleStickExtraValues {
+
+    private final double close;
+    private final double high;
+    private final double low;
+    private final double average;
+
+    public CandleStickExtraValues(double close, double high, double low, double average) {
+        this.close = close;
+        this.high = high;
+        this.low = low;
+        this.average = average;
+    }
+
+    public double getClose() {
+        return close;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/demo/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+/**
+ * Ensemble Main Application
+ */
+public class Hello extends Application {
+
+    // DAY, OPEN, CLOSE, HIGH, LOW, AVERAGE
+    private static double[][] data = new double[][]{
+            {1, 25, 20, 32, 16, 20},
+            {2, 26, 30, 33, 22, 25},
+            {3, 30, 38, 40, 20, 32},
+            {4, 24, 30, 34, 22, 30},
+            {5, 26, 36, 40, 24, 32},
+            {6, 28, 38, 45, 25, 34},
+            {7, 36, 30, 44, 28, 39},
+            {8, 30, 18, 36, 16, 31},
+            {9, 40, 50, 52, 36, 41},
+            {10, 30, 34, 38, 28, 36},
+            {11, 24, 12, 30, 8, 32.4},
+            {12, 28, 40, 46, 25, 31.6},
+            {13, 28, 18, 36, 14, 32.6},
+            {14, 38, 30, 40, 26, 30.6},
+            {15, 28, 33, 40, 28, 30.6},
+            {16, 25, 10, 32, 6, 30.1},
+            {17, 26, 30, 42, 18, 27.3},
+            {18, 20, 18, 30, 10, 21.9},
+            {19, 20, 10, 30, 5, 21.9},
+            {20, 26, 16, 32, 10, 17.9},
+            {21, 38, 40, 44, 32, 18.9},
+            {22, 26, 40, 41, 12, 18.9},
+            {23, 30, 18, 34, 10, 18.9},
+            {24, 12, 23, 26, 12, 18.2},
+            {25, 30, 40, 45, 16, 18.9},
+            {26, 25, 35, 38, 20, 21.4},
+            {27, 24, 12, 30, 8, 19.6},
+            {28, 23, 44, 46, 15, 22.2},
+            {29, 28, 18, 30, 12, 23},
+            {30, 28, 18, 30, 12, 23.2},
+            {31, 28, 18, 30, 12, 22}
+    };
+
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle(&quot;AdvCandleStickChart from Ensemble&quot;);
+        Scene scene = new Scene(new AdvCandleStickChart(data));
+        scene.getStylesheets().add(&quot;Ensemble_AdvCandleStickChart.css&quot;);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/TooltipContent.java" target="_blank">TooltipContent.java</a></div>
+            <div class="path">src/main/java/demo/TooltipContent.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+
+import static demo.Apply.apply;
+
+public class TooltipContent extends GridPane {
+
+    private Label openValue = new Label();
+    private Label closeValue = new Label();
+    private Label highValue = new Label();
+    private Label lowValue = new Label();
+
+    public TooltipContent() {
+        Label open = apply(new Label(&quot;OPEN:&quot;), self -&gt; {
+            self.getStyleClass().add(&quot;candlestick-tooltip-label&quot;);
+        });
+
+        Label close = apply(new Label(&quot;CLOSE:&quot;), self -&gt; {
+            self.getStyleClass().add(&quot;candlestick-tooltip-label&quot;);
+        });
+
+        Label high = apply(new Label(&quot;HIGH:&quot;), self -&gt; {
+            self.getStyleClass().add(&quot;candlestick-tooltip-label&quot;);
+        });
+
+        Label low = apply(new Label(&quot;LOW:&quot;), self -&gt; {
+            self.getStyleClass().add(&quot;candlestick-tooltip-label&quot;);
+        });
+
+        {
+            setConstraints(open, 0, 0);
+            setConstraints(openValue, 1, 0);
+            setConstraints(close, 0, 1);
+            setConstraints(closeValue, 1, 1);
+            setConstraints(high, 0, 2);
+            setConstraints(highValue, 1, 2);
+            setConstraints(low, 0, 3);
+            setConstraints(lowValue, 1, 3);
+        }
+
+        getChildren().addAll(open, openValue, close, closeValue, high, highValue, low, lowValue);
+    }
+
+    public void update(double open, double close, double high, double low) {
+        openValue.setText(Double.toString(open));
+        closeValue.setText(Double.toString(close));
+        highValue.setText(Double.toString(high));
+        lowValue.setText(Double.toString(low));
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/resources/Ensemble_AdvCandleStickChart.css" target="_blank">Ensemble_AdvCandleStickChart.css</a></div>
+            <div class="path">src/main/resources/Ensemble_AdvCandleStickChart.css</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="css">/*
+ * Part of Ensemble CSS
+ * related to AdvCandleStickChart
+ *
+ * extracted by Nicolas
+ * July 20th, 2016
+ *
+ * Initial CSS:
+ * http://grepcode.com/file/repo1.maven.org/maven2/org.jbundle.javafx.example/org.jbundle.javafx.example.ensemble/0.9.0/ensemble/ensemble2.css?av=f
+ *
+ */
+
+/*
+ * Copyright (c) 2008, 2012 Oracle and/or its affiliates.
+ * All rights reserved. Use is subject to license terms.
+ *
+ * This file is available and licensed under the following license:
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  - Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in
+ *    the documentation and/or other materials provided with the distribution.
+ *  - Neither the name of Oracle Corporation nor the names of its
+ *    contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/* ====== CANDLE STICK CHART =========================================================== */
+.candlestick-tooltip-label {
+    -fx-font-size: 0.75em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+    -fx-padding: 2 5 2 0;
+}
+.candlestick-average-line {
+    -fx-stroke: #106ece;
+    -fx-stroke-width: 2px;
+}
+.candlestick-candle {
+    -fx-effect: dropshadow( two-pass-box , rgba(0,0,0,0.4) , 10, 0.0 , 2 , 4 );
+}
+.candlestick-line {
+    -fx-stroke: #666666;
+    -fx-stroke-width: 3px;
+}
+.candlestick-bar {
+    -fx-padding: 5;
+    -demo-bar-fill: red;
+    -fx-background-color: linear-gradient(derive(-demo-bar-fill,-30%), derive(-demo-bar-fill,-40%)),
+                          linear-gradient(derive(-demo-bar-fill,100%), derive(-demo-bar-fill, 10%)),
+                          linear-gradient(derive(-demo-bar-fill,30%), derive(-demo-bar-fill,-10%));
+    -fx-background-insets: 0,1,2;
+}
+.candlestick-bar.close-above-open {
+    -demo-bar-fill: #95ce1b;
+}
+.candlestick-bar.open-above-close {
+    -demo-bar-fill: #ce2700;
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/java-javafx-candle-stick-chart-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

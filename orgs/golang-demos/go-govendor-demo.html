@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/golang-demos/index.html">golang-demos</a></span><span> &gt; </span><span class="repo-name">go-govendor-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Govendor Demo
+=============
+
+Try to use [govendor](https://github.com/kardianos/govendor) to manage go dependency packages.
+
+Install govendor:
+
+```
+go get -u github.com/kardianos/govendor
+```
+
+Fetch dependencies to `verdor`:
+
+```
+govendor sync
+```
+
+Run:
+
+```
+go run hello.go
+```
+
+Notice
+------
+
+1. Can't fetch `golang.org/...` packages directly. So `govendor fetch golang.org/x/net/context@a4bbce9fcae005b22ae5443f6af064d80a6f5a55` in README of govendor can't run successfully.
+2. &lt;https://github.com/northbright/Notes/blob/master/Golang/china/get-golang-packages-on-golang-org-in-china.md&gt;
+3. An issue about govendor: [govendor fetch gets empty directories but not report any error](https://github.com/kardianos/govendor/issues/401)</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/golang-demos/go-govendor-demo/blob/master/hello.go" target="_blank">hello.go</a></div>
+            <div class="path">hello.go</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="go">package main;
+
+import (
+	&quot;github.com/pkg/errors&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+	err := errors.New(&quot;hello my error&quot;)
+	fmt.Println(err)
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/golang-demos/go-govendor-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/golang-demos/go-govendor-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">ant-java</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Ant Java Demo
+==============
+
+Compile, Run, and Jar
+
+```
+brew install ant
+```
+
+Run:
+
+```
+ant
+```
+
+or
+
+```
+ant run
+```
+
+You will see:
+
+```
+compile:
+    [javac] /Users/freewind/workspace/ant-javac/build.xml:9: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 1 source file to /Users/freewind/workspace/ant-javac/build/classes
+
+run:
+     [java] Hello, java
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
+
+Package a `jar` file and run it:
+
+```
+java jar
+```
+
+Then:
+
+```
+java -jar build/hello.jar
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/ant-java/blob/master/build.xml" target="_blank">build.xml</a></div>
+            <div class="path">build.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;project name=&quot;ant-demo&quot; basedir=&quot;.&quot; default=&quot;run&quot;&gt;
+	&lt;target name=&quot;clean&quot;&gt;
+		&lt;delete dir=&quot;${basedir}/build&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;compile&quot;&gt;
+		&lt;mkdir dir=&quot;${basedir}/build/classes&quot; /&gt;
+		&lt;javac srcdir=&quot;${basedir}&quot; destdir=&quot;${basedir}/build/classes&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;run&quot; depends=&quot;compile&quot;&gt;
+		&lt;java classname=&quot;Hello&quot;&gt;
+			&lt;classpath&gt;
+				&lt;pathelement path=&quot;${basedir}/build/classes&quot; /&gt;
+			&lt;/classpath&gt;
+		&lt;/java&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;jar&quot; depends=&quot;run&quot;&gt;
+		&lt;jar destfile=&quot;build/hello.jar&quot; basedir=&quot;${basedir}/build/classes&quot;&gt;
+			&lt;manifest&gt;
+				&lt;attribute name=&quot;Main-class&quot; value=&quot;Hello&quot; /&gt;
+			&lt;/manifest&gt;
+		&lt;/jar&gt; 
+	&lt;/target&gt;
+&lt;/project&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/ant-java/blob/master/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">public class Hello {
+	public static void main(String[] args) {
+		System.out.println(&quot;Hello, java&quot;);
+	}
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/ant-java">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/ant-java/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

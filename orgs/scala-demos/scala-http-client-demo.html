@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/scala-demos/index.html">scala-demos</a></span><span> &gt; </span><span class="repo-name">scala-http-client-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Scala Http Client Demo
+======================
+
+Run `HttpClientDemo` from IDEA
+
+Resources
+---------
+- &lt;https://github.com/softwaremill/sttp&gt;</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/scala-http-client-demo/blob/master/src/main/scala/my/HttpClientDemo.scala" target="_blank">HttpClientDemo.scala</a></div>
+            <div class="path">src/main/scala/my/HttpClientDemo.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package my
+
+import com.softwaremill.sttp._
+
+object HttpClientDemo extends App {
+
+  implicit val backend: SttpBackend[Id, Nothing] = HttpURLConnectionBackend()
+
+  val query = &quot;http language:scala&quot;
+  val request = sttp
+    .get(uri&quot;https://api.github.com/search/repositories?q=$query&quot;)
+    .headers(Map(&quot;header1&quot; -&gt; &quot;value1&quot;))
+  val response = request.send()
+  println(response.header(&quot;Content-Length&quot;))
+  println(response.unsafeBody)
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/scala-demos/scala-http-client-demo/blob/master/src/test/scala/my/HelloSpec.scala" target="_blank">HelloSpec.scala</a></div>
+            <div class="path">src/test/scala/my/HelloSpec.scala</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="scala">package my
+
+class HelloSpec {
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/scala-demos/scala-http-client-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/scala-demos/scala-http-client-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/chrome-dev-demos/index.html">chrome-dev-demos</a></span><span> &gt; </span><span class="repo-name">try-chrome-extension</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">A simple chrome extension to show current url</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/chrome-dev-demos/try-chrome-extension/blob/master/popup.html" target="_blank">popup.html</a></div>
+            <div class="path">popup.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;!--
+ This page is shown when the extension button is clicked, because the
+ &quot;browser_action&quot; field in manifest.json contains the &quot;default_popup&quot; key with
+ value &quot;popup.html&quot;.
+ --&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Getting Started Extension's Popup&lt;/title&gt;
+    &lt;style&gt;
+      body {
+        font-family: &quot;Segoe UI&quot;, &quot;Lucida Grande&quot;, Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 400px;
+      }
+    &lt;/style&gt;
+
+    &lt;!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     --&gt;
+    &lt;script src=&quot;popup.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;status&quot;&gt;&lt;/div&gt;
+    &lt;img id=&quot;image-result&quot; hidden&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/chrome-dev-demos/try-chrome-extension/blob/master/popup.js" target="_blank">popup.js</a></div>
+            <div class="path">popup.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">// Copyright (c) 2014 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+/**
+ * Get the current URL.
+ *
+ * @param {function(string)} callback - called when the URL of the current tab
+ *   is found.
+ */
+function getCurrentTabUrl(callback) {
+  // Query filter to be passed to chrome.tabs.query - see
+  // https://developer.chrome.com/extensions/tabs#method-query
+  var queryInfo = {
+    active: true,
+    currentWindow: true
+  };
+
+  chrome.tabs.query(queryInfo, function(tabs) {
+    // chrome.tabs.query invokes the callback with a list of tabs that match the
+    // query. When the popup is opened, there is certainly a window and at least
+    // one tab, so we can safely assume that |tabs| is a non-empty array.
+    // A window can only have one active tab at a time, so the array consists of
+    // exactly one tab.
+    var tab = tabs[0];
+
+    // A tab is a plain object that provides information about the tab.
+    // See https://developer.chrome.com/extensions/tabs#type-Tab
+    var url = tab.url;
+
+    // tab.url is only available if the &quot;activeTab&quot; permission is declared.
+    // If you want to see the URL of other tabs (e.g. after removing active:true
+    // from |queryInfo|), then the &quot;tabs&quot; permission is required to see their
+    // &quot;url&quot; properties.
+    console.assert(typeof url == 'string', 'tab.url should be a string');
+
+    callback(url);
+  });
+
+  // Most methods of the Chrome extension APIs are asynchronous. This means that
+  // you CANNOT do something like this:
+  //
+  // var url;
+  // chrome.tabs.query(queryInfo, function(tabs) {
+  //   url = tabs[0].url;
+  // });
+  // alert(url); // Shows &quot;undefined&quot;, because chrome.tabs.query is async.
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  getCurrentTabUrl(function(url) {
+    // Put the image URL in Google search.
+    alert(&quot;current url is: &quot; + url);
+  });
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/chrome-dev-demos/try-chrome-extension">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/chrome-dev-demos/try-chrome-extension/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

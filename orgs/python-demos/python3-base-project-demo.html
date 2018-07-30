@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/python-demos/index.html">python-demos</a></span><span> &gt; </span><span class="repo-name">python3-base-project-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Python3 Hello World Demo
+=========================
+
+Install `python3`:
+
+```
+brew install python
+```
+
+`python3` and `pip3` will be available.
+
+Run:
+
+```
+make init
+make test
+```
+
+Note:
+
+Install current package:
+
+```
+python3 setup.py install
+```
+
+or for development:
+
+```
+python3 setup.py develop
+```
+
+Resources
+---------
+
+- &lt;https://www.kennethreitz.org/essays/repository-structure-and-python&gt;
+- &lt;https://github.com/kennethreitz/samplemod&gt;
+- &lt;https://stackoverflow.com/questions/1471994/what-is-setup-py&gt;
+- pypi packages: &lt;https://pypi.python.org/pypi&gt;</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/hello/__init__.py" target="_blank">__init__.py</a></div>
+            <div class="path">hello/__init__.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py">from .core import hmm</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/hello/core.py" target="_blank">core.py</a></div>
+            <div class="path">hello/core.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from . import helpers
+
+def get_hmm():
+    &quot;&quot;&quot;Get a thought.&quot;&quot;&quot;
+    return 'hmmm...'
+
+def hmm():
+    &quot;&quot;&quot;Contemplation...&quot;&quot;&quot;
+    if helpers.get_answer():
+        print(get_hmm())</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/hello/helpers.py" target="_blank">helpers.py</a></div>
+            <div class="path">hello/helpers.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py">def get_answer():
+    &quot;&quot;&quot;Get an answer.&quot;&quot;&quot;
+    return True</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/requirements.txt" target="_blank">requirements.txt</a></div>
+            <div class="path">requirements.txt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="txt">nose&gt;=1.3.7
+sphinx</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/setup.py" target="_blank">setup.py</a></div>
+            <div class="path">setup.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name='hello',
+    version='1.0',
+    description='Hello',
+    author='Freewind',
+    author_email='nowindlee@gmail.com',
+    packages=['hello'],
+    install_requires=[]
+)</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/tests/__init__.py" target="_blank">__init__.py</a></div>
+            <div class="path">tests/__init__.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"></code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/tests/context.py" target="_blank">context.py</a></div>
+            <div class="path">tests/context.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+import hello</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/tests/test_advanced.py" target="_blank">test_advanced.py</a></div>
+            <div class="path">tests/test_advanced.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+
+class AdvancedTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Advanced test cases.&quot;&quot;&quot;
+
+    def test_thoughts(self):
+        self.assertIsNone(hello.hmm())
+
+
+if __name__ == '__main__':
+    unittest.main()</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/python-demos/python3-base-project-demo/blob/master/tests/test_basic.py" target="_blank">test_basic.py</a></div>
+            <div class="path">tests/test_basic.py</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+class BasicTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
+
+    def test_absolute_truth_and_meaning(self):
+        assert True
+
+if __name__ == '__main__':
+    unittest.main()</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/python-demos/python3-base-project-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/python-demos/python3-base-project-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">eslint-checking-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">#Harry Potter
+To try and encourage more sales of the 5 different Harry Potter books they sell, a bookshop has decided to offer discounts of multiple-book purchases.
+
+One copy of any of the five books costs 8 EUR.
+
+If, however, you buy two different books, you get a 5% discount on those two books.
+
+If you buy 3 different books, you get a 10% discount.
+
+If you buy 4 different books, you get a 20% discount.
+
+If you go the whole hog, and buy all 5, you get a huge 25% discount.
+
+Note that if you buy, say, four books, of which 3 are different titles, you get a 10% discount on the 3 that form part of a set, but the fourth book still costs 8 EUR.
+
+Your mission is to write a piece of code to calculate the price of any conceivable shopping basket (containing only Harry Potter books), giving as big a discount as possible.
+
+For example, how much does this basket of books cost?
+
+2 copies of the first book
+2 copies of the second book
+2 copies of the third book
+1 copy of the fourth book
+1 copy of the fifth book
+One way of group these 8 books is:
+
+ 1 group of 5 --&gt; 25% discount (1st,2nd,3rd,4th,5th)
++1 group of 3 --&gt; 10% discount (1st,2nd,3rd)
+This would give a total of
+
+ 5 books at a 25% discount
++3 books at a 10% discount
+Giving
+
+ 5 x (8 - 2.00) == 5 x 6.00 == 30.00
++3 x (8 - 0.80) == 3 x 7.20 == 21.60
+For a total of 51.60
+
+However, a different way to group these 8 books is:
+
+ 1 group of 4 books --&gt; 20% discount  (1st,2nd,3rd,4th)
++1 group of 4 books --&gt; 20% discount  (1st,2nd,3rd,5th)
+This would give a total of
+
+ 4 books at a 20% discount
++4 books at a 20% discount
+Giving
+
+ 4 x (8-1.60) == 4 x 6.40 == 25.60
++4 x (8-1.60) == 4 x 6.40 == 25.60
+For a total of 51.20
+
+And 51.20 is the price with the biggest discount.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/eslint-checking-demo/blob/master/js/src/book.js" target="_blank">book.js</a></div>
+            <div class="path">js/src/book.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+
+function Book(section) {
+  this.section = section;
+    this.price = 8;
+}
+
+var nnn = &quot;nnnnnn&quot;;
+var str = &quot;aaa&quot; + nnn + &quot;bbb&quot;;
+
+module.exports = Book;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/eslint-checking-demo/blob/master/js/src/calculator.js" target="_blank">calculator.js</a></div>
+            <div class="path">js/src/calculator.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+
+function Calculator() {
+    this.packagesCount = [];
+    this.amount = 0;
+}
+
+// hello
+/*
+function hello() {}
+*/
+
+/* as */
+Calculator.prototype.calculateAmount = function (packager) {
+    var _this = this;
+
+    this.packagesCount.push(packager.oneBook, packager.twoDifferentBooks, packager.threeDifferentBooks, packager.fourDifferentBooks, packager.fiveDifferentBooks);
+
+    this.packagesCount.forEach(function (packageCount, index) {
+        _this.amount += _this.getSubtotal(index + 1, packageCount)
+    });
+};
+
+Calculator.prototype.getSubtotal = function (bookNumber, count) {
+    if (bookNumber === 1) {
+        return 8 * count;
+    } else if (bookNumber === 2) {
+        return 15.2 * count;
+    } else if (bookNumber === 3) {
+        return 21.6 * count;
+    } else if (bookNumber === 4) {
+        return 25.6 * count;
+    } else {
+        return 30 * count;
+    }
+};
+
+module.exports = Calculator;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/eslint-checking-demo/blob/master/js/src/cart.js" target="_blank">cart.js</a></div>
+            <div class="path">js/src/cart.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+
+function Cart() {
+    this.bookOneCount= 0;
+    this.bookTwoCount =0;
+    this.bookThreeCount = 0;
+    this.bookFourCount = 0;
+    this.bookFiveCount = 0;
+}
+
+Cart.prototype.addBooks = function (book, count) {
+    if (book.section === 1) {
+    this.bookOneCount += count;
+    } else if (book.section === 2) {
+        this.bookTwoCount += count;
+    } else if (book.section === 3) {
+        this.bookThreeCount += count;
+    } else if (book.section === 4) {
+        this.bookFourCount += count;
+    } else {
+        this.bookFiveCount += count;
+    }
+};
+
+module.exports = Cart;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/eslint-checking-demo/blob/master/js/src/packager.js" target="_blank">packager.js</a></div>
+            <div class="path">js/src/packager.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">'use strict';
+
+function Packager() {
+    this.booksCount = [];
+    this.oneBook = 0;
+    this.twoDifferentBooks = 0;
+    this.threeDifferentBooks = 0;
+    this.fourDifferentBooks = 0;
+    this.fiveDifferentBooks = 0;
+}
+
+Packager.prototype.subpackageBooks = function (cart) {
+    this.booksCount.push(cart.bookOneCount, cart.bookTwoCount, cart.bookThreeCount, cart.bookFourCount, cart.bookFiveCount);
+
+    this.booksCount.sort(function (a, b) {
+        return b - a;
+    });
+
+    do {
+        var differentBooksCount = this.countDifferentBooks();
+
+        this.subBooksCount(differentBooksCount);
+
+        this.addPackages(differentBooksCount);
+
+    } while (this.countDifferentBooks() &gt; 0);
+
+    this.optimizeStrategy();
+};
+
+Packager.prototype.countDifferentBooks = function () {
+    return this.booksCount.filter(function (bookCount) {
+        return bookCount &gt; 0;
+    }).length;
+};
+
+Packager.prototype.subBooksCount = function (count) {
+    for (var i = 0; i &lt; count; i++) {
+        this.booksCount[i]--;
+    }
+};
+
+Packager.prototype.addPackages = function (count) {
+    if (count === 1) {
+        this.oneBook++;
+    } else if (count === 2) {
+        this.twoDifferentBooks++;
+    } else if (count === 3) {
+        this.threeDifferentBooks++;
+    } else if (count === 4) {
+        this.fourDifferentBooks++;
+    } else {
+        this.fiveDifferentBooks++;
+    }
+};
+
+Packager.prototype.optimizeStrategy = function () {
+    while (this.fiveDifferentBooks &gt; 0 &amp;&amp; this.threeDifferentBooks &gt; 0) {
+        this.fiveDifferentBooks--;
+        this.threeDifferentBooks--;
+        this.fourDifferentBooks += 2;
+    }
+};
+
+module.exports = Packager;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/eslint-checking-demo/blob/master/README.md" target="_blank">README.md</a></div>
+            <div class="path">README.md</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="md">How to use ESLint to check js code
+==================================
+
+```
+npm install -g eslint
+
+cd js
+npm install
+eslint src --rulesdir ./node_modules/eslint-rules/
+```
+
+You will see all the issues eslint found in the console. For now, it's:
+
+```
+ js git:(master) eslint src --rulesdir ./node_modules/eslint-rules/
+
+/Users/twer/workspace/eslint-checking-demo/js/src/book.js
+  4:3   error  Expected indentation of 4 space characters but found 2  indent
+  9:5   error  &quot;str&quot; is defined but never used                         no-unused-vars
+  9:11  error  Unexpected string concatenation                         prefer-template
+
+/Users/twer/workspace/eslint-checking-demo/js/src/calculator.js
+   9:1   warning  commented out code &quot;function hello() {}&quot; (3 lines)  no-commented-out-code
+  20:67  error    Missing semicolon                                   semi
+  24:36  error    Function 'anonymous' has a complexity of 5          complexity
+
+/Users/twer/workspace/eslint-checking-demo/js/src/cart.js
+   4:22  error  Infix operators must be spaced                          space-infix-ops
+   5:23  error  Infix operators must be spaced                          space-infix-ops
+  11:27  error  Function 'anonymous' has a complexity of 5              complexity
+  13:5   error  Expected indentation of 8 space characters but found 4  indent
+
+/Users/twer/workspace/eslint-checking-demo/js/src/packager.js
+   0:0   error  file line count 65 exceeded line limit 50                        no-long-files
+  12:38  error  This function has too many statements (7). Maximum allowed is 6  max-statements
+  43:34  error  Function 'anonymous' has a complexity of 5                       complexity
+
+✖ 13 problems (12 errors, 1 warning)
+```
+
+Where are the rules from
+------------------------
+
+1. [eslint built-in rules](https://github.com/eslint/eslint/blob/master/conf/eslint.json)
+2. https://github.com/bahmutov/eslint-rules
+
+Where are the rules used when checking
+--------------------------------------
+
+`js/.eslintrc`, including all the used rules
+
+Note: the first argument for each rule means the level
+
+- `0`: disable
+- `1`: warning
+- `2`: error
+
+e.g.
+
+```
+&quot;indent&quot;: [2, 4]
+```
+
+The first `2` means `error`, and the second `4` means `4 spaces`
+
+How to generate basic rules file for eslint
+-------------------------------------------
+
+`eslint --init`
+
+Follow the instructions, finally there is an `.eslintrc` file generated.
+
+(I have already generated one in `js` directory)
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/eslint-checking-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/eslint-checking-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

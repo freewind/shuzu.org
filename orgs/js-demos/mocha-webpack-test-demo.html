@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">mocha-webpack-test-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Mocha Demo
+==========
+
+How to test react components if it uses webpack.
+
+```
+npm install
+npm test
+```
+
+References
+----------
+
+- https://github.com/zinserjan/mocha-webpack</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/mocha-webpack-test-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a></div>
+            <div class="path">spec/hello-spec.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from 'react';
+import Hello from '../src/hello.jsx';
+import chai from 'chai';
+import {shallow} from 'enzyme';
+
+chai.should();
+
+describe('react', () =&gt; {
+  it('renders the component to html', () =&gt; {
+    const wrapper = shallow(&lt;Hello/&gt;);
+    wrapper.html().should.equal('&lt;div class=&quot;hello&quot;&gt;hello&lt;/div&gt;');
+  });
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/mocha-webpack-test-demo/blob/master/spec/test_helper.js" target="_blank">test_helper.js</a></div>
+            <div class="path">spec/test_helper.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const jsdomGlobal = require('jsdom-global');
+
+jsdomGlobal();</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/mocha-webpack-test-demo/blob/master/webpack.config-test.js" target="_blank">webpack.config-test.js</a></div>
+            <div class="path">webpack.config-test.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const webpack = require('webpack');
+var nodeExternals = require('webpack-node-externals');
+
+module.exports = {
+  target: 'node', // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        presets: ['es2015', 'react']
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
+  }
+};
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/mocha-webpack-test-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/mocha-webpack-test-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

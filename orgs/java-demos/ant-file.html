@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">ant-file</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Ant File Demo
+==============
+
+File operations with ant.
+
+```
+brew install ant
+```
+
+Run:
+
+```
+ant
+```
+
+or show verbose message:
+
+```
+ant -verbose
+```
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/ant-file/blob/master/build.xml" target="_blank">build.xml</a></div>
+            <div class="path">build.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;project name=&quot;ant-demo&quot; default=&quot;file-operations&quot;&gt;
+	&lt;target name=&quot;file-operations&quot;&gt;
+		&lt;mkdir dir=&quot;build&quot; /&gt;
+		&lt;mkdir dir=&quot;build/dir-b&quot; /&gt;
+		&lt;echo file=&quot;build/a.txt&quot; message=&quot;demo file&quot; /&gt;
+		&lt;copy file=&quot;build/a.txt&quot; tofile=&quot;build/b.txt&quot; /&gt;
+		&lt;move file=&quot;build/a.txt&quot; tofile=&quot;build/a1.txt&quot; /&gt;
+		&lt;move file=&quot;build/b.txt&quot; todir=&quot;build/dir-b&quot; /&gt;
+		&lt;delete dir=&quot;build&quot; /&gt;
+	&lt;/target&gt;
+&lt;/project&gt;</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/ant-file">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/ant-file/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">fest-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Gradle Test
+==========
+
+A very simple java project with gradle.
+
+Run
+---
+
+    ./gradlew run
+
+Will print `HELLO, WORLD!`
+</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/fest-demo/blob/master/build.gradle" target="_blank">build.gradle</a></div>
+            <div class="path">build.gradle</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="gradle">apply plugin: 'java'
+apply plugin: 'idea'
+
+apply plugin:'application'
+mainClassName = &quot;my.Hello&quot;
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.apache.commons:commons-lang3:3.2.1',
+            'org.apache.commons:commons-io:1.3.2',
+            'com.google.guava:guava:16.0'
+    )
+    testCompile(
+        'junit:junit:4.11'
+    )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11';
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/fest-demo/blob/master/src/main/java/my/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/my/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package my;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(StringUtils.upperCase(&quot;Hello, world!&quot;));
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/fest-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/fest-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

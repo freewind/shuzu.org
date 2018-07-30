@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/kotlin-demos/index.html">kotlin-demos</a></span><span> &gt; </span><span class="repo-name">kotlin-build-tool-kobalt-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Kobalt Demo
+===========
+
+Use kobalt to compile and manage kotlin project.
+
+```
+brew install kobalt
+```
+
+```
+kobaltw --init kotlin
+```
+
+```
+./kobaltw compile
+./kobaltw test
+./kobaltw assemble
+```
+
+Reference
+---------
+
+- &lt;http://beust.com/kobalt/getting-started/index.html&gt; </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/build/Build.kt" target="_blank">Build.kt</a></div>
+            <div class="path">.kobalt/build/Build.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">import com.beust.kobalt.*
+import com.beust.kobalt.plugin.application.*
+import com.beust.kobalt.plugin.kotlin.*
+import com.beust.kobalt.plugin.packaging.*
+// /Users/freewind/workspace/kotlin-build-tool-kobalt-demo/kobalt/src/Build.kt
+
+val p = project {
+    name = &quot;kotlin-build-tool-kobalt-demo&quot;
+    group = &quot;com.example&quot;
+    artifactId = name
+    version = &quot;0.1&quot;
+
+    dependencies {
+//        compile(&quot;com.beust:jcommander:1.68&quot;)
+        compile(&quot;org.jetbrains.kotlin:kotlin-runtime:1.2.10&quot;)
+        compile(&quot;org.jetbrains.kotlin:kotlin-stdlib:1.2.10&quot;)
+    }
+
+    dependenciesTest {
+        compile(&quot;org.testng:testng:6.11&quot;)
+    }
+
+    assemble {
+        jar {
+        }
+    }
+
+    application {
+        mainClass = &quot;com.example.MainKt&quot;
+    }
+}</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/versionCheckTimestamp.txt" target="_blank">versionCheckTimestamp.txt</a></div>
+            <div class="path">.kobalt/versionCheckTimestamp.txt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="txt">2018-03-29T16:19:52.160Z</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/wrapperVersion.txt" target="_blank">wrapperVersion.txt</a></div>
+            <div class="path">.kobalt/wrapperVersion.txt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="txt">1.0.114</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/kobalt/src/Build.kt" target="_blank">Build.kt</a></div>
+            <div class="path">kobalt/src/Build.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">import com.beust.kobalt.*
+import com.beust.kobalt.plugin.packaging.*
+import com.beust.kobalt.plugin.application.*
+import com.beust.kobalt.plugin.kotlin.*
+
+val p = project {
+    name = &quot;kotlin-build-tool-kobalt-demo&quot;
+    group = &quot;com.example&quot;
+    artifactId = name
+    version = &quot;0.1&quot;
+
+    dependencies {
+//        compile(&quot;com.beust:jcommander:1.68&quot;)
+        compile(&quot;org.jetbrains.kotlin:kotlin-runtime:1.2.10&quot;)
+        compile(&quot;org.jetbrains.kotlin:kotlin-stdlib:1.2.10&quot;)
+    }
+
+    dependenciesTest {
+        compile(&quot;org.testng:testng:6.11&quot;)
+    }
+
+    assemble {
+        jar {
+        }
+    }
+
+    application {
+        mainClass = &quot;com.example.MainKt&quot;
+    }
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/src/main/kotlin/com/example/Main.kt" target="_blank">Main.kt</a></div>
+            <div class="path">src/main/kotlin/com/example/Main.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">package com.example
+
+fun main(args: Array&lt;String&gt;) = println(&quot;\n\nHello Kotlin world from Kobalt\n\n&quot;)</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/blob/master/src/test/kotlin/com/example/MainTest.kt" target="_blank">MainTest.kt</a></div>
+            <div class="path">src/test/kotlin/com/example/MainTest.kt</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="kt">package com.example
+
+import org.testng.annotations.Test
+
+class ExampleTest {
+    @Test
+    fun f() = println(&quot;Running test&quot;)
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/kotlin-demos/kotlin-build-tool-kobalt-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

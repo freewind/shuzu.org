@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">path-to-regexp-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">path-to-regexp demo
+===================
+
+path-to-regexp is used in express for defining paths of routes.
+
+Note
+----
+
+Current Express `4.14.0` is using an old version of [path-to-regexp 0.1.7](https://github.com/expressjs/express/blob/master/package.json#L47), 
+the rules are not the same for some examples (like `/ab*cd`, `/ab+cd`) 
+
+How to run
+----------
+
+```
+npm install
+node index.js
+```
+
+and see the outputs, and the code of `index.js`
+
+Docs
+----
+
+https://www.npmjs.com/package/path-to-regexp
+http://forbeslindesay.github.io/express-route-tester/
+
+A question
+----------
+
+http://stackoverflow.com/questions/37861777/whats-the-difference-between-foo-and-foo-in-express-routes</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/path-to-regexp-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">var _ = require(&quot;lodash&quot;);
+var pathToRegexp = require('path-to-regexp');
+
+var data = {
+    &quot;/abc&quot;: {
+        good: [&quot;/abc&quot;],
+        bad: [&quot;/abc2&quot;]
+    },
+    &quot;/index.json&quot;: {
+        good: [&quot;/index.json&quot;],
+        bad: [&quot;/index_json&quot;]
+    },
+    &quot;/index(.)json&quot;: {
+        good: [&quot;/index.json&quot;, &quot;/index_json&quot;],
+        bad: [&quot;/indexjson&quot;, &quot;/index__json&quot;]
+    },
+    &quot;/:name&quot;: {
+        good: [&quot;/mike&quot;, &quot;/mike/&quot;],
+        bad: [&quot;/mike/jackson&quot;]
+    },
+    &quot;/aaa/:name&quot;: {
+        good: [&quot;/aaa/mike&quot;],
+        bad: [&quot;/aaa&quot;, &quot;/aaa/mike/bbb&quot;]
+    },
+    &quot;/aaa:name&quot;: {
+        good: [&quot;/aaa123&quot;],
+        bad: [&quot;/aaa&quot;, &quot;/aaa/&quot;]
+    },
+    &quot;/:foo/:bar&quot;: {
+        good: [&quot;/aaa/bbb&quot;, &quot;/aaa/bbb/&quot;],
+        bad: [&quot;/aaa&quot;, &quot;/aaa/&quot;, &quot;/aaa/bbb/ccc&quot;]
+    },
+    &quot;/:foo/:bar?&quot;: {
+        good: [&quot;/aaa&quot;, &quot;/aaa/&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/&quot;],
+        bad: [&quot;/aaa/bbb/ccc&quot;]
+    },
+    &quot;/:foo*&quot;: {
+        good: [&quot;/&quot;, &quot;/aaa&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/ccc&quot;],
+        bad: []
+    },
+    &quot;/:foo(.*)&quot;: {
+        good: [&quot;/&quot;, &quot;/aaa&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/ccc&quot;],
+        bad: []
+    },
+    &quot;/:foo+&quot;: {
+        good: [&quot;/aaa&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/ccc&quot;],
+        bad: [&quot;/&quot;]
+    },
+    &quot;/ab?cd&quot;: {
+        good: [&quot;/ab?cd&quot;],
+        bad: [&quot;/abcd&quot;, &quot;/acd&quot;, &quot;/abbcd&quot;, &quot;a&quot;]
+    },
+    &quot;/ab+cd&quot;: {
+        good: [&quot;/ab+cd&quot;],
+        bad: [&quot;/abcd&quot;, &quot;/abbcd&quot;, &quot;/abbbcd&quot;, &quot;/acd&quot;]
+    },
+    &quot;/ab*cd&quot;: {
+        good: [&quot;/abcd&quot;, &quot;/abbcd&quot;, &quot;/abxxxxcd&quot;],
+        bad: [&quot;/a&quot;, &quot;/abx&quot;]
+    },
+    &quot;/ab(cd)?e&quot;: {
+        good: [&quot;/abcde&quot;, &quot;/abe&quot;],
+        bad: [&quot;/abce&quot;, &quot;/abde&quot;]
+    },
+    &quot;/:foo(\\d+)&quot;: {
+        good: [&quot;/1&quot;, &quot;/123&quot;],
+        bad: [&quot;/&quot;, &quot;/abc&quot;]
+    },
+    &quot;/:foo/(.*)&quot;: {
+        good: [&quot;/aaa/&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/ccc&quot;],
+        bad: [&quot;/&quot;, &quot;/aaa&quot;]
+    },
+    &quot;/aaa/*&quot;: {
+        good: [&quot;/aaa/&quot;, &quot;/aaa/bbb&quot;, &quot;/aaa/bbb/ccc&quot;],
+        bad: [&quot;/aaa&quot;, &quot;/&quot;]
+    },
+    &quot;/(apple-)?icon-:res(\\d+).png&quot;: {
+        good: [&quot;/icon-76.png&quot;, &quot;/apple-icon-7.png&quot;],
+        bad: [&quot;/orange-icon-76.png&quot;, &quot;/icon-a.png&quot;, &quot;/icon-.png&quot;, &quot;/icon-76&quot;]
+    }
+};
+
+function checkPaths(collection, r, expected) {
+    _.each(collection, function (realPath) {
+        var result = r.test(realPath);
+        var hasError = (result !== expected);
+        console.log(realPath + &quot; &gt;&gt;&gt; &quot; + result + &quot; &quot; + (hasError ? &quot;(*)&quot; : &quot;&quot;));
+        if (result) {
+            console.log(r.exec(realPath));
+        }
+    });
+}
+
+_.each(data, function (goodNBad, pathDef) {
+    console.log(&quot;----------- &quot; + pathDef + &quot; -----------&quot;);
+    var r = pathToRegexp(pathDef);
+    console.log(r);
+    console.log();
+
+    console.log(&quot;== good paths:&quot;);
+    checkPaths(goodNBad.good, r, true);
+
+    console.log(&quot;== bad paths:&quot;);
+    checkPaths(goodNBad.bad, r, false);
+
+    console.log();
+});
+</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/path-to-regexp-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/path-to-regexp-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

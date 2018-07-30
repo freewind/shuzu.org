@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">webpack-bootstrap3-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Webpack Bootstrap3 Demo
+========================
+
+Use bootstrap3 with webpack. We use `bootstrap-webpack` to make it easy.
+
+Please note the definations in `webpack.config.js`.
+
+The more detailed document, please see: &lt;https://www.npmjs.com/package/bootstrap-webpack&gt;
+
+```
+npm install -g webpack
+npm install
+webpack
+```
+
+Then open `index.html` in your browser, you will see a bootstrap button.
+
+How to add `bootstrap-webpack` to your project
+----------------------------------------------
+
+```
+npm install --save bootstrap bootstrap-webpack jquery
+
+npm install --save-dev less less-loader style-loader url-loader css-loader exports-loader expose-loader extract-text-webpack-plugin file-loader imports-loader
+```
+
+Also add content of `webpack.config.js`(`loaders` part) to your project.
+
+About generated strange font file
+---------------------------------
+
+for now, we can just ignore them by adding to `.gitignore`:
+
+```
+/*.ttf
+/*.svg
+/*.woff
+/*.woff2
+/*.eot
+```
+
+Notice the leading `/` which means just ignore the font files under the project root.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/webpack-bootstrap3-demo/blob/master/entry.js" target="_blank">entry.js</a></div>
+            <div class="path">entry.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">require('jquery');
+require(&quot;bootstrap-webpack&quot;);
+require('./index.css');
+
+document.write('it works!');</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/webpack-bootstrap3-demo/blob/master/index.css" target="_blank">index.css</a></div>
+            <div class="path">index.css</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="css">body {
+  background-color: yellow;
+}</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/webpack-bootstrap3-demo/blob/master/index.html" target="_blank">index.html</a></div>
+            <div class="path">index.html</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;This is Bootstrap Button&lt;/button&gt;
+	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/webpack-bootstrap3-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a></div>
+            <div class="path">webpack.config.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">module.exports = {
+  entry: './entry.js',
+  output: {
+    path: __dirname,
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: 'style!css' // note style is before css
+    }, {
+      test: /\.(woff|woff2)$/,
+      loader: &quot;url-loader?limit=10000&amp;mimetype=application/font-woff&quot;
+    }, {
+      test: /\.ttf$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.eot$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.svg$/,
+      loader: &quot;file-loader&quot;
+    }, { 
+      test: require.resolve(&quot;jquery&quot;), 
+      loader: &quot;expose?$!expose?jQuery&quot; 
+    }]
+  }
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/webpack-bootstrap3-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/webpack-bootstrap3-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

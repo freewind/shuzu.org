@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/js-demos/index.html">js-demos</a></span><span> &gt; </span><span class="repo-name">my-async-series-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">A very simple implementation of [async](https://github.com/caolan/async)'s `series`.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/my-async-series-demo/blob/master/index.js" target="_blank">index.js</a></div>
+            <div class="path">index.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">const series = require('./series');
+
+function inc(n, callback) {
+  setTimeout(function() {
+    callback(null, n + 1);
+  }, 100);
+}
+
+function err(n, callback) {
+  setTimeout(function() {
+    callback('my-err', null);
+  }, 100);
+}
+
+series([
+  function(cb) {inc(3, cb); },
+  function(cb) {inc(8, cb); },
+  function(cb) {inc(2, cb); }
+], function(err, results) {
+  console.log('err: ', err);
+  console.log('results: ', results);
+});
+
+series([
+  function(cb) {inc(3, cb); },
+  function(cb) {err(8, cb); },
+  function(cb) {inc(2, cb); }
+], function(err, results) {
+  console.log('err: ', err);
+  console.log('results: ', results);
+});</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/js-demos/my-async-series-demo/blob/master/series.js" target="_blank">series.js</a></div>
+            <div class="path">series.js</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="js">function _series(tasks, callback, err, result) {
+  if (err) {
+    return callback(err, result);
+  }
+  if (tasks.length === 0) {
+    return callback(null, result);
+  }
+  const firstTask = tasks.shift()
+  firstTask(function(err, data) {
+    if (err) return _series([], callback, err, result);
+    result.push(data);
+    _series(tasks, callback, null, result);
+  })
+}
+
+module.exports = function series(tasks, callback) {
+  _series(tasks, callback, null, []);
+}</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/js-demos/my-async-series-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/js-demos/my-async-series-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>

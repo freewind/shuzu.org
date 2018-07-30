@@ -1,0 +1,483 @@
+<html>
+  <head>
+    <title>数组网 - 彪悍的Demo无需解释</title>
+    <link href="/css/site.css" rel="stylesheet">
+    <script src="/js/less-3.8.0.min.js"></script>
+    <link href="/css/github-markdown-2.10.0.css" rel="stylesheet">
+    <script src="/js/markdown-0.5.0.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div class="site-slogan">彪悍的Demo无须解释</div>
+      <div><span class="site-name"><a href="/">数组网</a></span><span class="site-url"><a href="shuzu.org">shuzu.org</a></span></div>
+    </div>
+    <div id="main">
+      <div id="repo-main">
+        <div class="navigation"><span><a href="/">数组网</a></span><span> &gt; </span><span class="org-link"><a href="/orgs/java-demos/index.html">java-demos</a></span><span> &gt; </span><span class="repo-name">java-commonmark-demo</span><span class="repo-description"></span></div>
+        <div id="readme">
+          <div class="markdown markdown-body">Java CommonMark Demo
+====================
+
+Use [commonmark-java](https://github.com/atlassian/commonmark-java) to render markdown text to html.
+
+Run `Hello.java` in your IDE.</div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-commonmark-demo/blob/master/pom.xml" target="_blank">pom.xml</a></div>
+            <div class="path">pom.xml</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;java-commonmark-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;java-commonmark-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.atlassian.commonmark&lt;/groupId&gt;
+            &lt;artifactId&gt;commonmark&lt;/artifactId&gt;
+            &lt;version&gt;0.11.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;freewind.github&lt;/groupId&gt;
+            &lt;artifactId&gt;lost-list-creator&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-commonmark-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a></div>
+            <div class="path">src/main/java/demo/Hello.java</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="java">package demo;
+
+import org.apache.commons.io.IOUtils;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+public class Hello {
+
+    public static void main(String[] args) throws IOException {
+        String md = readMarkdownFile();
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(md);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String html = renderer.render(document);
+        System.out.println(html);
+    }
+    private static String readMarkdownFile() throws IOException {
+        return IOUtils.toString(Hello.class.getClassLoader().getResourceAsStream(&quot;hello.md&quot;), Charset.defaultCharset());
+    }
+
+}
+</code></pre>
+          </div>
+        </div>
+        <div class="code-file panel markdown-body">
+          <div class="header">
+            <div class="name"><a href="https://github.com/java-demos/java-commonmark-demo/blob/master/src/main/resources/hello.md" target="_blank">hello.md</a></div>
+            <div class="path">src/main/resources/hello.md</div>
+          </div>
+          <div class="body">
+            <pre class="content"><code class="md">commonmark-java
+===============
+
+Java library for parsing and rendering [Markdown] text according to the
+[CommonMark] specification (and some extensions).
+
+[![Maven Central status](https://img.shields.io/maven-central/v/com.atlassian.commonmark/commonmark.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.atlassian.commonmark%22)
+[![javadoc](https://www.javadoc.io/badge/com.atlassian.commonmark/commonmark.svg?color=blue)](https://www.javadoc.io/doc/com.atlassian.commonmark/commonmark)
+[![Build status](https://travis-ci.org/atlassian/commonmark-java.svg?branch=master)](https://travis-ci.org/atlassian/commonmark-java)
+[![codecov](https://codecov.io/gh/atlassian/commonmark-java/branch/master/graph/badge.svg)](https://codecov.io/gh/atlassian/commonmark-java)
+
+Introduction
+------------
+
+Provides classes for parsing input to an abstract syntax tree of nodes
+(AST), visiting and manipulating nodes, and rendering to HTML. It
+started out as a port of [commonmark.js], but has since evolved into a
+full library with a nice API and the following features:
+
+* Small (core has no dependencies, extensions in separate artifacts)
+* Fast (10-20 times faster than pegdown, see benchmarks in repo)
+* Flexible (manipulate the AST after parsing, customize HTML rendering)
+* Extensible (tables, strikethrough, autolinking and more, see below)
+
+The library is supported on Java 8 and Java 9. It should work on Java 7
+and Android too, but that is on a best-effort basis, please report
+problems. For Android the minimum API level is 15, see the
+[commonmark-android-test](commonmark-android-test) directory.
+
+Coordinates for core library (see all on [Maven Central]):
+
+```xml
+&lt;dependency&gt;
+    &lt;groupId&gt;com.atlassian.commonmark&lt;/groupId&gt;
+    &lt;artifactId&gt;commonmark&lt;/artifactId&gt;
+    &lt;version&gt;0.11.0&lt;/version&gt;
+&lt;/dependency&gt;
+```
+
+The module names to use in Java 9 are `org.commonmark`,
+`org.commonmark.ext.autolink`, etc, corresponding to package names.
+
+Note that for 0.x releases of this library, the API is not considered stable
+yet and may break between minor releases. After 1.0, [Semantic Versioning] will
+be followed.
+
+See the [spec.txt](commonmark-test-util/src/main/resources/spec.txt)
+file if you're wondering which version of the spec is currently
+implemented. Also check out the [CommonMark dingus] for getting familiar
+with the syntax or trying out edge cases.
+
+
+Usage
+-----
+
+#### Parse and render to HTML
+
+```java
+import org.commonmark.node.*;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
+Parser parser = Parser.builder().build();
+Node document = parser.parse(&quot;This is *Sparta*&quot;);
+HtmlRenderer renderer = HtmlRenderer.builder().build();
+renderer.render(document);  // &quot;&lt;p&gt;This is &lt;em&gt;Sparta&lt;/em&gt;&lt;/p&gt;\n&quot;
+```
+
+This uses the parser and renderer with default options. Both builders have
+methods for configuring their behavior, e.g. calling `escapeHtml(true)` on
+`HtmlRenderer` will escape raw HTML tags and blocks. For all available
+options, see methods on the builders.
+
+Note that this library doesn't try to sanitize the resulting HTML; that is
+the responsibility of the caller.
+
+For rendering to plain text, there's also a `TextContentRenderer` with
+a very similar API.
+
+#### Use a visitor to process parsed nodes
+
+After the source text has been parsed, the result is a tree of nodes.
+That tree can be modified before rendering, or just inspected without
+rendering:
+
+```java
+Node node = parser.parse(&quot;Example\n=======\n\nSome more text&quot;);
+WordCountVisitor visitor = new WordCountVisitor();
+node.accept(visitor);
+visitor.wordCount;  // 4
+
+class WordCountVisitor extends AbstractVisitor {
+    int wordCount = 0;
+
+    @Override
+    public void visit(Text text) {
+        // This is called for all Text nodes. Override other visit methods for other node types.
+
+        // Count words (this is just an example, don't actually do it this way for various reasons).
+        wordCount += text.getLiteral().split(&quot;\\W+&quot;).length;
+
+        // Descend into children (could be omitted in this case because Text nodes don't have children).
+        visitChildren(text);
+    }
+}
+```
+
+#### Add or change attributes of HTML elements
+
+Sometimes you might want to customize how HTML is rendered. If all you
+want to do is add or change attributes on some elements, there's a
+simple way to do that.
+
+In this example, we register a factory for an `AttributeProvider` on the
+renderer to set a `class=&quot;border&quot;` attribute on `img` elements.
+
+```java
+Parser parser = Parser.builder().build();
+HtmlRenderer renderer = HtmlRenderer.builder()
+        .attributeProviderFactory(new AttributeProviderFactory() {
+            public AttributeProvider create(AttributeProviderContext context) {
+                return new ImageAttributeProvider();
+            }
+        })
+        .build();
+
+Node document = parser.parse(&quot;![text](/url.png)&quot;);
+renderer.render(document);
+// &quot;&lt;p&gt;&lt;img src=\&quot;/url.png\&quot; alt=\&quot;text\&quot; class=\&quot;border\&quot; /&gt;&lt;/p&gt;\n&quot;
+
+class ImageAttributeProvider implements AttributeProvider {
+    @Override
+    public void setAttributes(Node node, String tagName, Map&lt;String, String&gt; attributes) {
+        if (node instanceof Image) {
+            attributes.put(&quot;class&quot;, &quot;border&quot;);
+        }
+    }
+}
+```
+
+#### Customize HTML rendering
+
+If you want to do more than just change attributes, there's also a way
+to take complete control over how HTML is rendered.
+
+In this example, we're changing the rendering of indented code blocks to
+only wrap them in `pre` instead of `pre` and `code`:
+
+```java
+Parser parser = Parser.builder().build();
+HtmlRenderer renderer = HtmlRenderer.builder()
+        .nodeRendererFactory(new HtmlNodeRendererFactory() {
+            public NodeRenderer create(HtmlNodeRendererContext context) {
+                return new IndentedCodeBlockNodeRenderer(context);
+            }
+        })
+        .build();
+
+Node document = parser.parse(&quot;Example:\n\n    code&quot;);
+renderer.render(document);
+// &quot;&lt;p&gt;Example:&lt;/p&gt;\n&lt;pre&gt;code\n&lt;/pre&gt;\n&quot;
+
+class IndentedCodeBlockNodeRenderer implements NodeRenderer {
+
+    private final HtmlWriter html;
+
+    IndentedCodeBlockNodeRenderer(HtmlNodeRendererContext context) {
+        this.html = context.getWriter();
+    }
+
+    @Override
+    public Set&lt;Class&lt;? extends Node&gt;&gt; getNodeTypes() {
+        // Return the node types we want to use this renderer for.
+        return Collections.&lt;Class&lt;? extends Node&gt;&gt;singleton(IndentedCodeBlock.class);
+    }
+
+    @Override
+    public void render(Node node) {
+        // We only handle one type as per getNodeTypes, so we can just cast it here.
+        IndentedCodeBlock codeBlock = (IndentedCodeBlock) node;
+        html.line();
+        html.tag(&quot;pre&quot;);
+        html.text(codeBlock.getLiteral());
+        html.tag(&quot;/pre&quot;);
+        html.line();
+    }
+}
+```
+
+#### Add your own node types
+
+In case you want to store additional data in the document or have custom
+elements in the resulting HTML, you can create your own subclass of
+`CustomNode` and add instances as child nodes to existing nodes.
+
+To define the HTML rendering for them, you can use a `NodeRenderer` as
+explained above.
+
+#### Thread-safety
+
+Both the `Parser` and `HtmlRenderer` are designed so that you can
+configure them once using the builders and then use them multiple
+times/from multiple threads. This is done by separating the state for
+parsing/rendering from the configuration.
+
+Having said that, there might be bugs of course. If you find one, please
+report an issue.
+
+### API documentation
+
+Javadocs are available online on
+[javadoc.io](https://www.javadoc.io/doc/com.atlassian.commonmark/commonmark).
+
+
+Extensions
+----------
+
+Extensions need to extend the parser, or the HTML renderer, or both. To
+use an extension, the builder objects can be configured with a list of
+extensions. Because extensions are optional, they live in separate
+artifacts, so additional dependencies need to be added as well.
+
+Let's look at how to enable tables from GitHub Flavored Markdown.
+First, add an additional dependency (see [Maven Central] for others):
+
+```xml
+&lt;dependency&gt;
+    &lt;groupId&gt;com.atlassian.commonmark&lt;/groupId&gt;
+    &lt;artifactId&gt;commonmark-ext-gfm-tables&lt;/artifactId&gt;
+    &lt;version&gt;0.9.0&lt;/version&gt;
+&lt;/dependency&gt;
+```
+
+Then, configure the extension on the builders:
+
+```java
+import org.commonmark.ext.gfm.tables.TablesExtension;
+
+List&lt;Extension&gt; extensions = Arrays.asList(TablesExtension.create());
+Parser parser = Parser.builder()
+        .extensions(extensions)
+        .build();
+HtmlRenderer renderer = HtmlRenderer.builder()
+        .extensions(extensions)
+        .build();
+```
+
+To configure another extension in the above example, just add it to the list.
+
+The following extensions are developed with this library, each in their
+own artifact.
+
+### Autolink
+
+Turns plain links such as URLs and email addresses into links (based on [autolink-java]).
+
+Use class `AutolinkExtension` from artifact `commonmark-ext-autolink`.
+
+### Strikethrough
+
+Enables strikethrough of text by enclosing it in `~~`. For example, in
+`hey ~~you~~`, `you` will be rendered as strikethrough text.
+
+Use class `StrikethroughExtension` in artifact `commonmark-ext-gfm-strikethrough`.
+
+### Tables
+
+Enables tables using pipes as in [GitHub Flavored Markdown][gfm-tables].
+
+Use class `TablesExtension` in artifact `commonmark-ext-gfm-tables`.
+
+### Heading anchor
+
+Enables adding auto generated &quot;id&quot; attributes to heading tags. The &quot;id&quot;
+is based on the text of the heading.
+
+`# Heading` will be rendered as:
+
+```
+&lt;h1 id=&quot;heading&quot;&gt;Heading&lt;/h1&gt;
+```
+
+Use class `HeadingAnchorExtension` in artifact `commonmark-ext-heading-anchor`.
+
+In case you want custom rendering of the heading instead, you can use
+the `IdGenerator` class directly together with a
+`HtmlNodeRendererFactory` (see example above).
+
+### Ins
+
+Enables underlining of text by enclosing it in `++`. For example, in
+`hey ++you++`, `you` will be rendered as underline text. Uses the &amp;lt;ins&amp;gt; tag.
+
+Use class `InsExtension` in artifact `commonmark-ext-ins`.
+
+### YAML front matter
+
+Adds support for metadata through a YAML front matter block. This extension only supports a subset of YAML syntax. Here's an example of what's supported:
+
+```
+---
+key: value
+list:
+  - value 1
+  - value 2
+literal: |
+  this is literal value.
+
+  literal values 2
+---
+
+document start here
+```
+
+Use class `YamlFrontMatterExtension` in artifact `commonmark-ext-yaml-front-matter`. To fetch metadata, use `YamlFrontMatterVisitor`.
+
+See also
+--------
+
+* [Markwon](https://github.com/noties/Markwon): Android library for rendering markdown as system-native Spannables
+* [flexmark-java](https://github.com/vsch/flexmark-java): Fork that added support for a lot more syntax and flexibility
+
+Contributing
+------------
+
+Pull requests, issues and comments welcome ☺. For pull requests:
+
+* Add tests for new features and bug fixes
+* Follow the existing style (always use braces, 4 space indent)
+* Separate unrelated changes into multiple pull requests
+
+See the existing &quot;help wanted&quot; issues for things to start contributing.
+
+For bigger changes, make sure you start a discussion first by creating
+an issue and explaining the intended change.
+
+Atlassian requires contributors to sign a Contributor License Agreement,
+known as a CLA. This serves as a record stating that the contributor is
+entitled to contribute the code/documentation/translation to the project
+and is willing to have it used in distributions and derivative works
+(or is willing to transfer ownership).
+
+Prior to accepting your first contribution we ask that you please follow the
+appropriate link below to digitally sign the CLA. The Corporate CLA is for those
+who are contributing as a member of an organization and the individual CLA is
+for those contributing as an individual.
+
+* [CLA for corporate contributors](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=e1c17c66-ca4d-4aab-a953-2c231af4a20b)
+* [CLA for individuals](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=3f94fbdc-2fbe-46ac-b14c-5d152700ae5d)
+
+License
+-------
+
+Copyright (c) 2015-2018 Atlassian and others.
+
+BSD (2-clause) licensed, see LICENSE.txt file.
+
+[CommonMark]: http://commonmark.org/
+[Markdown]: https://daringfireball.net/projects/markdown/
+[commonmark.js]: https://github.com/jgm/commonmark.js
+[CommonMark Dingus]: http://spec.commonmark.org/dingus/
+[Maven Central]: https://search.maven.org/#search|ga|1|g%3A%22com.atlassian.commonmark%22
+[Semantic Versioning]: http://semver.org/
+[autolink-java]: https://github.com/robinst/autolink-java
+[gfm-tables]: https://help.github.com/articles/organizing-information-with-tables/</code></pre>
+          </div>
+        </div>
+        <div class="github markdown-body"><span class="github-icon"><img src="/images/github.jpg"></span><span class="repo-url"><a href="https://github.com/java-demos/java-commonmark-demo">打开Github项目地址</a></span><span class="repo-issues"><a href="https://github.com/java-demos/java-commonmark-demo/issues?q=">有问题上Github Issues上讨论</a></span></div>
+      </div>
+    </div>
+    <script src="/js/site.js"></script>
+    <script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+  </body>
+</html>
