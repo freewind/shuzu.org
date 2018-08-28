@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>require-with-without-extension-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">require-with-without-extension-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/require-with-without-extension-demo/blob/master/utils.js" target="_blank">utils.js</a>
+        </div>
+        <div class="path">utils.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  hello : function() {
+    console.log(&#39;hello from utils.js&#39;);
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/require-with-without-extension-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&quot;-------- require(&#39;./utils.js&#39;) --------&quot;);
+var utils = require(&#39;./utils.js&#39;);
+utils.hello();
+
+console.log(&quot;-------- require(&#39;./utils&#39;) --------&quot;);
+var utils2 = require(&#39;./utils&#39;);
+utils2.hello();
+
+console.log(&quot;-------- require(&#39;./core&#39;) --------&quot;);
+var core = require(&#39;./core&#39;);
+core.hello();
+
+console.log(&quot;-------- require(&#39;./core.js&#39;) --------&quot;);
+try {
+  var core = require(&#39;./core.js&#39;);
+  core.hello();
+} catch (e) {
+  console.log(e.message);
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/require-with-without-extension-demo/blob/master/utils/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">utils/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  hello : function() {
+    console.log(&#39;hello from utils/index.js&#39;);
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/require-with-without-extension-demo/blob/master/core/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">core/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  hello : function() {
+    console.log(&#39;hello from core/index.js&#39;);
+  }
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/require-with-without-extension-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/require-with-without-extension-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

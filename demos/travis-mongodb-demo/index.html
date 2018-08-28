@@ -1,0 +1,158 @@
+<html>
+<head>
+    <title>travis-mongodb-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">travis-mongodb-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Travis Mongodb Demo
+===================
+
+Use mongodb provided by travis.
+
+![CI status](https://travis-ci.org/js-demos/travis-mongodb-demo.svg)
+
+```
+mkdir /tmp/travis-mongodb-demo-db
+mongod --dbpath /tmp/travis-mongodb-demo-db
+```
+
+```
+npm install
+npm test
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/travis-mongodb-demo/blob/master/spec/save-as-admin-spec.js" target="_blank">save-as-admin-spec.js</a>
+        </div>
+        <div class="path">spec/save-as-admin-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const db = require(&#39;../src/db&#39;);
+const User = require(&#39;../src/user&#39;);
+const saveAsAdmin = require(&#39;../src/save-as-admin&#39;);
+
+describe(&#39;user&#39;, () =&gt; {
+
+  beforeEach((done) =&gt; {
+    db.connect();
+    User.find().remove(function(err, data) {
+      if(err) return done.fail(err);
+      done();
+    })
+  });
+
+  afterEach((done) =&gt; {
+    db.close();
+    done();
+  });
+
+  it(&#39;saveAsAdmin&#39;, (done) =&gt; {
+    saveAsAdmin(&#39;Freewind&#39;, function(err, data) {
+      if(err) return done.fail(err);
+      User.find(function(err, data) {
+        if(err) return done.fail(err);
+        expect(data.length).toEqual(1);
+        done();
+      });
+    })
+  });
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/travis-mongodb-demo/blob/master/src/db.js" target="_blank">db.js</a>
+        </div>
+        <div class="path">src/db.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const mongoose = require(&#39;mongoose&#39;);
+
+const DB_NAME = &quot;travis-mongodb-demo-db&quot;;
+
+module.exports = {
+	connect: function() {
+		mongoose.connect(&#39;mongodb://localhost/&#39; + DB_NAME);
+	},
+	close: function() {
+		mongoose.connection.close();
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/travis-mongodb-demo/blob/master/src/user.js" target="_blank">user.js</a>
+        </div>
+        <div class="path">src/user.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const mongoose = require(&#39;mongoose&#39;);
+
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+	name: String,
+    admin: Boolean
+});
+
+// the collection&#39;s name is `users`
+const User = mongoose.model(&#39;User&#39;, userSchema);
+
+module.exports = User;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/travis-mongodb-demo/blob/master/src/save-as-admin.js" target="_blank">save-as-admin.js</a>
+        </div>
+        <div class="path">src/save-as-admin.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const db = require(&#39;./db.js&#39;);
+const User = require(&#39;./user.js&#39;);
+
+function saveAsAdmin(name, callback) {
+  const user = new User({
+    name: name,
+    admin: true
+  });
+
+  return user.save(callback);
+}
+
+module.exports = saveAsAdmin;
+
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/travis-mongodb-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/travis-mongodb-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

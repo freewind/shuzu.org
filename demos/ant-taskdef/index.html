@@ -1,0 +1,192 @@
+<html>
+<head>
+    <title>ant-taskdef - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">ant-taskdef</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Ant Custom Task Demo
+====================
+
+Create custom tasks used in build.xml.
+
+```
+brew install ant
+```
+
+Run:
+
+```
+ant
+```
+
+or
+
+```
+ant run-simple-task
+ant run-complex-task
+ant run-custom-ant-task
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-taskdef/blob/master/src/SimpleTask.java" target="_blank">SimpleTask.java</a>
+        </div>
+        <div class="path">src/SimpleTask.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">public class SimpleTask {
+	public void execute() {
+		System.out.println(&quot;This is a simple custom ant task.&quot;);
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-taskdef/blob/master/src/ComplexTask.java" target="_blank">ComplexTask.java</a>
+        </div>
+        <div class="path">src/ComplexTask.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">import java.util.List;
+import java.util.ArrayList;
+
+public class ComplexTask {
+	private String message = &quot;&quot;;
+
+	public void execute() {
+		System.out.println(&quot;Complex task: &quot; + message);
+
+		for(Command command: commands) {
+			System.out.println(&quot;command: &quot; + command.getContent());
+		}
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void addText(String text) {
+		this.message += &quot;\n&gt;&gt;&gt;&quot; + text.trim() + &quot;&lt;&lt;&lt;\n&quot;;
+	}
+
+	// nested elements ---------------- 
+
+	private List&lt;Command&gt; commands = new ArrayList();
+
+	public class Command {
+		private String content;
+		public void setContent(String content) {
+			this.content = content;
+		}
+		public String getContent() {
+			return this.content;
+		}
+	}
+
+	public Command createCommand() {
+		Command command = new Command();
+		this.commands.add(command);
+		return command;
+	}
+
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-taskdef/blob/master/src/CustomAntTask.java" target="_blank">CustomAntTask.java</a>
+        </div>
+        <div class="path">src/CustomAntTask.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">import org.apache.tools.ant.Task;
+
+public class CustomAntTask extends Task {
+
+	public void execute() {
+		String projectName = getProject().getProperty(&quot;ant.project.name&quot;);
+		String locationInBuildFile = getLocation().toString();
+		System.out.println(&quot;Line &quot; + locationInBuildFile + &quot; in project: &quot; + projectName);
+	}
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-taskdef/blob/master/build.xml" target="_blank">build.xml</a>
+        </div>
+        <div class="path">build.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;project name=&quot;ant-demo&quot; basedir=&quot;.&quot; default=&quot;all&quot;&gt;
+	&lt;target name=&quot;init&quot;&gt;
+		&lt;delete dir=&quot;${basedir}/build&quot; /&gt;
+		&lt;mkdir dir=&quot;${basedir}/build&quot; /&gt;
+		&lt;mkdir dir=&quot;${basedir}/build/classes&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;prepare&quot; depends=&quot;init&quot;&gt;
+		&lt;javac srcdir=&quot;${basedir}/src&quot; destdir=&quot;${basedir}/build/classes&quot; /&gt;
+		&lt;jar basedir=&quot;${basedir}/build/classes&quot;
+			destfile=&quot;${basedir}/build/tasks.jar&quot;  /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;run-simple-task&quot; depends=&quot;prepare&quot;&gt;
+		&lt;taskdef name=&quot;simple-task&quot; classname=&quot;SimpleTask&quot; classpath=&quot;${basedir}/build/tasks.jar&quot; /&gt;
+		&lt;simple-task /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;run-complex-task&quot; depends=&quot;prepare&quot;&gt;
+		&lt;taskdef name=&quot;complex-task&quot; classname=&quot;ComplexTask&quot; classpath=&quot;${basedir}/build/tasks.jar&quot; /&gt;
+		&lt;complex-task message=&quot;very complex&quot;&gt;
+			inner text1
+			&lt;command content=&quot;first command&quot; /&gt;
+			&lt;command content=&quot;second command&quot; /&gt;
+			inner text2
+		&lt;/complex-task&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;run-custom-ant-task&quot; depends=&quot;prepare&quot;&gt;
+		&lt;taskdef name=&quot;custom-ant-task&quot; classname=&quot;CustomAntTask&quot; classpath=&quot;${basedir}/build/tasks.jar&quot; /&gt;
+		&lt;custom-ant-task /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;all&quot; depends=&quot;run-simple-task, run-complex-task, run-custom-ant-task&quot; /&gt;
+
+&lt;/project&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/ant-taskdef">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/ant-taskdef/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

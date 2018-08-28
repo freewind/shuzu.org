@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>python3-ethereum-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">python3-ethereum-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 Ethereum Demo
+=====================
+
+This demo is to check an issue in another project which code can find `from ethereum.abi`, but it&#39;s OK in this demo.
+
+Install `python3`:
+
+```
+brew install python
+```
+
+`python3` and `pip3` will be available.
+
+Run:
+
+```
+make init
+make run
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/setup.py" target="_blank">setup.py</a>
+        </div>
+        <div class="path">setup.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name=&#39;hello&#39;,
+    version=&#39;1.0&#39;,
+    description=&#39;Hello&#39;,
+    author=&#39;Freewind&#39;,
+    author_email=&#39;nowindlee@gmail.com&#39;,
+    packages=[&#39;hello&#39;],
+    install_requires=[]
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">ethereum&gt;=2.0.4</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/hello/core.py" target="_blank">core.py</a>
+        </div>
+        <div class="path">hello/core.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from ethereum.abi import encode_abi, encode_int
+
+def encode_calldata(arg_types, args):
+    args = encode_abi(arg_types, args)
+    return args.hex()
+
+if __name__ == &#39;__main__&#39;:
+    print(encode_abi([&#39;uint256&#39;], [12345]))</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/hello/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">hello/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">from .core import hmm</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/python3-ethereum-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/python3-ethereum-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

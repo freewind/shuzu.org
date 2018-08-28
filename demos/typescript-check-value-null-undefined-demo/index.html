@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>typescript-check-value-null-undefined-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-check-value-null-undefined-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Check Value `null` or `undefined` Demo
+=================================================
+
+```
+npm install
+npx ts-node hello.ts
+```
+
+```
+a == null
+a is undefined (typeof(a) === &#39;undefined&#39;)
+b == null
+b is null (b === null)
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-check-value-null-undefined-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">const a = undefined
+const b = null
+
+function check(value: any, name: string) {
+    if (value == null) {
+        console.log(name + &#39; == null&#39;)
+    }
+    if (value === null) {
+        console.log(name + &#39; is null (&#39; + name + &#39; === null)&#39;)
+    }
+    if (typeof(value) === &#39;undefined&#39;) {
+        console.log(name + &#39; is undefined (typeof(&#39; + name + &#39;) === \&#39;undefined\&#39;)&#39;)
+    }
+}
+
+check(a, &#39;a&#39;)
+check(b, &#39;b&#39;)
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-check-value-null-undefined-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-check-value-null-undefined-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

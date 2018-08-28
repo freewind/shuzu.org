@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>python3-unittest-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">python3-unittest-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 Unit Test Demo
+=========================
+
+How to write and run unit test in python.
+
+- `unittest2` to write and run tests
+- `coverage` to generate HTML test report
+
+Install `python3`:
+
+```
+brew install python
+```
+
+`python3` and `pip3` will be available.
+
+Run:
+
+```
+make test
+```
+
+Or
+
+```
+python3 -m unittest discover -p &quot;test_*.py&quot;
+```
+
+Generate HTML Test Report
+-------------------------
+
+```
+coverage run --source=hello -m unittest discover -p &quot;test_*.py&quot;
+coverage html
+open htmlcov/index.html
+```
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/setup.py" target="_blank">setup.py</a>
+        </div>
+        <div class="path">setup.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name=&#39;python3-unittest-demo&#39;,
+    version=&#39;1.0&#39;,
+    description=&#39;Hello&#39;,
+    author=&#39;Freewind&#39;,
+    author_email=&#39;nowindlee@gmail.com&#39;,
+    packages=[&#39;hello&#39;],
+    install_requires=[&#39;html-testRunner&#39;]
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">html-testRunner
+coverage</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">hello/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/hello.py" target="_blank">hello.py</a>
+        </div>
+        <div class="path">hello/hello.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+
+def hello(name):
+    &quot;&quot;&quot;Say hello&quot;&quot;&quot;
+    return &quot;Hello, &quot; + name
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/test_hello.py" target="_blank">test_hello.py</a>
+        </div>
+        <div class="path">tests/test_hello.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+import HtmlTestRunner
+import unittest
+
+
+class BasicTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
+
+    def setUp(self):
+        print(&quot;setup&quot;)
+
+    def tearDown(self):
+        print(&quot;tearDown&quot;)
+
+    def test_hello(self):
+        self.assertEqual(hello.hello(&quot;Python&quot;), &quot;Hello, Python&quot;)
+
+    def test_exception(self):
+        with self.assertRaises(ZeroDivisionError):
+            3 / 0
+
+    @unittest.skip(&quot;skip it&quot;)
+    def test_i_dont_want_to_run_now(self):
+        self.assertEquals(1, 2)
+
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=&#39;example_dir&#39;))
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">tests/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/context.py" target="_blank">context.py</a>
+        </div>
+        <div class="path">tests/context.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
+
+from hello import hello</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/python3-unittest-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/python3-unittest-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

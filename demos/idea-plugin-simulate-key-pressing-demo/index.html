@@ -1,0 +1,277 @@
+<html>
+<head>
+    <title>idea-plugin-simulate-key-pressing-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">idea-plugin-simulate-key-pressing-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Idea Plugin Simulate Key Pressing
+=================================
+
+Two way to simulate key pressing:
+
+1. when `x` is pressed, it will be ignored and simulated `s` will be sent 5 times, using `Toolkit.getDefaultToolkit().systemEventQueue.postEvent(createKeyEvent(event))`
+2. when `y` is pressed, it will be ignored and simulated `c` will be sent 10 times(it should be `5`), using `Robot.keyPressing`
+
+The 2nd way has issues, can&#39;t fix it now.
+
+Update:
+
+The issue of 2 is (almost) fixed. The reason if when you press a key, it actually triggered 3 events:
+
+1. `KEY_PRESSED`
+2. `KEY_TYPED`
+3. `KEY_RELEASED`
+
+So if we use `Robot.keyPress/keyRelease` for each event, it will trigger more than expected.
+
+But, why it&#39;s 10 times, not 15? Figure it next time.
+
+Run plugin in IDEA
+------------------
+
+```
+./gradlew runIde
+```
+
+Create any file, and type something into it, including char `x` and `y`, you will see something strange.
+
+Build the plugin to a zip
+-------------------------
+
+```
+./gradlew buildPlugin
+```
+
+It will generate the plugin file in `./build/distributions`
+
+Notice
+-------
+
+- Use `version &#39;IC-2018.1.5&#39;` every time to reduce download. (about 500M)
+- Don&#39;t forget to change `id` and `name` in `resources/META-INF/plugin.xml` to current project    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.50&#39;
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+plugins {
+    id &quot;org.jetbrains.intellij&quot; version &quot;0.3.4&quot;
+}
+
+apply plugin: &#39;kotlin&#39;
+
+intellij {
+    version &#39;IC-2018.1.5&#39;
+    plugins = []
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.apache.commons:commons-lang3:3.7&quot;
+    compile &quot;commons-io:commons-io:2.6&quot;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile &#39;org.assertj:assertj-core:3.9.0&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo/blob/master/src/main/kotlin/actions/HelloAction.kt" target="_blank">HelloAction.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/actions/HelloAction.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package actions
+
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.ui.Messages
+
+class HelloAction : AnAction() {
+
+    override fun actionPerformed(event: AnActionEvent) {
+        println(&quot;event.inputEvent.isShiftDown: &quot; + event.inputEvent.isShiftDown)
+        Messages.showInfoMessage(&quot;Hello from my plugin&quot;, &quot;Hello&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo/blob/master/src/main/kotlin/example/HelloComponent.kt" target="_blank">HelloComponent.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/HelloComponent.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.ApplicationComponent
+import org.apache.commons.lang.builder.ToStringBuilder
+import org.jetbrains.java.generate.GenerateToStringUtils
+import java.awt.AWTEvent
+import java.awt.Component
+import java.awt.Robot
+import java.awt.Toolkit
+import java.awt.event.KeyEvent
+import java.awt.event.KeyEvent.KEY_TYPED
+
+class HelloComponent : ApplicationComponent {
+
+    override fun initComponent() {
+        println(&quot;idea-plugin-block-key-pressing-demo: initComponent222&quot;)
+//        Toolkit.getDefaultToolkit()
+        Toolkit.getDefaultToolkit().addAWTEventListener({ event -&gt;
+            when (event) {
+                is KeyEvent -&gt; {
+                    println(&quot;event.keyChar: ${event.keyChar}, keyCode: `${event.keyCode}`&quot;)
+                    if (event.keyChar == &#39;x&#39;) {
+                        event.consume()
+                        println(&quot;${event.keyChar} is consumed&quot;)
+
+                        repeat(5) {
+                            Toolkit.getDefaultToolkit().systemEventQueue.postEvent(createKeyEvent(event))
+                        }
+                    }
+
+                    if (event.keyChar == &#39;y&#39;) {
+                        event.consume()
+                        println(&quot;${event.keyChar} is consumed&quot;)
+
+                        val robot = Robot()
+
+                        if (event.id == KEY_TYPED) {
+                            repeat(5) {
+                                robot.keyPress(67)
+                                robot.keyRelease(67)
+                            }
+                        }
+                    }
+                }
+            }
+        }, AWTEvent.KEY_EVENT_MASK)
+    }
+
+    private fun createKeyEvent(event: KeyEvent): KeyEvent {
+        return KeyEvent(
+                event.source as Component,
+                event.id,
+                event.`when`,
+                event.modifiers,
+                83,
+                &#39;s&#39;,
+                event.keyLocation
+        )
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo/blob/master/src/main/resources/META-INF/plugin.xml" target="_blank">plugin.xml</a>
+        </div>
+        <div class="path">src/main/resources/META-INF/plugin.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;idea-plugin&gt;
+    &lt;id&gt;idea-plugin-simulate-key-pressing-demo&lt;/id&gt;
+    &lt;name&gt;idea-plugin-simulate-key-pressing-demo&lt;/name&gt;
+    &lt;version&gt;1.0&lt;/version&gt;
+    &lt;vendor email=&quot;support@yourcompany.com&quot; url=&quot;http://www.yourcompany.com&quot;&gt;YourCompany&lt;/vendor&gt;
+
+    &lt;description&gt;&lt;![CDATA[
+      Enter short description for your plugin here.&lt;br&gt;
+      &lt;em&gt;most HTML tags may be used&lt;/em&gt;
+    ]]&gt;&lt;/description&gt;
+
+    &lt;change-notes&gt;&lt;![CDATA[
+      Add change notes here.&lt;br&gt;
+      &lt;em&gt;most HTML tags may be used&lt;/em&gt;
+    ]]&gt;
+    &lt;/change-notes&gt;
+
+    &lt;!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description --&gt;
+    &lt;idea-version since-build=&quot;173.0&quot;/&gt;
+
+    &lt;!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products --&gt;
+    &lt;!-- uncomment to enable plugin in all products
+    &lt;depends&gt;com.intellij.modules.lang&lt;/depends&gt;
+    --&gt;
+
+    &lt;extensions defaultExtensionNs=&quot;com.intellij&quot;&gt;
+        &lt;!-- Add your extensions here --&gt;
+    &lt;/extensions&gt;
+
+    &lt;application-components&gt;
+        &lt;component&gt;
+            &lt;implementation-class&gt;example.HelloComponent&lt;/implementation-class&gt;
+        &lt;/component&gt;
+    &lt;/application-components&gt;
+
+    &lt;actions&gt;
+
+        &lt;group id=&quot;idea-plugin-simulate-key-pressing-demo.MyPlugin.SampleMenu&quot; text=&quot;_Sample Menu&quot; description=&quot;Sample menu&quot;&gt;
+            &lt;add-to-group group-id=&quot;MainMenu&quot; anchor=&quot;last&quot;/&gt;
+            &lt;action id=&quot;idea-plugin-simulate-key-pressing-demo.action.popup&quot; class=&quot;actions.HelloAction&quot; text=&quot;_Popup&quot; description=&quot;Popup a message&quot;/&gt;
+        &lt;/group&gt;
+
+    &lt;/actions&gt;
+
+&lt;/idea-plugin&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/idea-plugin-simulate-key-pressing-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

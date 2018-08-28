@@ -1,0 +1,266 @@
+<html>
+<head>
+    <title>express-react-mongodb-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">express-react-mongodb-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Express React Mongodb Demo
+===========================
+
+Install mongodb
+---------------
+
+See &lt;https://github.com/js-demos/mongoose-demo&gt;
+
+Start the db for this project
+-----------------------------
+
+```
+mkdir /tmp/express-react-mongodb-demo-db
+mongod --dbpath /tmp/express-react-mongodb-demo-db
+```
+
+Setup this project
+------------------
+
+```
+npm install
+```
+
+Run:
+
+```
+npm start
+```
+
+Then visit &lt;http://localhost:3000&gt;:
+
+- You can click on the `初始化数据` to init data in mongodb, and you will see a list of students.
+- You can click on the `删除` button to delete a student
+
+Documents
+---------
+
+- How to remove data by mongoose: &lt;http://stackoverflow.com/questions/5809788/how-do-i-remove-documents-using-node-js-mongoose&gt;
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/app/db/db.js" target="_blank">db.js</a>
+        </div>
+        <div class="path">app/db/db.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var mongoose = require(&#39;mongoose&#39;);
+
+module.exports = {
+  connect: function() {
+    mongoose.connect(&#39;mongodb://localhost/express-react-mongodb-demo&#39;);
+  },
+  close: function() {
+    mongoose.connection.close();
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/app/db/schema.js" target="_blank">schema.js</a>
+        </div>
+        <div class="path">app/db/schema.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const mongoose = require(&#39;mongoose&#39;);
+
+const Schema = mongoose.Schema;
+
+const studentSchema = new Schema({
+  name: String,
+  gender: String
+});
+
+// the collection&#39;s name is `students`
+const Student = mongoose.model(&#39;Student&#39;, studentSchema);
+
+export {Student};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/app/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">app/server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import webpack from &#39;webpack&#39;;
+import webpackConfig from &#39;../webpack.config&#39;;
+import webpackDevMiddleware from &#39;webpack-dev-middleware&#39;;
+import webpackHotMiddleware from &#39;webpack-hot-middleware&#39;;
+import express from &#39;express&#39;;
+import studentsData from &#39;./students.json&#39;;
+import db from &#39;./db/db&#39;;
+import {Student} from &#39;./db/schema&#39;;
+
+const app = express();
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  lazy: false,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  publicPath: webpackConfig.output.publicPath
+}));
+
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}));
+
+app.use(express.static(&#39;./public&#39;));
+
+app.post(&#39;/init&#39;, function(req, res, next) {
+  Student.find().remove(function(err) {
+    if(err) return next(err);
+
+    Student.create(studentsData, (err, all) =&gt; {
+      if(err) return next(err);
+      res.json(all);
+    });
+  });
+});
+
+app.get(&#39;/students&#39;, function(req, res, next) {
+  Student.find().lean().exec((err, data) =&gt; {
+    if(err) return next(err);
+    res.json(data);
+  })
+});
+
+app.delete(&#39;/students/:id&#39;, function(req, res, next) {
+  const id = req.params.id;
+  Student.find({_id:id}).remove((err, data)=&gt;{
+    if(err) return next(err);
+    if(data) {
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(404);
+    }
+  });
+});
+
+app.listen(3000, function() {
+  db.connect();
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/spec/dummy-spec.js" target="_blank">dummy-spec.js</a>
+        </div>
+        <div class="path">spec/dummy-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+
+describe(&#39;dummy&#39;, () =&gt; {
+  it(&#39;1+1 == 2&#39;, () =&gt; {
+    expect(1+1).toEqual(2);
+  })
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  entry: [
+    &#39;./public/entry.jsx&#39;,
+    &#39;webpack-hot-middleware/client&#39;
+  ],
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  devtool: &#39;inline-source-map&#39;,
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }]
+  },
+  plugins: [
+    // Webpack 1.0
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // Webpack 2.0 fixed this mispelling
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-react-mongodb-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-react-mongodb-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

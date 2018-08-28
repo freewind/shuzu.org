@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>angularjs1-directive-param-types-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-directive-param-types-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Directive Compile Controller Param Types Demo
+========================================================
+
+For a directive in [AngularJS1](https://angularjs.org/),
+
+```
+compile: function (tElement, tAttrs)
+controller: function ($scope, $element, $attrs)
+```
+
+What&#39;s the types of the params? Are the same types with different names (e.g. `tElement/$element`)?
+
+Run:
+
+```
+npm install
+open index.html
+```
+
+`xElement`:
+
+![element](./images/element.jpg)
+
+We can see `tElement/iElement/$element` are same object.
+
+![attrs](./images/attrs.jpg)
+
+`tAttrs/iAttrs/$attrs` are same object.
+
+Resources
+---------
+
+- directive api: https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object
+- $element api: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-param-types-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div hello-to=&quot;AngularJS&quot;&gt;
+    Hello, {{userName}}
+&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-param-types-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.directive(&#39;helloTo&#39;, function () {
+    return {
+        restrict: &#39;A&#39;,
+        compile: function (tElement, tAttrs) {
+            console.log(&#39;-------------- compile -----------------&#39;);
+            console.dir(tElement);
+            console.dir(tAttrs);
+            return {
+                pre: function preLink(scope, iElement, iAttrs, controller) {
+                    console.log(&#39;-------------- preLink -----------------&#39;);
+                    console.dir(scope);
+                    console.dir(iElement);
+                    console.dir(iAttrs);
+                    console.dir(controller);
+                },
+                post: function postLink(scope, iElement, iAttrs, controller) {
+                    console.log(&#39;-------------- postLink -----------------&#39;);
+                    console.dir(scope);
+                    console.dir(iElement);
+                    console.dir(iAttrs);
+                    console.dir(controller);
+                }
+            }
+        },
+        controller: function ($scope, $element, $attrs) {
+            console.log(&#39;------------- controller ----------------&#39;);
+            console.dir($scope);
+            console.dir($element);
+            console.dir($attrs);
+            $scope.userName = $attrs.helloTo;
+        }
+    }
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-param-types-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-param-types-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

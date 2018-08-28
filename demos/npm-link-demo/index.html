@@ -1,0 +1,85 @@
+<html>
+<head>
+    <title>npm-link-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">npm-link-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Npm Link Demo
+=============
+
+We don&#39;t need to publish to npmjs when developing npm projects.
+
+Register current project to local:
+
+```
+npm link
+```
+
+Use it in another project:
+
+```
+cd testing-project
+npm link my-npm-lib
+```
+
+and run:
+
+```
+node index.js
+```
+
+You will see the function `hello` from the root project is calling successfully.
+
+
+If we modify code in `my-npm-lib`, we don&#39;t need to do anything to use the new code in `testing-project`.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/npm-link-demo/blob/master/testing-project/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">testing-project/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const npmLinkDemo = require(&#39;npm-link-demo&#39;)
+npmLinkDemo.hello()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/npm-link-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports.hello = function() {
+    console.log(&quot;hello from npm-link-demo&quot;)
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/npm-link-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/npm-link-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

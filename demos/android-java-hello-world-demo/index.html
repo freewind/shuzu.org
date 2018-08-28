@@ -1,0 +1,599 @@
+<html>
+<head>
+    <title>android-java-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">android-java-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Android Hello World Project
+===========================
+
+这个Demo使用Java.
+
+命令行启动模拟器：&lt;https://github.com/freewind/android-learning/issues/4&gt;
+
+然后运行：
+
+```
+./gradlew installRunDebug
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">app/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;com.android.application&#39;
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId &quot;demos.android_java_hello_world_demo&quot;
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+    implementation &#39;com.android.support:appcompat-v7:28.0.0-rc01&#39;
+    implementation &#39;com.android.support.constraint:constraint-layout:1.1.2&#39;
+    testImplementation &#39;junit:junit:4.12&#39;
+    androidTestImplementation &#39;com.android.support.test:runner:1.0.2&#39;
+    androidTestImplementation &#39;com.android.support.test.espresso:espresso-core:3.0.2&#39;
+}
+
+project.afterEvaluate {
+    android.applicationVariants.all { variant -&gt;
+        task &quot;installRun${variant.name.capitalize()}&quot;(type: Exec, dependsOn: &quot;install${variant.name.capitalize()}&quot;, group: &quot;run&quot;) {
+            commandLine = [&quot;adb&quot;, &quot;shell&quot;, &quot;monkey&quot;, &quot;-p&quot;, variant.applicationId + &quot; 1&quot;]
+            doLast {
+                println &quot;Launching ${variant.applicationId}&quot;
+            }
+        }
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/test/java/demos/ExampleUnitTest.java" target="_blank">ExampleUnitTest.java</a>
+        </div>
+        <div class="path">app/src/test/java/demos/ExampleUnitTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demos;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see &lt;a href=&quot;http://d.android.com/tools/testing&quot;&gt;Testing documentation&lt;/a&gt;
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/androidTest/java/demos/ExampleInstrumentedTest.java" target="_blank">ExampleInstrumentedTest.java</a>
+        </div>
+        <div class="path">app/src/androidTest/java/demos/ExampleInstrumentedTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demos;
+
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
+
+/**
+ * Instrumented test, which will execute on an Android device.
+ *
+ * @see &lt;a href=&quot;http://d.android.com/tools/testing&quot;&gt;Testing documentation&lt;/a&gt;
+ */
+@RunWith(AndroidJUnit4.class)
+public class ExampleInstrumentedTest {
+    @Test
+    public void useAppContext() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        assertEquals(&quot;demos&quot;, appContext.getPackageName());
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" target="_blank">ic_launcher_round.xml</a>
+        </div>
+        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
+    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
+&lt;/adaptive-icon&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" target="_blank">ic_launcher.xml</a>
+        </div>
+        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
+    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
+&lt;/adaptive-icon&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/values/colors.xml" target="_blank">colors.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/colors.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;color name=&quot;colorPrimary&quot;&gt;#3F51B5&lt;/color&gt;
+    &lt;color name=&quot;colorPrimaryDark&quot;&gt;#303F9F&lt;/color&gt;
+    &lt;color name=&quot;colorAccent&quot;&gt;#FF4081&lt;/color&gt;
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/values/styles.xml" target="_blank">styles.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/styles.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;resources&gt;
+
+    &lt;!-- Base application theme. --&gt;
+    &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;!-- Customize your theme here. --&gt;
+        &lt;item name=&quot;colorPrimary&quot;&gt;@color/colorPrimary&lt;/item&gt;
+        &lt;item name=&quot;colorPrimaryDark&quot;&gt;@color/colorPrimaryDark&lt;/item&gt;
+        &lt;item name=&quot;colorAccent&quot;&gt;@color/colorAccent&lt;/item&gt;
+    &lt;/style&gt;
+
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/values/strings.xml" target="_blank">strings.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/strings.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;android-java-hello-world-demo&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/drawable/ic_launcher_background.xml" target="_blank">ic_launcher_background.xml</a>
+        </div>
+        <div class="path">app/src/main/res/drawable/ic_launcher_background.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:width=&quot;108dp&quot;
+    android:height=&quot;108dp&quot;
+    android:viewportHeight=&quot;108&quot;
+    android:viewportWidth=&quot;108&quot;&gt;
+    &lt;path
+        android:fillColor=&quot;#26A69A&quot;
+        android:pathData=&quot;M0,0h108v108h-108z&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M9,0L9,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,0L19,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M29,0L29,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M39,0L39,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M49,0L49,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M59,0L59,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M69,0L69,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M79,0L79,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M89,0L89,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M99,0L99,108&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,9L108,9&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,19L108,19&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,29L108,29&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,39L108,39&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,49L108,49&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,59L108,59&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,69L108,69&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,79L108,79&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,89L108,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M0,99L108,99&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,29L89,29&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,39L89,39&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,49L89,49&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,59L89,59&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,69L89,69&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M19,79L89,79&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M29,19L29,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M39,19L39,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M49,19L49,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M59,19L59,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M69,19L69,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+    &lt;path
+        android:fillColor=&quot;#00000000&quot;
+        android:pathData=&quot;M79,19L79,89&quot;
+        android:strokeColor=&quot;#33FFFFFF&quot;
+        android:strokeWidth=&quot;0.8&quot; /&gt;
+&lt;/vector&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" target="_blank">ic_launcher_foreground.xml</a>
+        </div>
+        <div class="path">app/src/main/res/drawable-v24/ic_launcher_foreground.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:aapt=&quot;http://schemas.android.com/aapt&quot;
+    android:width=&quot;108dp&quot;
+    android:height=&quot;108dp&quot;
+    android:viewportHeight=&quot;108&quot;
+    android:viewportWidth=&quot;108&quot;&gt;
+    &lt;path
+        android:fillType=&quot;evenOdd&quot;
+        android:pathData=&quot;M32,64C32,64 38.39,52.99 44.13,50.95C51.37,48.37 70.14,49.57 70.14,49.57L108.26,87.69L108,109.01L75.97,107.97L32,64Z&quot;
+        android:strokeColor=&quot;#00000000&quot;
+        android:strokeWidth=&quot;1&quot;&gt;
+        &lt;aapt:attr name=&quot;android:fillColor&quot;&gt;
+            &lt;gradient
+                android:endX=&quot;78.5885&quot;
+                android:endY=&quot;90.9159&quot;
+                android:startX=&quot;48.7653&quot;
+                android:startY=&quot;61.0927&quot;
+                android:type=&quot;linear&quot;&gt;
+                &lt;item
+                    android:color=&quot;#44000000&quot;
+                    android:offset=&quot;0.0&quot; /&gt;
+                &lt;item
+                    android:color=&quot;#00000000&quot;
+                    android:offset=&quot;1.0&quot; /&gt;
+            &lt;/gradient&gt;
+        &lt;/aapt:attr&gt;
+    &lt;/path&gt;
+    &lt;path
+        android:fillColor=&quot;#FFFFFF&quot;
+        android:fillType=&quot;nonZero&quot;
+        android:pathData=&quot;M66.94,46.02L66.94,46.02C72.44,50.07 76,56.61 76,64L32,64C32,56.61 35.56,50.11 40.98,46.06L36.18,41.19C35.45,40.45 35.45,39.3 36.18,38.56C36.91,37.81 38.05,37.81 38.78,38.56L44.25,44.05C47.18,42.57 50.48,41.71 54,41.71C57.48,41.71 60.78,42.57 63.68,44.05L69.11,38.56C69.84,37.81 70.98,37.81 71.71,38.56C72.44,39.3 72.44,40.45 71.71,41.19L66.94,46.02ZM62.94,56.92C64.08,56.92 65,56.01 65,54.88C65,53.76 64.08,52.85 62.94,52.85C61.8,52.85 60.88,53.76 60.88,54.88C60.88,56.01 61.8,56.92 62.94,56.92ZM45.06,56.92C46.2,56.92 47.13,56.01 47.13,54.88C47.13,53.76 46.2,52.85 45.06,52.85C43.92,52.85 43,53.76 43,54.88C43,56.01 43.92,56.92 45.06,56.92Z&quot;
+        android:strokeColor=&quot;#00000000&quot;
+        android:strokeWidth=&quot;1&quot; /&gt;
+&lt;/vector&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">activity_main.xml</a>
+        </div>
+        <div class="path">app/src/main/res/layout/activity_main.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;Hello World!&quot;
+        app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+        app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+        app:layout_constraintRight_toRightOf=&quot;parent&quot;
+        app:layout_constraintTop_toTopOf=&quot;parent&quot; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/java/demos/MainActivity.java" target="_blank">MainActivity.java</a>
+        </div>
+        <div class="path">app/src/main/java/demos/MainActivity.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demos;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
+        </div>
+        <div class="path">app/src/main/AndroidManifest.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;demos&quot;&gt;
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-java-hello-world-demo/blob/master/settings.gradle" target="_blank">settings.gradle</a>
+        </div>
+        <div class="path">settings.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">include &#39;:app&#39;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/android-java-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/android-java-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

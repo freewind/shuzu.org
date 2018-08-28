@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>typescript-lodash-import-all-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-lodash-import-all-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Lodash Import All Demo
+=================================
+
+Import all methods from lodash rather than a single method.
+
+```
+npm install
+npx ts-node hello.ts
+```
+
+It will print `Hello, TypeScript!`
+
+To work with WebStorm completion
+--------------------------------
+
+如果想使用WebStorm的lodash提示功能，需要进行配置：
+
+![webstorm-lodash-1.jpg](./images/webstorm-lodash-1.jpg)
+
+安装完成后，确认多出了以下library:
+
+![webstorm-lodash-2.jpg](./images/webstorm-lodash-2.jpg)
+
+同时还需要注意：
+
+```
+import * as lodash from &#39;lodash&#39;
+```
+
+这里的`* as lodash`不能写成`* as _`，否则什么也提示不出来。
+
+![as-lodash](./images/as-lodash.jpg)
+
+![as-underscore](./images/as-underscore.jpg)
+
+原因在于，如果我们`* as _`，WebStorm会错误的把`_`指向lodash中已经定义了的`_`:
+
+![underscore](./images/underscore.jpg)
+
+![underscore-def](./images/underscore-def.jpg)
+
+所以我们需要使用一个不同的名字。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-lodash-import-all-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as lodash from &#39;lodash&#39;
+
+console.log(&#39;Hello &#39; + lodash.capitalize(&#39;typescript&#39;) + &#39;!&#39;)
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-lodash-import-all-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-lodash-import-all-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

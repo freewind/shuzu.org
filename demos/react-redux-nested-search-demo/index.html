@@ -1,0 +1,166 @@
+<html>
+<head>
+    <title>react-redux-nested-search-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-redux-nested-search-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        React Redux Nested Search Demo
+==============================
+
+Use redux to make nested search demo easier.
+
+```
+npm install
+npm start
+```
+
+Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/actions/types.js" target="_blank">types.js</a>
+        </div>
+        <div class="path">actions/types.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const SEARCH = &#39;SEARCH&#39;;
+
+export default {
+  SEARCH
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/actions/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">actions/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import types from &#39;./types&#39;;
+
+export function search(keyword) {
+  return {type: types.SEARCH, keyword};
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/store/init-store.js" target="_blank">init-store.js</a>
+        </div>
+        <div class="path">store/init-store.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const initStore = {
+  keyword: &#39;r&#39;,
+  items: [&#39;JavaScript&#39;, &#39;Node&#39;, &#39;React&#39;, &#39;Redux&#39;, &#39;Bootstrap&#39;, &#39;Webpack&#39;, &#39;Babel&#39;]
+};
+
+export default initStore;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  devtool: &#39;inline-source-map&#39;,
+  entry: &#39;./entry.jsx&#39;,
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import initStore from &#39;../store/init-store&#39;;
+import actionTypes from &#39;../actions/types&#39;;
+
+export default function (state = initStore, action) {
+  switch (action.type) {
+    case &#39;SEARCH&#39;:
+      return Object.assign({}, state, {
+        keyword: action.keyword
+      });
+    default:
+      return state;
+  }
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-redux-nested-search-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

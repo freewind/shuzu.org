@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title>superagent-nock-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">superagent-nock-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Superagent Mocking with Nock Demo
+=================================
+
+- superagent: send http request
+- nock: mocking
+
+```
+npm install -g jasmine
+npm install
+jasmine
+```
+
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/superagent-nock-demo/blob/master/spec/login-spec.js" target="_blank">login-spec.js</a>
+        </div>
+        <div class="path">spec/login-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const superagent = require(&#39;superagent&#39;);
+const nock = require(&#39;nock&#39;);
+const {login} = require(&#39;../index&#39;);
+
+describe(&#39;login&#39;, () =&gt; {
+
+  beforeEach(() =&gt; {
+    nock.cleanAll();
+  });
+
+  it(&#39;successfully&#39;, (done) =&gt; {
+    nock(/.*/)
+      .post(&#39;/api/sessions&#39;)
+      .reply(201, {
+        message: &#39;login successful&#39;
+      });
+
+    login({username: &#39;freewind&#39;, password: &#39;123456&#39;}, (err, ok, message) =&gt; {
+      expect(err).toBeNull();
+      expect(ok).toBeTruthy();
+      expect(message).toEqual(&quot;login successful&quot;);
+      done();
+    });
+  });
+
+  it(&#39;failed&#39;, (done) =&gt; {
+    nock(/.*/)
+      .post(&#39;/api/sessions&#39;)
+      .reply(401, {
+        message: &#39;invalid username or password&#39;
+      });
+
+    login({username: &#39;freewind&#39;, password: &#39;123456&#39;}, (err, ok, message) =&gt; {
+      expect(ok).toBeFalsy();
+      expect(err).not.toBeNull();
+      expect(message).toEqual(&#39;invalid username or password&#39;);
+      done();
+    });
+  })
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/superagent-nock-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const request = require(&#39;superagent&#39;);
+const nock = require(&#39;nock&#39;);
+
+function login({username, password}, callback) {
+  request.post(&#39;/api/sessions&#39;)
+    .send({username, password})
+    .end((err, res) =&gt; {
+      callback(err, res &amp;&amp; res.ok, res &amp;&amp; res.body.message);
+    });
+}
+
+module.exports = {login};</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/superagent-nock-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/superagent-nock-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

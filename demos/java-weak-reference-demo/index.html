@@ -1,0 +1,210 @@
+<html>
+<head>
+    <title>java-weak-reference-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-weak-reference-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Weak Reference Demo
+========================
+
+Understand weak reference.
+
+- weak reference: When Jvm runs `gc`, if there is any weak reference, they will be released, even if the heap memory is not full.
+- soft reference: Soft references are only released when heap is full when GC
+
+Run
+---
+
+Run `Hello.java` in your IDE, and set the vm options to:
+
+- `-XX:+PrintGC`: print gc information in console
+
+Since we create very small amount of objects in this demo, we don&#39;t need to specify the heap size like we do in other demos.
+
+Log in console
+--------------
+
+The output may like:
+
+```
+cache size: 10
+[GC (System.gc())  5252K-&gt;824K(251392K), 0.0013236 secs]
+[Full GC (System.gc())  824K-&gt;653K(251392K), 0.0066789 secs]
+# Released weak references: 0
+cache size: 20
+[GC (System.gc())  3274K-&gt;789K(251392K), 0.0006443 secs]
+[Full GC (System.gc())  789K-&gt;615K(251392K), 0.0071458 secs]
+# Released weak references: 10
+cache size: 20
+[GC (System.gc())  3237K-&gt;743K(251392K), 0.0003727 secs]
+[Full GC (System.gc())  743K-&gt;615K(251392K), 0.0064726 secs]
+# Released weak references: 10
+cache size: 20
+[GC (System.gc())  1925K-&gt;743K(251392K), 0.0003508 secs]
+[Full GC (System.gc())  743K-&gt;615K(251392K), 0.0024689 secs]
+# Released weak references: 10
+cache size: 20
+[GC (System.gc())  1925K-&gt;711K(251392K), 0.0004487 secs]
+[Full GC (System.gc())  711K-&gt;615K(251392K), 0.0023783 secs]
+# Released weak references: 10
+```
+
+You can see the `Released weak references` is great then 0 for each `GC` after the first time, even if there is still a very large amount of Heap size.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-weak-reference-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;java-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;java-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-weak-reference-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class Hello {
+
+    private static ReferenceQueue&lt;User&gt; releaseLog = new ReferenceQueue&lt;&gt;();
+
+    private static ArrayList&lt;WeakReference&lt;User&gt;&gt; cache = new ArrayList&lt;WeakReference&lt;User&gt;&gt;() {
+        @Override
+        public boolean add(WeakReference&lt;User&gt; userWeakReference) {
+            removeReleasedItems();
+            return super.add(userWeakReference);
+        }
+        private void removeReleasedItems() {
+            for (int i = this.size() - 1; i &gt;= 0; i--) {
+                WeakReference&lt;User&gt; item = this.get(i);
+                if (item.get() == null) {
+                    this.remove(i);
+                }
+            }
+        }
+    };
+
+    public static void main(String[] args) throws InterruptedException {
+        while (true) {
+            List&lt;User&gt; users = generateUsers(10);
+            for (User user : users) {
+                WeakReference&lt;User&gt; reference = new WeakReference&lt;&gt;(user, releaseLog);
+                cache.add(reference);
+            }
+
+            System.out.println(&quot;cache size: &quot; + cache.size());
+
+            System.gc();
+
+            printReleasedUsers(releaseLog);
+
+            Thread.sleep(1000);
+        }
+    }
+
+    private static void printReleasedUsers(ReferenceQueue&lt;User&gt; queue) throws InterruptedException {
+        int timeout = 10;
+        int releaseCount = 0;
+        while (true) {
+            Reference&lt;? extends User&gt; ref = queue.remove(timeout);
+            if (ref == null) {
+                break;
+            }
+            releaseCount += 1;
+        }
+        System.out.println(&quot;# Released weak references: &quot; + releaseCount);
+    }
+
+    private static List&lt;User&gt; generateUsers(int count) {
+        ArrayList&lt;User&gt; users = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; count; i++) {
+            users.add(new User(&quot;&quot; + i));
+        }
+        return users;
+    }
+
+}
+
+class User {
+    final String id = UUID.randomUUID().toString();
+    final String name;
+    public User(String name) {
+        this.name = name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-weak-reference-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-weak-reference-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

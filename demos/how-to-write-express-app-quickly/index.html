@@ -1,0 +1,214 @@
+<html>
+<head>
+    <title>how-to-write-express-app-quickly - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">how-to-write-express-app-quickly</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        How to write an express application quickly
+===========================================
+
+Steps
+-----
+
+### create directory, config files and download deps
+
+```
+mkdir myapp
+cd myapp
+npm init -y
+npm install express --save
+```
+
+### use `nodemon` to auto-reload
+
+```
+npm install -g nodemon
+```
+
+### write code
+
+The code is already in this project
+
+### run code
+
+```
+node index.js
+```
+
+or
+
+```
+nodemon index.js
+```
+
+### visit
+
+```
+curl http://localhost:3000/products
+curl http://localhost:3000/products/1
+curl -X POST -d &#39;{&quot;name&quot;:&quot;Apple&quot;,&quot;price&quot;:3.2}&#39; -H &quot;Content-Type: application/json&quot; http://localhost:3000/products/1
+curl http://localhost:3000/version
+```
+
+We can use `-v` to see the sending and receiving headers:
+
+```
+curl -v http://localhost:3000/version
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/about-router.js" target="_blank">about-router.js</a>
+        </div>
+        <div class="path">about-router.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var router = express.Router();
+
+router.get(&#39;/version&#39;, function (req, res) {
+  res.send(&#39;1.1.1&#39;);
+});
+
+module.exports = router;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/next-id.js" target="_blank">next-id.js</a>
+        </div>
+        <div class="path">next-id.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var id = 0;
+
+module.exports = function () {
+  id += 1;
+  return id;
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/products-manager.js" target="_blank">products-manager.js</a>
+        </div>
+        <div class="path">products-manager.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var _ = require(&#39;lodash&#39;);
+var nextId = require(&#39;./next-id&#39;);
+
+var products = [{
+  id: nextId(),
+  name: &#39;Cocacola&#39;,
+  price: 3.5
+}];
+
+module.exports = {
+  getAll: function () {
+    return products;
+  },
+  get: function (id) {
+    return _.find(products, function (item) {
+      return item.id === parseInt(id);
+    });
+  },
+  save: function (data) {
+    products.push({
+      id: nextId(),
+      name: data.name,
+      price: data.price
+    });
+  }
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var app = express();
+app.use(bodyParser.json());
+
+app.use(&#39;/products&#39;, require(&#39;./products-router&#39;));
+app.use(&#39;/about&#39;, require(&#39;./about-router&#39;));
+
+var server = app.listen(3000, function () {
+  var port = server.address().port;
+  console.log(&quot;listen on &quot; + port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/products-router.js" target="_blank">products-router.js</a>
+        </div>
+        <div class="path">products-router.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var productsManager = require(&#39;./products-manager&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var router = express.Router();
+router.use(bodyParser.json());
+
+
+router.get(&#39;/&#39;, function (req, res) {
+  res.json(productsManager.getAll());
+});
+
+router.post(&#39;/&#39;, function (req, res) {
+  productsManager.save(req.body);
+  res.sendStatus(201);
+});
+
+router.get(&#39;/:id&#39;, function (req, res) {
+  var found = productsManager.get(req.params.id);
+  if (found) {
+    res.json(found);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+module.exports = router;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<html>
+<head>
+    <title>python3-jsonrpc-demos - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">python3-jsonrpc-demos</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 JsonRpc Demo
+=========================
+
+Requires `python3`
+
+```
+pip3 install -r requirements.txt 
+```
+
+Start server:
+
+```
+python3 server.py
+```
+
+Run client:
+
+```
+python3 client.py
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">json-rpc
+Werkzeug</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/client.py" target="_blank">client.py</a>
+        </div>
+        <div class="path">client.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import requests
+import json
+
+def main():
+    url = &quot;http://localhost:4000/jsonrpc&quot;
+    headers = {&#39;content-type&#39;: &#39;application/json&#39;}
+
+    # Example echo method
+    payload = {
+        &quot;method&quot;: &quot;echo&quot;,
+        &quot;params&quot;: [&quot;echome!&quot;],
+        &quot;jsonrpc&quot;: &quot;2.0&quot;,
+        &quot;id&quot;: 0,
+    }
+    response = requests.post(url, data=json.dumps(payload), headers=headers).json()
+    print(response[&quot;result&quot;])
+
+    assert response[&quot;result&quot;] == &quot;echome!&quot;
+    assert response[&quot;jsonrpc&quot;]
+    assert response[&quot;id&quot;] == 0
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/tests/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">tests/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/tests/test_basic.py" target="_blank">test_basic.py</a>
+        </div>
+        <div class="path">tests/test_basic.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+class BasicTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
+
+    def test_absolute_truth_and_meaning(self):
+        assert True
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/tests/test_advanced.py" target="_blank">test_advanced.py</a>
+        </div>
+        <div class="path">tests/test_advanced.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+
+class AdvancedTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Advanced test cases.&quot;&quot;&quot;
+
+    def test_thoughts(self):
+        self.assertIsNone(hello.hmm())
+
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/tests/context.py" target="_blank">context.py</a>
+        </div>
+        <div class="path">tests/context.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
+
+import hello</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/blob/master/server.py" target="_blank">server.py</a>
+        </div>
+        <div class="path">server.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from werkzeug.wrappers import Request, Response
+from werkzeug.serving import run_simple
+
+from jsonrpc import JSONRPCResponseManager, dispatcher
+
+@dispatcher.add_method
+def foobar(**kwargs):
+    return kwargs[&quot;foo&quot;] + kwargs[&quot;bar&quot;]
+
+@Request.application
+def application(request):
+    # Dispatcher is dictionary {&lt;method_name&gt;: callable}
+    dispatcher[&quot;echo&quot;] = lambda s: s
+    dispatcher[&quot;add&quot;] = lambda a, b: a + b
+
+    response = JSONRPCResponseManager.handle(request.data, dispatcher)
+    return Response(response.json, mimetype=&#39;application/json&#39;)
+
+if __name__ == &#39;__main__&#39;:
+    run_simple(&#39;localhost&#39;, 4000, application)</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/python3-jsonrpc-demos">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/python3-jsonrpc-demos/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<html>
+<head>
+    <title>scala-logging-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">scala-logging-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Sbt Hello World Demo
+====================
+
+```
+brew install sbt
+sbt test
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">src/main/scala/my/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package my
+
+import com.typesafe.scalalogging.Logger
+
+object Hello extends App {
+
+  val logger = Logger(Hello.getClass)
+
+  println(&quot;Hello, logger!&quot;)
+
+  logger.trace(&quot;This is trace message&quot;)
+  logger.debug(&quot;This is debug message&quot;)
+  logger.info(&quot;This is info message&quot;)
+  logger.warn(&quot;This is warn message&quot;)
+  logger.error(&quot;This is error message&quot;)
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/resources/logback.xml" target="_blank">logback.xml</a>
+        </div>
+        <div class="path">src/main/resources/logback.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;configuration&gt;
+
+    &lt;appender name=&quot;console&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.ThresholdFilter&quot;&gt;
+            &lt;level&gt;INFO&lt;/level&gt;
+        &lt;/filter&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%date{HH:mm:ss} %-5level %logger{0} {%class %method} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;appender name=&quot;file&quot; class=&quot;ch.qos.logback.core.FileAppender&quot;&gt;
+        &lt;filter class=&quot;ch.qos.logback.classic.filter.LevelFilter&quot;&gt;
+            &lt;level&gt;DEBUG&lt;/level&gt;
+            &lt;onMatch&gt;ACCEPT&lt;/onMatch&gt;
+        &lt;/filter&gt;
+        &lt;file&gt;${log-file:-scala-logging.log}&lt;/file&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%date{HH:mm:ss} %-5level %logger{0} {%class %method} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+    &lt;root level=&quot;debug&quot;&gt;
+        &lt;appender-ref ref=&quot;console&quot;/&gt;
+        &lt;appender-ref ref=&quot;file&quot;/&gt;
+    &lt;/root&gt;
+
+&lt;/configuration&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/scala-logging-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/scala-logging-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

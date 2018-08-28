@@ -1,0 +1,129 @@
+<html>
+<head>
+    <title>java-okhttp-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-okhttp-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Okhttp Demo
+================
+
+How to use [okhttp](https://github.com/square/okhttp) to get url.
+
+Run `Hello.java` in your IDE.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-okhttp-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.squareup.okhttp3&lt;/groupId&gt;
+            &lt;artifactId&gt;okhttp&lt;/artifactId&gt;
+            &lt;version&gt;3.11.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-okhttp-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+public class Hello {
+
+    private static OkHttpClient client = new OkHttpClient();
+
+    public static void main(String[] args) throws Exception {
+        Request request = new Request.Builder()
+                .url(&quot;http://httpbin.org/get&quot;)
+                .header(&quot;Content-Type&quot;, &quot;application/json&quot;)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String body = response.body().string();
+        System.out.println(body);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-okhttp-demo/blob/master/src/main/java/demo/Hello.java.md" target="_blank">Hello.java.md</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">```
+{
+  &quot;args&quot;: {},
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;,
+    &quot;Connection&quot;: &quot;close&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Host&quot;: &quot;httpbin.org&quot;,
+    &quot;User-Agent&quot;: &quot;okhttp/3.11.0&quot;
+  },
+  &quot;origin&quot;: &quot;58.222.50.16&quot;,
+  &quot;url&quot;: &quot;http://httpbin.org/get&quot;
+}
+```</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-okhttp-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-okhttp-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

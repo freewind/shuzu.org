@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>js-showdown-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">js-showdown-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Js Showdown Demo
+================
+
+Use [showdown](https://github.com/showdownjs/showdown) to render markdown to html, with github flavored markdown.
+
+```
+npm install
+```
+
+Then open `index.html` in your browser.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-showdown-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/showdown/dist/showdown.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;textarea id=&quot;input&quot; rows=&quot;10&quot; cols=&quot;200&quot;&gt;
+Showdown Demo
+=============
+
+Code with javascript:
+
+```js
+function hello() {
+    alert(&quot;Hello!&quot;)
+}
+```
+&lt;/textarea&gt;
+&lt;div id=&quot;preview&quot; class=&quot;markdown-body&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+    const converter = new showdown.Converter();
+    const text = document.getElementById(&#39;input&#39;).innerHTML;
+    const html = converter.makeHtml(text);
+    document.getElementById(&#39;preview&#39;).innerHTML = html;
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/js-showdown-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/js-showdown-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

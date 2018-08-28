@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>java-curve25519-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-curve25519-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Curve25519 Demo
+===============
+
+Used in some blockchain project, e.g. &lt;https://github.com/Bytom/bytom&gt;, but this is a Java version.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-curve25519-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.whispersystems&lt;/groupId&gt;
+            &lt;artifactId&gt;curve25519-java&lt;/artifactId&gt;
+            &lt;version&gt;0.4.1&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-curve25519-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.whispersystems.curve25519.Curve25519;
+import org.whispersystems.curve25519.Curve25519KeyPair;
+
+import java.util.Arrays;
+
+public class Hello {
+
+    private static Curve25519 cipher = Curve25519.getInstance(Curve25519.BEST);
+    private static Curve25519KeyPair keyPair = cipher.generateKeyPair();
+    private static byte[] privateKey = keyPair.getPrivateKey();
+    private static byte[] publicKey = keyPair.getPublicKey();
+
+    public static void main(String[] args) {
+        signatureDemo();
+        sharedSecretDemo();
+    }
+
+    private static void signatureDemo() {
+        byte[] signature = cipher.calculateSignature(privateKey, &quot;Hello, world!&quot;.getBytes());
+
+        boolean validSignature = cipher.verifySignature(publicKey, &quot;Hello, world!&quot;.getBytes(), signature);
+        System.out.println(&quot;validSignature: &quot; + validSignature);
+    }
+
+    private static void sharedSecretDemo() {
+        Curve25519KeyPair keyPair2 = cipher.generateKeyPair();
+        byte[] privateKey2 = keyPair2.getPrivateKey();
+        byte[] publicKey2 = keyPair2.getPublicKey();
+
+        byte[] sharedSecret1 = cipher.calculateAgreement(publicKey, privateKey2);
+        byte[] sharedSecret2 = cipher.calculateAgreement(publicKey2, privateKey);
+
+        System.out.println(&quot;Two shared secrets should be the same&quot;);
+        System.out.println(&quot;Shared secret1: &quot; + Arrays.toString(sharedSecret1));
+        System.out.println(&quot;Shared secret2: &quot; + Arrays.toString(sharedSecret2));
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-curve25519-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-curve25519-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>idea-kotlin-js-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">idea-kotlin-js-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin JS Hello World Demo
+==========================
+
+This project is created by IDEA.
+
+`Build` -&gt; `Build Project` will compile `src/*.kt` to javascript files in `out/`.
+
+Open `index.html` to run the javascript code.
+
+How to debug the Kotlin code
+----------------------------
+
+- Must use IDEA Ultimate. (IDEA CE doesn&#39;t support it)
+- Enable IDEA source map: `Kotlin Compiler` -&gt; `Kotlin to Javascript` -&gt; `Generate Source Map`
+- Install chrome extension: &lt;https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji&gt;
+- Right click `index.html`, `debug` the html page    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-kotlin-js-hello-world-demo/blob/master/src/hello.kt" target="_blank">hello.kt</a>
+        </div>
+        <div class="path">src/hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">fun main(args: Array&lt;String&gt;) {
+    println(&quot;Hello, Kotlin JS!&quot;)
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/idea-kotlin-js-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;out/production/kotlin-js-hello-world-demo/lib/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;out/production/kotlin-js-hello-world-demo/kotlin-js-hello-world-demo.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/idea-kotlin-js-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/idea-kotlin-js-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>gradle-global-repository-setting-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">gradle-global-repository-setting-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Gradle Global Repository Setting Demo
+=====================================
+
+Create `~/.gradle/init.gradle` with following content:
+
+```
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+    }
+}
+```
+
+Try in current project:
+
+```
+./gradlew compileJava
+```
+
+You can see it should succeed, even if there is no `repositories` defined in the `build.gradle` file.
+
+Notice
+------
+
+It&#39;s a pity that `repositories` in `buildscript` is still not configurable globally, that means, it&#39;s NOT working to put following the `~/.gradle/init.gradle`:
+
+```
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+    }
+}
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-global-repository-setting-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+dependencies {
+    compile &quot;org.apache.commons:commons-lang3:3.7&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-global-repository-setting-demo/blob/master/src/main/java/example/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/example/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(StringUtils.capitalize(&quot;hello, world!&quot;));
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/gradle-global-repository-setting-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/gradle-global-repository-setting-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

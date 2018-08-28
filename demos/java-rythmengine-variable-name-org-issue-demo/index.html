@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>java-rythmengine-variable-name-org-issue-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-rythmengine-variable-name-org-issue-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Rythm Variable Name `org` Issue Demo
+=========================================
+
+Found an issue of [rythmengine](https://github.com/rythmengine/rythmengine), it about the argument name, which can&#39;t be `org` if there is `@if` tag used.
+
+Run `Hello.java` in your IDE, you will see such error:
+
+```
+Exception in thread &quot;main&quot; org.rythmengine.exception.CompileException: rythmengine cannot be resolved or is not a field
+
+Template: src/main/resources/rythm/hello.rythm
+
+Relevant template source lines:
+-------------------------------------------------
+   1: @args String org
+   2: &lt;div&gt;
+&gt;&gt; 3:     @if(3&gt;2) {
+   4:     &lt;div&gt;Good!&lt;/div&gt;
+   5:     }
+   6: &lt;/div&gt;
+
+
+Relevant Java source lines:
+-------------------------------------------------
+   72:
+   73: 	public org.rythmengine.utils.TextBuilder build(){
+   74: 		buffer().ensureCapacity(71);
+   75: p(&quot;&lt;div&gt;\n&quot;); //line: 4
+   76:
+&gt;&gt; 77: if (org.rythmengine.utils.Eval.eval(3&gt;2)) { //line: 3
+   78: p(&quot; &lt;div&gt;Good!&lt;/div&gt;&quot;); //line: 4
+   79: } //line: 5
+   80: p(&quot;\n&lt;/div&gt;&quot;); //line: 6
+   81:
+   82: 		return this;
+   83: 	}
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.rythmengine&lt;/groupId&gt;
+            &lt;artifactId&gt;rythm-engine&lt;/artifactId&gt;
+            &lt;version&gt;1.2.2&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;freewind.github&lt;/groupId&gt;
+            &lt;artifactId&gt;lost-list-creator&lt;/artifactId&gt;
+            &lt;version&gt;0.5.4&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+            &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+            &lt;version&gt;3.10.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.rythmengine.Rythm;
+
+import java.io.File;
+
+public class Hello {
+
+    public static void main(String[] args) {
+        System.out.println(Rythm.render(new File(&quot;src/main/resources/rythm/hello.rythm&quot;), &quot;rythm&quot;));
+    }
+
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo/blob/master/src/main/java/demo/models/Feature.java" target="_blank">Feature.java</a>
+        </div>
+        <div class="path">src/main/java/demo/models/Feature.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.models;
+
+public class Feature {
+    public final String description;
+    public Feature(String description) {
+        this.description = description;
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo/blob/master/src/main/java/demo/models/Item.java" target="_blank">Item.java</a>
+        </div>
+        <div class="path">src/main/java/demo/models/Item.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.models;
+
+import java.util.List;
+
+public class Item {
+    public final String name;
+    public final String price;
+    public final List&lt;String&gt; keywords;
+    public final List&lt;Feature&gt; features;
+    public Item(String name, String price, List&lt;String&gt; keywords, List&lt;Feature&gt; features) {
+        this.name = name;
+        this.price = price;
+        this.keywords = keywords;
+        this.features = features;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-rythmengine-variable-name-org-issue-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

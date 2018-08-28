@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>scalarx-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">scalarx-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Mill Base Project Demo
+======================
+
+Install mill:
+
+```
+brew install mill
+```
+
+Run project:
+
+```
+mill demo.run
+```
+
+Generate IDEA project:
+
+```
+mill mill.scalalib.GenIdeaModule/idea
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalarx-demo/blob/master/demo/src/example/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">demo/src/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import rx._
+
+object Hello extends App {
+
+  var count = 0
+  val a = Var(1)
+  val b = Var(2)
+
+  def mkRx(i: Int)(implicit ctx: Ctx.Owner) = Rx {
+    println(&quot;!!! count += 1&quot;)
+    count += 1
+    i + b()
+  }
+
+  val c = Rx {
+    println(&quot;!!! val newRx = mkRx(a())&quot;)
+    val newRx = mkRx(a())
+    newRx()
+  }
+
+  println(c.now, count) // (3,1)
+  a() = 4
+  println(c.now, count) // (6,2)
+
+  b() = 3
+  // `b()`变了，首先`newRx()`会重新计算（因为它依赖于`b()`），会调用`count+=1`
+  // 然后`c`会重新计算（因为它依赖于`newRx()`），会再次调用`count+=1`
+  // 所以打印出`4`
+  println(c.now, count) // (7,4)
+
+  // 从0到100，共101次
+  (0 to 100).foreach { i =&gt; a() = i }
+
+  println(c.now, count) //(103,105)
+  b() = 4
+  println(c.now, count) //(104,107)
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/scalarx-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/scalarx-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

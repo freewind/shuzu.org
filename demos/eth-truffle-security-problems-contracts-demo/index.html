@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>eth-truffle-security-problems-contracts-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">eth-truffle-security-problems-contracts-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Eth Truffle Hello World Demo
+===========================
+
+The code is basically followed by these two articles:
+
+- Coding: &lt;https://medium.com/etherereum-salon/hello-ethereum-solan-contract-4643118a6119&gt;
+
+- Testing: &lt;https://medium.com/etherereum-salon/eth-testing-472c2f73b4c3&gt;
+
+Steps in summary
+----------------
+
+- `npm install -g solc truffle ethereumjs-testrpc`
+- `truffle init`
+- `truffle create contract Hello`
+- add code to `Hello.sol`
+- `truffle create test Hello`, a `hello.js` created for testing (with `mocha`)
+- add code in `hello.js`
+- start eth simulator `testrpc`
+- add `Hello` things to `1_initial_migrations.js`
+- run `truffle test`
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/test/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">test/hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const Hello  = artifacts.require(&#39;./Hello.sol&#39;);
+
+contract(&#39;Hello.getMessage&#39;, function(accounts) {
+  it(&quot;should return a correct string&quot;, function(done) { 
+    const hello = Hello.deployed();
+    hello.then(function(contract) {
+      // instead of using `getMessage()`
+      return contract.getMessage.call();
+    }).then(function(result) {
+      assert.isTrue(result === &#39;Hello Eth&#39;);
+      done();
+    })
+  });
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle.js" target="_blank">truffle.js</a>
+        </div>
+        <div class="path">truffle.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  // See &lt;http://truffleframework.com/docs/advanced/configuration&gt;
+  // to customize your Truffle configuration!
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/migrations/1_initial_migration.js" target="_blank">1_initial_migration.js</a>
+        </div>
+        <div class="path">migrations/1_initial_migration.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var Migrations = artifacts.require(&quot;./Migrations.sol&quot;);
+const Hello = artifacts.require(&quot;./Hello.sol&quot;);
+
+module.exports = function(deployer) {
+  deployer.deploy(Migrations);
+  deployer.deploy(Hello);
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle-config.js" target="_blank">truffle-config.js</a>
+        </div>
+        <div class="path">truffle-config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  // See &lt;http://truffleframework.com/docs/advanced/configuration&gt;
+  // to customize your Truffle configuration!
+};
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

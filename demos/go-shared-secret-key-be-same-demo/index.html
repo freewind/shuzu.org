@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>go-shared-secret-key-be-same-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-shared-secret-key-be-same-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        nacl/box Shared Key Demo
+=========================
+
+For two pairs of private/public key, the sharedSecret key between them are the same.
+
+So they can just send the public key to peer and they know how to Seal/Open messages.
+
+```
+brew install go
+go get
+go run hello.go
+```
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-shared-secret-key-be-same-demo/blob/master/hello.go" target="_blank">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;golang.org/x/crypto/nacl/box&quot;
+	&quot;crypto/rand&quot;
+	&quot;github.com/golang-demos/go-utils-demo/goutils&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+	pubKey1, priKey1, _ := box.GenerateKey(rand.Reader)
+	pubKey2, priKey2, _ := box.GenerateKey(rand.Reader)
+
+	var sharedKey1 [32]byte
+	box.Precompute(&amp;sharedKey1, pubKey2, priKey1)
+
+	var sharedKey2 [32]byte
+	box.Precompute(&amp;sharedKey2, pubKey1, priKey2)
+
+	fmt.Println(&quot;shared key1 and key2 should be the same&quot;)
+	goutils.PrintlnByteArray(&quot;shared key1&quot;, sharedKey1[:])
+	goutils.PrintlnByteArray(&quot;shared key2&quot;, sharedKey2[:])
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-shared-secret-key-be-same-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-shared-secret-key-be-same-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

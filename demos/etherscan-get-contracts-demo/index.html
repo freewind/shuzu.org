@@ -1,0 +1,112 @@
+<html>
+<head>
+    <title>etherscan-get-contracts-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">etherscan-get-contracts-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 Hello World Demo
+=========================
+
+Install `python3`:
+
+```
+brew install python
+```
+
+`python3` and `pip3` will be available.
+
+Run:
+
+```
+make init
+make test
+```
+
+Note:
+
+Install current package:
+
+```
+python3 setup.py install
+```
+
+or for development:
+
+```
+python3 setup.py develop
+```
+
+Resources
+---------
+
+- &lt;https://www.kennethreitz.org/essays/repository-structure-and-python&gt;
+- &lt;https://github.com/kennethreitz/samplemod&gt;
+- &lt;https://stackoverflow.com/questions/1471994/what-is-setup-py&gt;
+- pypi packages: &lt;https://pypi.python.org/pypi&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/etherscan-get-contracts-demo/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">requests</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/etherscan-get-contracts-demo/blob/master/capture.py" target="_blank">capture.py</a>
+        </div>
+        <div class="path">capture.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">import requests
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+
+for i in range(1, 20):
+    url = &quot;https://etherscan.io/contractsVerified/{}&quot;.format(i)
+    content = requests.get(url).text
+    urls = re.compile(r&quot;(?&lt;=href=&#39;)/address/.*?(?=&#39;)&quot;).findall(content)
+    print(urls)
+    for url in urls:
+        code_url = &quot;https://etherscan.io{}&quot;.format(url)
+        code_page = requests.get(code_url).text
+        # print(code_page)
+        code = re.compile(&quot;(?&lt;=&lt;pre class=&#39;js-sourcecopyarea&#39; id=&#39;editor&#39; style=&#39;height: 330px; max-height: 450px; margin-top: 5px;&#39;&gt;).*?(?=&lt;/pre)&quot;, re.DOTALL).findall(code_page)
+        print(code)
+        file_name = re.compile(&quot;(?&lt;=address/).*?(?=#)&quot;).findall(url)[0]
+        (ROOT / &quot;solidity-files&quot; / &quot;{}.sol&quot;.format(file_name)).write_text(code[0])
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/etherscan-get-contracts-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/etherscan-get-contracts-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

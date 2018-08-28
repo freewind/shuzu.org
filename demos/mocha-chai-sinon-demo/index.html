@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>mocha-chai-sinon-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">mocha-chai-sinon-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Mocha chai-sinon Demo
+=====================
+
+How to use `chai-sinon` to write tests.
+
+The expected parameter is `1234`, and `spy(123)` shows the real one.
+
+```
+npm install
+npm test
+```
+
+`chai-sinon` is better than `chai-spies` is when the parameter passed into 
+the mock is not the expected, it will show the real one, like:
+
+```
+expected spy to have been called with arguments 1234
+    spy(123) at Context.&lt;anonymous&gt; (/Users/twer/workspace/mocha-chai-sinon-demo/spec/test.js:11:5)
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-sinon-demo/blob/master/spec/test.js" target="_blank">test.js</a>
+        </div>
+        <div class="path">spec/test.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import chai from &#39;chai&#39;;
+import sinon  from &#39;sinon&#39;;
+import sinonChai from &#39;sinon-chai&#39;;
+
+chai.should();
+chai.use(sinonChai);
+
+describe(&#39;sinon-chai&#39;, function () {
+  it(&#39;should call the mocked function&#39;, function () {
+    const spy = sinon.spy();
+    spy(123);
+    spy.should.have.been.calledWith(123);
+  });
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mocha-chai-sinon-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mocha-chai-sinon-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

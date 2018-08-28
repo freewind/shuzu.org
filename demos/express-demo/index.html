@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>express-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">express-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Start Server
+------------
+
+```
+npm install
+node index.js
+```
+
+Will listen on `3000`
+
+Client: Say hello
+-----------------
+
+```
+curl localhost:3000
+```
+
+Client: POST with form data
+---------------------------
+
+```
+curl -X POST -d &#39;{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;bbb.com&quot;}&#39; localhost:3000/user
+```
+
+Client: POST with JSON
+-----------------------
+
+```
+curl -X POST -d &#39;{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;bbb.com&quot;}&#39; -H &quot;Content-Type: application/json&quot; localhost:3000/user
+```
+
+Client: Show users
+-------------------
+
+```
+curl localhost:3000/users
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+
+const app = express();
+
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/x-www-form-urlencoded
+// extended
+// - true: use https://www.npmjs.com/package/qs
+// - false: use https://www.npmjs.com/package/querystring
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const users = [];
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;Hello World!&#39;);
+});
+
+app.post(&#39;/user&#39;, function(req, res) {
+  const name = req.body.name;
+  const email = req.body.email;
+  users.push({
+  	name: name,
+  	email: email
+  })
+  res.sendStatus(201);
+});
+
+app.get(&#39;/users&#39;, function(req, res) {
+  res.send(users);
+})
+
+app.listen(3000, function () {
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

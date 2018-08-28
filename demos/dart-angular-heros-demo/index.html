@@ -1,0 +1,591 @@
+<html>
+<head>
+    <title>dart-angular-heros-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">dart-angular-heros-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ## Tour of Heroes: HTTP
+
+This project is cloned from &lt;https://github.com/angular-examples/toh-6&gt;.
+
+Welcome to the example app used in the
+[Tour of Heroes: HTTP](https://webdev.dartlang.org/angular/tutorial/toh-pt6) page
+of [Dart for the web](https://webdev.dartlang.org).
+
+You can run a [hosted copy](https://webdev.dartlang.org/examples/toh-6) of this
+sample. Or run your own copy:
+
+1. Create a local copy of this repo (use the &quot;Clone or download&quot; button above).
+2. Get the dependencies: `pub get`
+3. Launch a development server: `pub serve`
+4. In a browser, open [http://localhost:8080](http://localhost:8080)
+
+In Dartium, you&#39;ll see the app right away. In other modern browsers,
+you&#39;ll have to wait a bit while pub converts the app.
+
+---
+
+*Note:* The content of this repository is generated from the
+[Angular docs repository][docs repo] by running the
+[dart-doc-syncer](//github.com/dart-lang/dart-doc-syncer) tool.
+If you find a problem with this sample&#39;s code, please open an [issue][].
+
+[docs repo]: //github.com/dart-lang/site-webdev/tree/master/examples/ng/doc/toh-6
+[issue]: //github.com/dart-lang/site-webdev/issues/new?title=examples/ng/doc/toh-6
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/app_component.css" target="_blank">app_component.css</a>
+        </div>
+        <div class="path">lib/app_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">h1 {
+  font-size: 1.2em;
+  color: #999;
+  margin-bottom: 0;
+}
+h2 {
+  font-size: 2em;
+  margin-top: 0;
+  padding-top: 0;
+}
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav a.router-link-active {
+  color: #039be5;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/dashboard_component.css" target="_blank">dashboard_component.css</a>
+        </div>
+        <div class="path">lib/src/dashboard_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">[class*=&#39;col-&#39;] {
+  float: left;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+[class*=&#39;col-&#39;]:last-of-type {
+  padding-right: 0;
+}
+a {
+  text-decoration: none;
+}
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+h3 {
+  text-align: center; margin-bottom: 0;
+}
+h4 {
+  position: relative;
+}
+.grid {
+  margin: 0;
+}
+.col-1-4 {
+  width: 25%;
+}
+.module {
+  padding: 20px;
+  text-align: center;
+  color: #eee;
+  max-height: 120px;
+  min-width: 120px;
+  background-color: #607D8B;
+  border-radius: 2px;
+}
+.module:hover {
+  background-color: #EEE;
+  cursor: pointer;
+  color: #607d8b;
+}
+.grid-pad {
+  padding: 10px 0;
+}
+.grid-pad &gt; [class*=&#39;col-&#39;]:last-of-type {
+  padding-right: 20px;
+}
+@media (max-width: 600px) {
+  .module {
+    font-size: 10px;
+    max-height: 75px; }
+}
+@media (max-width: 1024px) {
+  .grid {
+    margin: 0;
+  }
+  .module {
+    min-width: 60px;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/dashboard_component.html" target="_blank">dashboard_component.html</a>
+        </div>
+        <div class="path">lib/src/dashboard_component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;h3&gt;Top Heroes&lt;/h3&gt;
+&lt;div class=&quot;grid grid-pad&quot;&gt;
+  &lt;a *ngFor=&quot;let hero of heroes&quot;  [routerLink]=&quot;[&#39;HeroDetail&#39;, {id: hero.id.toString()}]&quot;  class=&quot;col-1-4&quot;&gt;
+    &lt;div class=&quot;module hero&quot;&gt;
+      &lt;h4&gt;{{hero.name}}&lt;/h4&gt;
+    &lt;/div&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;hero-search&gt;&lt;/hero-search&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.html" target="_blank">heroes_component.html</a>
+        </div>
+        <div class="path">lib/src/heroes_component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;h2&gt;My Heroes&lt;/h2&gt;
+&lt;div&gt;
+  &lt;label&gt;Hero name:&lt;/label&gt; &lt;input #heroName /&gt;
+  &lt;button (click)=&quot;add(heroName.value); heroName.value=&#39;&#39;&quot;&gt;
+    Add
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;ul class=&quot;heroes&quot;&gt;
+  &lt;li *ngFor=&quot;let hero of heroes&quot; (click)=&quot;onSelect(hero)&quot;
+      [class.selected]=&quot;hero === selectedHero&quot;&gt;
+    &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt;
+    &lt;span&gt;{{hero.name}}&lt;/span&gt;
+    &lt;button class=&quot;delete&quot;
+      (click)=&quot;delete(hero); $event.stopPropagation()&quot;&gt;x&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div *ngIf=&quot;selectedHero != null&quot;&gt;
+  &lt;h2&gt;
+    {{selectedHero.name | uppercase}} is my hero
+  &lt;/h2&gt;
+  &lt;button (click)=&quot;gotoDetail()&quot;&gt;View Details&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.html" target="_blank">hero_search_component.html</a>
+        </div>
+        <div class="path">lib/src/hero_search_component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;div id=&quot;search-component&quot;&gt;
+  &lt;h4&gt;Hero Search&lt;/h4&gt;
+  &lt;input #searchBox id=&quot;search-box&quot;
+         (change)=&quot;search(searchBox.value)&quot;
+         (keyup)=&quot;search(searchBox.value)&quot; /&gt;
+  &lt;div&gt;
+    &lt;div *ngFor=&quot;let hero of heroes | async&quot;
+         (click)=&quot;gotoDetail(hero)&quot; class=&quot;search-result&quot; &gt;
+      {{hero.name}}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.css" target="_blank">heroes_component.css</a>
+        </div>
+        <div class="path">lib/src/heroes_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+.heroes {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+}
+.heroes li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.heroes li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.heroes li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.heroes .text {
+  position: relative;
+  top: -3px;
+}
+.heroes .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button.delete {
+  float:right;
+  margin-top: 2px;
+  margin-right: .8em;
+  background-color: gray !important;
+  color:white;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.html" target="_blank">hero_detail_component.html</a>
+        </div>
+        <div class="path">lib/src/hero_detail_component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;div *ngIf=&quot;hero != null&quot;&gt;
+  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;name: &lt;/label&gt;
+    &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot; /&gt;
+  &lt;/div&gt;
+  &lt;button (click)=&quot;goBack()&quot;&gt;Back&lt;/button&gt;
+  &lt;button (click)=&quot;save()&quot;&gt;Save&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.css" target="_blank">hero_detail_component.css</a>
+        </div>
+        <div class="path">lib/src/hero_detail_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+}
+button {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.css" target="_blank">hero_search_component.css</a>
+        </div>
+        <div class="path">lib/src/hero_search_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">.search-result {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  width:195px;
+  height: 20px;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+#search-box {
+  width: 200px;
+  height: 20px;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/README.md" target="_blank">README.md</a>
+        </div>
+        <div class="path">test/README.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">Changes/additions relative to toh-5:
+
+- Test bed: add provider for `Client`.
+- Reset (mock) DB during setup.
+- Test waiting for element update before proceeding.
+- Test interaction with (mock) db backend.
+- Use `@WithVisibleText()` PO field annotation.</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/styles.css" target="_blank">styles.css</a>
+        </div>
+        <div class="path">web/styles.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+/* Master Styles */
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
+}
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+
+/* Navigation link styles */
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #039be5;
+}
+
+/* items class */
+.items {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 24em;
+}
+.items li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.items li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.items li.selected {
+  background-color: #CFD8DC;
+  color: white;
+}
+.items li.selected:hover {
+  background-color: #BBD8DC;
+}
+.items .text {
+  position: relative;
+  top: -3px;
+}
+.items .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">web/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script&gt;
+      // WARNING: DO NOT set the &lt;base href&gt; like this in production!
+      // Details: https://webdev.dartlang.org/angular/guide/router
+      (function () {
+        var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+        document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
+      }());
+    &lt;/script&gt;
+
+    &lt;title&gt;Angular Tour of Heroes&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+
+    &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;my-app&gt;Loading...&lt;/my-app&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/dart-angular-heros-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/dart-angular-heros-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

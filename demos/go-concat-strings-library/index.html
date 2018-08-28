@@ -1,0 +1,130 @@
+<html>
+<head>
+    <title>go-concat-strings-library - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-concat-strings-library</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go拼接多个字符串
+==========
+
+```
+brew install go
+go get
+go run hello.go
+```
+
+You will see `Hello, Go!`.
+
+Note
+----
+
+在其它Demo中为了演示，可能会使用[glide](https://github.com/Masterminds/glide)引入其它库，而glide会读取git tags中的版本号。
+为了方便使用，在本demo的github上，定义了以下tag:
+
+- `v0.2.0`
+- `v0.1.0`
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/hello.go" target="_blank">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;github.com/golang-demos/go-concat-strings-library/strlib&quot;
+)
+
+func main() {
+	var finalStr = strlib.ConcatStrs(&quot;Hello, &quot;, &quot;Go!&quot;)
+	fmt.Println(finalStr)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/strlib/strlib.go.md" target="_blank">strlib.go.md</a>
+        </div>
+        <div class="path">strlib/strlib.go.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">定义了一个名为`strlib`的package。其它地方使用该package下的函数时，必须使用以下方式导入：
+
+```
+import &quot;github.com/golang-demos/go-concat-strings-library/strlib&quot;
+```
+
+哪怕是在同一个项目中。
+
+注意点
+-----
+
+### `package strlib`
+
+当前package为`strlib`，它必须跟所在目录同名。
+
+该目录下所有的go文件，都必须声明为同一个package，它们同属于一个package。
+
+### `ConcatStrs`
+
+以大写字母开头，表示它是一个public的函数，可以被别的包下的代码使用。如果是小写，则为private，只能在当前package中可见。
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/strlib/strlib.go" target="_blank">strlib.go</a>
+        </div>
+        <div class="path">strlib/strlib.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package strlib
+
+import (
+	&quot;bytes&quot;
+)
+
+func ConcatStrs(strs ...string) string {
+	var buffer bytes.Buffer
+	for i := 0; i &lt; len(strs); i++ {
+		buffer.WriteString(strs[i])
+	}
+	return buffer.String()
+}
+
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-concat-strings-library">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-concat-strings-library/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

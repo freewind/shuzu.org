@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>webjar-swagger-ui-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">webjar-swagger-ui-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        how to run
+============
+
+`gradle clean appRun`
+
+Then you can visit: `http://localhost:8080/webjars/swagger-ui/2.1.4/`
+
+Then you can pass any swagger api description file like `http://petstore.swagger.io/v2/swagger.json` to the input field and view and try it. 
+
+Note
+=====
+
+We should use a server container which supports servlet 3.x in order to support webjar directly.
+
+# Reference
+
+1. Java project skeleton: 
+http://www.jeroenreijn.com/2012/11/hippo-cms-servlet-3-and-webjars.html
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webjar-swagger-ui-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+apply from: &#39;gretty.plugin&#39;
+
+gretty {
+    // Possible servletContainer values are &#39;jetty7&#39;, &#39;jetty8&#39;, &#39;jetty9&#39;, &#39;tomcat7&#39;, &#39;tomcat8&#39;. Default is &#39;jetty9&#39;.
+    servletContainer = &#39;jetty9&#39;
+    // httpsEnabled = true
+    contextPath = &quot;/&quot;
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            &#39;io.swagger:swagger-jersey2-jaxrs:1.5.0&#39;,
+            &#39;org.webjars:swagger-ui:2.1.4&#39;
+    )
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/webjar-swagger-ui-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/webjar-swagger-ui-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

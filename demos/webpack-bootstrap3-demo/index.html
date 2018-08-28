@@ -1,0 +1,161 @@
+<html>
+<head>
+    <title>webpack-bootstrap3-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">webpack-bootstrap3-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Webpack Bootstrap3 Demo
+========================
+
+Use bootstrap3 with webpack. We use `bootstrap-webpack` to make it easy.
+
+Please note the definations in `webpack.config.js`.
+
+The more detailed document, please see: &lt;https://www.npmjs.com/package/bootstrap-webpack&gt;
+
+```
+npm install -g webpack
+npm install
+webpack
+```
+
+Then open `index.html` in your browser, you will see a bootstrap button.
+
+How to add `bootstrap-webpack` to your project
+----------------------------------------------
+
+```
+npm install --save bootstrap bootstrap-webpack jquery
+
+npm install --save-dev less less-loader style-loader url-loader css-loader exports-loader expose-loader extract-text-webpack-plugin file-loader imports-loader
+```
+
+Also add content of `webpack.config.js`(`loaders` part) to your project.
+
+About generated strange font file
+---------------------------------
+
+for now, we can just ignore them by adding to `.gitignore`:
+
+```
+/*.ttf
+/*.svg
+/*.woff
+/*.woff2
+/*.eot
+```
+
+Notice the leading `/` which means just ignore the font files under the project root.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/entry.js" target="_blank">entry.js</a>
+        </div>
+        <div class="path">entry.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">require(&#39;jquery&#39;);
+require(&quot;bootstrap-webpack&quot;);
+require(&#39;./index.css&#39;);
+
+document.write(&#39;it works!&#39;);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/index.css" target="_blank">index.css</a>
+        </div>
+        <div class="path">index.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">body {
+  background-color: yellow;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./entry.js&#39;,
+  output: {
+    path: __dirname,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: &#39;style!css&#39; // note style is before css
+    }, {
+      test: /\.(woff|woff2)$/,
+      loader: &quot;url-loader?limit=10000&amp;mimetype=application/font-woff&quot;
+    }, {
+      test: /\.ttf$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.eot$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.svg$/,
+      loader: &quot;file-loader&quot;
+    }, { 
+      test: require.resolve(&quot;jquery&quot;), 
+      loader: &quot;expose?$!expose?jQuery&quot; 
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;This is Bootstrap Button&lt;/button&gt;
+	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

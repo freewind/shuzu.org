@@ -1,0 +1,176 @@
+<html>
+<head>
+    <title>act-framework-kotlin-failed-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">act-framework-kotlin-failed-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ActFramework with Kotlin Failed Demo
+====================================
+
+在Act Framework中使用Kotlin，失败。
+
+运行
+
+```
+./run_dev
+```
+
+后卡在这一步很久，最后`OutOfMemoryError`：
+
+```
+[INFO]
+[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ helloworld ---
+Exception in thread &quot;main&quot; java.lang.OutOfMemoryError: GC overhead limit exceeded
+        at org.osgl.util.FastStr.charArray(FastStr.java:1321)
+        at org.osgl.util.FastStr.toString(FastStr.java:582)
+        at org.osgl.util.FastStr.toLowerCase(FastStr.java:1276)
+
+```
+
+看来只能在Java下使用了。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-kotlin-failed-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;org.actframework.demo&lt;/groupId&gt;
+    &lt;artifactId&gt;helloworld&lt;/artifactId&gt;
+    &lt;version&gt;1.6.4&lt;/version&gt;
+
+    &lt;parent&gt;
+        &lt;groupId&gt;org.actframework&lt;/groupId&gt;
+        &lt;artifactId&gt;act-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;1.6.4.0&lt;/version&gt;
+    &lt;/parent&gt;
+
+    &lt;properties&gt;
+        &lt;kotlin.version&gt;1.2.60&lt;/kotlin.version&gt;
+        &lt;app.entry&gt;demo.helloworld.HelloWorldApp&lt;/app.entry&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+            &lt;artifactId&gt;kotlin-stdlib&lt;/artifactId&gt;
+            &lt;version&gt;${kotlin.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;sourceDirectory&gt;${project.basedir}/src/main/kotlin&lt;/sourceDirectory&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;kotlin-maven-plugin&lt;/artifactId&gt;
+                &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
+                &lt;version&gt;${kotlin.version}&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;compile&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+
+                    &lt;execution&gt;
+                        &lt;id&gt;test-compile&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;test-compile&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-kotlin-failed-demo/blob/master/src/main/kotlin/demo/helloworld/hello-world-app.kt" target="_blank">hello-world-app.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/demo/helloworld/hello-world-app.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package demo.helloworld
+
+import act.Act
+import act.inject.DefaultValue
+import act.util.Output
+import org.osgl.mvc.annotation.GetAction
+
+import act.controller.Controller.Util.render
+
+class HelloWorldApp {
+
+    @GetAction
+    fun home(@DefaultValue(&quot;World&quot;) @Output who: String) {
+        render(who)
+    }
+
+    companion object {
+
+        @Throws(Exception::class)
+        @JvmStatic
+        fun main(args: Array&lt;String&gt;) {
+            Act.start()
+        }
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-kotlin-failed-demo/blob/master/src/main/resources/rythm/demo/helloworld/HelloWorldApp/home.html" target="_blank">home.html</a>
+        </div>
+        <div class="path">src/main/resources/rythm/demo/helloworld/HelloWorldApp/home.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+@args String who
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello @who!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/act-framework-kotlin-failed-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/act-framework-kotlin-failed-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

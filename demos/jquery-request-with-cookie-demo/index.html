@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>jquery-request-with-cookie-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">jquery-request-with-cookie-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Express JQuery Request with Existing Cookie Demo
+================================================
+
+Check if the jquery AJAX call will send existing cookies to server automatically, the answer is yes.
+
+Run
+---
+
+```
+npm install
+node server.js
+```
+
+Then visit &lt;http://localhost:3000&gt;
+
+Check
+-----
+
+Open Chrome `developer console` -&gt; `network`, find the `localhost` request, you will see the response has `Set-Cookie`:
+
+```
+Set-Cookie: token=mike%3A123456; Path=/
+```
+
+Then click on the button on page, check the request data, the cookie has the existing `token`:
+
+```
+Cookie: _ga=GA1.1.1940290804.1517624988; Idea-e65a76ea=55cfa0a1-ed31-4683-9aaf-46d8bf699e32; Idea-e65a7aa9=75822b7f-233d-4e27-86d4-9b1bd1023edc; token=mike%3A123456
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/views/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">views/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        function getData() {
+            $.get(&#39;./data.json&#39;, function(data) {
+                $(&quot;#content&quot;).text(JSON.stringify(data));
+            })
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button onclick=&quot;getData()&quot;&gt;Click to send AJAX GET&lt;/button&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">$.get(&#39;./hello&#39;, function(data) {
+  $(&#39;#console&#39;).text(data);
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">let express = require(&#39;express&#39;);
+let app = express();
+
+app.use(express.static(&#39;./&#39;, {
+    dotfiles: &#39;ignore&#39;,
+    etag: true,
+    extensions: [&#39;html&#39;, &#39;js&#39;, &#39;css&#39;],
+    index: [&#39;index.html&#39;], // or `false`
+    maxAge: &#39;1d&#39;,
+    redirect: false,
+    setHeaders: function(res, path, stat) {
+        res.set(&#39;x-timestamp&#39;, Date.now());
+    }
+}));
+
+app.get(&#39;/&#39;, function(req, res) {
+    res.cookie(&#39;token&#39;, &#39;mike:123456&#39;)
+        .sendFile(&#39;views/index.html&#39;, {
+            root: __dirname
+        })
+});
+
+app.get(&#39;/data.json&#39;, function(req, res) {
+    res.type(&#39;json&#39;).send({
+        name: &quot;Freewind&quot;
+    })
+});
+
+app.listen(3000, function() {
+    console.log(&#39;server is listening on 3000&#39;);
+})</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

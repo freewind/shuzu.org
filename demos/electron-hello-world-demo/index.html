@@ -1,0 +1,124 @@
+<html>
+<head>
+    <title>electron-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">electron-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Electron Hello World Demo
+=========================
+
+```
+npm install
+npm start
+```
+
+![demo](./images/demo.jpg)    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-hello-world-demo/blob/master/src/README.md" target="_blank">README.md</a>
+        </div>
+        <div class="path">src/README.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">Electron Hello World Demo
+==========================
+
+Build desktop application with Html/JavaScript/CSS.
+
+```
+npm install
+npm start
+```
+
+Note in `package.json`, the `main` key should point to the js file which starts the electron window.</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-hello-world-demo/blob/master/src/index.css" target="_blank">index.css</a>
+        </div>
+        <div class="path">src/index.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">h1 {
+    color: red;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-hello-world-demo/blob/master/src/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">document.getElementById(&quot;content&quot;).innerText = &quot;hello from javascript&quot;;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-hello-world-demo/blob/master/src/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">src/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./index.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello Electron!&lt;/h1&gt;
+&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-hello-world-demo/blob/master/src/main.js" target="_blank">main.js</a>
+        </div>
+        <div class="path">src/main.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const electron = require(&#39;electron&#39;);
+
+const {app, BrowserWindow} = electron;
+
+app.on(&#39;ready&#39;, function () {
+    const mainWindow = new BrowserWindow();
+    mainWindow.loadURL(&#39;file://&#39; + __dirname + &#39;/index.html&#39;);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/electron-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/electron-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

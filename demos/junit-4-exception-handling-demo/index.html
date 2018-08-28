@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title>junit-4-exception-handling-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">junit-4-exception-handling-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JUnit 4 Exception Handling Demo
+===============================
+
+JUnit 4 handling exceptions.
+
+See `HelloTest.java`.
+
+```
+mvn test
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/junit-4-exception-handling-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;demo&lt;/groupId&gt;
+  &lt;artifactId&gt;junit-4-exception-handling-demo&lt;/artifactId&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;junit-4-exception-handling-demo&lt;/name&gt;
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;junit&lt;/groupId&gt;
+      &lt;artifactId&gt;junit&lt;/artifactId&gt;
+      &lt;version&gt;4.12&lt;/version&gt;
+      &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/junit-4-exception-handling-demo/blob/master/src/test/java/demo/HelloTest.java" target="_blank">HelloTest.java</a>
+        </div>
+        <div class="path">src/test/java/demo/HelloTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.CoreMatchers.startsWith;
+
+public class HelloTest {
+
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldThrowIllegalArgumentException() {
+        throw new IllegalArgumentException(&quot;testing&quot;);
+    }
+
+    @Test
+    public void shouldThrowIllegalArgumentExceptionWithMessage() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(&quot;testing&quot;);
+        throw new IllegalArgumentException(&quot;testing&quot;);
+    }
+
+    @Test
+    public void shouldThrowIllegalArgumentExceptionAndCheckMessagePattern() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(startsWith(&quot;testing&quot;));
+        throw new IllegalArgumentException(&quot;testing 23423!&quot;);
+    }
+
+    @Test
+    public void shouldThrowIllegalArgumentExceptionAndCheckMessageWithCustomPattern() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectMessage(new BaseMatcher&lt;String&gt;() {
+            public boolean matches(Object item) {
+                String message = ((String) item);
+                return message.startsWith(&quot;testing &quot;) &amp;&amp; message.endsWith(&quot;!&quot;);
+            }
+            public void describeTo(Description description) {
+            }
+        });
+        throw new IllegalArgumentException(&quot;testing 23423!&quot;);
+    }
+
+    @Test
+    public void shouldThrowIllegalArgumentExceptionWithCause() {
+        expectedEx.expect(IllegalArgumentException.class);
+        expectedEx.expectCause(new BaseMatcher&lt;NullPointerException&gt;() {
+            public void describeTo(Description description) {
+            }
+            public boolean matches(Object item) {
+                if (item instanceof NullPointerException) {
+                    NullPointerException cause = (NullPointerException) item;
+                    return cause.getMessage().equals(&quot;testing-null&quot;);
+                } else {
+                    return false;
+                }
+            }
+        });
+        throw new IllegalArgumentException(&quot;testing&quot;, new NullPointerException(&quot;testing-null&quot;));
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/junit-4-exception-handling-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/junit-4-exception-handling-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

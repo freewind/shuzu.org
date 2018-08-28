@@ -1,0 +1,144 @@
+<html>
+<head>
+    <title>go-socket-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-socket-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go Hello World Demo
+===================
+
+```
+brew install go
+go run hello.go
+```
+
+You will see `Hello, go!`
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-socket-demo/blob/master/client.go" target="_blank">client.go</a>
+        </div>
+        <div class="path">client.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;net&quot;
+	&quot;fmt&quot;
+	&quot;os&quot;
+	&quot;bufio&quot;
+	&quot;time&quot;
+)
+
+func main() {
+	conn, err := net.Dial(&quot;tcp&quot;, &quot;localhost:9999&quot;)
+	defer conn.Close()
+
+	if err != nil {
+		fmt.Println(&quot;Error: &quot;, err)
+		os.Exit(1)
+	}
+
+	reader := bufio.NewReader(conn)
+	writer := bufio.NewWriter(conn)
+
+	writer.WriteString(&quot;Hello!\n&quot;)
+	writer.Flush()
+
+	for {
+		line, err := reader.ReadString(&#39;\n&#39;)
+		if len(line) &gt; 0 {
+			fmt.Println(&quot;Read line from server: &quot;, line)
+			writer.WriteString(line)
+			writer.Flush()
+		}
+		if err != nil {
+			break
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-socket-demo/blob/master/server.go" target="_blank">server.go</a>
+        </div>
+        <div class="path">server.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main;
+
+import (
+	&quot;net&quot;
+	&quot;strconv&quot;
+	&quot;bufio&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+	startServer(9999)
+}
+
+func startServer(port int) {
+	server, _ := net.Listen(&quot;tcp&quot;, &quot;localhost:&quot;+strconv.Itoa(port))
+	defer server.Close()
+
+	conn, _ := server.Accept()
+
+	handleRequest(conn)
+}
+
+func handleRequest(conn net.Conn) {
+	defer conn.Close()
+
+	bufferedReader := bufio.NewReader(conn)
+	bufferedWriter := bufio.NewWriter(conn)
+
+	for {
+		// Note: .ReadLine() is complex than this, because it may read part of line when the line is long
+		line, err := bufferedReader.ReadString(&#39;\n&#39;)
+		if len(line) &gt; 0 {
+			fmt.Println(&quot;Read line from client: &quot;, line)
+			bufferedWriter.WriteString(string(line))
+			bufferedWriter.Flush()
+		}
+		if err != nil {
+			break
+		}
+	}
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-socket-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-socket-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

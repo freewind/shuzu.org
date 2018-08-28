@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>jasmine-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">jasmine-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Jasmine Demo
+============
+
+A very simple jasmine demo and how to run it in command line
+
+```
+npm install
+```
+
+Run test:
+
+```
+npm test
+```
+
+How to create the `jasmine.json`
+--------------------------------
+
+```
+jasmine init
+```
+
+It will create `spec/support/jasmine.json` with default content.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
+        </div>
+        <div class="path">spec/hello-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var hello = require(&#39;../src/hello&#39;);
+
+describe(&quot;A suite&quot;, function () {
+  it(&quot;contains spec with an expectation&quot;, function () {
+    expect(hello()).toBe(&quot;Hello,world!&quot;);
+  });
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/src/core.js" target="_blank">core.js</a>
+        </div>
+        <div class="path">src/core.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = function() {
+  console.log(&quot;this is core function&quot;);
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/src/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">src/hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">let core = require(&#39;./core&#39;);
+
+module.exports = function () {
+  core();
+  let h = &quot;Hello,&quot;;
+  let w = &quot;world!&quot;;
+  console.log(&quot;=========== hello =========&quot;);
+  return h + w;
+};</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jasmine-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jasmine-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

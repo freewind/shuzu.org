@@ -1,0 +1,112 @@
+<html>
+<head>
+    <title>react-bootstrap-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-bootstrap-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        React Bootstrap Demo
+======================
+
+Use components defined in [react-bootstrap](https://react-bootstrap.github.io).
+
+```
+npm install
+npm start
+```
+
+Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.
+
+References
+---------
+
+- Component: &lt;https://react-bootstrap.github.io/components.html&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./entry.jsx&#39;,
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }, {
+      test: /\.(woff|woff2)$/,
+      loader: &quot;url-loader?limit=10000&amp;mimetype=application/font-woff&quot;
+    }, {
+      test: /\.ttf$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.eot$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.svg$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: require.resolve(&quot;jquery&quot;),
+      loader: &quot;expose?$!expose?jQuery&quot;
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-bootstrap-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-bootstrap-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

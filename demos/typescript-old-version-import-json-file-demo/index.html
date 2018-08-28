@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>typescript-old-version-import-json-file-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-old-version-import-json-file-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript(&lt; 2.9) Import Json File Demo
+=======================================
+
+Typescript 2.9 has `resolveJsonModule` support, which makes importing json file in typescript easily.
+But old versions don&#39;t have, so we have to define some typings for json files.
+
+```
+npm install
+npx tsc
+node hello.js
+```
+
+It will print `{ name: &#39;typescript&#39; }`
+
+Notice
+------
+
+I was using `ts-node` to run ts files without compilation, but seems not work well with `.json` importing with old versions of typescript.
+See this demo: https://github.com/freewind-demos/ts-node-import-json-file-issue-demo
+
+So I use `tsc` in this demo.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/typings.d.ts" target="_blank">typings.d.ts</a>
+        </div>
+        <div class="path">typings.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">declare module &#39;*.json&#39; {
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as name from &#39;./data.json&#39;
+
+console.log(name)
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

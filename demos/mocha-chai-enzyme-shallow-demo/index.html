@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>mocha-chai-enzyme-shallow-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">mocha-chai-enzyme-shallow-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Moch Chai Enzyme Shallow Demo
+==============================
+
+Enzyme `shallow()` demo with mocha.
+
+It&#39;s for unit-testing the component only.
+
+```
+npm test
+```
+
+Notice
+------
+
+If the component contains inner components, also `.html()` will show 
+all rendered html, but the wrapper can&#39;t find or interact with inner
+ components.
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-shallow-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
+        </div>
+        <div class="path">spec/hello-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &#39;react&#39;;
+import Hello from &#39;../src/hello.jsx&#39;;
+import chai from &#39;chai&#39;;
+import spies from &#39;chai-spies&#39;;
+import {shallow} from &#39;enzyme&#39;;
+import chaiEnzyme from &#39;chai-enzyme&#39;;
+
+chai.should();
+chai.use(spies);
+chai.use(chaiEnzyme());
+
+describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
+
+  it(&#39;renders to html including inner components&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]}/&gt;);
+    wrapper.html().should.equal(&quot;&lt;div&gt;&lt;h1&gt;Hello, I like:&lt;/h1&gt;&lt;div&gt;Box: AAA&lt;/div&gt;&lt;div&gt;Box: BBB&lt;/div&gt;&lt;/div&gt;&quot;);
+  });
+
+  it(&#39;shows fruit names&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]}/&gt;);
+    // can find text in the component itself
+    wrapper.should.contain.text(&quot;Hello, I like:&quot;);
+    // but can&#39;t find it in the inner components
+    // Notice `should.not`
+    wrapper.should.not.contain.text(&#39;Box: AAA&#39;);
+  });
+
+  it(&#39;calls onFruitDelete if deletes a fruit&#39;, () =&gt; {
+    const spy = chai.spy();
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]} onDeleteFruit={spy}/&gt;);
+    wrapper.find(&#39;button[title=&quot;delete&quot;]&#39;).first().simulate(&#39;click&#39;);
+    // can&#39;t interact with inner components
+    // Notice `not.have`
+    spy.should.not.have.been.called.with(&#39;AAA&#39;);
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-shallow-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  entry: [
+    &#39;./src/entry.jsx&#39;
+  ],
+  output: {
+    path: __dirname + &#39;/public/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
+  }
+};
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mocha-chai-enzyme-shallow-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mocha-chai-enzyme-shallow-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

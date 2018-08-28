@@ -1,0 +1,168 @@
+<html>
+<head>
+    <title>gradle-sync-task-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">gradle-sync-task-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Gradle Hello World Demo
+=======================
+
+How to use `Sync` task. It will delete all files inside target dir before copying by default.
+
+```
+./gradlew mySync1
+./gradlew mySync2
+./gradlew mySyncNotWorking
+```
+
+Then check the `target-dir`.
+
+Question:
+---------
+
+&lt;https://stackoverflow.com/questions/51417062/gradle-sync-task-with-dolast-doesnt-work&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/target-dir-z/other.txt" target="_blank">other.txt</a>
+        </div>
+        <div class="path">target-dir-z/other.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">other things</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+}
+
+dependencies {
+    compile &#39;org.apache.commons:commons-lang3:3.4&#39;
+    testCompile &#39;junit:junit:4.11&#39;
+    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
+}
+
+// This task is an sub class of `Sync`
+// `from/into` are methods of `Sync`
+task mySync1(type: Sync) {
+    println(&quot;----- mySync1 -----&quot;)
+    from &quot;source-dir1&quot;
+    from &quot;source-dir2&quot;
+    into &quot;target-dir-x&quot;
+}
+
+// We can use `project.sync` directly,
+// in `doLast` block
+task mySync2() {
+    doLast {
+        println(&quot;----- mySync2 -----&quot;)
+        project.sync {
+            from &quot;source-dir1&quot;
+            from &quot;source-dir2&quot;
+            into &quot;target-dir-y&quot;
+        }
+    }
+}
+
+// This is not working
+// `from/into` are just configurations, but if they are in `doFirst/doLast`, they are not run in configuration phase,
+// the `Sync` task is not configured actually.
+task mySyncNotWorking(type: Sync) {
+    println(&quot;----- mySyncNotWorking -----&quot;)
+    doFirst {
+        from &quot;source-dir1&quot;
+        from &quot;source-dir2&quot;
+        into &quot;target-dir-z&quot;
+    }
+    doLast {
+        from &quot;source-dir1&quot;
+        from &quot;source-dir2&quot;
+        into &quot;target-dir-z&quot;
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/target-dir-y/other.txt" target="_blank">other.txt</a>
+        </div>
+        <div class="path">target-dir-y/other.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">other things</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/source-dir2/b.txt" target="_blank">b.txt</a>
+        </div>
+        <div class="path">source-dir2/b.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">Hello B</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/target-dir-x/other.txt" target="_blank">other.txt</a>
+        </div>
+        <div class="path">target-dir-x/other.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">other things</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-sync-task-demo/blob/master/source-dir1/a.txt" target="_blank">a.txt</a>
+        </div>
+        <div class="path">source-dir1/a.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">Hello A</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/gradle-sync-task-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/gradle-sync-task-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<html>
+<head>
+    <title>jsonp-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">jsonp-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Start Server
+------------
+
+```
+npm install
+```
+
+```
+node server1.js  // will listen on 3000
+node server2.js  // will listen on 3001
+```
+
+Examples
+--------
+
+1. Fetch json data from a different domain will fail:
+
+Visit &lt;http://localhost:3000/json.html&gt; and click the button, 
+and also open browser&#39;s console to see what happens.
+
+2. Fetch data with jsonp and manually creating `script` tag:
+
+Visit &lt;http://localhost:3000/jsonp-script-tag.html&gt; and click the button.
+
+3. Fetch data with jsonp and use jquery simply:
+   
+   Visit &lt;http://localhost:3000/jsonp-jquery.html&gt; and click the button.
+
+Documents
+---------
+
+- http://json-p.org/
+- http://stackoverflow.com/questions/2067472/what-is-jsonp-all-about    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/json.html" target="_blank">json.html</a>
+        </div>
+        <div class="path">json.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function loadData() {
+            $.get(&#39;http://localhost:3001/json-data&#39;, function (data) {
+                $(&#39;#data&#39;).text(data);
+            });
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+    &lt;button onclick=&quot;loadData()&quot;&gt;Client to fetch data by AJAX&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id=&quot;data&quot;&gt;&lt;/div&gt;
+&lt;hr/&gt;
+Note: open the console of the browser to see where is wrong.
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/jsonp-script-tag.html" target="_blank">jsonp-script-tag.html</a>
+        </div>
+        <div class="path">jsonp-script-tag.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function showData(data) {
+            $(&#39;#data&#39;).text(JSON.stringify(data));
+        }
+        function loadData() {
+            var script = document.createElement(&#39;script&#39;);
+            script.type = &#39;text/javascript&#39;;
+            script.src = &#39;http://localhost:3001/jsonp-data?callback=showData&#39;;
+            document.getElementsByTagName(&#39;head&#39;)[0].appendChild(script);
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+    &lt;button onclick=&quot;loadData()&quot;&gt;Client to fetch data by AJAX&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id=&quot;data&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/server2.js" target="_blank">server2.js</a>
+        </div>
+        <div class="path">server2.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+app.get(&#39;/json-data&#39;, function (req, res) {
+  res.json({name: &#39;Freewind&#39;});
+});
+
+app.get(&#39;/jsonp-data&#39;, function (req, res) {
+  res.jsonp({name: &#39;Freewind&#39;});
+});
+
+var server = app.listen(3001, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/jsonp-jquery.html" target="_blank">jsonp-jquery.html</a>
+        </div>
+        <div class="path">jsonp-jquery.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function loadData() {
+            $.get({
+                url: &#39;http://localhost:3001/jsonp-data&#39;,
+                dataType: &#39;jsonp&#39;,
+                success: function (data) {
+                    $(&quot;#data&quot;).text(JSON.stringify(data));
+                }
+            });
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+    &lt;button onclick=&quot;loadData()&quot;&gt;Client to fetch data by AJAX&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id=&quot;data&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/server1.js" target="_blank">server1.js</a>
+        </div>
+        <div class="path">server1.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+app.use(express.static(&#39;./&#39;));
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jsonp-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jsonp-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

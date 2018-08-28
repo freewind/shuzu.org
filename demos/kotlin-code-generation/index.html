@@ -1,0 +1,384 @@
+<html>
+<head>
+    <title>kotlin-code-generation - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-code-generation</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Code Generation
+=====================
+
+This project is just copied from &lt;https://github.com/JetBrains/kotlin-examples/tree/master/gradle/kotlin-code-generation&gt; with some modifications.
+
+Directories and files:
+
+- `annotation-processor`: definition of our custom `TestAnnotation`
+- `example`: Use and test the `TestAnnotation`. See `example/build.gradle` for configuration of annotations
+
+Run:
+
+```
+./gradlew clean test
+```
+
+You will see logs from `annotation-processor/src/main/java/TestAnnotationProcessor.kt` from the generated log file: `./kotlin.log`
+
+Notice
+------
+
+AKPT is not supported by Kotlin-JS    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">example-js/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;kotlin2js&#39;
+apply plugin: &#39;kotlin-kapt&#39;
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version&quot;
+
+    compile project(&quot;:annotation-processor&quot;)
+    kapt project(&quot;:annotation-processor&quot;)
+
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-js:$kotlin_version&quot;
+}
+
+apply plugin: &#39;idea&#39;
+
+idea {
+    module {
+        sourceDirs += files(&#39;build/generated/source/kapt/main&#39;, &#39;build/generated/source/kaptKotlin/main&#39;)
+        generatedSourceDirs += files(&#39;build/generated/source/kapt/main&#39;, &#39;build/generated/source/kaptKotlin/main&#39;)
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/src/test/kotlin/test.kt" target="_blank">test.kt</a>
+        </div>
+        <div class="path">example-js/src/test/kotlin/test.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package org.kotlin.test
+
+import org.junit.Test
+import org.junit.Assert.*
+import test.generated.simpleClassName
+
+class AnnotationTest {
+    @Test fun testSimple() {
+        assertEquals(&quot;SimpleJsClass&quot;, SimpleJsClass().simpleClassName)
+    }
+
+    @Test fun testAnother() {
+        assertEquals(&quot;AnotherJsClass&quot;, AnotherJsClass().simpleClassName)
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/src/main/kotlin/ExampleJs.kt" target="_blank">ExampleJs.kt</a>
+        </div>
+        <div class="path">example-js/src/main/kotlin/ExampleJs.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package org.kotlin.test
+
+import org.kotlin.annotationProcessor.TestAnnotation
+
+@TestAnnotation
+class SimpleJsClass
+
+@TestAnnotation
+class AnotherJsClass</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.1.2-3&#39;
+
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url &#39;https://jitpack.io&#39; }
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/annotation-processor/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">annotation-processor/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;kotlin&#39;
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &#39;com.github.yanex:takenoko:0.1&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/annotation-processor/src/main/kotlin/TestAnnotationProcessor.kt" target="_blank">TestAnnotationProcessor.kt</a>
+        </div>
+        <div class="path">annotation-processor/src/main/kotlin/TestAnnotationProcessor.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package org.kotlin.annotationProcessor
+
+import org.yanex.takenoko.*
+import java.io.File
+import javax.annotation.processing.*
+import javax.lang.model.SourceVersion
+import javax.lang.model.element.Element
+import javax.lang.model.element.TypeElement
+import javax.tools.Diagnostic.Kind.*
+
+@Target(AnnotationTarget.CLASS)
+annotation class TestAnnotation
+
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedAnnotationTypes(&quot;org.kotlin.annotationProcessor.TestAnnotation&quot;)
+@SupportedOptions(TestAnnotationProcessor.KAPT_KOTLIN_GENERATED_OPTION_NAME)
+class TestAnnotationProcessor : AbstractProcessor() {
+    companion object {
+        const val KAPT_KOTLIN_GENERATED_OPTION_NAME = &quot;kapt.kotlin.generated&quot;
+    }
+
+    fun log(line:String) {
+        File(&quot;./kotlin.log&quot;).appendText(line + &quot;\n&quot;)
+    }
+
+    override fun process(annotations: MutableSet&lt;out TypeElement&gt;?, roundEnv: RoundEnvironment): Boolean {
+        log(&quot;annotations: $annotations&quot;)
+        log(&quot;roundEnv: $roundEnv&quot;)
+
+        val annotatedElements = roundEnv.getElementsAnnotatedWith(TestAnnotation::class.java)
+        log(&quot;annotatedElements: $annotatedElements&quot;)
+
+        if (annotatedElements.isEmpty()) return false
+
+        log(&quot;processingEnv: $processingEnv&quot;)
+        log(&quot;processingEnv.options: &quot; + processingEnv.options)
+
+        val kaptKotlinGeneratedDir = processingEnv.options[KAPT_KOTLIN_GENERATED_OPTION_NAME] ?: run {
+            processingEnv.messager.printMessage(ERROR, &quot;Can&#39;t find the target directory for generated Kotlin files.&quot;)
+            return false
+        }
+
+        log(&quot;kaptKotlinGeneratedDir: $kaptKotlinGeneratedDir&quot;)
+
+        val generatedKtFile = kotlinFile(&quot;test.generated&quot;) {
+            for (element in annotatedElements) {
+                val typeElement = element.toTypeElementOrNull() ?: continue
+
+                property(&quot;simpleClassName&quot;) {
+                    receiverType(typeElement.qualifiedName.toString())
+                    getterExpression(&quot;this::class.java.simpleName&quot;)
+                }
+            }
+        }
+
+        log(&quot;generatedKtFile: $generatedKtFile&quot;)
+
+        File(kaptKotlinGeneratedDir, &quot;testGenerated.kt&quot;).apply {
+            parentFile.mkdirs()
+            writeText(generatedKtFile.accept(PrettyPrinter(PrettyPrinterConfiguration())))
+        }
+
+        return true
+    }
+
+    fun Element.toTypeElementOrNull(): TypeElement? {
+        if (this !is TypeElement) {
+            processingEnv.messager.printMessage(ERROR, &quot;Invalid element type, class expected&quot;, this)
+            return null
+        }
+
+        return this
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/settings.gradle" target="_blank">settings.gradle</a>
+        </div>
+        <div class="path">settings.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">include &#39;:annotation-processor&#39;, &#39;:example&#39;, &#39;:example-js&#39;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/src/test/java/LibraryTest.java" target="_blank">LibraryTest.java</a>
+        </div>
+        <div class="path">src/test/java/LibraryTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*
+ * This Java source file was generated by the Gradle &#39;init&#39; task.
+ */
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class LibraryTest {
+    @Test public void testSomeLibraryMethod() {
+        Library classUnderTest = new Library();
+        assertTrue(&quot;someLibraryMethod should return &#39;true&#39;&quot;, classUnderTest.someLibraryMethod());
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/src/main/java/Library.java" target="_blank">Library.java</a>
+        </div>
+        <div class="path">src/main/java/Library.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*
+ * This Java source file was generated by the Gradle &#39;init&#39; task.
+ */
+public class Library {
+    public boolean someLibraryMethod() {
+        return true;
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">example/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;kotlin&#39;
+apply plugin: &#39;kotlin-kapt&#39;
+
+dependencies {
+	compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+
+    compile project(&quot;:annotation-processor&quot;)
+    kapt project(&quot;:annotation-processor&quot;)
+
+    testCompile &#39;junit:junit:4.12&#39;
+}
+
+apply plugin: &#39;idea&#39;
+
+idea {
+    module {
+        sourceDirs += files(&#39;build/generated/source/kapt/main&#39;, &#39;build/generated/source/kaptKotlin/main&#39;)
+        generatedSourceDirs += files(&#39;build/generated/source/kapt/main&#39;, &#39;build/generated/source/kaptKotlin/main&#39;)
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/src/test/kotlin/test.kt" target="_blank">test.kt</a>
+        </div>
+        <div class="path">example/src/test/kotlin/test.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package org.kotlin.test
+
+import org.junit.Test
+import org.junit.Assert.*
+import test.generated.simpleClassName
+
+class AnnotationTest {
+    @Test fun testSimple() {
+        assertEquals(&quot;SimpleClass&quot;, SimpleClass().simpleClassName)
+    }
+
+    @Test fun testAnother() {
+        assertEquals(&quot;AnotherClass&quot;, AnotherClass().simpleClassName)
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/src/main/kotlin/Example.kt" target="_blank">Example.kt</a>
+        </div>
+        <div class="path">example/src/main/kotlin/Example.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package org.kotlin.test
+
+import org.kotlin.annotationProcessor.TestAnnotation
+
+@TestAnnotation
+class SimpleClass
+
+@TestAnnotation
+class AnotherClass</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-code-generation">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-code-generation/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

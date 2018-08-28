@@ -1,0 +1,227 @@
+<html>
+<head>
+    <title>mongoose-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">mongoose-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Mongoose Demo
+=================
+
+Operate mongodb with mongoose in Node.JS.
+
+Install mongodb
+---------------
+
+Mac:
+
+```
+brew install mongo
+```
+
+Ubuntu 16.04:
+
+See the end of this readme
+
+Start it
+---------
+
+```
+mkdir /tmp/mongodb-demo-db
+mongod --dbpath /tmp/mongodb-demo-db
+```
+
+Setup this project
+------------------
+
+```
+npm install
+```
+
+Save data (`ctrl+c` to terminate after running):
+
+```
+node ./src/save.js
+```
+
+Query data:
+
+```
+node ./src/query.js
+```
+
+Notices
+--------
+
+1. Name mapping
+
+```
+mongoose.model(&#39;User&#39;, userSchema);
+```
+
+The model `User` here is corresponding to the mongodb&#39;s collection name `users`.
+
+You can specify the collection name: &lt;http://stackoverflow.com/questions/7486528/mongoose-force-collection-name&gt;
+
+2. If no results return, `find` will return empty array, but `findOne` will return `null`
+
+Articles
+-------
+
+&lt;https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications&gt;
+
+Install on Ubuntu 16.04
+-----------------------
+
+```
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+echo &quot;deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+```
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/db.js" target="_blank">db.js</a>
+        </div>
+        <div class="path">src/db.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var mongoose = require(&#39;mongoose&#39;);
+
+module.exports = {
+	connect: function() {
+		mongoose.connect(&#39;mongodb://localhost/mongoose-demo&#39;);
+	},
+	close: function() {
+		mongoose.connection.close();
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/user.js" target="_blank">user.js</a>
+        </div>
+        <div class="path">src/user.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var mongoose = require(&#39;mongoose&#39;);
+
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+	name: String,
+    admin: Boolean
+});
+
+// the collection&#39;s name is `users`
+var User = mongoose.model(&#39;User&#39;, userSchema);
+
+module.exports = User;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/save.js" target="_blank">save.js</a>
+        </div>
+        <div class="path">src/save.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var db = require(&#39;./db.js&#39;);
+
+var User = require(&#39;./user.js&#39;);
+
+var freewind = new User({
+	name: &quot;Freewind&quot;,
+	admin: true
+});
+
+db.connect();
+
+freewind.save(function(err) {
+	if(err) throw err;
+
+	console.log(&#39;User saved&#39;);
+	
+	db.close();
+});
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/query.js" target="_blank">query.js</a>
+        </div>
+        <div class="path">src/query.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var db = require(&#39;./db.js&#39;);
+
+db.connect();
+
+var User = require(&#39;./user.js&#39;);
+
+User.find({}, function(err, users) {
+	if (err) throw err;
+
+    // object of all the users
+    console.log(&quot;All users:&quot;);
+    console.log(users);
+});
+
+User.find({name:&quot;Freewind&quot;}, function(err, user) {
+	if(err) throw err;
+
+	console.log(&quot;Specify User:&quot;);
+	console.log(user);
+});
+
+User.find({name: &quot;Non-existent-user&quot;}, function(err, user) {
+	if(err) throw err;
+
+	console.log(&quot;Find Non-existent-user:&quot;);
+	console.log(user);
+});
+
+User.findOne({name: &quot;Non-existent-user&quot;}, function(err, user) {
+	if(err) throw err;
+
+	console.log(&quot;Find Non-existent-user or null:&quot;);
+	console.log(user);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mongoose-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mongoose-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

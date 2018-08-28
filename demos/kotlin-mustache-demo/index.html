@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>kotlin-mustache-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-mustache-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Mustache Demo
+====================
+
+Render a simple mustache in Kotlin, the library used is a Java library [mustache.java](https://github.com/spullara/mustache.java),
+but it works perfectly with Kotlin&#39;s data classes.
+
+Run `Hello.kt` in your IDE.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-mustache-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.51&#39;
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin&#39;
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.apache.commons:commons-lang3:3.7&quot;
+    compile &quot;commons-io:commons-io:2.6&quot;
+    compile &#39;com.github.spullara.mustache.java:compiler:0.9.5&#39;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile &#39;org.assertj:assertj-core:3.9.0&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+// gradle wrapper --gradle-version 4.8.1
+// ./gradlew -version
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-mustache-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import com.github.mustachejava.DefaultMustacheFactory
+import java.io.PrintWriter
+
+fun main(args: Array&lt;String&gt;) {
+    val page = Page(listOf(
+            Item(&quot;Item 1&quot;, &quot;$19.99&quot;, listOf(&quot;new&quot;, &quot;good&quot;), listOf(Feature(&quot;New!&quot;), Feature(&quot;Awesome!&quot;))),
+            Item(&quot;Item 2&quot;, &quot;$29.99&quot;, listOf(&quot;old&quot;, &quot;bad&quot;), listOf(Feature(&quot;Old.&quot;), Feature(&quot;Ugly.&quot;)))
+    ))
+    val mf = DefaultMustacheFactory()
+    val mustache = mf.compile(mf.getReader(&quot;templates/hello.html&quot;), &quot;hello&quot;)
+    mustache.execute(PrintWriter(System.out), page).flush()
+}
+
+data class Page(val items: List&lt;Item&gt;)
+
+data class Feature(val description: String)
+
+data class Item(val name: String, val price: String, val keywords: List&lt;String&gt;, val features: List&lt;Feature&gt;)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-mustache-demo/blob/master/src/main/resources/templates/hello.html" target="_blank">hello.html</a>
+        </div>
+        <div class="path">src/main/resources/templates/hello.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body&gt;
+{{#items}}
+&lt;div&gt;
+    &lt;div&gt;Name: {{name}}&lt;/div&gt;
+    &lt;div&gt;Price: {{price}}&lt;/div&gt;
+    &lt;div&gt;Keywords: {{#keywords}}&lt;span&gt;{{.}}&lt;/span&gt;{{/keywords}}&lt;/div&gt;
+    {{#features}}
+    &lt;ul&gt;
+        &lt;li&gt;Feature: {{description}}&lt;/li&gt;
+    &lt;/ul&gt;
+    {{/features}}
+&lt;/div&gt;
+{{/items}}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-mustache-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-mustache-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

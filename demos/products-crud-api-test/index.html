@@ -1,0 +1,239 @@
+<html>
+<head>
+    <title>products-crud-api-test - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">products-crud-api-test</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        End to end test for Products-CRUD-Api
+=====================================
+
+These are some end-to-end tests for [Products Crud Api](https://github.com/js-demos/products-crud-api/), using [mocha](https://mochajs.org) and [chakram](http://dareid.github.io/chakram/)
+
+```
+npm install -g mocha
+npm install
+```
+
+Run Tests:
+
+```
+mocha test/*.js
+```
+
+We can also pass some args:
+
+```
+env port=8081 baseResourse=items mocha test/*.js
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api-test/blob/master/test/api-test.js" target="_blank">api-test.js</a>
+        </div>
+        <div class="path">test/api-test.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">let chakram = require(&#39;chakram&#39;);
+let expect = chakram.expect;
+
+let port = process.env.port || 3000;
+let baseResourse = process.env.baseResourse || &#39;products&#39;;
+let basePath = `http://localhost:${port}/${baseResourse}`;
+
+describe(&#39;Test products-crud-api&#39;, function() {
+
+  it(&#39;will get empty at first&#39;, function() {
+    let res = chakram.get(basePath);
+    expect(res).to.have.status(200);
+    expect(res).to.have.json([]);
+    return chakram.wait();
+  });
+
+  it(&#39;will insert a product and get the generated id&#39;, function() {
+    let res = chakram.post(basePath, {
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    expect(res).to.have.status(201);
+    expect(res).to.have.json({
+      &quot;id&quot;:1,
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    return chakram.wait();
+  });
+
+  it(&#39;will get an increased id when inserting product&#39;, function() {
+    let res = chakram.post(basePath, {
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    expect(res).to.have.status(201);
+    expect(res).to.have.json({
+      &quot;id&quot;:2,
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    return chakram.wait();
+  });
+
+  it(&#39;will get 2 products now&#39;, function() {
+    let res = chakram.get(basePath);
+    expect(res).to.have.status(200);
+    expect(res).to.have.json([{&quot;id&quot;:1,&quot;barcode&quot;:&quot;23232&quot;,&quot;name&quot;:&quot;Apple&quot;,&quot;unit&quot;:&quot;个&quot;,&quot;price&quot;:3.4},{&quot;id&quot;:2,&quot;barcode&quot;:&quot;23232&quot;,&quot;name&quot;:&quot;Apple&quot;,&quot;unit&quot;:&quot;个&quot;,&quot;price&quot;:3.4}]);
+    return chakram.wait();
+  });
+
+  it(&#39;will find an existent product&#39;, function() {
+    let res = chakram.get(`${basePath}/1`);
+    expect(res).to.have.status(200);
+    expect(res).to.have.json({&quot;id&quot;:1,&quot;barcode&quot;:&quot;23232&quot;,&quot;name&quot;:&quot;Apple&quot;,&quot;unit&quot;:&quot;个&quot;,&quot;price&quot;:3.4});
+    return chakram.wait();
+  });
+
+  it(&#39;gets 204 when deleting an existent product successfully&#39;, function() {
+    let res = chakram.delete(`${basePath}/2`);
+    expect(res).to.have.status(204);
+    return chakram.wait();
+  });
+
+  // =======================
+  // from now on,
+  // `1` exist
+  // `2` deleted
+
+  it(&#39;will not found the deleted product&#39;, function() {
+    let res = chakram.get(`${basePath}/2`);
+    expect(res).to.have.status(404);
+    return chakram.wait();
+  });
+
+  it(&#39;cannot delete an non-existent product&#39;, function() {
+    let res = chakram.delete(`${basePath}/2`);
+    expect(res).to.have.status(404);
+    return chakram.wait();
+  });
+
+  it(&#39;will update an existent product&#39;, function() {
+    let res = chakram.put(`${basePath}/1`, {
+      &quot;name&quot;:&quot;Orange&quot;, 
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 5.5, 
+      &quot;barcode&quot;: &quot;sdfsdfsf&quot;});
+    expect(res).to.have.status(200);
+    expect(res).to.have.json({
+      &quot;id&quot;:1,
+      &quot;name&quot;:&quot;Orange&quot;, 
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 5.5, 
+      &quot;barcode&quot;: &quot;sdfsdfsf&quot;});
+    return chakram.wait();
+  });
+
+  it(&#39;cannot update an non-existent product&#39;, function() {
+    let res = chakram.put(`${basePath}/2`, {
+      &quot;name&quot;:&quot;Orange&quot;, 
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 5.5, 
+      &quot;barcode&quot;: &quot;sdfsdfsf&quot;});
+    expect(res).to.have.status(404);
+    return chakram.wait();
+  });
+
+  it(&#39;is a bad request if missing required fields when updating&#39;, function() {
+    let res = chakram.put(`${basePath}/1`, {
+      // &quot;name&quot;:&quot;Orange&quot;, 
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 5.5, 
+      &quot;barcode&quot;: &quot;sdfsdfsf&quot;});
+    expect(res).to.have.status(400);
+    return chakram.wait();
+  });
+
+  it(&#39;is a bad request if has invalid type when updating&#39;, function() {
+    let res = chakram.put(`${basePath}/1`, {
+      &quot;name&quot;:&quot;Orange&quot;, 
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: &quot;abc&quot;, // invalid type
+      &quot;barcode&quot;: &quot;sdfsdfsf&quot;});
+    expect(res).to.have.status(400);
+    return chakram.wait();
+  });
+
+  it(&#39;generates unused new id when inserting product&#39;, function() {
+    let res = chakram.post(basePath, {
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    expect(res).to.have.status(201);
+    expect(res).to.have.json({
+      &quot;id&quot;:3,
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    return chakram.wait();
+  });
+
+  it(&#39;is a bad request if required fields missing when inserting a product&#39;, function() {
+    let res = chakram.post(basePath, {
+      // &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: 3.4, 
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    expect(res).to.have.status(400);
+    return chakram.wait();
+  });
+
+  it(&#39;is a bad request if required fields missing when inserting a product&#39;, function() {
+    let res = chakram.post(basePath, {
+      &quot;name&quot;:&quot;Apple&quot;,
+      &quot;unit&quot;: &quot;个&quot;, 
+      &quot;price&quot;: &quot;abc&quot;, // invalid type
+      &quot;barcode&quot;: &quot;23232&quot;
+    });
+    expect(res).to.have.status(400);
+    return chakram.wait();
+  });
+
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/products-crud-api-test">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/products-crud-api-test/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

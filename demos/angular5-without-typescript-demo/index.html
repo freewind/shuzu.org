@@ -1,0 +1,160 @@
+<html>
+<head>
+    <title>angular5-without-typescript-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angular5-without-typescript-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Angular5 without Typescript Demo
+================================
+
+Use angular5 with plain Javascript, without Typescript.
+
+```
+npm install
+npm install -g http-server
+http-server .
+```
+
+Then open &lt;http://localhost:8080/index.html&gt; to view.
+
+Resources
+---------
+
+- &lt;https://blog.eduonix.com/web-programming-tutorials/learn-write-angular-2-code-es5/&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/blob/master/app/app.component.js" target="_blank">app.component.js</a>
+        </div>
+        <div class="path">app/app.component.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const AppComponent = function () {
+    this.title = &#39;Angular Hello World Demo&#39;
+};
+
+AppComponent.annotations = [new ng.core.Component({
+    selector: &#39;hello-app&#39;,
+    templateUrl: &#39;./app/app.component.html&#39;,
+    styleUrls: [&#39;./app/app.component.css&#39;]
+})];</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/blob/master/app/app.module.js" target="_blank">app.module.js</a>
+        </div>
+        <div class="path">app/app.module.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const AppModule = function () {
+};
+
+AppModule.annotations = [
+    new ng.core.NgModule({
+        imports: [ng.platformBrowser.BrowserModule],
+        declarations: [AppComponent],
+        bootstrap: [AppComponent]
+    })
+];
+
+document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+    ng.platformBrowserDynamic.platformBrowserDynamic().bootstrapModule(AppModule);
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/blob/master/app/app.component.html" target="_blank">app.component.html</a>
+        </div>
+        <div class="path">app/app.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!--The content below is only a placeholder and can be replaced.--&gt;
+&lt;div style=&quot;text-align:center&quot;&gt;
+  &lt;h1&gt;
+    Welcome to {{ title }}!
+  &lt;/h1&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/blob/master/app/app.component.css" target="_blank">app.component.css</a>
+        </div>
+        <div class="path">app/app.component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;AngularHelloWorldDemo&lt;/title&gt;
+  &lt;!-- The stuff Angular 2 needs --&gt;
+  &lt;script src=&quot;node_modules/core-js/client/shim.min.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/zone.js/dist/zone.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/reflect-metadata/Reflect.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/rxjs/bundles/Rx.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/@angular/core/bundles/core.umd.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/@angular/common/bundles/common.umd.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/@angular/compiler/bundles/compiler.umd.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/@angular/platform-browser/bundles/platform-browser.umd.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js&quot;&gt;&lt;/script&gt;
+
+  &lt;!-- Our app --&gt;
+  &lt;script src=&quot;app/app.component.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;app/app.module.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;hello-app&gt;&lt;/hello-app&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angular5-without-typescript-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angular5-without-typescript-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

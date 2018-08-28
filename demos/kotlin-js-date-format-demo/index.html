@@ -1,0 +1,151 @@
+<html>
+<head>
+    <title>kotlin-js-date-format-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-js-date-format-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin JS Hello World Demo
+=======================
+
+Hello world from kotlin-js.
+
+
+Run:
+
+```
+./gradlew compileKotlin2Js
+npm install
+open index.html
+```
+
+You will see &quot;Hello, Kotlin!&quot; in console of your browser&#39;s developer panel.
+
+Resources
+---------
+
+- &lt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString&gt;
+
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.51&#39;
+    repositories {
+        mavenCentral()
+        maven { url(&quot;https://plugins.gradle.org/m2/&quot;) }
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin2js&#39;
+
+compileKotlin2Js {
+    kotlinOptions.outputFile = &quot;${projectDir}/generated/hello.js&quot;
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url &#39;https://dl.bintray.com/freewind/maven/&#39; }
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version&quot;
+    compile &#39;freewind.github.com:kotlin-js-commons:0.1.1&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-js:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.8.1&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlinjs.common.JsObj
+import kotlin.browser.window
+import kotlin.js.Date
+
+fun main(args: Array&lt;String&gt;) {
+    window.alert(today())
+}
+
+private fun today(): String {
+    fun option() = JsObj&lt;Date.LocaleOptions&gt;()
+    val year = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { year = &quot;numeric&quot; })
+    val month = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { month = &quot;2-digit&quot; })
+    val day = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { day = &quot;2-digit&quot; })
+    return &quot;$year-$month-$day&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;kotlin-js-date-format-demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

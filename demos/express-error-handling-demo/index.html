@@ -1,0 +1,467 @@
+<html>
+<head>
+    <title>express-error-handling-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">express-error-handling-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Express Error Handling Demo
+---------------------------
+
+```
+npm install
+```
+
+Documents
+---------
+
+&lt;http://expressjs.com/en/guide/error-handling.html&gt;
+
+Some important concepts
+-----------------------
+
+### 1. route handler:
+
+A function has 2 or 3 parameters:
+
+```
+app.use(function(req, res) {})
+
+app.use(function(req, res, next) {})
+```
+
+### 2. error handler
+
+```
+app.use(function(err, req, res, next) {
+    // do something
+})
+```
+
+It must have 4 parameters(the first one is an error some previous handlers)
+
+### 3. `next`:
+
+1. `next()` means to go into next route handler (not error handler)
+1. `next(&#39;route&#39;)` means to skip all the later route handlers, and it&#39;s not an error
+1. `next(otherValue)` means go to error handlers
+
+---
+
+1. The normal way to handle errors in express
+---------------------------------------------
+
+```
+node index.js
+```
+
+```
+curl http://localhost:3000
+```
+
+2. Manually handle errors
+-------------------------
+
+```
+node not-using-error-handler.js
+```
+
+```
+curl http://localhost:3000/
+```
+
+3. Use the default error handler
+--------------------------------
+
+```
+node default-error-handler.js
+```
+
+Errors will be logged on server side and also be sent to client.
+
+- Custom string error: `curl http://localhost:3000/custom-error`
+- File error: `curl http://localhost:3000/file-error`
+- `throw err` will kill the server: `curl http://localhost:3000/throw-error` 
+
+4. Custom error handler
+-----------------------
+
+```
+node custom-error-handler.js
+```
+
+```
+curl http://localhost:3000
+```
+
+5. Log error stack
+------------------
+
+```
+node error-stack.js
+```
+
+```
+curl http://localhost:3000
+```
+
+6. Multiple error handlers
+--------------------------
+
+```
+node multi-error-handlers.js
+```
+
+```
+curl http://localhost:3000/normal-error
+curl http://localhost:3000/very-bad-error
+```
+
+7. headersSent
+--------------
+
+```
+node headers-sent.js
+```
+
+```
+curl http://localhost:3000/error1
+curl http://localhost:3000/error2
+```
+
+8. `next(&#39;route&#39;)`
+------------------
+
+If we pass value to `next()`, there are two cases:
+1. if it&#39;s the string `route`, means you want to skip next route handlers
+2. otherwise, you are passing an error, and the request will be in an error state, and be handled by some error handlers
+
+```
+node next-route.js
+```
+
+```
+curl http://localhost:3000/
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/not-using-error-handler.js" target="_blank">not-using-error-handler.js</a>
+        </div>
+        <div class="path">not-using-error-handler.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&#39;fs&#39;);
+var app = express();
+
+app.get(&quot;/file1&quot;, function (req, res, next) {
+  fs.readFile(&quot;./file1&quot;, &quot;utf-8&quot;, function (err, data) {
+    if (err) {
+      return res.status(500).send(&quot;can&#39;t find the file&quot;);
+    }
+    res.send(data);
+  });
+});
+
+app.get(&quot;/file2&quot;, function (req, res, next) {
+  fs.readFile(&quot;./file2&quot;, &quot;utf-8&quot;, function (err, data) {
+    if (err) {
+      return res.status(500).send(&quot;can&#39;t find the file&quot;);
+    }
+    res.send(data);
+  });
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/default-error-handler.js" target="_blank">default-error-handler.js</a>
+        </div>
+        <div class="path">default-error-handler.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&#39;fs&#39;);
+var app = express();
+
+app.get(&#39;/custom-error&#39;, function (req, res, next) {
+  next(&quot;this is an error, and will be logged on server side and sent to client by express&#39; default error handler&quot;);
+});
+
+app.get(&quot;/file-error&quot;, function (req, res, next) {
+  fs.readFile(&quot;an-non-existent-file&quot;, &quot;utf-8&quot;, function (err, data) {
+    if (err) return next(err);
+    res.send(data);
+  });
+});
+
+app.get(&quot;/throw-error&quot;, function (req, res, next) {
+  fs.readFile(&quot;an-non-existent-file&quot;, &quot;utf-8&quot;, function (err, data) {
+    if (err) throw err; // !!!!
+    res.send(data);
+  });
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&quot;fs&quot;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res, next) {
+  fs.readFile(&quot;./package.json&quot;, &quot;utf-8&quot;, function (err, data1) {
+    if (err) return next(err);
+
+    fs.readFile(&quot;./file2&quot;, &quot;utf-8&quot;, function (err, data2) {
+      if (err) return next(err);
+
+      res.send(data1 + data2);
+    });
+  });
+});
+
+
+app.use(function (err, req, res, next) {
+  console.error(err);
+  res.status(500).send(&#39;Some errors happened, please see the log on server&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/next-route.js" target="_blank">next-route.js</a>
+        </div>
+        <div class="path">next-route.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&quot;fs&quot;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res, next) {
+  console.log(&quot;In handler 1&quot;);
+  next();
+}, function (req, res, next) {
+  console.log(&quot;In handler 2&quot;);
+  next(&#39;route&#39;); // not an error, `route` string means to skip next handlers
+}, function (req, res, next) {
+  console.log(&quot;This handler should not be invoked&quot;);
+  next();
+}, function (req, res) {
+  console.log(&quot;This handler should not be invoked&quot;);
+  res.send(&quot;OK&quot;);
+});
+
+// This is not an error handler, since there is no `err` parameter
+app.use(function (req, res, next) {
+  res.status(200).send(&#39;Normal global handler&#39;);
+  next();
+});
+
+// This is an error handler, since there is `err`
+app.use(function (err, req, res, next) {
+  console.log(&quot;Custom error handler should not be invoked&quot;);
+  res.status(500).send(&#39;Custom error handler&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/custom-error-handler.js" target="_blank">custom-error-handler.js</a>
+        </div>
+        <div class="path">custom-error-handler.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&quot;fs&quot;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res, next) {
+  fs.readFile(&quot;./an-non-existent-file&quot;, &quot;utf-8&quot;, function (err, data) {
+    if (err) return next(err); // !!!!
+    res.send(data);
+  });
+});
+
+app.use(function (err, req, res, next) {
+  console.dir(err);
+  res.status(500).send(&#39;Custom error handler&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/headers-sent.js" target="_blank">headers-sent.js</a>
+        </div>
+        <div class="path">headers-sent.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&#39;fs&#39;);
+var app = express();
+
+app.get(&#39;/error1&#39;, function (req, res, next) {
+  res.status(500); // header has been set
+  res.send(&quot;send error directly&quot;);
+  next(&quot;my-error1&quot;);
+});
+
+app.get(&quot;/error2&quot;, function (req, res, next) {
+  next(&quot;my-error2&quot;);
+});
+
+app.use(function (err, req, res, next) {
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(500).send(&quot;Handled by custom error handler&quot;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/error-stack.js" target="_blank">error-stack.js</a>
+        </div>
+        <div class="path">error-stack.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&quot;fs&quot;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res, next) {
+  try {
+    throw new Error(&quot;my-error&quot;);
+  } catch (err) {
+    console.log(&quot;-------------- err thrown: &quot; + err);
+    next(err);
+  }
+});
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send(&#39;Error stack printed in custom error handler&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-error-handling-demo/blob/master/multi-error-handlers.js" target="_blank">multi-error-handlers.js</a>
+        </div>
+        <div class="path">multi-error-handlers.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var fs = require(&quot;fs&quot;);
+var app = express();
+
+app.get(&#39;/normal-error&#39;, function (req, res, next) {
+  next(&quot;this-is-a-normal-error&quot;);
+});
+
+app.get(&#39;/very-bad-error&#39;, function (req, res, next) {
+  next({
+    veryBad: true,
+    message: &quot;this-is-a-very-bad-error&quot;
+  });
+});
+
+app.use(function (err, req, res, next) {
+  if (err.veryBad) {
+    return next(err);
+  }
+  res.status(500).send(&#39;A normal error&#39;);
+});
+
+app.use(function (err, req, res, next) {
+  res.status(500).send(&#39;A very bad error&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Example app listening at http://%s:%s&#39;,
+    server.address().address,
+    server.address().port);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-error-handling-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-error-handling-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

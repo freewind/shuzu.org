@@ -1,0 +1,223 @@
+<html>
+<head>
+    <title>javafx-add-row-to-table-trigger-edit-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javafx-add-row-to-table-trigger-edit-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaFX Table Add New Row Demo
+=============================
+
+How to add a new row to the table, and trigger it to edit mode.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-add-row-to-table-trigger-edit-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-add-row-to-table-trigger-edit-demo/blob/master/src/main/java/demo/Person.java" target="_blank">Person.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Person.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+public class Person {
+    private final SimpleStringProperty name = new SimpleStringProperty();
+    private final SimpleIntegerProperty number = new SimpleIntegerProperty();
+
+    Person(String name, Integer number) {
+        setName(name);
+        setNumber(number);
+    }
+
+    Person() {
+        
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public int getNumber() {
+        return number.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setNumber(int number) {
+        this.number.set(number);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-add-row-to-table-trigger-edit-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
+
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class Hello extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle(&quot;Hello&quot;);
+        VBox root = new VBox() {{
+            TableView&lt;Person&gt; table = createTable();
+            getChildren().add(table);
+            getChildren().add(createAddButton(table));
+        }};
+        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.show();
+    }
+
+    private Node createAddButton(TableView&lt;Person&gt; table) {
+        return new Button(&quot;Add&quot;) {{
+            setOnAction(event -&gt; {
+                data.add(new Person());
+                triggerEditOnNewRow(table);
+            });
+        }};
+    }
+
+    private void triggerEditOnNewRow(TableView&lt;Person&gt; table) {
+        table.edit(data.size() - 1, table.getColumns().get(0));
+    }
+
+    private final ObservableList&lt;Person&gt; data = observableArrayList(
+            new Person(&quot;AAA&quot;, 23),
+            new Person(&quot;BBB&quot;, 11),
+            new Person(&quot;CCC&quot;, 78),
+            new Person(&quot;DDD&quot;, 34)
+    );
+
+    private TableView&lt;Person&gt; createTable() {
+        return new TableView&lt;Person&gt;() {{
+            getColumns().add(new TableColumn&lt;Person, String&gt;(&quot;Name&quot;) {{
+                setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;name&quot;));
+                setCellFactory(TextFieldTableCell.forTableColumn());
+                setOnEditCommit(event -&gt; getPerson(event).setName(event.getNewValue()));
+            }});
+            getColumns().add(new TableColumn&lt;Person, Integer&gt;(&quot;Number&quot;) {{
+                setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));
+                setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter() {
+                    @Override
+                    public Integer fromString(String value) {
+                        try {
+                            return super.fromString(value);
+                        } catch (NumberFormatException e) {
+                            new Alert(Alert.AlertType.ERROR, &quot;Invalid number: &quot; + value).showAndWait();
+                            throw e;
+                        }
+                    }
+                }));
+                setOnEditCommit(event -&gt; getPerson(event).setNumber(event.getNewValue()));
+            }});
+            setItems(data);
+            setEditable(true);
+        }};
+    }
+
+    private &lt;T&gt; Person getPerson(TableColumn.CellEditEvent&lt;Person, T&gt; event) {
+        return event.getTableView().getItems().get(event.getTablePosition().getRow());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javafx-add-row-to-table-trigger-edit-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javafx-add-row-to-table-trigger-edit-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

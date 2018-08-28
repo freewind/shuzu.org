@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>javascript-compare-strings-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-compare-strings-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        NodeJS Hello World Demo
+=======================
+
+```
+brew install nodejs
+node hello.js
+```
+
+It will print:
+
+```
+Hello, NodeJS
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-compare-strings-demo/blob/master/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function compare(x, y) {
+    if (x &lt; y) {
+        console.log(x + &#39; &lt; &#39; + y)
+    } else if (x &gt; y) {
+        console.log(x + &#39; &gt; &#39; + y)
+    } else {
+        console.log(x + &#39; = &#39; + y)
+    }
+}
+
+compare(&#39;aaa&#39;, &#39;aaa&#39;)
+compare(&#39;aaa&#39;, &#39;aa&#39;)
+compare(&#39;aaa&#39;, &#39;aaaaa&#39;)
+compare(&#39;aaa&#39;, &#39;aab&#39;)
+compare(&#39;aaa&#39;, &#39;baa&#39;)
+compare(&#39;aaa&#39;, &#39;aa0&#39;)
+compare(&#39;aaa&#39;, &#39;Aaa&#39;)
+compare(&#39;aaa&#39;, &#39;123&#39;)
+compare(&#39;000&#39;, &#39;123&#39;)
+
+const array = [&#39;aaa&#39;, &#39;aa&#39;, &#39;aaaaa&#39;, &#39;aab&#39;, &#39;aa0&#39;, &#39;Aaa&#39;, &#39;baa&#39;, &#39;123&#39;, &#39;000&#39;]
+console.log(array.sort())</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-compare-strings-demo/blob/master/hello.js.md" target="_blank">hello.js.md</a>
+        </div>
+        <div class="path">hello.js.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">```
+aaa = aaa
+aaa &gt; aa
+aaa &lt; aaaaa
+aaa &lt; aab
+aaa &lt; baa
+aaa &gt; aa0
+aaa &gt; Aaa
+aaa &gt; 123
+000 &lt; 123
+[ &#39;000&#39;, &#39;123&#39;, &#39;Aaa&#39;, &#39;aa&#39;, &#39;aa0&#39;, &#39;aaa&#39;, &#39;aaaaa&#39;, &#39;aab&#39;, &#39;baa&#39; ]
+```</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-compare-strings-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-compare-strings-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>npm-publish-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">npm-publish-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Npm Publishing Demo
+===================
+
+First, make sure your npm using registry `https://registry.npmjs.org/`.
+
+```
+npm config get registry
+```
+
+If not, config it:
+
+```
+npm config set registry https://registry.npmjs.org/
+```
+
+Login
+-----
+
+```
+npm login
+```
+
+Input correct username, password, email.
+
+If no account or forgot, go to &lt;http://npmjs.com&gt; to create or reset it.
+
+Publish
+-------
+
+```
+cd to-publish
+npm publish
+```
+
+If it fails, check for the following reason:
+
+- Your package name is used by someone else, search it to confirm, and use another name (defined in `package.json`)
+- Your package name is treated as spam, like `npm-publish-demo-37652342`, change it to normal name
+
+After succeed, you should be able to find it in &lt;http://npmjs.com&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/npm-publish-demo/blob/master/to-publish/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">to-publish/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&quot;Hello, npm!&quot;)</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/npm-publish-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/npm-publish-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

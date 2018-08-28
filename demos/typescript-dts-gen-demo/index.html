@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>typescript-dts-gen-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-dts-gen-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Dts-Gen for JavaScript File Demo
+=================================
+
+使用[dts-gen](https://github.com/Microsoft/dts-gen)为JavaScript文件生成`.d.ts`类型声明文件。
+```
+npm install
+npx dts-gen --expression-file hello.js
+```
+
+将会生成`hello.d.ts`
+
+注意
+---
+
+dts-gen不分析源代码，而是在运行时对JavaScript对象进行探测，再生成类型文件。
+优点是对于任意类型的JavaScript文件和模块都适用，缺点是生成的结果不太准确，不过可以当作基础再修改。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-dts-gen-demo/blob/master/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function hello1(name) {
+    console.log(&quot;Hello, &quot; + name + &quot;!&quot;);
+}
+
+function hello2(name) {
+    console.log(&quot;Hello again, &quot; + name + &quot;!&quot;);
+}
+
+module.exports = {
+    &quot;hello1&quot;: hello1,
+    &quot;hello2&quot;: hello2
+};</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-dts-gen-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-dts-gen-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>go-listen-address-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-listen-address-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go Net Listen &amp; IP Demo
+=======================
+
+Get my ip and inspect the address when binding 0.0.0.0
+
+```
+brew install go
+go run hello.go
+```
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-listen-address-demo/blob/master/hello.go" target="_blank">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;net&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+
+	myIp := getMyIp()
+	fmt.Println(&quot;myIp:&quot;, myIp)
+
+	listener, _ := net.Listen(&quot;tcp&quot;, &quot;0.0.0.0:9999&quot;)
+	addr := listener.Addr().String()
+
+	fmt.Println(&quot;listener.Addr()&quot;, addr)
+	host, port, _ := net.SplitHostPort(addr)
+	fmt.Println(&quot;host:&quot;, host)
+	fmt.Println(&quot;port:&quot;, port)
+
+}
+
+func getMyIp() string {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		panic(err)
+	}
+
+	for _, a := range addrs {
+		ipnet, ok := a.(*net.IPNet)
+		if !ok {
+			continue
+		}
+		v4 := ipnet.IP.To4()
+		if v4 == nil || v4[0] == 127 {
+			continue
+		} // loopback
+		return ipnet.IP.String()
+	}
+	return &quot;&quot;
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-listen-address-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-listen-address-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

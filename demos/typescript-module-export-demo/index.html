@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>typescript-module-export-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-module-export-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Module Export Demo
+============================
+
+怎样把typescript里定义的内容以module的形式export出去？
+
+```
+npm install
+npx ts-node hello.ts
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-module-export-demo/blob/master/core.ts" target="_blank">core.ts</a>
+        </div>
+        <div class="path">core.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">function hiddenFunction() {
+    console.log(&quot;I should not be seen from outside&quot;);
+}
+
+export function helloCore() {
+    console.log(&quot;Hello from function core&quot;);
+}
+
+export class Core {
+    hello() {
+        console.log(&quot;Hello from class Core&quot;);
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-module-export-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as core from &#39;./core&#39;;
+
+core.helloCore();
+
+const newCore = new core.Core();
+newCore.hello();
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-module-export-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-module-export-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

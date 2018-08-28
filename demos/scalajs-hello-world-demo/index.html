@@ -1,0 +1,135 @@
+<html>
+<head>
+    <title>scalajs-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">scalajs-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ScalaJS Hello World Demo
+========================
+
+ScalaJs Demo, from &lt;http://www.scala-js.org/tutorial/basic/&gt;.
+
+```
+sbt run fastOptJS
+``` 
+
+Then open the `index.html` in browser.
+
+Notice: The testing part is not included in this demo.
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
+        </div>
+        <div class="path">src/test/scala/example/HelloSpec.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+  test(&quot;The Hello object should say hello&quot;) {
+    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">src/main/scala/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalajs.dom
+import dom.document
+import org.scalajs.jquery.jQuery
+
+object Hello {
+
+  def hello(name: String) = s&quot;Hello, $name!&quot;
+
+  def main(args: Array[String]): Unit = {
+    println(hello(&quot;Scala in console&quot;))
+    jQuery(() =&gt; setupUI())
+  }
+
+  def appendPar(targetNode: dom.Node, text: String): Unit = {
+    val parNode = document.createElement(&quot;p&quot;)
+    val textNode = document.createTextNode(text)
+    parNode.appendChild(textNode)
+    targetNode.appendChild(parNode)
+  }
+
+  def addClickedMessage(): Unit = {
+    jQuery(&quot;body&quot;).append(&quot;&lt;p&gt;You clicked the button!&lt;/p&gt;&quot;)
+  }
+
+  def setupUI(): Unit = {
+    jQuery(&quot;#click-me-button&quot;).click(() =&gt; addClickedMessage())
+    jQuery(&quot;body&quot;).append(s&quot;&lt;p&gt;${hello(&quot;Scala in page&quot;)}&lt;/p&gt;&quot;)
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;The Scala.js Tutorial&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- Include Scala.js compiled code --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-jsdeps.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-fastopt.js&quot;&gt;&lt;/script&gt;
+&lt;button id=&quot;click-me-button&quot; type=&quot;button&quot;&gt;
+    Click me!
+&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/scalajs-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

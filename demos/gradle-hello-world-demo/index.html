@@ -1,0 +1,162 @@
+<html>
+<head>
+    <title>gradle-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">gradle-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Gradle Hello World Demo
+=======================
+
+A very simple java project with gradle.
+
+Run tests:
+
+```
+./gradlew test
+```
+
+Update Gradle Version
+---------------------
+
+```
+gradle wrapper --gradle-version 4.8.1
+./gradlew -version
+```
+
+Setup in IDEA
+--------------
+
+Use command line:
+
+```
+idea .
+```
+
+Or import the project directly with IDEA.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-hello-world-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.51&#39;
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+        maven { url(&quot;https://plugins.gradle.org/m2/&quot;) }
+        maven { url &#39;https://dl.bintray.com/freewind/maven/&#39; }
+    }
+    dependencies {
+//        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+//        classpath &#39;freewind.github.com:gradle-kotlin-js-bundler-plugin:0.1.0&#39;
+    }
+}
+
+apply plugin: &#39;java&#39;
+
+compileJava {
+    sourceCompatibility = &#39;1.8&#39;
+    targetCompatibility = &#39;1.8&#39;
+}
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+    maven { url &#39;https://dl.bintray.com/freewind/maven/&#39; }
+}
+
+dependencies {
+    compile &#39;org.apache.commons:commons-lang3:3.4&#39;
+    compile &#39;freewind.github:lost-list-creator:0.1.0&#39;
+    testCompile &#39;junit:junit:4.11&#39;
+    testCompile &#39;org.assertj:assertj-core:3.10.0&#39;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-hello-world-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/my/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() {
+        String greeting = Hello.hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-hello-world-demo/blob/master/src/main/java/my/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/my/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+public class Hello {
+
+    public static void main(String[] args) {
+        System.out.println(hello(&quot;gradle&quot;));
+    }
+
+    public static String hello(String name) {
+        return &quot;Hello, &quot; + name;
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/gradle-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/gradle-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

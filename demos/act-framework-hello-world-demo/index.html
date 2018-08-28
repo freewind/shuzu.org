@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>act-framework-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">act-framework-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ActFramework Hello World Demo
+=============================
+
+[ActFramework](actframework.org)继承了Java时代曾经的传奇Web开发框架PlayFramework1的精髓：极简配置，修改免重启。
+
+以开发模式运行：
+
+```
+./run_dev
+```
+
+然后打开&lt;http://192.168.1.102:5460&gt;。修改Java代码，直接刷新浏览器即可看到效果。
+
+产品模式：
+
+```
+./run_prod
+```
+
+不支持热修改，但性能会更好。
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;org.actframework.demo&lt;/groupId&gt;
+    &lt;artifactId&gt;helloworld&lt;/artifactId&gt;
+    &lt;version&gt;1.6.4&lt;/version&gt;
+
+    &lt;parent&gt;
+        &lt;groupId&gt;org.actframework&lt;/groupId&gt;
+        &lt;artifactId&gt;act-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;1.6.4.0&lt;/version&gt;
+    &lt;/parent&gt;
+
+    &lt;properties&gt;
+        &lt;app.entry&gt;demo.helloworld.HelloWorldApp&lt;/app.entry&gt;
+    &lt;/properties&gt;
+
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/src/main/java/demo/helloworld/HelloWorldApp.java" target="_blank">HelloWorldApp.java</a>
+        </div>
+        <div class="path">src/main/java/demo/helloworld/HelloWorldApp.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.helloworld;
+
+import act.Act;
+import act.inject.DefaultValue;
+import act.util.Output;
+import org.osgl.mvc.annotation.GetAction;
+
+import static act.controller.Controller.Util.render;
+
+public class HelloWorldApp {
+
+    @GetAction
+    public void home(@DefaultValue(&quot;World&quot;) @Output String who) {
+        render(who);
+    }
+
+    public static void main(String[] args) throws Exception {
+        Act.start();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/src/main/resources/rythm/demo/helloworld/HelloWorldApp/home.html" target="_blank">home.html</a>
+        </div>
+        <div class="path">src/main/resources/rythm/demo/helloworld/HelloWorldApp/home.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+@args String who
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello @who!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/act-framework-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<html>
+<head>
+    <title>webpack-hot-middleware-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">webpack-hot-middleware-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        webpack-dev-middleware demo
+===========================
+
+Use `webpack-dev-middleware` with express.
+
+`webpack-dev-middleware` can compile js files automatically when the request comes to express. We don&#39;t need to use `webpack` command to compile files manually.
+
+With `webpack-hot-middleware`, it can replace the `webpack-dev-server`.
+
+
+```
+npm install
+node server.js
+```
+
+Then visit &lt;http://localhost:3000/&gt;.
+
+Notice
+------
+
+We should only use it in dev enviroment.
+
+Resources
+---------
+
+1. https://github.com/webpack/webpack-dev-middleware    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  entry: [
+    &#39;./public/entry.js&#39;, 
+    &#39;webpack-hot-middleware/client&#39;
+  ],
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    // Webpack 1.0
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // Webpack 2.0 fixed this mispelling
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/public/entry.js" target="_blank">entry.js</a>
+        </div>
+        <div class="path">public/entry.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Notice!!
+// we can&#39;t use `document.write(...)` here
+// which is not allow and produce error:
+// It isn&#39;t possible to write into a document from an asynchronously-loaded external script unless it is explicitly opened.
+const content = document.getElementById(&#39;content&#39;)
+content.innerHTML=&#39;it works&#39;;
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;webpack-dev-middleware demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
+const webpack = require(&#39;webpack&#39;);
+const webpackDevMiddleware = require(&#39;webpack-dev-middleware&#39;);
+const webpackConfig = require(&#39;./webpack.config&#39;);
+
+const app = express();
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+  // Notice!
+  // lazy must be `false` to make `webpack-hot-middleware` work
+  lazy: false,
+
+  // watch options (only lazy: false)
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+
+  publicPath: webpackConfig.output.publicPath
+
+}));
+
+app.use(require(&#39;webpack-hot-middleware&#39;)(compiler, {
+  log: console.log
+}));
+
+app.use(express.static(&#39;./public&#39;));
+
+app.listen(3000, function() {
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

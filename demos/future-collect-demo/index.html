@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>future-collect-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">future-collect-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/future-collect-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
+        </div>
+        <div class="path">src/test/scala/example/HelloSpec.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+//  test(&quot;The Hello object should say hello&quot;) {
+//    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+//  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/future-collect-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">src/main/scala/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+import scala.concurrent.{Await, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
+
+object Hello extends App {
+
+  val result = Future(&quot;abc&quot;).collect({ case s if s.startsWith(&quot;a&quot;) =&gt; 111 })
+  println(result)
+
+  val result2 = Future.apply[Option[String]](Option.empty).transform({
+    case Success(Some(s)) if s.startsWith(&quot;a&quot;) =&gt; Success(Some(123))
+    case Success(None) =&gt; Success(None)
+  }).collect({
+    case Some(v) =&gt; println(v)
+    case None =&gt; println(&quot;none&quot;)
+  })
+  Await.result(result2, 1.second)
+
+  val result3 = Future.apply[Option[String]](throw new Exception(&quot;my exception&quot;)).transform({
+    case Success(Some(s)) if s.startsWith(&quot;a&quot;) =&gt; Success(123)
+    case Success(None) =&gt; Success(444)
+    case Failure(e) =&gt; Success(999)
+  })
+  result3.foreach((x: Int) =&gt; println(x))
+  Await.result(result3, 1.second)
+
+}
+
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/future-collect-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/future-collect-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

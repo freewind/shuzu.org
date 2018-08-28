@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>vue-router-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">vue-router-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Vue Router Demo
+===============
+
+```
+npm install
+npm install -g http-server
+http-server .
+```
+
+Then open &lt;http://localhost:8080&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-router-demo/blob/master/index.css" target="_blank">index.css</a>
+        </div>
+        <div class="path">index.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">.router-link-active {
+    color: red;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-router-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+
+const Index = {template: &#39;&lt;div&gt;hello index!&lt;/div&gt;&#39;};
+const Foo = {template: &#39;&lt;div&gt;foo&lt;/div&gt;&#39;};
+const Bar = {template: &#39;&lt;div&gt;bar&lt;/div&gt;&#39;};
+
+const UserHome = {
+    template: `
+    &lt;div&gt;
+    &lt;div&gt;
+        &lt;p&gt;{{ username }}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;a @click=&quot;goBack&quot; href=&quot;javascript: void(0)&quot;&gt;Go Back&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    `,
+    
+    computed: {
+        username: function () {
+            return this.$route.params.username
+        }
+    },
+    methods: {
+        goBack: function () {
+            window.history.length &gt; 1 ? this.$router.go(-1) : this.$router.push(&#39;/&#39;)
+        }
+    }
+};
+
+const router = new VueRouter({
+    routes: [
+        {path: &#39;/foo&#39;, component: Foo},
+        {path: &#39;/bar&#39;, component: Bar},
+        {path: &#39;/user/:username&#39;, component: UserHome},
+        {path: &#39;&#39;, component: Index}
+    ]
+});
+
+
+new Vue({router: router}).$mount(&#39;#app&#39;);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-router-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./index.css&quot;&gt;
+    &lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+        &lt;router-link to=&quot;/bar&quot;&gt;Go to Bar&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/freewind&quot;&gt;Go to User Home&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/vue-router-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/vue-router-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

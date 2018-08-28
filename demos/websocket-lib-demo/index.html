@@ -1,0 +1,153 @@
+<html>
+<head>
+    <title>websocket-lib-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">websocket-lib-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        How to run
+=========
+
+Start server:
+
+```
+npm install
+node server.js
+```
+
+Start client:
+
+```
+node client.js
+```
+
+You will see they are communicating.
+
+Also you can use some other websocket clients:
+
+```
+npm install -g wscat
+wscat -c ws://localhost:3000
+```
+
+Reference
+=========
+
+1. Code is from &lt;https://github.com/theturtle32/WebSocket-Node&gt;, but simplified. Removed the subprotocol `echo-protocol` and binary message part.
+2. 
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">#!/usr/bin/env node
+var WebSocketServer = require(&#39;websocket&#39;).server;
+var http = require(&#39;http&#39;);
+
+var server = http.createServer(function(request, response) {
+    console.log((new Date()) + &#39; Received request for &#39; + request.url);
+    response.writeHead(404);
+    response.end();
+});
+server.listen(8080, function() {
+    console.log((new Date()) + &#39; Server is listening on port 8080&#39;);
+});
+
+wsServer = new WebSocketServer({
+    httpServer: server,
+    autoAcceptConnections: true
+});
+
+wsServer.on(&#39;connect&#39;, function(connection) {
+    console.log((new Date()) + &#39; Connection accepted.&#39;);
+    connection.on(&#39;message&#39;, function(message) {
+        if (message.type === &#39;utf8&#39;) {
+            console.log(&#39;Received Message: &#39; + message.utf8Data);
+            connection.sendUTF(message.utf8Data);    
+        }
+    });
+    connection.on(&#39;close&#39;, function(reasonCode, description) {
+        console.log((new Date()) + &#39; Peer &#39; + connection.remoteAddress + &#39; disconnected.&#39;);
+    });
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/client.js" target="_blank">client.js</a>
+        </div>
+        <div class="path">client.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">#!/usr/bin/env node
+var WebSocketClient = require(&#39;websocket&#39;).client;
+
+var client = new WebSocketClient();
+
+client.on(&#39;connectFailed&#39;, function(error) {
+    console.log(&#39;Connect Error: &#39; + error.toString());
+});
+
+client.on(&#39;connect&#39;, function(connection) {
+    console.log(&#39;WebSocket Client Connected&#39;);
+    connection.on(&#39;error&#39;, function(error) {
+        console.log(&quot;Connection Error: &quot; + error.toString());
+    });
+    connection.on(&#39;close&#39;, function() {
+        console.log(&#39;Connection Closed&#39;);
+    });
+    connection.on(&#39;message&#39;, function(message) {
+        if (message.type === &#39;utf8&#39;) {
+            console.log(&quot;Received: &#39;&quot; + message.utf8Data + &quot;&#39;&quot;);
+        }
+    });
+    
+    function sendNumber() {
+        if (connection.connected) {
+            var number = Math.round(Math.random() * 0xFFFFFF);
+            // send string
+            connection.sendUTF(number.toString());
+            // have to stringify object to string
+            connection.sendUTF(JSON.stringify({
+                a: 111,
+                b: 222
+            }));
+            setTimeout(sendNumber, 1000);
+        }
+    }
+    sendNumber();
+});
+
+client.connect(&#39;ws://localhost:8080/&#39;);</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/websocket-lib-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/websocket-lib-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

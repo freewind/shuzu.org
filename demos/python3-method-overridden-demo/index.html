@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>python3-method-overridden-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">python3-method-overridden-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 Method Overridden Demo
+==============================
+
+It&#39;s a bit different from Java.
+
+You can call any other class&#39;s super methods.
+
+```
+python3 hello.py
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-method-overridden-demo/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-method-overridden-demo/blob/master/hello.py" target="_blank">hello.py</a>
+        </div>
+        <div class="path">hello.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">class Parent:
+    def hello(self):
+        print(&quot;Hello from Parent&quot;)
+
+class Child(Parent):
+    def hello(self):
+        print(&quot;Hello from Child&quot;)
+
+class GrandChild(Child):
+    def hello(self):
+        print(&quot;Hello from GrandChild&quot;)
+        print(&quot;---------- call Child.hello() ---------&quot;)
+        super(GrandChild, self).hello()
+        print(&quot;---------- call Parent.hello() ---------&quot;)
+        super(Child, self).hello()
+
+grand_child = GrandChild()
+grand_child.hello()
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/python3-method-overridden-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/python3-method-overridden-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

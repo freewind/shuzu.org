@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>java-git-pull-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-git-pull-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Git Pull Demo
+==================
+
+Use [JGit](https://www.eclipse.org/jgit) to pull the commits from remote programmatically.
+
+Run `Hello.java` in you IDE.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-git-pull-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;demo&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.eclipse.jgit&lt;/groupId&gt;
+            &lt;artifactId&gt;org.eclipse.jgit&lt;/artifactId&gt;
+            &lt;version&gt;5.0.1.201806211838-r&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-git-pull-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.PullResult;
+import org.eclipse.jgit.api.ResetCommand;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.lib.*;
+
+import java.io.File;
+import java.io.IOException;
+
+public class Hello {
+    private static final String uri = &quot;https://github.com/java-demos/java-hello-world-demo.git&quot;;
+    private static final File localDir = new File(&quot;./target/local-repo/java-hello-world-demo&quot;);
+
+    public static void main(String[] args) throws Exception {
+        if (localDir.exists()) {
+            FileUtils.forceDelete(localDir);
+        }
+
+        cloneToLocal();
+
+        System.out.println(&quot;current head: &quot; + getHeadCommit());
+
+        resetToPreviousCommit();
+
+        System.out.println(&quot;after reset to HEAD~1: &quot; + getHeadCommit());
+
+        gitPull();
+
+        System.out.println(&quot;after pull: &quot; + getHeadCommit());
+    }
+
+    private static void gitPull() throws IOException, GitAPIException {
+        PullResult pull = Git.open(localDir).pull().call();
+        System.out.println(&quot;pull successful? &quot; + pull.isSuccessful());
+    }
+
+    private static String getHeadCommit() throws IOException {
+        Repository repository = Git.open(localDir).getRepository();
+        ObjectId id = repository.resolve(Constants.HEAD);
+        return id.getName();
+    }
+
+    private static void resetToPreviousCommit() throws IOException, GitAPIException {
+        Git.open(localDir).reset()
+                .setMode(ResetCommand.ResetType.HARD)
+                .setRef(&quot;HEAD~1&quot;)
+                .call();
+    }
+
+    private static void cloneToLocal() throws GitAPIException {
+        Git.cloneRepository().setURI(uri)
+                .setDirectory(localDir)
+                .setCloneAllBranches(true)
+                .call();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-git-pull-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-git-pull-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

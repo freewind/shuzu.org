@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>typescript-function-return-nullable-value-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-function-return-nullable-value-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Function Returns Nullable Value Demo
+===============================================
+
+Define a function which returns nullable value.
+
+```
+npm install
+npx ts-node hello.ts
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-function-return-nullable-value-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">function hello(name: string): string | null {
+    if (name.length === 0) {
+        return null
+    } else {
+        return `Hello, ${name}!`
+    }
+}
+
+console.log(hello(&#39;typescript&#39;))
+console.log(hello(&#39;&#39;))
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-function-return-nullable-value-demo/blob/master/hello.ts.md" target="_blank">hello.ts.md</a>
+        </div>
+        <div class="path">hello.ts.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">```
+$ npx ts-node hello.ts
+Hello, typescript!
+null
+```</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-function-return-nullable-value-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-function-return-nullable-value-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<html>
+<head>
+    <title>java-ffmpeg-convert-wav-to-mp3-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-ffmpeg-convert-wav-to-mp3-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Convert wav to mp3 Demo
+============================
+
+Use [ffmpeg wrapper](https://github.com/bramp/ffmpeg-cli-wrapper) to convert wav file to mp3.
+
+```
+brew install ffmpeg
+```
+
+Check the path of `ffmpeg`:
+
+```
+$ which ffmpeg
+/usr/local/bin/ffmpeg
+```
+
+Modify the path in `Hello.java` if not same.
+
+Run `Hello.java` in your IDE.
+
+Notice
+------
+
+mp3文件实际上有很多格式的，比如`mp1`, `mp2`, `mp2.5`, `mp3`等等
+
+1. 通常我们使用`mp3`格式：`setFormat(&quot;mp3&quot;)`，可以正常被各种播放器播放，它是默认值
+2. 但是，JavaFX不支持。所以要想让JavaFX正常播放，需要：`.setFormat(&quot;mp2&quot;)`
+3. 减小体积：`setAudioCodec(&quot;libmp3lame&quot;)`。如果不设置的话，会大几倍
+
+这是花了几个小时研究出来的    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-ffmpeg-convert-wav-to-mp3-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;net.bramp.ffmpeg&lt;/groupId&gt;
+            &lt;artifactId&gt;ffmpeg&lt;/artifactId&gt;
+            &lt;version&gt;0.6.2&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-ffmpeg-convert-wav-to-mp3-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFmpegExecutor;
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
+
+import java.io.File;
+import java.io.IOException;
+
+public class Hello {
+
+    private static String FFMPEG_PATH = &quot;/usr/local/bin/ffmpeg&quot;;
+    private static File output = new File(&quot;data/demo.mp3&quot;);
+
+    public static void main(String[] args) throws IOException {
+        FFmpeg ffmpeg = new FFmpeg(FFMPEG_PATH);
+        FFmpegBuilder builder = new FFmpegBuilder()
+                .setInput(&quot;data/demo.wav&quot;)
+                .overrideOutputFiles(true)
+                .addOutput(output.getAbsolutePath())
+                .setFormat(&quot;mp2&quot;)
+                .setAudioCodec(&quot;libmp3lame&quot;)
+                .done();
+        FFmpegExecutor executor = new FFmpegExecutor(ffmpeg);
+        executor.createJob(builder).run();
+        System.out.println(&quot;Generated mp3 file: &quot; + output.getAbsolutePath());
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-ffmpeg-convert-wav-to-mp3-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-ffmpeg-convert-wav-to-mp3-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

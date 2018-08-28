@@ -1,0 +1,185 @@
+<html>
+<head>
+    <title>typescript-nested-object-literal-with-types-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-nested-object-literal-with-types-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript带嵌套的对象的类型定义
+========================
+
+好像发现了TypeScript的一个杀手级的语言特性：定义一个复杂的带嵌套的对象的类型。
+
+比如我们有这样一个复杂的JSON:
+
+```json
+{
+    &quot;name&quot;: &quot;shuzu&quot;,
+    &quot;url&quot;: &quot;http://shuzu.org&quot;,
+    &quot;categories&quot;: [{
+        &quot;name&quot;: &quot;java-demos&quot;,
+        &quot;description&quot;: &quot;many java demos&quot;,
+        &quot;demos&quot;: [{
+            &quot;name&quot;: &quot;hello-world-demo&quot;,
+            &quot;description&quot;: &quot;simplest hello world demo&quot;
+        }]
+    }, {
+        &quot;name&quot;: &quot;kotlin-demos&quot;,
+        &quot;description&quot;: &quot;many kotlin demos&quot;,
+        &quot;demos&quot;: [{
+            &quot;name&quot;: &quot;hello-world-demo&quot;,
+            &quot;description&quot;: &quot;simplest hello world demo&quot;
+        }]
+    }]
+}
+```
+
+要是在别的语言中，可能要这么做：
+
+```
+// Kotlin
+
+data class Demo(
+        val name: String,
+        val description: String
+)
+
+data class Category(
+        val name: String,
+        val description: String,
+        val demos: List&lt;Demo&gt;
+)
+
+data class Site(
+        val name: String,
+        val url: String,
+        val categories: List&lt;Category&gt;
+)
+```
+
+但是，在TypeScript中，我们可以的定义type的同时，保持它与原JSON一致的结构，太棒了！
+
+```typescript
+type Site = {
+    name: String,
+    url: String,
+    categories: {
+        name: String,
+        description: String,
+        demos: {
+            name: String,
+            description: String
+        }[]
+    }[]
+};
+```
+
+运行：
+
+```
+npm install
+npx ts-node hello.ts
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-nested-object-literal-with-types-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">type Site = {
+    name: String,
+    url: String,
+    categories: {
+        name: String,
+        description: String,
+        demos: {
+            name: String,
+            description: String
+        }[]
+    }[]
+};
+
+function siteFromJson(): Site {
+    return JSON.parse(`
+    {
+        &quot;name&quot;: &quot;shuzu&quot;,
+        &quot;url&quot;: &quot;http://shuzu.org&quot;,
+        &quot;categories&quot;: [{
+            &quot;name&quot;: &quot;java-demos&quot;,
+            &quot;description&quot;: &quot;many java demos&quot;,
+            &quot;demos&quot;: [{
+                &quot;name&quot;: &quot;hello-world-demo&quot;,
+                &quot;description&quot;: &quot;simplest hello world demo&quot;
+            }]
+        }, {
+            &quot;name&quot;: &quot;kotlin-demos&quot;,
+            &quot;description&quot;: &quot;many kotlin demos&quot;,
+            &quot;demos&quot;: [{
+                &quot;name&quot;: &quot;hello-world-demo&quot;,
+                &quot;description&quot;: &quot;simplest hello world demo&quot;
+            }]
+        }]
+    }
+    `);
+
+}
+
+function siteFromObject(): Site {
+    return {
+        &quot;name&quot;: &quot;shuzu&quot;,
+        &quot;url&quot;: &#39;http://shuzu.org&#39;,
+        &quot;categories&quot;: [{
+            &quot;name&quot;: &quot;java-demos&quot;,
+            &quot;description&quot;: &quot;many java demos&quot;,
+            &quot;demos&quot;: [{
+                &quot;name&quot;: &quot;hello-world-demo&quot;,
+                &quot;description&quot;: &quot;simplest hello world demo&quot;
+            }]
+        }, {
+            &quot;name&quot;: &quot;kotlin-demos&quot;,
+            &quot;description&quot;: &quot;many kotlin demos&quot;,
+            &quot;demos&quot;: [{
+                &quot;name&quot;: &quot;hello-world-demo&quot;,
+                &quot;description&quot;: &quot;simplest hello world demo&quot;
+            }]
+        }]
+    }
+}
+
+
+const siteJson = siteFromJson();
+console.log(siteJson.categories[0].demos[0].name);
+
+const siteObj = siteFromObject();
+console.log(siteObj.categories[0].demos[0].name);
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-nested-object-literal-with-types-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-nested-object-literal-with-types-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

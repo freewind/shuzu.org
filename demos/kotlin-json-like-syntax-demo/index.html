@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>kotlin-json-like-syntax-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-json-like-syntax-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Json Like Syntax Demo
+============================
+
+How to define classes and methods to make the invocation seems like json format:
+
+```
+hello {
+  name = &quot;Kotlin&quot;
+  words = &quot;welcome&quot;
+}
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-json-like-syntax-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.51&#39;
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin&#39;
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.apache.commons:commons-lang3:3.7&quot;
+    compile &quot;commons-io:commons-io:2.6&quot;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile &#39;org.assertj:assertj-core:3.9.0&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-json-like-syntax-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-json-like-syntax-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+class Hello
+data class User(var name: String? = null, var words: String? = null)
+
+operator fun Hello.invoke(config: User.() -&gt; Unit) {
+    val user = User()
+    config(user)
+    println(&quot;Hello, ${user.name}, ${user.words}!&quot;)
+}
+
+private val hello = Hello()
+
+fun main(args: Array&lt;String&gt;) {
+    hello {
+        name = &quot;Kotlin&quot;
+        words = &quot;you have good syntax&quot;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-json-like-syntax-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-json-like-syntax-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<html>
+<head>
+    <title>joda-time-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">joda-time-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Gradle Test
+==========
+
+A very simple java project with gradle.
+
+Run tests:
+
+```
+./gradlew test
+```
+
+Setup in IDEA
+--------------
+
+Use command line:
+
+```
+idea .
+```
+
+Or import the project directly with IDEA.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+repositories {
+	mavenLocal()
+    jcenter() // fast!
+    mavenCentral() // very slow
+}
+
+dependencies {
+    compile(
+            &#39;org.apache.commons:commons-lang3:3.4&#39;,
+            &#39;joda-time:joda-time:2.9.4&#39;
+    )
+    testCompile(
+            &#39;junit:junit:4.11&#39;,
+            &#39;org.easytesting:fest-assert-core:2.0M10&#39;
+    )
+}
+
+// used to generate `./gradlew`
+// by run `gradle wrapper`
+task wrapper(type: Wrapper) {
+   gradleVersion = &#39;2.4&#39; //version required
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateComparisonDemo.java" target="_blank">DateComparisonDemo.java</a>
+        </div>
+        <div class="path">src/main/java/my/DateComparisonDemo.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.joda.time.DateTime;
+
+public class DateComparisonDemo {
+
+    public static void main(String[] args) {
+        checkSameDay();
+        checkSameMonth();
+    }
+
+    private static void checkSameDay() {
+        DateTime dateTime = new DateTime();
+        DateTime dateTime2 = new DateTime();
+        System.out.println(dateTime.withTimeAtStartOfDay().isEqual(dateTime2.withTimeAtStartOfDay()));
+    }
+
+    private static void checkSameMonth() {
+        DateTime dateTime = new DateTime();
+        DateTime dateTime2 = new DateTime();
+        System.out.println(dateTime.withDayOfMonth(0).isEqual(dateTime2.withDayOfMonth(0)));
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateTimeFormatDemo.java" target="_blank">DateTimeFormatDemo.java</a>
+        </div>
+        <div class="path">src/main/java/my/DateTimeFormatDemo.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+public class DateTimeFormatDemo {
+
+    public static void main(String[] args) {
+        formatAsDate();
+        formatAsDateTime();
+    }
+
+    private static void formatAsDate() {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(&quot;yyyy-MM-dd&quot;);
+        String date = formatter.print(new DateTime());
+        System.out.println(date);
+    }
+
+    private static void formatAsDateTime() {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(&quot;yyyy-MM-dd HH:mm:ss SSS&quot;);
+        String date = formatter.print(new DateTime());
+        System.out.println(date);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/ParseDateDemo.java" target="_blank">ParseDateDemo.java</a>
+        </div>
+        <div class="path">src/main/java/my/ParseDateDemo.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+public class ParseDateDemo {
+
+    public static void main(String[] args) {
+        parseDateTime();
+    }
+
+    private static void parseDateTime() {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+        DateTime date = formatter.parseDateTime(&quot;2016-12-03 21:34:01&quot;);
+        System.out.println(date);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateDiffDemo.java" target="_blank">DateDiffDemo.java</a>
+        </div>
+        <div class="path">src/main/java/my/DateDiffDemo.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+
+public class DateDiffDemo {
+
+    public static void main(String[] args) {
+        plusDays();
+    }
+
+    private static void plusDays() {
+        DateTime now = new DateTime();
+        DateTime future1000 = now.plus(Period.days(1000));
+        System.out.println(&quot;Now: &quot; + now.toString(&quot;yyyy-MM-dd&quot;));
+        System.out.println(&quot;Future: &quot; + future1000.toString(&quot;yyyy-MM-dd&quot;));
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/joda-time-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/joda-time-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

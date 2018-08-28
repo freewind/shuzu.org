@@ -1,0 +1,121 @@
+<html>
+<head>
+    <title>vue-typescript-keydown-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">vue-typescript-keydown-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Vue Typescript KeyDown Demo
+===========================
+
+
+```
+npm install
+npm run serve
+```
+
+Resources
+---------
+
+- https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/src/shims-tsx.d.ts" target="_blank">shims-tsx.d.ts</a>
+        </div>
+        <div class="path">src/shims-tsx.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import Vue, { VNode } from &#39;vue&#39;
+
+declare global {
+  namespace JSX {
+    // tslint:disable no-empty-interface
+    interface Element extends VNode {}
+    // tslint:disable no-empty-interface
+    interface ElementClass extends Vue {}
+    interface IntrinsicElements {
+      [elem: string]: any
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/src/shims-vue.d.ts" target="_blank">shims-vue.d.ts</a>
+        </div>
+        <div class="path">src/shims-vue.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">declare module &#39;*.vue&#39; {
+  import Vue from &#39;vue&#39;
+  export default Vue
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
+        </div>
+        <div class="path">src/main.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h =&gt; h(App)
+}).$mount(&#39;#app&#39;)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;!-- built files will be auto injected --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<html>
+<head>
+    <title>go-search-rss-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-search-rss-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go Hello World Demo
+===================
+
+```
+brew install go
+go run hello.go
+```
+
+You will see `Hello, go!`
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/main.go" target="_blank">main.go</a>
+        </div>
+        <div class="path">main.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;log&quot;
+	&quot;os&quot;
+	_ &quot;github.com/golang-demos/go-search-rss-demo/matchers&quot;
+	&quot;github.com/golang-demos/go-search-rss-demo/search&quot;
+)
+
+func init() {
+	log.SetOutput(os.Stdout)
+}
+
+func main() {
+	search.Run(&quot;World&quot;)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/feed.go" target="_blank">feed.go</a>
+        </div>
+        <div class="path">search/feed.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package search
+
+import (
+	&quot;os&quot;
+	&quot;encoding/json&quot;
+)
+
+const dataFile = &quot;data/data.json&quot;
+
+type Feed struct {
+	Name string `json:&quot;site&quot;`
+	URI  string `json:&quot;link&quot;`
+	Type string `json:&quot;type&quot;`
+}
+
+func RetrieveFeeds() ([]*Feed, error) {
+	file, err := os.Open(dataFile)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var feeds []*Feed
+	err = json.NewDecoder(file).Decode(&amp;feeds)
+
+	return feeds, err
+}
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/search.go" target="_blank">search.go</a>
+        </div>
+        <div class="path">search/search.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package search
+
+import (
+	&quot;log&quot;
+	&quot;sync&quot;
+)
+
+var matchers = make(map[string]Matcher)
+
+func Run(searchTerm string) {
+	feeds, err := RetrieveFeeds()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	results := make(chan *Result)
+
+	var waitGroup sync.WaitGroup
+
+	waitGroup.Add(len(feeds))
+
+	for _, feed := range feeds {
+		matcher, exists := matchers[feed.Type]
+		if !exists {
+			matcher = matchers[&quot;default&quot;]
+		}
+
+		go func(matcher Matcher, feed *Feed) {
+			Match(matcher, feed, searchTerm, results)
+			waitGroup.Done()
+		}(matcher, feed)
+	}
+
+	go func() {
+		waitGroup.Wait()
+		close(results)
+	}()
+
+	Display(results)
+}
+
+func Register(feedType string, matcher Matcher) {
+	if _, exists := matchers[feedType]; exists {
+		log.Fatalln(feedType, &quot;Matcher already registerred&quot;)
+	}
+	log.Println(&quot;Register&quot;, feedType, &quot;matcher&quot;)
+	matchers[feedType] = matcher
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/match.go" target="_blank">match.go</a>
+        </div>
+        <div class="path">search/match.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package search
+
+import (
+	&quot;log&quot;
+	&quot;fmt&quot;
+)
+
+type Result struct {
+	Field   string
+	Content string
+}
+
+type Matcher interface {
+	Search(feed *Feed, searchTerm string) ([]*Result, error)
+}
+
+func Match(matcher Matcher, feed *Feed, searchTerm string, results chan&lt;- *Result) {
+	searchResults, err := matcher.Search(feed, searchTerm)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	for _, result := range searchResults {
+		results &lt;- result
+	}
+}
+
+func Display(results chan *Result) {
+	for result := range results {
+		fmt.Printf(&quot;%s:\n%s\n\n&quot;, result.Field, result.Content)
+	}
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/default.go" target="_blank">default.go</a>
+        </div>
+        <div class="path">search/default.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package search
+
+type defaultMatcher struct{}
+
+func init() {
+	var matcher defaultMatcher
+	Register(&quot;default&quot;, matcher)
+}
+
+func (m defaultMatcher) Search(feed *Feed, searchTerm string) ([]*Result, error) {
+	return nil, nil
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/matchers/rss.go" target="_blank">rss.go</a>
+        </div>
+        <div class="path">matchers/rss.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package matchers
+
+import (
+	&quot;encoding/xml&quot;
+	&quot;errors&quot;
+	&quot;net/http&quot;
+	&quot;fmt&quot;
+	&quot;log&quot;
+	&quot;regexp&quot;
+
+	&quot;github.com/golang-demos/go-search-rss-demo/search&quot;
+)
+
+type (
+	item struct {
+		XMLName     xml.Name `xml:&quot;item&quot;`
+		PubDate     string   `xml:&quot;pubDate&quot;`
+		Title       string   `xml:&quot;title&quot;`
+		Description string   `xml:&quot;description&quot;`
+		Link        string   `xml:&quot;link&quot;`
+		GUID        string   `xml:&quot;guid&quot;`
+		GeoRssPoint string   `xml:&quot;georss:point&quot;`
+	}
+
+	image struct {
+		XMLName xml.Name `xml:&quot;image&quot;`
+		URL     string   `xml:&quot;url&quot;`
+		Title   string   `xml:&quot;title&quot;`
+		Link    string   `xml:&quot;link&quot;`
+	}
+
+	channel struct {
+		XMLName        xml.Name `xml:&quot;channel&quot;`
+		Title          string   `xml:&quot;title&quot;`
+		Description    string   `xml:&quot;description&quot;`
+		Link           string   `xml:&quot;link&quot;`
+		PubDate        string   `xml:&quot;pubDate&quot;`
+		LastBuildDate  string   `xml:&quot;lastBuildDate&quot;`
+		TTL            string   `xml:&quot;ttl&quot;`
+		Language       string   `xml:&quot;language&quot;`
+		ManagingEditor string   `xml:&quot;managingEditor&quot;`
+		WebMaster      string   `xml:&quot;webMaster&quot;`
+		Image          image    `xml:&quot;image&quot;`
+		Item           []item   `xml:&quot;item&quot;`
+	}
+
+	rssDocument struct {
+		XMLName xml.Name `xml:&quot;rss&quot;`
+		Channel channel  `xml:&quot;channel&quot;`
+	}
+)
+
+type rssMatcher struct{}
+
+func init() {
+	var matcher rssMatcher
+	search.Register(&quot;rss&quot;, matcher)
+}
+
+func (m rssMatcher) Search(feed *search.Feed, searchTerm string) ([]*search.Result, error) {
+	var results []*search.Result
+
+	log.Printf(&quot;Search Feed Type[%s] Site[%s] For Uri[%s]\n&quot;, feed.Type, feed.Name, feed.URI)
+
+	document, err := m.retrieve(feed)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, channelItem := range document.Channel.Item {
+		matched, err := regexp.MatchString(searchTerm, channelItem.Title)
+		if err != nil {
+			return nil, err
+		}
+
+		if matched {
+			results = append(results, &amp;search.Result{
+				Field:   &quot;Title&quot;,
+				Content: channelItem.Title,
+			})
+		}
+
+		matched, err = regexp.MatchString(searchTerm, channelItem.Description)
+		if err != nil {
+			return nil, err
+		}
+
+		if matched {
+			results = append(results, &amp;search.Result{
+				Field:   &quot;Description&quot;,
+				Content: channelItem.Description,
+			})
+		}
+	}
+
+	return results, nil
+}
+
+func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
+	if feed.URI == &quot;&quot; {
+		return nil, errors.New(&quot;No rss feed URI provided.&quot;)
+	}
+
+	resp, err := http.Get(feed.URI)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf(&quot;HTTP Response Error %d\n&quot;, resp.StatusCode)
+	}
+
+	var document rssDocument
+	err = xml.NewDecoder(resp.Body).Decode(&amp;document)
+	return &amp;document, err
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-search-rss-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-search-rss-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<html>
+<head>
+    <title>kotlin-js-dom-update-with-setTimeout-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-js-dom-update-with-setTimeout-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlinx Update DOM with setTimeout Demo
+=======================================
+
+Use [kotlinx](https://github.com/Kotlin/kotlinx.html) to generate DOM,
+and try updating the DOM value in `setTimeout` after sometime.
+
+```
+textInput {
+    this.value = &quot;Hello&quot;
+    window.setTimeout({
+        this.value = &quot;Changed!&quot;
+    }, 1000)
+}
+```
+
+But the problem is it doesn&#39;t take effect, and give an error:
+
+```
+Uncaught IllegalStateException {
+    message_8yp7un$_0: &quot;No current tag&quot;,
+    cause_th0jdv$_0: null,
+    name: &quot;IllegalStateException&quot;,
+    stack: &quot;IllegalStateException: No current tag
+        at Illeg…otlin-js-dom-update-with-setTimeout-demo.js:19:19&quot;
+    }
+```
+
+Run this demo
+-------------
+
+```
+npm install
+./gradlew compileKotlin2Js
+open index.html
+```
+
+Open developer console of browser, you will see the error mentioned above.
+
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.41&#39;
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin2js&#39;
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.jetbrains.kotlinx:kotlinx-html-js:0.6.10&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlinx.html.div
+import kotlinx.html.dom.create
+import kotlinx.html.textInput
+import org.w3c.dom.Node
+import kotlin.browser.document
+import kotlin.browser.window
+
+fun main(args: Array&lt;String&gt;) {
+    document.body?.append(createMyDiv())
+}
+
+fun createMyDiv(): Node {
+    return document.create.div {
+        textInput {
+            this.value = &quot;Hello&quot;
+            window.setTimeout({
+                this.value = &quot;Changed!&quot;
+            }, 1000)
+        }
+    }
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlinx-html/kotlinx-html-js.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-js-dom-update-with-setTimeout-demo.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

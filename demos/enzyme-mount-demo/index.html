@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>enzyme-mount-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">enzyme-mount-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Enzyme Mount Demo
+=================
+
+Enzyme `mount` demo.
+
+```
+npm install -g jasmine
+npm install
+npm test
+```
+
+Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.
+
+Articles:
+---------
+
+- https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
+- https://github.com/rstacruz/jsdom-global
+- https://github.com/airbnb/enzyme/issues/341    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/enzyme-mount-demo/blob/master/spec/my-component-spec.js" target="_blank">my-component-spec.js</a>
+        </div>
+        <div class="path">spec/my-component-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React from &#39;react&#39;;
+import sinon from &#39;sinon&#39;;
+import {mount} from &#39;enzyme&#39;;
+import Foo from &#39;../foo.jsx&#39;;
+import jsdomGlobal from &#39;jsdom-global&#39;;
+
+jsdomGlobal();
+
+describe(&#39;&lt;Foo /&gt;&#39;, () =&gt; {
+  it(&#39;allows us to set props&#39;, () =&gt; {
+    const wrapper = mount(&lt;Foo bar=&quot;baz&quot;/&gt;);
+    expect(wrapper.props().bar).toEqual(&#39;baz&#39;);
+    wrapper.setProps({bar: &#39;foo&#39;});
+    expect(wrapper.props().bar).toEqual(&#39;foo&#39;);
+  });
+
+  it(&#39;simulates click events&#39;, () =&gt; {
+    const onButtonClick = sinon.spy();
+    const wrapper = mount(
+      &lt;Foo onButtonClick={onButtonClick}/&gt;
+    );
+    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
+    expect(onButtonClick.callCount).toEqual(1);
+  });
+
+  it(&#39;calls componentDidMount&#39;, () =&gt; {
+    sinon.spy(Foo.prototype, &#39;componentDidMount&#39;);
+    const wrapper = mount(&lt;Foo /&gt;);
+    expect(Foo.prototype.componentDidMount.callCount).toEqual(1);
+    Foo.prototype.componentDidMount.restore();
+  });
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/enzyme-mount-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./entry.jsx&#39;,
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/enzyme-mount-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/enzyme-mount-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/enzyme-mount-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

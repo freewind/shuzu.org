@@ -1,0 +1,353 @@
+<html>
+<head>
+    <title>react-redux-counter-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-redux-counter-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/test/reducers/counter.spec.js" target="_blank">counter.spec.js</a>
+        </div>
+        <div class="path">test/reducers/counter.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import counter from &#39;../../reducers&#39;
+
+describe(&#39;reducers&#39;, () =&gt; {
+  describe(&#39;counter&#39;, () =&gt; {
+    it(&#39;should provide the initial state&#39;, () =&gt; {
+      expect(counter(undefined, {})).toBe(0)
+    })
+
+    it(&#39;should handle INCREMENT action&#39;, () =&gt; {
+      expect(counter(1, { type: &#39;INCREMENT&#39; })).toBe(2)
+    })
+
+    it(&#39;should handle DECREMENT action&#39;, () =&gt; {
+      expect(counter(1, { type: &#39;DECREMENT&#39; })).toBe(0)
+    })
+
+    it(&#39;should ignore unknown actions&#39;, () =&gt; {
+      expect(counter(1, { type: &#39;unknown&#39; })).toBe(1)
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/test/components/Counter.spec.js" target="_blank">Counter.spec.js</a>
+        </div>
+        <div class="path">test/components/Counter.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import { shallow } from &#39;enzyme&#39;
+import Counter from &#39;../../components/Counter&#39;
+
+function setup(value = 0) {
+  const actions = {
+    onIncrement: expect.createSpy(),
+    onDecrement: expect.createSpy()
+  }
+  const component = shallow(
+    &lt;Counter value={value} {...actions} /&gt;
+  )
+
+  return {
+    component: component,
+    actions: actions,
+    buttons: component.find(&#39;button&#39;),
+    p: component.find(&#39;p&#39;)
+  }
+}
+
+describe(&#39;Counter component&#39;, () =&gt; {
+  it(&#39;should display count&#39;, () =&gt; {
+    const { p } = setup()
+    expect(p.text()).toMatch(/^Clicked: 0 times/)
+  })
+
+  it(&#39;first button should call onIncrement&#39;, () =&gt; {
+    const { buttons, actions } = setup()
+    buttons.at(0).simulate(&#39;click&#39;)
+    expect(actions.onIncrement).toHaveBeenCalled()
+  })
+
+  it(&#39;second button should call onDecrement&#39;, () =&gt; {
+    const { buttons, actions } = setup()
+    buttons.at(1).simulate(&#39;click&#39;)
+    expect(actions.onDecrement).toHaveBeenCalled()
+  })
+
+  it(&#39;third button should not call onIncrement if the counter is even&#39;, () =&gt; {
+    const { buttons, actions } = setup(42)
+    buttons.at(2).simulate(&#39;click&#39;)
+    expect(actions.onIncrement).toNotHaveBeenCalled()
+  })
+
+  it(&#39;third button should call onIncrement if the counter is odd&#39;, () =&gt; {
+    const { buttons, actions } = setup(43)
+    buttons.at(2).simulate(&#39;click&#39;)
+    expect(actions.onIncrement).toHaveBeenCalled()
+  })
+
+  it(&#39;third button should call onIncrement if the counter is odd and negative&#39;, () =&gt; {
+    const { buttons, actions } = setup(-43)
+    buttons.at(2).simulate(&#39;click&#39;)
+    expect(actions.onIncrement).toHaveBeenCalled()
+  })
+
+  it(&#39;fourth button should call onIncrement in a second&#39;, (done) =&gt; {
+    const { buttons, actions } = setup()
+    buttons.at(3).simulate(&#39;click&#39;)
+    setTimeout(() =&gt; {
+      expect(actions.onIncrement).toHaveBeenCalled()
+      done()
+    }, 1000)
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var path = require(&#39;path&#39;)
+var webpack = require(&#39;webpack&#39;)
+
+module.exports = {
+  devtool: &#39;cheap-module-eval-source-map&#39;,
+  entry: [
+    &#39;webpack-hot-middleware/client&#39;,
+    &#39;./index&#39;
+  ],
+  output: {
+    path: path.join(__dirname, &#39;dist&#39;),
+    filename: &#39;bundle.js&#39;,
+    publicPath: &#39;/static/&#39;
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: [ &#39;babel&#39; ],
+        exclude: /node_modules/,
+        include: __dirname
+      }
+    ]
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React from &#39;react&#39;
+import ReactDOM from &#39;react-dom&#39;
+import { createStore } from &#39;redux&#39;
+import Counter from &#39;./components/Counter&#39;
+import counter from &#39;./reducers&#39;
+
+const store = createStore(counter)
+const rootEl = document.getElementById(&#39;root&#39;)
+
+function render() {
+  ReactDOM.render(
+    &lt;Counter
+      value={store.getState()}
+      onIncrement={() =&gt; store.dispatch({ type: &#39;INCREMENT&#39; })}
+      onDecrement={() =&gt; store.dispatch({ type: &#39;DECREMENT&#39; })}
+    /&gt;,
+    rootEl  
+  )
+}
+
+render()
+store.subscribe(render)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export default function counter(state = 0, action) {
+  switch (action.type) {
+    case &#39;INCREMENT&#39;:
+      return state + 1
+    case &#39;DECREMENT&#39;:
+      return state - 1
+    default:
+      return state
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Redux counter example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;root&quot;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;/static/bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var webpack = require(&#39;webpack&#39;)
+var webpackDevMiddleware = require(&#39;webpack-dev-middleware&#39;)
+var webpackHotMiddleware = require(&#39;webpack-hot-middleware&#39;)
+var config = require(&#39;./webpack.config&#39;)
+
+var app = new (require(&#39;express&#39;))()
+var port = 3000
+
+var compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+app.use(webpackHotMiddleware(compiler))
+
+app.get(&quot;/&quot;, function(req, res) {
+  res.sendFile(__dirname + &#39;/index.html&#39;)
+})
+
+app.listen(port, function(error) {
+  if (error) {
+    console.error(error)
+  } else {
+    console.info(&quot;==&gt; 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.&quot;, port, port)
+  }
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/components/Counter.js" target="_blank">Counter.js</a>
+        </div>
+        <div class="path">components/Counter.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
+
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    this.incrementAsync = this.incrementAsync.bind(this)
+    this.incrementIfOdd = this.incrementIfOdd.bind(this)
+  }
+
+  incrementIfOdd() {
+    if (this.props.value % 2 !== 0) {
+      this.props.onIncrement()
+    }
+  }
+
+  incrementAsync() {
+    setTimeout(this.props.onIncrement, 1000)
+  }
+
+  render() {
+    const { value, onIncrement, onDecrement } = this.props
+    return (
+      &lt;p&gt;
+        Clicked: {value} times
+        {&#39; &#39;}
+        &lt;button onClick={onIncrement}&gt;
+          +
+        &lt;/button&gt;
+        {&#39; &#39;}
+        &lt;button onClick={onDecrement}&gt;
+          -
+        &lt;/button&gt;
+        {&#39; &#39;}
+        &lt;button onClick={this.incrementIfOdd}&gt;
+          Increment if odd
+        &lt;/button&gt;
+        {&#39; &#39;}
+        &lt;button onClick={this.incrementAsync}&gt;
+          Increment async
+        &lt;/button&gt;
+      &lt;/p&gt;
+    )
+  }
+}
+
+Counter.propTypes = {
+  value: PropTypes.number.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired
+}
+
+export default Counter
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-redux-counter-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-redux-counter-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

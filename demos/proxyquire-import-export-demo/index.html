@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>proxyquire-import-export-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">proxyquire-import-export-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Proxyquire Demo
+===============
+
+Mock `require()` with [proxyquire](https://github.com/thlorenz/proxyquire) 
+
+```
+npm install -g jasmine
+npm install
+jasmine
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/proxyquire-import-export-demo/blob/master/core.js" target="_blank">core.js</a>
+        </div>
+        <div class="path">core.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+module.exports = function () {
+  return &quot;this is core&quot;;
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/proxyquire-import-export-demo/blob/master/spec/index-spec.js" target="_blank">index-spec.js</a>
+        </div>
+        <div class="path">spec/index-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const proxyquire = require(&#39;proxyquire&#39;);
+
+describe(&#39;proxyquire&#39;, ()=&gt; {
+  it(&#39;should mock ./core&#39;, () =&gt; {
+    let coreMock = function () {
+      return &#39;this is mock-core&#39;;
+    };
+    let index = proxyquire(&#39;../index&#39;, {&#39;./core&#39;: coreMock});
+    const result = index();
+    expect(result).toEqual(&#39;index &gt; this is mock-core &gt; bbb&#39;);
+  });
+
+  it(&#39;should mock path&#39;, () =&gt; {
+    let pathMock = {
+      basename: function () {
+        return &#39;mock-basename&#39;;
+      }
+    };
+    let index = proxyquire(&#39;../index&#39;, {&#39;path&#39;: pathMock});
+    const result = index();
+    expect(result).toEqual(&#39;index &gt; this is core &gt; mock-basename&#39;);
+  });
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/proxyquire-import-export-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const core = require(&#39;./core&#39;);
+const path = require(&#39;path&#39;);
+
+module.exports = function () {
+  return &#39;index &gt; &#39; + core() + &#39; &gt; &#39; + path.basename(&#39;/aaa/bbb&#39;);
+};</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/proxyquire-import-export-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/proxyquire-import-export-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

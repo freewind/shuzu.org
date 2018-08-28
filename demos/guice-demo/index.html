@@ -1,0 +1,209 @@
+<html>
+<head>
+    <title>guice-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">guice-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Demonstrate the basic usage of google Guice  
+==========
+
+Run `example.Main`, it will print:
+
+```
+Bill to Freewind, credit card: Paypal-CC-Freewind, transaction log: TL-Freewind
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+apply plugin: &#39;idea&#39;
+
+repositories {
+    mavenCentral()
+    maven {
+        url &quot;http://dl.bintray.com/greghaskins/maven&quot;
+    }
+}
+
+dependencies {
+    compile(
+            &#39;org.apache.commons:commons-lang3:3.2.1&#39;,
+            &#39;org.apache.commons:commons-io:1.3.2&#39;,
+            &#39;com.google.guava:guava:16.0&#39;,
+            &#39;com.google.inject:guice:4.0&#39;
+    )
+    testCompile(
+            &#39;com.greghaskins:spectrum:0.4.4&#39;,
+            &#39;org.assertj:assertj-core:2.2.0&#39;,
+            &#39;junit:junit:4.11&#39;
+    )
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/impl/PaypalCreditCardProcessor.java" target="_blank">PaypalCreditCardProcessor.java</a>
+        </div>
+        <div class="path">src/main/java/example/impl/PaypalCreditCardProcessor.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example.impl;
+
+import example.CreditCardProcessor;
+
+public class PaypalCreditCardProcessor implements CreditCardProcessor {
+    @Override
+    public String process(String user) {
+        return &quot;Paypal-CC-&quot; + user;
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/CreditCardProcessor.java" target="_blank">CreditCardProcessor.java</a>
+        </div>
+        <div class="path">src/main/java/example/CreditCardProcessor.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+public interface CreditCardProcessor {
+    String process(String user);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/BillingService.java" target="_blank">BillingService.java</a>
+        </div>
+        <div class="path">src/main/java/example/BillingService.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import com.google.inject.Inject;
+
+public class BillingService {
+
+    private final CreditCardProcessor creditCardProcessor;
+    private final TransactionLog transactionLog;
+
+    @Inject
+    public BillingService(CreditCardProcessor creditCardProcessor, TransactionLog transactionLog) {
+        this.creditCardProcessor = creditCardProcessor;
+        this.transactionLog = transactionLog;
+    }
+
+    public String bill(String user) {
+        return &quot;Bill to &quot; + user + &quot;, credit card: &quot; + creditCardProcessor.process(user) + &quot;, transaction log: &quot; + transactionLog.process(user);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/Main.java" target="_blank">Main.java</a>
+        </div>
+        <div class="path">src/main/java/example/Main.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Injector injector = Guice.createInjector(new BillingModule());
+        BillingService billingService = injector.getInstance(BillingService.class);
+        String bill = billingService.bill(&quot;Freewind&quot;);
+        System.out.println(bill);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/BillingModule.java" target="_blank">BillingModule.java</a>
+        </div>
+        <div class="path">src/main/java/example/BillingModule.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import com.google.inject.AbstractModule;
+import example.impl.PaypalCreditCardProcessor;
+
+public class BillingModule extends AbstractModule {
+
+    @Override
+    protected void configure() {
+        bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/TransactionLog.java" target="_blank">TransactionLog.java</a>
+        </div>
+        <div class="path">src/main/java/example/TransactionLog.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+public class TransactionLog {
+    public String process(String user) {
+        return &quot;TL-&quot; + user;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/guice-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/guice-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

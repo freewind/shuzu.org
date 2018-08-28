@@ -10,7 +10,7 @@ a {
     }
 }
 
-#main {
+.center-in-page {
     max-width: 960px;
     margin: 0 auto;
 }
@@ -28,6 +28,15 @@ a {
         font-size: 50px;
         line-height: 100px;
     }
+}
+
+#demo-header {
+    font-size: 40px;
+    line-height: 80px;
+    text-align: center;
+    background-color: #EEEEEE;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .panel {
@@ -48,31 +57,7 @@ a {
     }
 }
 
-#index-main,#org-main {
-    .org {
-        .header {
-        }
-        .body {
-            padding: 20px;
-        }
-        .org-name {
-            font-size: 28px;
-            a {
-                 color: #004AC0;
-            }
-        }
-        .repo {
-            .repo-name {}
-            .repo-description {}
-        }
-    }
-}
-
-#org-main {
-
-}
-
-.navigation {
+#navigation {
     font-size: 16px;
     line-height: 40px;
     .org-link {
@@ -84,41 +69,42 @@ a {
     }
 }
 
-#repo-main {
-    #readme {}
-    .code-file {
-        .header {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            .name {
-                line-height: 40px;
-            }
-            .path {
-                font-size: 14px;
-                color: #CCC;
-                font-weight: normal;
-                line-height: 30px;
-            }
+#readme {
+}
+
+.code-file {
+    .header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        .name {
+            line-height: 40px;
         }
-        .content {
-            margin-bottom: 0;
+        .path {
+            font-size: 14px;
+            color: #CCC;
+            font-weight: normal;
+            line-height: 30px;
         }
     }
-    .github {
-        padding: 20px 0;
-        font-size: 16px;
-        .github-icon {
-            img {
-                height: 20px;
-            }
+    .content {
+        margin-bottom: 0;
+    }
+}
+
+.github {
+    padding: 20px 0;
+    font-size: 16px;
+    .github-icon {
+        img {
+            height: 20px;
         }
-        .repo-url {
-            padding-left: 15px;
-            line-height:20px;
-        }
-        .repo-issues {
-            padding-left: 15px;
-            line-height:20px;
-        }
+    }
+    .repo-url {
+        padding-left: 15px;
+        line-height:20px;
+    }
+    .repo-issues {
+        padding-left: 15px;
+        line-height:20px;
     }
 }

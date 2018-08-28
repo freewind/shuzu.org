@@ -1,0 +1,161 @@
+<html>
+<head>
+    <title>kotlin-jackson-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-jackson-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Jackson Demo
+===================
+
+Kotlin data classes &lt;-----(jackson)----&gt; json
+
+Open it in IDE and run `Hello.kt`    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.60&#39;
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin&#39;
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &#39;com.fasterxml.jackson.core:jackson-core:2.9.6&#39;
+    compile &#39;com.fasterxml.jackson.core:jackson-databind:2.9.6&#39;
+    compile &#39;com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6&#39;
+}
+
+// gradle wrapper --gradle-version 4.8.1
+// ./gradlew -version
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/src/main/kotlin/example/Hello.kt.md" target="_blank">Hello.kt.md</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">```
+{
+  &quot;site_name&quot; : &quot;demo&quot;,
+  &quot;categories&quot; : [ {
+    &quot;title&quot; : &quot;java-demos&quot;,
+    &quot;articles&quot; : [ {
+      &quot;title&quot; : &quot;demo1&quot;,
+      &quot;content&quot; : &quot;content of demo1&quot;,
+      &quot;timestamp&quot; : 1533899929072,
+      &quot;state&quot; : &quot;_published_&quot;
+    }, {
+      &quot;title&quot; : &quot;demo2&quot;,
+      &quot;content&quot; : null,
+      &quot;timestamp&quot; : 1533899929076,
+      &quot;state&quot; : &quot;_draft_&quot;
+    } ]
+  } ]
+}
+```
+
+```
+Site(name=demo, categories=[Category(title=java-demos, articles=[Article(title=demo1, content=content of demo1, timestamp=1533899929072, state=Published), Article(title=demo2, content=null, timestamp=1533899929076, state=Draft)])])
+```</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+
+
+private val site = Site(&quot;demo&quot;, listOf(
+        Category(&quot;java-demos&quot;, listOf(
+                Article(&quot;demo1&quot;, &quot;content of demo1&quot;, System.currentTimeMillis(), State.Published),
+                Article(&quot;demo2&quot;, null, System.currentTimeMillis(), State.Draft)
+        ))
+))
+
+fun main(args: Array&lt;String&gt;) {
+    val mapper = ObjectMapper().apply {
+        registerKotlinModule()
+        enable(SerializationFeature.INDENT_OUTPUT)
+    }
+
+    val json = mapper.writeValueAsString(site)
+    println(json)
+
+    val site = mapper.readValue(json, Site::class.java)
+    println(site)
+}
+
+
+enum class State(@JsonValue val value: String) {
+    Published(&quot;_published_&quot;), Draft(&quot;_draft_&quot;)
+}
+
+data class Article(val title: String, val content: String?, val timestamp: Long, val state: State)
+data class Category(val title: String, val articles: List&lt;Article&gt;)
+data class Site(@JsonProperty(&quot;site_name&quot;) val name: String, val categories: List&lt;Category&gt;)
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-jackson-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-jackson-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

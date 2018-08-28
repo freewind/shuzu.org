@@ -1,0 +1,194 @@
+<html>
+<head>
+    <title>java-websocket-disconnected-detect-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-websocket-disconnected-detect-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java-WebSocket Disconnection Detect Demo
+=========================================
+
+Java WebSocket detects disconnection. Run `my.Client`, and after several seconds, make net cable disconnected, and see the outputs.
+
+To show debug information, use `WebSocketImpl.DEBUG = true;` in code.
+
+Notice
+------
+
+- By default, it will cost 120s to detect connection disconnected.
+- Use `client.setConnectionLostTimeout(5)` to set it to only 5 seconds 
+- If the connection is OK, and `client.close()` will close the connection immediately
+- If the connection is already disconnected, `client.close()` will not effect
+- Client and server will send `PING` and `PONG` nearly every second automatically, we don&#39;t need to send heartbeat message by ourselves.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-disconnected-detect-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+repositories {
+	mavenLocal()
+    jcenter() // fast!
+    mavenCentral() // very slow
+}
+
+dependencies {
+    compile(
+            &#39;org.apache.commons:commons-lang3:3.4&#39;,
+            &#39;org.java-websocket:Java-WebSocket:1.3.7&#39;
+    )
+    testCompile(
+            &#39;junit:junit:4.11&#39;,
+            &#39;org.easytesting:fest-assert-core:2.0M10&#39;
+    )
+}
+
+// used to generate `./gradlew`
+// by run `gradle wrapper`
+task wrapper(type: Wrapper) {
+   gradleVersion = &#39;2.4&#39; //version required
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-disconnected-detect-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/my/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() throws Exception {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-disconnected-detect-demo/blob/master/src/main/java/my/Client.java" target="_blank">Client.java</a>
+        </div>
+        <div class="path">src/main/java/my/Client.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketImpl;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.framing.Framedata;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class Client {
+
+    public static void main(String[] args) throws Exception {
+        WebSocketImpl.DEBUG = true;
+        run(&quot;wss://api.fcoin.com/v2/ws&quot;);
+    }
+
+    private static long messageTime = 0;
+
+    private static void run(String url) throws URISyntaxException, InterruptedException {
+
+        WebSocketClient client = new WebSocketClient(new URI(url), new Draft_6455()) {
+            @Override
+            public void onOpen(ServerHandshake handshake) {
+            }
+
+
+            @Override
+            public void onMessage(String message) {
+                System.out.println(&quot;onMessage: &quot; + message);
+                messageTime = System.currentTimeMillis();
+            }
+
+            @Override
+            public void onError(Exception ex) {
+                System.out.println(&quot;onError&quot;);
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onWebsocketPong(WebSocket conn, Framedata f) {
+                System.out.println(&quot;onWebsocketPong!!!&quot;);
+            }
+
+            @Override
+            public void onClose(int code, String reason, boolean remote) {
+                System.out.println(String.format(&quot;onClose(code: %s, reason: %s, remote: %s)&quot;, code, reason, remote));
+            }
+        };
+
+        client.connectBlocking();
+        client.send(&quot;{&quot; +
+                &quot;  \&quot;cmd\&quot;: \&quot;sub\&quot;, &quot; +
+                &quot;  \&quot;args\&quot;: [\&quot;ticker.ftusdt\&quot;]&quot; +
+                &quot;}&quot;);
+
+        //
+        client.setConnectionLostTimeout(5);
+
+        while (true) {
+            System.out.println(&quot;----------------- &quot; + (System.currentTimeMillis() - messageTime) + &quot;ms ------------------&quot;);
+            System.out.println(&quot;client.isOpen(): &quot; + client.isOpen());
+            System.out.println(&quot;client.isClosing(): &quot; + client.isClosing());
+            System.out.println(&quot;client.isClosed(): &quot; + client.isClosed());
+            Thread.sleep(1000);
+            if (client.isClosed()) {
+                break;
+            }
+        }
+    }
+
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-websocket-disconnected-detect-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-websocket-disconnected-detect-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

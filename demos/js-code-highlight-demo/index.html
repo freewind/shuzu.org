@@ -1,0 +1,289 @@
+<html>
+<head>
+    <title>js-code-highlight-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">js-code-highlight-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Highlight.js Demo
+=================
+
+Use [highlight.js](https://github.com/highlightjs/highlight.js) to highlight code blocks in html.
+
+```
+npm install
+npx browserify app-all.js &gt; app-all-bundle.js
+```
+
+Then open `index.html` in your browser.
+
+Notice
+------
+
+We have to use pre-bundled js files from CDN hosts, or do it by ourselves.
+
+See `app-all.js`:
+
+- `hljs.registerLanguage(...)` to include expected language
+- `hljs.initHighlightingOnLoad()` to find code blocks in page and render them
+
+And we have to use `browserify` to convert it if we want to use it in html page.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-code-highlight-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;./node_modules/highlight.js/styles/default.css&quot;&gt;
+    &lt;script src=&quot;app-all-bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h3&gt;Js&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;
+function hello() {
+    alert(&#39;hello&#39;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Java&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello!&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;No Highlight&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;nohighlight&quot;&gt;
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello!&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-code-highlight-demo/blob/master/app-all.js" target="_blank">app-all.js</a>
+        </div>
+        <div class="path">app-all.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var hljs = require(&#39;highlight.js/lib/highlight&#39;);
+
+hljs.registerLanguage(&#39;1c&#39;, require(&#39;highlight.js/lib/languages/1c&#39;));
+hljs.registerLanguage(&#39;abnf&#39;, require(&#39;highlight.js/lib/languages/abnf&#39;));
+hljs.registerLanguage(&#39;accesslog&#39;, require(&#39;highlight.js/lib/languages/accesslog&#39;));
+hljs.registerLanguage(&#39;actionscript&#39;, require(&#39;highlight.js/lib/languages/actionscript&#39;));
+hljs.registerLanguage(&#39;ada&#39;, require(&#39;highlight.js/lib/languages/ada&#39;));
+hljs.registerLanguage(&#39;apache&#39;, require(&#39;highlight.js/lib/languages/apache&#39;));
+hljs.registerLanguage(&#39;applescript&#39;, require(&#39;highlight.js/lib/languages/applescript&#39;));
+hljs.registerLanguage(&#39;cpp&#39;, require(&#39;highlight.js/lib/languages/cpp&#39;));
+hljs.registerLanguage(&#39;arduino&#39;, require(&#39;highlight.js/lib/languages/arduino&#39;));
+hljs.registerLanguage(&#39;armasm&#39;, require(&#39;highlight.js/lib/languages/armasm&#39;));
+hljs.registerLanguage(&#39;xml&#39;, require(&#39;highlight.js/lib/languages/xml&#39;));
+hljs.registerLanguage(&#39;asciidoc&#39;, require(&#39;highlight.js/lib/languages/asciidoc&#39;));
+hljs.registerLanguage(&#39;aspectj&#39;, require(&#39;highlight.js/lib/languages/aspectj&#39;));
+hljs.registerLanguage(&#39;autohotkey&#39;, require(&#39;highlight.js/lib/languages/autohotkey&#39;));
+hljs.registerLanguage(&#39;autoit&#39;, require(&#39;highlight.js/lib/languages/autoit&#39;));
+hljs.registerLanguage(&#39;avrasm&#39;, require(&#39;highlight.js/lib/languages/avrasm&#39;));
+hljs.registerLanguage(&#39;awk&#39;, require(&#39;highlight.js/lib/languages/awk&#39;));
+hljs.registerLanguage(&#39;axapta&#39;, require(&#39;highlight.js/lib/languages/axapta&#39;));
+hljs.registerLanguage(&#39;bash&#39;, require(&#39;highlight.js/lib/languages/bash&#39;));
+hljs.registerLanguage(&#39;basic&#39;, require(&#39;highlight.js/lib/languages/basic&#39;));
+hljs.registerLanguage(&#39;bnf&#39;, require(&#39;highlight.js/lib/languages/bnf&#39;));
+hljs.registerLanguage(&#39;brainfuck&#39;, require(&#39;highlight.js/lib/languages/brainfuck&#39;));
+hljs.registerLanguage(&#39;cal&#39;, require(&#39;highlight.js/lib/languages/cal&#39;));
+hljs.registerLanguage(&#39;capnproto&#39;, require(&#39;highlight.js/lib/languages/capnproto&#39;));
+hljs.registerLanguage(&#39;ceylon&#39;, require(&#39;highlight.js/lib/languages/ceylon&#39;));
+hljs.registerLanguage(&#39;clean&#39;, require(&#39;highlight.js/lib/languages/clean&#39;));
+hljs.registerLanguage(&#39;clojure&#39;, require(&#39;highlight.js/lib/languages/clojure&#39;));
+hljs.registerLanguage(&#39;clojure-repl&#39;, require(&#39;highlight.js/lib/languages/clojure-repl&#39;));
+hljs.registerLanguage(&#39;cmake&#39;, require(&#39;highlight.js/lib/languages/cmake&#39;));
+hljs.registerLanguage(&#39;coffeescript&#39;, require(&#39;highlight.js/lib/languages/coffeescript&#39;));
+hljs.registerLanguage(&#39;coq&#39;, require(&#39;highlight.js/lib/languages/coq&#39;));
+hljs.registerLanguage(&#39;cos&#39;, require(&#39;highlight.js/lib/languages/cos&#39;));
+hljs.registerLanguage(&#39;crmsh&#39;, require(&#39;highlight.js/lib/languages/crmsh&#39;));
+hljs.registerLanguage(&#39;crystal&#39;, require(&#39;highlight.js/lib/languages/crystal&#39;));
+hljs.registerLanguage(&#39;cs&#39;, require(&#39;highlight.js/lib/languages/cs&#39;));
+hljs.registerLanguage(&#39;csp&#39;, require(&#39;highlight.js/lib/languages/csp&#39;));
+hljs.registerLanguage(&#39;css&#39;, require(&#39;highlight.js/lib/languages/css&#39;));
+hljs.registerLanguage(&#39;d&#39;, require(&#39;highlight.js/lib/languages/d&#39;));
+hljs.registerLanguage(&#39;markdown&#39;, require(&#39;highlight.js/lib/languages/markdown&#39;));
+hljs.registerLanguage(&#39;dart&#39;, require(&#39;highlight.js/lib/languages/dart&#39;));
+hljs.registerLanguage(&#39;delphi&#39;, require(&#39;highlight.js/lib/languages/delphi&#39;));
+hljs.registerLanguage(&#39;diff&#39;, require(&#39;highlight.js/lib/languages/diff&#39;));
+hljs.registerLanguage(&#39;django&#39;, require(&#39;highlight.js/lib/languages/django&#39;));
+hljs.registerLanguage(&#39;dns&#39;, require(&#39;highlight.js/lib/languages/dns&#39;));
+hljs.registerLanguage(&#39;dockerfile&#39;, require(&#39;highlight.js/lib/languages/dockerfile&#39;));
+hljs.registerLanguage(&#39;dos&#39;, require(&#39;highlight.js/lib/languages/dos&#39;));
+hljs.registerLanguage(&#39;dsconfig&#39;, require(&#39;highlight.js/lib/languages/dsconfig&#39;));
+hljs.registerLanguage(&#39;dts&#39;, require(&#39;highlight.js/lib/languages/dts&#39;));
+hljs.registerLanguage(&#39;dust&#39;, require(&#39;highlight.js/lib/languages/dust&#39;));
+hljs.registerLanguage(&#39;ebnf&#39;, require(&#39;highlight.js/lib/languages/ebnf&#39;));
+hljs.registerLanguage(&#39;elixir&#39;, require(&#39;highlight.js/lib/languages/elixir&#39;));
+hljs.registerLanguage(&#39;elm&#39;, require(&#39;highlight.js/lib/languages/elm&#39;));
+hljs.registerLanguage(&#39;ruby&#39;, require(&#39;highlight.js/lib/languages/ruby&#39;));
+hljs.registerLanguage(&#39;erb&#39;, require(&#39;highlight.js/lib/languages/erb&#39;));
+hljs.registerLanguage(&#39;erlang-repl&#39;, require(&#39;highlight.js/lib/languages/erlang-repl&#39;));
+hljs.registerLanguage(&#39;erlang&#39;, require(&#39;highlight.js/lib/languages/erlang&#39;));
+hljs.registerLanguage(&#39;excel&#39;, require(&#39;highlight.js/lib/languages/excel&#39;));
+hljs.registerLanguage(&#39;fix&#39;, require(&#39;highlight.js/lib/languages/fix&#39;));
+hljs.registerLanguage(&#39;flix&#39;, require(&#39;highlight.js/lib/languages/flix&#39;));
+hljs.registerLanguage(&#39;fortran&#39;, require(&#39;highlight.js/lib/languages/fortran&#39;));
+hljs.registerLanguage(&#39;fsharp&#39;, require(&#39;highlight.js/lib/languages/fsharp&#39;));
+hljs.registerLanguage(&#39;gams&#39;, require(&#39;highlight.js/lib/languages/gams&#39;));
+hljs.registerLanguage(&#39;gauss&#39;, require(&#39;highlight.js/lib/languages/gauss&#39;));
+hljs.registerLanguage(&#39;gcode&#39;, require(&#39;highlight.js/lib/languages/gcode&#39;));
+hljs.registerLanguage(&#39;gherkin&#39;, require(&#39;highlight.js/lib/languages/gherkin&#39;));
+hljs.registerLanguage(&#39;glsl&#39;, require(&#39;highlight.js/lib/languages/glsl&#39;));
+hljs.registerLanguage(&#39;go&#39;, require(&#39;highlight.js/lib/languages/go&#39;));
+hljs.registerLanguage(&#39;golo&#39;, require(&#39;highlight.js/lib/languages/golo&#39;));
+hljs.registerLanguage(&#39;gradle&#39;, require(&#39;highlight.js/lib/languages/gradle&#39;));
+hljs.registerLanguage(&#39;groovy&#39;, require(&#39;highlight.js/lib/languages/groovy&#39;));
+hljs.registerLanguage(&#39;haml&#39;, require(&#39;highlight.js/lib/languages/haml&#39;));
+hljs.registerLanguage(&#39;handlebars&#39;, require(&#39;highlight.js/lib/languages/handlebars&#39;));
+hljs.registerLanguage(&#39;haskell&#39;, require(&#39;highlight.js/lib/languages/haskell&#39;));
+hljs.registerLanguage(&#39;haxe&#39;, require(&#39;highlight.js/lib/languages/haxe&#39;));
+hljs.registerLanguage(&#39;hsp&#39;, require(&#39;highlight.js/lib/languages/hsp&#39;));
+hljs.registerLanguage(&#39;htmlbars&#39;, require(&#39;highlight.js/lib/languages/htmlbars&#39;));
+hljs.registerLanguage(&#39;http&#39;, require(&#39;highlight.js/lib/languages/http&#39;));
+hljs.registerLanguage(&#39;hy&#39;, require(&#39;highlight.js/lib/languages/hy&#39;));
+hljs.registerLanguage(&#39;inform7&#39;, require(&#39;highlight.js/lib/languages/inform7&#39;));
+hljs.registerLanguage(&#39;ini&#39;, require(&#39;highlight.js/lib/languages/ini&#39;));
+hljs.registerLanguage(&#39;irpf90&#39;, require(&#39;highlight.js/lib/languages/irpf90&#39;));
+hljs.registerLanguage(&#39;java&#39;, require(&#39;highlight.js/lib/languages/java&#39;));
+hljs.registerLanguage(&#39;javascript&#39;, require(&#39;highlight.js/lib/languages/javascript&#39;));
+hljs.registerLanguage(&#39;jboss-cli&#39;, require(&#39;highlight.js/lib/languages/jboss-cli&#39;));
+hljs.registerLanguage(&#39;json&#39;, require(&#39;highlight.js/lib/languages/json&#39;));
+hljs.registerLanguage(&#39;julia&#39;, require(&#39;highlight.js/lib/languages/julia&#39;));
+hljs.registerLanguage(&#39;julia-repl&#39;, require(&#39;highlight.js/lib/languages/julia-repl&#39;));
+hljs.registerLanguage(&#39;kotlin&#39;, require(&#39;highlight.js/lib/languages/kotlin&#39;));
+hljs.registerLanguage(&#39;lasso&#39;, require(&#39;highlight.js/lib/languages/lasso&#39;));
+hljs.registerLanguage(&#39;ldif&#39;, require(&#39;highlight.js/lib/languages/ldif&#39;));
+hljs.registerLanguage(&#39;leaf&#39;, require(&#39;highlight.js/lib/languages/leaf&#39;));
+hljs.registerLanguage(&#39;less&#39;, require(&#39;highlight.js/lib/languages/less&#39;));
+hljs.registerLanguage(&#39;lisp&#39;, require(&#39;highlight.js/lib/languages/lisp&#39;));
+hljs.registerLanguage(&#39;livecodeserver&#39;, require(&#39;highlight.js/lib/languages/livecodeserver&#39;));
+hljs.registerLanguage(&#39;livescript&#39;, require(&#39;highlight.js/lib/languages/livescript&#39;));
+hljs.registerLanguage(&#39;llvm&#39;, require(&#39;highlight.js/lib/languages/llvm&#39;));
+hljs.registerLanguage(&#39;lsl&#39;, require(&#39;highlight.js/lib/languages/lsl&#39;));
+hljs.registerLanguage(&#39;lua&#39;, require(&#39;highlight.js/lib/languages/lua&#39;));
+hljs.registerLanguage(&#39;makefile&#39;, require(&#39;highlight.js/lib/languages/makefile&#39;));
+hljs.registerLanguage(&#39;mathematica&#39;, require(&#39;highlight.js/lib/languages/mathematica&#39;));
+hljs.registerLanguage(&#39;matlab&#39;, require(&#39;highlight.js/lib/languages/matlab&#39;));
+hljs.registerLanguage(&#39;maxima&#39;, require(&#39;highlight.js/lib/languages/maxima&#39;));
+hljs.registerLanguage(&#39;mel&#39;, require(&#39;highlight.js/lib/languages/mel&#39;));
+hljs.registerLanguage(&#39;mercury&#39;, require(&#39;highlight.js/lib/languages/mercury&#39;));
+hljs.registerLanguage(&#39;mipsasm&#39;, require(&#39;highlight.js/lib/languages/mipsasm&#39;));
+hljs.registerLanguage(&#39;mizar&#39;, require(&#39;highlight.js/lib/languages/mizar&#39;));
+hljs.registerLanguage(&#39;perl&#39;, require(&#39;highlight.js/lib/languages/perl&#39;));
+hljs.registerLanguage(&#39;mojolicious&#39;, require(&#39;highlight.js/lib/languages/mojolicious&#39;));
+hljs.registerLanguage(&#39;monkey&#39;, require(&#39;highlight.js/lib/languages/monkey&#39;));
+hljs.registerLanguage(&#39;moonscript&#39;, require(&#39;highlight.js/lib/languages/moonscript&#39;));
+hljs.registerLanguage(&#39;n1ql&#39;, require(&#39;highlight.js/lib/languages/n1ql&#39;));
+hljs.registerLanguage(&#39;nginx&#39;, require(&#39;highlight.js/lib/languages/nginx&#39;));
+hljs.registerLanguage(&#39;nimrod&#39;, require(&#39;highlight.js/lib/languages/nimrod&#39;));
+hljs.registerLanguage(&#39;nix&#39;, require(&#39;highlight.js/lib/languages/nix&#39;));
+hljs.registerLanguage(&#39;nsis&#39;, require(&#39;highlight.js/lib/languages/nsis&#39;));
+hljs.registerLanguage(&#39;objectivec&#39;, require(&#39;highlight.js/lib/languages/objectivec&#39;));
+hljs.registerLanguage(&#39;ocaml&#39;, require(&#39;highlight.js/lib/languages/ocaml&#39;));
+hljs.registerLanguage(&#39;openscad&#39;, require(&#39;highlight.js/lib/languages/openscad&#39;));
+hljs.registerLanguage(&#39;oxygene&#39;, require(&#39;highlight.js/lib/languages/oxygene&#39;));
+hljs.registerLanguage(&#39;parser3&#39;, require(&#39;highlight.js/lib/languages/parser3&#39;));
+hljs.registerLanguage(&#39;pf&#39;, require(&#39;highlight.js/lib/languages/pf&#39;));
+hljs.registerLanguage(&#39;php&#39;, require(&#39;highlight.js/lib/languages/php&#39;));
+hljs.registerLanguage(&#39;pony&#39;, require(&#39;highlight.js/lib/languages/pony&#39;));
+hljs.registerLanguage(&#39;powershell&#39;, require(&#39;highlight.js/lib/languages/powershell&#39;));
+hljs.registerLanguage(&#39;processing&#39;, require(&#39;highlight.js/lib/languages/processing&#39;));
+hljs.registerLanguage(&#39;profile&#39;, require(&#39;highlight.js/lib/languages/profile&#39;));
+hljs.registerLanguage(&#39;prolog&#39;, require(&#39;highlight.js/lib/languages/prolog&#39;));
+hljs.registerLanguage(&#39;protobuf&#39;, require(&#39;highlight.js/lib/languages/protobuf&#39;));
+hljs.registerLanguage(&#39;puppet&#39;, require(&#39;highlight.js/lib/languages/puppet&#39;));
+hljs.registerLanguage(&#39;purebasic&#39;, require(&#39;highlight.js/lib/languages/purebasic&#39;));
+hljs.registerLanguage(&#39;python&#39;, require(&#39;highlight.js/lib/languages/python&#39;));
+hljs.registerLanguage(&#39;q&#39;, require(&#39;highlight.js/lib/languages/q&#39;));
+hljs.registerLanguage(&#39;qml&#39;, require(&#39;highlight.js/lib/languages/qml&#39;));
+hljs.registerLanguage(&#39;r&#39;, require(&#39;highlight.js/lib/languages/r&#39;));
+hljs.registerLanguage(&#39;rib&#39;, require(&#39;highlight.js/lib/languages/rib&#39;));
+hljs.registerLanguage(&#39;roboconf&#39;, require(&#39;highlight.js/lib/languages/roboconf&#39;));
+hljs.registerLanguage(&#39;routeros&#39;, require(&#39;highlight.js/lib/languages/routeros&#39;));
+hljs.registerLanguage(&#39;rsl&#39;, require(&#39;highlight.js/lib/languages/rsl&#39;));
+hljs.registerLanguage(&#39;ruleslanguage&#39;, require(&#39;highlight.js/lib/languages/ruleslanguage&#39;));
+hljs.registerLanguage(&#39;rust&#39;, require(&#39;highlight.js/lib/languages/rust&#39;));
+hljs.registerLanguage(&#39;scala&#39;, require(&#39;highlight.js/lib/languages/scala&#39;));
+hljs.registerLanguage(&#39;scheme&#39;, require(&#39;highlight.js/lib/languages/scheme&#39;));
+hljs.registerLanguage(&#39;scilab&#39;, require(&#39;highlight.js/lib/languages/scilab&#39;));
+hljs.registerLanguage(&#39;scss&#39;, require(&#39;highlight.js/lib/languages/scss&#39;));
+hljs.registerLanguage(&#39;shell&#39;, require(&#39;highlight.js/lib/languages/shell&#39;));
+hljs.registerLanguage(&#39;smali&#39;, require(&#39;highlight.js/lib/languages/smali&#39;));
+hljs.registerLanguage(&#39;smalltalk&#39;, require(&#39;highlight.js/lib/languages/smalltalk&#39;));
+hljs.registerLanguage(&#39;sml&#39;, require(&#39;highlight.js/lib/languages/sml&#39;));
+hljs.registerLanguage(&#39;sqf&#39;, require(&#39;highlight.js/lib/languages/sqf&#39;));
+hljs.registerLanguage(&#39;sql&#39;, require(&#39;highlight.js/lib/languages/sql&#39;));
+hljs.registerLanguage(&#39;stan&#39;, require(&#39;highlight.js/lib/languages/stan&#39;));
+hljs.registerLanguage(&#39;stata&#39;, require(&#39;highlight.js/lib/languages/stata&#39;));
+hljs.registerLanguage(&#39;step21&#39;, require(&#39;highlight.js/lib/languages/step21&#39;));
+hljs.registerLanguage(&#39;stylus&#39;, require(&#39;highlight.js/lib/languages/stylus&#39;));
+hljs.registerLanguage(&#39;subunit&#39;, require(&#39;highlight.js/lib/languages/subunit&#39;));
+hljs.registerLanguage(&#39;swift&#39;, require(&#39;highlight.js/lib/languages/swift&#39;));
+hljs.registerLanguage(&#39;taggerscript&#39;, require(&#39;highlight.js/lib/languages/taggerscript&#39;));
+hljs.registerLanguage(&#39;yaml&#39;, require(&#39;highlight.js/lib/languages/yaml&#39;));
+hljs.registerLanguage(&#39;tap&#39;, require(&#39;highlight.js/lib/languages/tap&#39;));
+hljs.registerLanguage(&#39;tcl&#39;, require(&#39;highlight.js/lib/languages/tcl&#39;));
+hljs.registerLanguage(&#39;tex&#39;, require(&#39;highlight.js/lib/languages/tex&#39;));
+hljs.registerLanguage(&#39;thrift&#39;, require(&#39;highlight.js/lib/languages/thrift&#39;));
+hljs.registerLanguage(&#39;tp&#39;, require(&#39;highlight.js/lib/languages/tp&#39;));
+hljs.registerLanguage(&#39;twig&#39;, require(&#39;highlight.js/lib/languages/twig&#39;));
+hljs.registerLanguage(&#39;typescript&#39;, require(&#39;highlight.js/lib/languages/typescript&#39;));
+hljs.registerLanguage(&#39;vala&#39;, require(&#39;highlight.js/lib/languages/vala&#39;));
+hljs.registerLanguage(&#39;vbnet&#39;, require(&#39;highlight.js/lib/languages/vbnet&#39;));
+hljs.registerLanguage(&#39;vbscript&#39;, require(&#39;highlight.js/lib/languages/vbscript&#39;));
+hljs.registerLanguage(&#39;vbscript-html&#39;, require(&#39;highlight.js/lib/languages/vbscript-html&#39;));
+hljs.registerLanguage(&#39;verilog&#39;, require(&#39;highlight.js/lib/languages/verilog&#39;));
+hljs.registerLanguage(&#39;vhdl&#39;, require(&#39;highlight.js/lib/languages/vhdl&#39;));
+hljs.registerLanguage(&#39;vim&#39;, require(&#39;highlight.js/lib/languages/vim&#39;));
+hljs.registerLanguage(&#39;x86asm&#39;, require(&#39;highlight.js/lib/languages/x86asm&#39;));
+hljs.registerLanguage(&#39;xl&#39;, require(&#39;highlight.js/lib/languages/xl&#39;));
+hljs.registerLanguage(&#39;xquery&#39;, require(&#39;highlight.js/lib/languages/xquery&#39;));
+hljs.registerLanguage(&#39;zephir&#39;, require(&#39;highlight.js/lib/languages/zephir&#39;));
+
+hljs.initHighlightingOnLoad();</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/js-code-highlight-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/js-code-highlight-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

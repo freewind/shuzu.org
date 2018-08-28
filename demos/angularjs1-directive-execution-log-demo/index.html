@@ -1,0 +1,153 @@
+<html>
+<head>
+    <title>angularjs1-directive-execution-log-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-directive-execution-log-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Directive Execution Log Demo
+=======================================
+
+Define a directive to track execution of directives, in [AngularJS1](https://angularjs.org/).
+
+The code is copied from https://stackoverflow.com/a/24615162/342235
+
+```
+npm install
+open index.html
+```
+
+![demo](./images/demo.jpg)
+
+Traps in the code
+-----------------
+
+### `app.directive(&#39;helloTo&#39;`
+
+The directive name must be camelCases, e.g. `helloTo`
+
+If you use other formats, e.g. `hello-to`, it will be ignored, silently.
+
+### `$element` is instance of JQLite
+
+See: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite
+
+### The api is quite complex
+
+Just see &lt;https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object&gt;.
+
+Resources
+---------
+
+- directive api: https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object
+- $element api: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/index.html.md" target="_blank">index.html.md</a>
+        </div>
+        <div class="path">index.html.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">```
+some-div (compile)
+app.js:9 parent (compile)
+app.js:9 ..first-child (compile)
+app.js:9 ..second-child (compile)
+app.js:6 some-div (controller)
+app.js:12 some-div (pre-link)
+app.js:15 some-div (post-link)
+app.js:6 parent (controller)
+app.js:12 parent (pre-link)
+app.js:6 ..first-child (controller)
+app.js:12 ..first-child (pre-link)
+app.js:15 ..first-child (post-link)
+app.js:6 ..second-child (controller)
+app.js:12 ..second-child (pre-link)
+app.js:15 ..second-child (post-link)
+app.js:15 parent (post-link)
+```</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+
+&lt;div log=&#39;some-div&#39;&gt;some div&lt;/div&gt;
+
+&lt;div log=&#39;parent&#39;&gt;
+    parent
+    &lt;div log=&#39;..first-child&#39;&gt;first child&lt;/div&gt;
+    &lt;div log=&#39;..second-child&#39;&gt;second child&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.directive(&#39;log&#39;, function () {
+    return {
+        restrict: &#39;A&#39;,
+        controller: function ($scope, $element, $attrs, $transclude) {
+            console.log($attrs.log + &#39; (controller)&#39;);
+        },
+        compile: function compile(tElement, tAttributes) {
+            console.log(tAttributes.log + &#39; (compile)&#39;);
+            return {
+                pre: function preLink(scope, element, attributes) {
+                    console.log(attributes.log + &#39; (pre-link)&#39;);
+                },
+                post: function postLink(scope, element, attributes) {
+                    console.log(attributes.log + &#39; (post-link)&#39;);
+                }
+            };
+        }
+    }
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

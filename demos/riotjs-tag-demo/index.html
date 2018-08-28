@@ -1,0 +1,156 @@
+<html>
+<head>
+    <title>riotjs-tag-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">riotjs-tag-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag1.js" target="_blank">sample-tag1.js</a>
+        </div>
+        <div class="path">sample-tag1.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">riot.tag(&#39;sample1&#39;,
+  &#39;&lt;div&gt;&lt;h3&gt;{ message }&lt;/h3&gt; &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt; &lt;button onclick=&quot;{ click }&quot;&gt;Click&lt;/button&gt;&lt;/div&gt;&#39;,
+  &quot;&quot;, // css
+  &#39;&#39;, // attrs
+  function (opts) {
+    this.message = &#39;Hello, Sample 1!&#39;;
+    this.techs = [
+      { name: &#39;HTML&#39; },
+      { name: &#39;JavaScript&#39; },
+      { name: &#39;CSS&#39; }
+    ];
+    this.click = function() {
+        alert(&#39;click on sample1&#39;);
+    };
+});
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag2.js" target="_blank">sample-tag2.js</a>
+        </div>
+        <div class="path">sample-tag2.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">riot.tag(&#39;sample2&#39;, false, function(opts) {
+  this.message = &#39;Sample 2&#39;;
+  this.techs = [
+        { name: &#39;HTML&#39; },
+        { name: &#39;JavaScript&#39; },
+        { name: &#39;CSS&#39; }
+      ];
+  this.click = function() {
+    alert(&#39;click on Sample2&#39;);
+  }
+})
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag3.js" target="_blank">sample-tag3.js</a>
+        </div>
+        <div class="path">sample-tag3.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">class SampleTag3 extends riot.Tag {
+  // mandatory in order to use and identify this component
+  get name() {
+    return &#39;sample3&#39;
+  }
+  get tmpl() {
+    return `&lt;div&gt;&lt;h1&gt;Sample3&lt;/h1&gt;&lt;p onclick=&quot;{ click }&quot;&gt;Dear user, { message }&lt;/p&gt;&lt;/div&gt;`
+  }
+  get attrs() {
+    return &#39;class=&quot;{ className }&quot;&#39;
+  }
+  get css() {
+    return &#39;sample3 p{ color: blue; }&#39;
+  }
+  onCreate(opts) {
+    console.log(&quot;### opts: &quot; + opts.message)
+    this.message = opts.message
+  }
+  click() {
+    this.message = &#39;goodbye&#39;
+  }
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello Riot.&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- place the custom tag anywhere inside the body --&gt;
+
+&lt;sample1&gt;&lt;/sample1&gt;
+
+&lt;sample2&gt;
+    &lt;h3&gt;{ message }&lt;/h3&gt;
+    &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt;
+    &lt;button onclick=&quot;{click}&quot;&gt;Click&lt;/button&gt;
+&lt;/sample2&gt;
+
+&lt;sample3 message=&quot;ddd&quot;&gt;&lt;/sample3&gt;
+
+&lt;!-- include riot.js --&gt;
+&lt;script src=&quot;https://unpkg.com/riot@3.9.1/riot+compiler.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- include the tag --&gt;
+&lt;script src=&quot;./sample-tag1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag2.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag3.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- mount the tag --&gt;
+&lt;script&gt;
+    riot.mount(&#39;sample1&#39;);
+    riot.mount(&#39;sample2&#39;);
+    new SampleTag3(document.getElementsByTagName(&quot;sample3&quot;)[0])
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/riotjs-tag-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/riotjs-tag-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

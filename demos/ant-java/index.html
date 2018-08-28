@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>ant-java - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">ant-java</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Ant Java Demo
+==============
+
+Compile, Run, and Jar
+
+```
+brew install ant
+```
+
+Run:
+
+```
+ant
+```
+
+or
+
+```
+ant run
+```
+
+You will see:
+
+```
+compile:
+    [javac] /Users/freewind/workspace/ant-javac/build.xml:9: warning: &#39;includeantruntime&#39; was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 1 source file to /Users/freewind/workspace/ant-javac/build/classes
+
+run:
+     [java] Hello, java
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
+
+Package a `jar` file and run it:
+
+```
+java jar
+```
+
+Then:
+
+```
+java -jar build/hello.jar
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-java/blob/master/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">public class Hello {
+	public static void main(String[] args) {
+		System.out.println(&quot;Hello, java&quot;);
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ant-java/blob/master/build.xml" target="_blank">build.xml</a>
+        </div>
+        <div class="path">build.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;project name=&quot;ant-demo&quot; basedir=&quot;.&quot; default=&quot;run&quot;&gt;
+	&lt;target name=&quot;clean&quot;&gt;
+		&lt;delete dir=&quot;${basedir}/build&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;compile&quot;&gt;
+		&lt;mkdir dir=&quot;${basedir}/build/classes&quot; /&gt;
+		&lt;javac srcdir=&quot;${basedir}&quot; destdir=&quot;${basedir}/build/classes&quot; /&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;run&quot; depends=&quot;compile&quot;&gt;
+		&lt;java classname=&quot;Hello&quot;&gt;
+			&lt;classpath&gt;
+				&lt;pathelement path=&quot;${basedir}/build/classes&quot; /&gt;
+			&lt;/classpath&gt;
+		&lt;/java&gt;
+	&lt;/target&gt;
+
+	&lt;target name=&quot;jar&quot; depends=&quot;run&quot;&gt;
+		&lt;jar destfile=&quot;build/hello.jar&quot; basedir=&quot;${basedir}/build/classes&quot;&gt;
+			&lt;manifest&gt;
+				&lt;attribute name=&quot;Main-class&quot; value=&quot;Hello&quot; /&gt;
+			&lt;/manifest&gt;
+		&lt;/jar&gt; 
+	&lt;/target&gt;
+&lt;/project&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/ant-java">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/ant-java/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

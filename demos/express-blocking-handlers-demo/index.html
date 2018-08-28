@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>express-blocking-handlers-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">express-blocking-handlers-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Express Blocking Handler
+------------------------
+
+If there are some slow blocking code in route handlers, what will happen.
+
+```
+npm install
+node index.js
+```
+
+Then open several terminal sessions, visit the url:
+
+&lt;http://localhost:3000&gt;
+
+at the near same time.
+
+You will see all the requests are accepted, but each later request has more time to get the response.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-blocking-handlers-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var sleep = require(&#39;sleep&#39;).sleep;
+
+var app = express();
+
+app.use(function(req, res, next) {
+  console.log(req.path + &#39;: &#39; + new Date);
+  next();
+});
+
+app.get(&#39;/&#39;, function(req, res) {
+  sleep(10);
+  res.send(&#39;Hello&#39;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-blocking-handlers-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-blocking-handlers-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

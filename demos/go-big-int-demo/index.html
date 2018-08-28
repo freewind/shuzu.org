@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>go-big-int-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-big-int-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go big.Int Demo
+===============
+
+```
+go run hello.go
+```
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-big-int-demo/blob/master/hello.go" target="_blank">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;math/big&quot;
+)
+
+func main() {
+	bi := big.NewInt(1)
+	fmt.Println(bi.Bytes())
+
+	bi = big.NewInt(256 + 1)
+	fmt.Println(bi.Bytes())
+
+	bi = big.NewInt(256*256 + 256 + 1)
+	fmt.Println(bi.Bytes())
+
+	bi = big.NewInt(256*256*256 + 256*256 + 256 + 1)
+	fmt.Println(bi.Bytes())
+
+	bi = big.NewInt(256*256*256*256 + 256*256*256 + 256*256 + 256 + 1)
+	fmt.Println(bi.Bytes())
+
+	fmt.Println(&quot;-------------------------------------------&quot;)
+
+	fmt.Println(256*256*256 + 256*256 + 256 + 1)
+	fmt.Println(big.NewInt(256*256*256 + 256*256 + 256 + 1).Bits())
+
+	fmt.Println(256 * 256 * 256 * 256 * 256 * 256 * 256)
+	fmt.Println(big.NewInt(256 * 256 * 256 * 256 * 256 * 256 * 256).Bits())
+
+	// both: constant 18446744073709551616 overflows int64
+	// fmt.Println(big.NewInt(256 * 256 * 256 * 256 * 256 * 256 * 256 * 256))
+	// fmt.Println(big.NewInt(256 * 256 * 256 * 256 * 256 * 256 * 256 * 256).Bits())
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-big-int-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-big-int-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

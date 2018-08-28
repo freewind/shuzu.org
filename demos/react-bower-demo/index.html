@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>react-bower-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-bower-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        React Hello World Demo
+======================
+
+```
+npm install -g bower
+bower install
+```
+
+Then open `index.html` in your browser.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bower-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+    &lt;title&gt;Hello React!&lt;/title&gt;
+    &lt;script src=&quot;./bower_components/react/react.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./bower_components/react/react-dom.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./bower_components/babel-standalone/babel.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/babel&quot;&gt;
+    let FirstReact = React.createClass({
+        render: function () {
+            return (&lt;div&gt;
+                &lt;h1&gt;Hello world&lt;/h1&gt;
+            &lt;/div&gt;)
+        }
+    });
+    ReactDOM.render(
+            &lt;FirstReact /&gt;,
+            document.getElementById(&quot;content&quot;)
+    );
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-bower-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-bower-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

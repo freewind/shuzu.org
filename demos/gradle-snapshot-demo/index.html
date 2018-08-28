@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>gradle-snapshot-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">gradle-snapshot-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        在Gradle中把当前项目声明为SNAPSHOT并发布到本地
+==============================
+
+有时候为了方便开发，我们想把一个项目声明为SNAPSHOT并且只在本机使用。
+
+做法很简单，就是在version后面加一个`-SNAPSHOT`即可，然后发布到本机：
+
+```
+./gradlew install
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-snapshot-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    compile &#39;org.apache.commons:commons-lang3:3.4&#39;
+    testCompile &#39;junit:junit:4.11&#39;
+    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
+}
+
+apply plugin: &#39;maven&#39;
+
+// Required for `maven`
+group = &quot;demos&quot;
+version = &quot;0.1.0-SNAPSHOT&quot;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-snapshot-demo/blob/master/src/main/java/gradle_snapshot_demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/gradle_snapshot_demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package gradle_snapshot_demo;
+
+public class Hello {
+    public String hello() {
+        return &quot;Hello from gradle-snapshot-demo&quot;;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/gradle-snapshot-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/gradle-snapshot-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

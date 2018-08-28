@@ -1,0 +1,318 @@
+<html>
+<head>
+    <title>android-record-voice-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">android-record-voice-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Android Record Voice Project
+============================
+
+使用Android来录音，坑很多。
+
+初始化的坑
+-----
+
+不论是页面上的component，还是文件，还是Recorder/Player，都必须在`onCreate`方法调用以后才能初始化，否则异常。所以要把它们放到`lazy`里（还好kotlin突出提供了lazy）
+
+权限的坑
+-------
+
+- `AndroidManifest.xml`里面要加权限：`&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;`
+- 由于录音属于“危险权限”，所以光加上面的还不够，必须在运行时先向用户请求权限：`ActivityCompat.requestPermissions`，用户同意以后，才可以调用录音相关的API
+- 可使用`ActivityCompat.checkSelfPermission`来检查用户是否同意过某个权限
+- 在`ActivityCompat.requestPermissions`时传入的第三个参数`requestCode`是由自己定义的，可用来在`onRequestPermissionsResult`检查结果
+
+录音的坑
+-------
+
+- 不论是录音`MediaPlayer`还是播放`MediaPlayer`，这两个类都有自己内部维护的状态机。所以`reset/start/stop/release`这几个方法一定要在理解后小心调用。参看：&lt;https://developer.android.com/reference/android/media/MediaRecorder&gt;
+- 如果开始录音但是没有录到声音，调用`recorder.stop()`方法居然会抛异常！所以要针对这个情况处理（就是catch一下这个exception）
+
+Resource
+--------
+
+- States: &lt;https://developer.android.com/reference/android/media/MediaRecorder&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+
+    ext.kotlin_version = &#39;1.2.60&#39;
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/app/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">app/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;com.android.application&#39;
+
+apply plugin: &#39;kotlin-android&#39;
+
+apply plugin: &#39;kotlin-android-extensions&#39;
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId &quot;demos.${rootProject.name.replace(&#39;-&#39;, &#39;_&#39;)}&quot;
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName &quot;1.0&quot;
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+    implementation &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    implementation &#39;com.android.support:appcompat-v7:28.0.0-rc01&#39;
+    implementation &#39;com.android.support.constraint:constraint-layout:1.1.2&#39;
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">activity_main.xml</a>
+        </div>
+        <div class="path">app/src/main/res/layout/activity_main.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+        xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;Button android:id=&quot;@+id/button&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;Record Voice&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+            app:layout_constraintRight_toRightOf=&quot;parent&quot;
+            app:layout_constraintTop_toTopOf=&quot;parent&quot;/&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/app/src/main/java/demos/MainActivity.kt" target="_blank">MainActivity.kt</a>
+        </div>
+        <div class="path">app/src/main/java/demos/MainActivity.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package demos
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.media.MediaPlayer
+import android.media.MediaRecorder
+import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
+import android.widget.Button
+import java.io.File
+
+class MainActivity : AppCompatActivity() {
+
+    private val MY_RECORD_AUDIO_REQUEST_CODE = 111
+
+    private val button by lazy&lt;Button&gt; { findViewById(R.id.button) }
+
+    private val audioFile by lazy { File(filesDir, &quot;voice.mp4&quot;) }
+
+    private val recorder by lazy { MediaRecorder() }
+
+    private val player by lazy {
+        MediaPlayer()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        setupButton(button)
+    }
+
+    private fun setupButton(button: Button) {
+        button.setOnTouchListener { _, event -&gt;
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -&gt; {
+                    if (hasRecordPermission()) {
+                        button.text = &quot;Recording ...............&quot;
+                        setupRecorder(recorder)
+                        recorder.setOutputFile(audioFile.absolutePath)
+                        recorder.prepare()
+                        recorder.start()
+                    } else {
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), MY_RECORD_AUDIO_REQUEST_CODE)
+                    }
+                }
+                MotionEvent.ACTION_UP -&gt; {
+                    button.text = &quot;Record Voice&quot;
+                    if (hasRecordPermission()) {
+                        if (stopRecording()) {
+                            play()
+                        }
+                    }
+                }
+            }
+            true
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array&lt;out String&gt;, grantResults: IntArray) {
+        when (requestCode) {
+            MY_RECORD_AUDIO_REQUEST_CODE -&gt; {
+                println(&quot;Permission request for recording voice: $requestCode&quot;)
+                println(&quot;permissions: $permissions&quot;)
+                println(&quot;results: $grantResults&quot;)
+            }
+            else -&gt; println(&quot;Not my requests: $requestCode&quot;)
+        }
+    }
+
+    private fun stopRecording(): Boolean {
+        return try {
+            recorder.stop()
+            true
+        } catch (e: Exception) {
+            println(e.toString())
+            false
+        }
+    }
+
+    private fun hasRecordPermission() = ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+
+    private fun setupRecorder(recorder: MediaRecorder) {
+        recorder.reset()
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+        recorder.setAudioEncodingBitRate(128000)
+    }
+
+    private fun play() {
+        player.reset()
+        player.setDataSource(audioFile.absolutePath)
+        player.prepare()
+        player.start()
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
+        </div>
+        <div class="path">app/src/main/AndroidManifest.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+          package=&quot;demos&quot;&gt;
+
+    &lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot;/&gt;
+
+    &lt;application
+            android:allowBackup=&quot;true&quot;
+            android:icon=&quot;@mipmap/ic_launcher&quot;
+            android:label=&quot;android-demo&quot;
+            android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+            android:supportsRtl=&quot;true&quot;
+            android:theme=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-record-voice-demo/blob/master/settings.gradle" target="_blank">settings.gradle</a>
+        </div>
+        <div class="path">settings.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">include &#39;:app&#39;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/android-record-voice-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/android-record-voice-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

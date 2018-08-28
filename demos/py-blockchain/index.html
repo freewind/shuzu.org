@@ -1,0 +1,348 @@
+<html>
+<head>
+    <title>py-blockchain - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">py-blockchain</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Python3 Simple Blockchain
+=========================
+
+Some simple code to show the basis of blockchain.
+
+The code is from &lt;https://medium.com/@crisadamo/hi-daniel-i-found-your-post-super-cool-so-i-decided-to-port-this-to-go-6e666efc7f62&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/setup.py" target="_blank">setup.py</a>
+        </div>
+        <div class="path">setup.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name=&#39;hello&#39;,
+    version=&#39;1.0&#39;,
+    description=&#39;Hello&#39;,
+    author=&#39;Freewind&#39;,
+    author_email=&#39;nowindlee@gmail.com&#39;,
+    packages=[&#39;hello&#39;],
+    install_requires=[&#39;flask&#39;]
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">flask</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/hello/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">hello/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">from .core import hmm</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/hello/blockchain.py" target="_blank">blockchain.py</a>
+        </div>
+        <div class="path">hello/blockchain.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">import hashlib
+import json
+from time import time
+from uuid import uuid4
+from flask import Flask, jsonify, request
+from urllib.parse import urlparse
+
+
+class Blockchain(object):
+    def __init__(self):
+        self.chain = []
+        self.current_transactions = []
+        self.new_block(previous_hash=1, proof=100)
+        self.nodes = set()
+
+    def new_block(self, proof, previous_hash=None):
+        block = {
+            &#39;index&#39;: len(self.chain) + 1,
+            &#39;timestamp&#39;: time(),
+            &#39;transactions&#39;: self.current_transactions,
+            &#39;proof&#39;: proof,
+            &#39;previous_hash&#39;: previous_hash or self.hash(self.chain[-1])
+        }
+        self.current_transactions = []
+        self.chain.append(block)
+        return block
+
+    def new_transaction(self, sender, recipient, amount):
+        self.current_transactions.append({
+            &#39;sender&#39;: sender,
+            &#39;recipient&#39;: recipient,
+            &#39;amount&#39;: amount
+        })
+        return self.last_block[&#39;index&#39;] + 1
+
+    @staticmethod
+    def hash(block):
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
+
+    @property
+    def last_block(self):
+        return self.chain[-1]
+
+    def proof_of_work(self, last_proof):
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+        return proof
+
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        guess = f&#39;{last_proof}{proof}&#39;.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == &quot;0000&quot;
+
+    def register_node(self, address):
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
+
+    def valid_chain(self, chain):
+        last_block = chain[0]
+        current_index = 1
+        while current_index &lt; len(chain):
+            block = chain[current_index]
+            print(f&#39;{last_block}&#39;)
+            print(f&#39;{block}&#39;)
+            print(&quot;\n----------\n&quot;)
+            if block[&#39;previous_hash&#39;] != self.hash(last_block):
+                return False
+            if not self.valid_proof(last_block[&#39;proof&#39;], block[&#39;proof&#39;]):
+                return False
+            last_block = block
+            current_index += 1
+        return True
+
+    def resolve_conflicts(self):
+        neighbours = self.nodes
+        new_chain = None
+        max_length = len(self.chain)
+        for node in neighbours:
+            response = request.get(f&#39;http://{node}/chain&#39;)
+            if response.status_code == 200:
+                length = response.json()[&#39;length&#39;]
+                chain = response.json()[&#39;chain&#39;]
+                if length &gt; max_length and self.valid_chain(chain):
+                    max_length = length
+                    new_chain = chain
+        if new_chain:
+            self.chain = new_chain
+            return True
+        return False
+
+
+app = Flask(__name__)
+
+node_identifier = str(uuid4()).replace(&#39;-&#39;, &#39;&#39;)
+blockchain = Blockchain()
+
+
+@app.route(&#39;/mine&#39;, methods=[&#39;GET&#39;])
+def mine():
+    last_block = blockchain.last_block
+    last_proof = last_block[&#39;proof&#39;]
+    proof = blockchain.proof_of_work(last_proof)
+    blockchain.new_transaction(
+        sender=&#39;0&#39;,
+        recipient=node_identifier,
+        amount=1
+    )
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, previous_hash)
+    response = {
+        &#39;message&#39;: &#39;New Block Forged&#39;,
+        &#39;index&#39;: block[&#39;index&#39;],
+        &#39;transactions&#39;: block[&#39;transactions&#39;],
+        &#39;proof&#39;: block[&#39;proof&#39;],
+        &#39;previous_hash&#39;: block[&#39;previous_hash&#39;],
+    }
+    return jsonify(response), 200
+
+
+@app.route(&#39;/transactions/new&#39;, methods=[&#39;POST&#39;])
+def new_transaction():
+    values = request.get_json()
+    required = [&#39;sender&#39;, &#39;recipient&#39;, &#39;amount&#39;]
+    if not all(k in values for k in required):
+        return &#39;Missing values&#39;, 400
+    index = blockchain.new_transaction(values[&#39;sender&#39;], values[&#39;recipient&#39;], values[&#39;amount&#39;])
+    response = {&#39;message&#39;: f&#39;Transaction will be added to Block {index}&#39;}
+    return jsonify(response), 201
+
+
+@app.route(&#39;/chain&#39;, methods=[&#39;GET&#39;])
+def full_chain():
+    response = {
+        &#39;chain&#39;: blockchain.chain,
+        &#39;length&#39;: len(blockchain.chain)
+    }
+    return jsonify(response), 200
+
+
+@app.route(&#39;/nodes/register&#39;, methods=[&#39;POST&#39;])
+def register_nodes():
+    values = request.get_json()
+    nodes = values.get(&#39;nodes&#39;)
+    if nodes is None:
+        return &quot;Error: Please supply a valid list of nodes&quot;, 400
+    for node in nodes:
+        blockchain.register_node(node)
+    response = {
+        &#39;message&#39;: &#39;New nodes have been added&#39;,
+        &#39;total_nodes&#39;: list(blockchain.nodes)
+    }
+    return jsonify(response), 201
+
+
+@app.route(&#39;/nodes/resolve&#39;, methods=[&#39;GET&#39;])
+def consensus():
+    replaced = blockchain.resolve_conflicts()
+    if replaced:
+        response = {
+            &#39;message&#39;: &#39;Our chain was replaced&#39;,
+            &#39;new_chain&#39;: blockchain.chain
+        }
+    else:
+        response = {
+            &#39;message&#39;: &#39;Our chain is authoritative&#39;,
+            &#39;chain&#39;: blockchain.chain
+        }
+    return jsonify(response), 200
+
+
+if __name__ == &#39;__main__&#39;:
+    app.run(host=&#39;0.0.0.0&#39;, port=5000)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/__init__.py" target="_blank">__init__.py</a>
+        </div>
+        <div class="path">tests/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/test_basic.py" target="_blank">test_basic.py</a>
+        </div>
+        <div class="path">tests/test_basic.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+class BasicTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
+
+    def test_absolute_truth_and_meaning(self):
+        assert True
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/test_advanced.py" target="_blank">test_advanced.py</a>
+        </div>
+        <div class="path">tests/test_advanced.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from .context import hello
+
+import unittest
+
+
+class AdvancedTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Advanced test cases.&quot;&quot;&quot;
+
+    def test_thoughts(self):
+        self.assertIsNone(hello.hmm())
+
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/context.py" target="_blank">context.py</a>
+        </div>
+        <div class="path">tests/context.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
+
+import hello</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/py-blockchain">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/py-blockchain/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

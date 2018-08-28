@@ -1,0 +1,199 @@
+<html>
+<head>
+    <title>java-javafx-table-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-javafx-table-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaFX Table Demo
+=================
+
+Show a table with data.
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/src/main/java/demo/Person.java" target="_blank">Person.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Person.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class Person {
+    private final SimpleStringProperty name;
+    private final SimpleIntegerProperty number;
+    private final SimpleListProperty&lt;String&gt; fruits;
+
+    Person(String name, Integer number, List&lt;String&gt; fruits) {
+        this.name = new SimpleStringProperty(name);
+        this.number = new SimpleIntegerProperty(number);
+        this.fruits = new SimpleListProperty&lt;&gt;(observableArrayList(fruits));
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public int getNumber() {
+        return number.get();
+    }
+
+    public String getFruits() {
+        return StringUtils.join(fruits.get(), &quot;, &quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class Hello extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle(&quot;Hello&quot;);
+        VBox root = new VBox() {{
+            getChildren().add(createTable());
+            getChildren().add(createAddButton());
+        }};
+        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.show();
+    }
+
+    private final ObservableList&lt;Person&gt; data = observableArrayList(
+            new Person(&quot;AAA&quot;, 23, observableArrayList(&quot;Apple&quot;, &quot;Banana&quot;)),
+            new Person(&quot;BBB&quot;, 11, observableArrayList(&quot;Pear&quot;)),
+            new Person(&quot;DDD&quot;, 34, observableArrayList(&quot;Orange&quot;))
+    );
+
+    private Button createAddButton() {
+        return new Button(&quot;Add Data&quot;) {{
+            setOnAction(event -&gt; data.add(new Person(&quot;NEW&quot;, new Random().nextInt(100), Arrays.asList(&quot;date&quot;, &quot;watermelon&quot;))));
+        }};
+    }
+
+    private TableView&lt;Person&gt; createTable() {
+        return new TableView&lt;Person&gt;() {{
+            getColumns().add(new TableColumn&lt;Person, String&gt;(&quot;Name&quot;) {{
+                setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;name&quot;));
+            }});
+            getColumns().add(new TableColumn&lt;Person, Integer&gt;(&quot;Number&quot;) {{
+                setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));
+            }});
+            getColumns().add(new TableColumn&lt;Person, List&lt;String&gt;&gt;(&quot;Fruits&quot;) {{
+                setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;fruits&quot;));
+            }});
+            setItems(data);
+        }};
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-javafx-table-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-javafx-table-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

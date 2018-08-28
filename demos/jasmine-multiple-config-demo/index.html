@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>jasmine-multiple-config-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">jasmine-multiple-config-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Jasmine with multiple config files demo
+=======================================
+
+Sometimes there are some tests we don&#39;t want it always run(e.g. slow, depends on special network), we can provide multiple config files and provide multiple commands to run them.
+
+See the configuration in `scripts` part in file `package.json`, and all files under `spec`.
+
+```
+npm install -g jasmine
+npm install
+```
+
+Run unit tests(without intergration tests)
+------------------------------------------
+
+```
+npm test
+```
+
+Run all tests(unit + intergration)
+----------------------------------
+
+```
+npm run test-all
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/unit-specs/my-spec.js" target="_blank">my-spec.js</a>
+        </div>
+        <div class="path">spec/unit-specs/my-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">describe(&quot;unit test&quot;, function() {
+  it(&#39;is a good test&#39;, () =&gt; {
+    expect(1+1).toEqual(2);
+  })
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/intergration-specs/my-spec.js" target="_blank">my-spec.js</a>
+        </div>
+        <div class="path">spec/intergration-specs/my-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">describe(&quot;intergration test&quot;, function() {
+  it(&#39;is an failed test&#39;, () =&gt; {
+    expect(1+1).toEqual(3);
+  })
+});
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

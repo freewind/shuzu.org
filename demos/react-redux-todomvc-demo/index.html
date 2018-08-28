@@ -1,0 +1,1659 @@
+<html>
+<head>
+    <title>react-redux-todomvc-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-redux-todomvc-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/actions/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">actions/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import * as types from &#39;../constants/ActionTypes&#39;
+
+export function addTodo(text) {
+  return { type: types.ADD_TODO, text }
+}
+
+export function deleteTodo(id) {
+  return { type: types.DELETE_TODO, id }
+}
+
+export function editTodo(id, text) {
+  return { type: types.EDIT_TODO, id, text }
+}
+
+export function completeTodo(id) {
+  return { type: types.COMPLETE_TODO, id }
+}
+
+export function completeAll() {
+  return { type: types.COMPLETE_ALL }
+}
+
+export function clearCompleted() {
+  return { type: types.CLEAR_COMPLETED }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/constants/ActionTypes.js" target="_blank">ActionTypes.js</a>
+        </div>
+        <div class="path">constants/ActionTypes.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export const ADD_TODO = &#39;ADD_TODO&#39;
+export const DELETE_TODO = &#39;DELETE_TODO&#39;
+export const EDIT_TODO = &#39;EDIT_TODO&#39;
+export const COMPLETE_TODO = &#39;COMPLETE_TODO&#39;
+export const COMPLETE_ALL = &#39;COMPLETE_ALL&#39;
+export const CLEAR_COMPLETED = &#39;CLEAR_COMPLETED&#39;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/constants/TodoFilters.js" target="_blank">TodoFilters.js</a>
+        </div>
+        <div class="path">constants/TodoFilters.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export const SHOW_ALL = &#39;show_all&#39;
+export const SHOW_COMPLETED = &#39;show_completed&#39;
+export const SHOW_ACTIVE = &#39;show_active&#39;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/store/configureStore.js" target="_blank">configureStore.js</a>
+        </div>
+        <div class="path">store/configureStore.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import { createStore } from &#39;redux&#39;
+import rootReducer from &#39;../reducers&#39;
+
+export default function configureStore(preloadedState) {
+  const store = createStore(rootReducer, preloadedState)
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept(&#39;../reducers&#39;, () =&gt; {
+      const nextReducer = require(&#39;../reducers&#39;).default
+      store.replaceReducer(nextReducer)
+    })
+  }
+
+  return store
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/setup.js" target="_blank">setup.js</a>
+        </div>
+        <div class="path">test/setup.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import { jsdom } from &#39;jsdom&#39;
+
+global.document = jsdom(&#39;&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;&#39;)
+global.window = document.defaultView
+global.navigator = global.window.navigator
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/actions/todos.spec.js" target="_blank">todos.spec.js</a>
+        </div>
+        <div class="path">test/actions/todos.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import * as types from &#39;../../constants/ActionTypes&#39;
+import * as actions from &#39;../../actions&#39;
+
+describe(&#39;todo actions&#39;, () =&gt; {
+  it(&#39;addTodo should create ADD_TODO action&#39;, () =&gt; {
+    expect(actions.addTodo(&#39;Use Redux&#39;)).toEqual({
+      type: types.ADD_TODO,
+      text: &#39;Use Redux&#39;
+    })
+  })
+
+  it(&#39;deleteTodo should create DELETE_TODO action&#39;, () =&gt; {
+    expect(actions.deleteTodo(1)).toEqual({
+      type: types.DELETE_TODO,
+      id: 1
+    })
+  })
+
+  it(&#39;editTodo should create EDIT_TODO action&#39;, () =&gt; {
+    expect(actions.editTodo(1, &#39;Use Redux everywhere&#39;)).toEqual({
+      type: types.EDIT_TODO,
+      id: 1,
+      text: &#39;Use Redux everywhere&#39;
+    })
+  })
+
+  it(&#39;completeTodo should create COMPLETE_TODO action&#39;, () =&gt; {
+    expect(actions.completeTodo(1)).toEqual({
+      type: types.COMPLETE_TODO,
+      id: 1
+    })
+  })
+
+  it(&#39;completeAll should create COMPLETE_ALL action&#39;, () =&gt; {
+    expect(actions.completeAll()).toEqual({
+      type: types.COMPLETE_ALL
+    })
+  })
+
+  it(&#39;clearCompleted should create CLEAR_COMPLETED action&#39;, () =&gt; {
+    expect(actions.clearCompleted()).toEqual({
+      type: types.CLEAR_COMPLETED
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/reducers/todos.spec.js" target="_blank">todos.spec.js</a>
+        </div>
+        <div class="path">test/reducers/todos.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import todos from &#39;../../reducers/todos&#39;
+import * as types from &#39;../../constants/ActionTypes&#39;
+
+describe(&#39;todos reducer&#39;, () =&gt; {
+  it(&#39;should handle initial state&#39;, () =&gt; {
+    expect(
+      todos(undefined, {})
+    ).toEqual([
+      {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle ADD_TODO&#39;, () =&gt; {
+    expect(
+      todos([], {
+        type: types.ADD_TODO,
+        text: &#39;Run the tests&#39;
+      })
+    ).toEqual([
+      {
+        text: &#39;Run the tests&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+
+    expect(
+      todos([
+        {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.ADD_TODO,
+        text: &#39;Run the tests&#39;
+      })
+    ).toEqual([
+      {
+        text: &#39;Run the tests&#39;,
+        completed: false,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: false,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.ADD_TODO,
+        text: &#39;Fix the tests&#39;
+      })
+    ).toEqual([
+      {
+        text: &#39;Fix the tests&#39;,
+        completed: false,
+        id: 2
+      }, {
+        text: &#39;Run the tests&#39;,
+        completed: false,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle DELETE_TODO&#39;, () =&gt; {
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: false,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.DELETE_TODO,
+        id: 1
+      })
+    ).toEqual([
+      {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle EDIT_TODO&#39;, () =&gt; {
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: false,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.EDIT_TODO,
+        text: &#39;Fix the tests&#39;,
+        id: 1
+      })
+    ).toEqual([
+      {
+        text: &#39;Fix the tests&#39;,
+        completed: false,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle COMPLETE_TODO&#39;, () =&gt; {
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: false,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.COMPLETE_TODO,
+        id: 1
+      })
+    ).toEqual([
+      {
+        text: &#39;Run the tests&#39;,
+        completed: true,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle COMPLETE_ALL&#39;, () =&gt; {
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: true,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.COMPLETE_ALL
+      })
+    ).toEqual([
+      {
+        text: &#39;Run the tests&#39;,
+        completed: true,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: true,
+        id: 0
+      }
+    ])
+
+    // Unmark if all todos are currently completed
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: true,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: true,
+          id: 0
+        }
+      ], {
+        type: types.COMPLETE_ALL
+      })
+    ).toEqual([
+      {
+        text: &#39;Run the tests&#39;,
+        completed: false,
+        id: 1
+      }, {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should handle CLEAR_COMPLETED&#39;, () =&gt; {
+    expect(
+      todos([
+        {
+          text: &#39;Run the tests&#39;,
+          completed: true,
+          id: 1
+        }, {
+          text: &#39;Use Redux&#39;,
+          completed: false,
+          id: 0
+        }
+      ], {
+        type: types.CLEAR_COMPLETED
+      })
+    ).toEqual([
+      {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }
+    ])
+  })
+
+  it(&#39;should not generate duplicate ids after CLEAR_COMPLETED&#39;, () =&gt; {
+    expect(
+      [
+        {
+          type: types.COMPLETE_TODO,
+          id: 0
+        }, {
+          type: types.CLEAR_COMPLETED
+        }, {
+          type: types.ADD_TODO,
+          text: &#39;Write more tests&#39;
+        }
+      ].reduce(todos, [
+        {
+          id: 0,
+          completed: false,
+          text: &#39;Use Redux&#39;
+        }, {
+          id: 1,
+          completed: false,
+          text: &#39;Write tests&#39;
+        }
+      ])
+    ).toEqual([
+      {
+        text: &#39;Write more tests&#39;,
+        completed: false,
+        id: 2
+      }, {
+        text: &#39;Write tests&#39;,
+        completed: false,
+        id: 1
+      }
+    ])
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/TodoItem.spec.js" target="_blank">TodoItem.spec.js</a>
+        </div>
+        <div class="path">test/components/TodoItem.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import TestUtils from &#39;react-addons-test-utils&#39;
+import TodoItem from &#39;../../components/TodoItem&#39;
+import TodoTextInput from &#39;../../components/TodoTextInput&#39;
+
+function setup( editing = false ) {
+  const props = {
+    todo: {
+      id: 0,
+      text: &#39;Use Redux&#39;,
+      completed: false
+    },
+    editTodo: expect.createSpy(),
+    deleteTodo: expect.createSpy(),
+    completeTodo: expect.createSpy()
+  }
+
+  const renderer = TestUtils.createRenderer()
+
+  renderer.render(
+    &lt;TodoItem {...props} /&gt;
+  )
+
+  let output = renderer.getRenderOutput()
+
+  if (editing) {
+    const label = output.props.children.props.children[1]
+    label.props.onDoubleClick({})
+    output = renderer.getRenderOutput()
+  }
+
+  return {
+    props: props,
+    output: output,
+    renderer: renderer
+  }
+}
+
+describe(&#39;components&#39;, () =&gt; {
+  describe(&#39;TodoItem&#39;, () =&gt; {
+    it(&#39;initial render&#39;, () =&gt; {
+      const { output } = setup()
+
+      expect(output.type).toBe(&#39;li&#39;)
+      expect(output.props.className).toBe(&#39;&#39;)
+
+      const div = output.props.children
+
+      expect(div.type).toBe(&#39;div&#39;)
+      expect(div.props.className).toBe(&#39;view&#39;)
+
+      const [ input, label, button ] = div.props.children
+
+      expect(input.type).toBe(&#39;input&#39;)
+      expect(input.props.checked).toBe(false)
+
+      expect(label.type).toBe(&#39;label&#39;)
+      expect(label.props.children).toBe(&#39;Use Redux&#39;)
+
+      expect(button.type).toBe(&#39;button&#39;)
+      expect(button.props.className).toBe(&#39;destroy&#39;)
+    })
+
+    it(&#39;input onChange should call completeTodo&#39;, () =&gt; {
+      const { output, props } = setup()
+      const input = output.props.children.props.children[0]
+      input.props.onChange({})
+      expect(props.completeTodo).toHaveBeenCalledWith(0)
+    })
+
+    it(&#39;button onClick should call deleteTodo&#39;, () =&gt; {
+      const { output, props } = setup()
+      const button = output.props.children.props.children[2]
+      button.props.onClick({})
+      expect(props.deleteTodo).toHaveBeenCalledWith(0)
+    })
+
+    it(&#39;label onDoubleClick should put component in edit state&#39;, () =&gt; {
+      const { output, renderer } = setup()
+      const label = output.props.children.props.children[1]
+      label.props.onDoubleClick({})
+      const updated = renderer.getRenderOutput()
+      expect(updated.type).toBe(&#39;li&#39;)
+      expect(updated.props.className).toBe(&#39;editing&#39;)
+    })
+
+    it(&#39;edit state render&#39;, () =&gt; {
+      const { output } = setup(true)
+
+      expect(output.type).toBe(&#39;li&#39;)
+      expect(output.props.className).toBe(&#39;editing&#39;)
+
+      const input = output.props.children
+      expect(input.type).toBe(TodoTextInput)
+      expect(input.props.text).toBe(&#39;Use Redux&#39;)
+      expect(input.props.editing).toBe(true)
+    })
+
+    it(&#39;TodoTextInput onSave should call editTodo&#39;, () =&gt; {
+      const { output, props } = setup(true)
+      output.props.children.props.onSave(&#39;Use Redux&#39;)
+      expect(props.editTodo).toHaveBeenCalledWith(0, &#39;Use Redux&#39;)
+    })
+
+    it(&#39;TodoTextInput onSave should call deleteTodo if text is empty&#39;, () =&gt; {
+      const { output, props } = setup(true)
+      output.props.children.props.onSave(&#39;&#39;)
+      expect(props.deleteTodo).toHaveBeenCalledWith(0)
+    })
+
+    it(&#39;TodoTextInput onSave should exit component from edit state&#39;, () =&gt; {
+      const { output, renderer } = setup(true)
+      output.props.children.props.onSave(&#39;Use Redux&#39;)
+      const updated = renderer.getRenderOutput()
+      expect(updated.type).toBe(&#39;li&#39;)
+      expect(updated.props.className).toBe(&#39;&#39;)
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/Header.spec.js" target="_blank">Header.spec.js</a>
+        </div>
+        <div class="path">test/components/Header.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import TestUtils from &#39;react-addons-test-utils&#39;
+import Header from &#39;../../components/Header&#39;
+import TodoTextInput from &#39;../../components/TodoTextInput&#39;
+
+function setup() {
+  const props = {
+    addTodo: expect.createSpy()
+  }
+
+  const renderer = TestUtils.createRenderer()
+  renderer.render(&lt;Header {...props} /&gt;)
+  const output = renderer.getRenderOutput()
+
+  return {
+    props: props,
+    output: output,
+    renderer: renderer
+  }
+}
+
+describe(&#39;components&#39;, () =&gt; {
+  describe(&#39;Header&#39;, () =&gt; {
+    it(&#39;should render correctly&#39;, () =&gt; {
+      const { output } = setup()
+
+      expect(output.type).toBe(&#39;header&#39;)
+      expect(output.props.className).toBe(&#39;header&#39;)
+
+      const [ h1, input ] = output.props.children
+
+      expect(h1.type).toBe(&#39;h1&#39;)
+      expect(h1.props.children).toBe(&#39;todos&#39;)
+
+      expect(input.type).toBe(TodoTextInput)
+      expect(input.props.newTodo).toBe(true)
+      expect(input.props.placeholder).toBe(&#39;What needs to be done?&#39;)
+    })
+
+    it(&#39;should call addTodo if length of text is greater than 0&#39;, () =&gt; {
+      const { output, props } = setup()
+      const input = output.props.children[1]
+      input.props.onSave(&#39;&#39;)
+      expect(props.addTodo.calls.length).toBe(0)
+      input.props.onSave(&#39;Use Redux&#39;)
+      expect(props.addTodo.calls.length).toBe(1)
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/TodoTextInput.spec.js" target="_blank">TodoTextInput.spec.js</a>
+        </div>
+        <div class="path">test/components/TodoTextInput.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import TestUtils from &#39;react-addons-test-utils&#39;
+import TodoTextInput from &#39;../../components/TodoTextInput&#39;
+
+function setup(propOverrides) {
+  const props = Object.assign({
+    onSave: expect.createSpy(),
+    text: &#39;Use Redux&#39;,
+    placeholder: &#39;What needs to be done?&#39;,
+    editing: false,
+    newTodo: false
+  }, propOverrides)
+
+  const renderer = TestUtils.createRenderer()
+
+  renderer.render(
+    &lt;TodoTextInput {...props} /&gt;
+  )
+
+  const output = renderer.getRenderOutput()
+
+  return {
+    props: props,
+    output: output,
+    renderer: renderer
+  }
+}
+
+describe(&#39;components&#39;, () =&gt; {
+  describe(&#39;TodoTextInput&#39;, () =&gt; {
+    it(&#39;should render correctly&#39;, () =&gt; {
+      const { output } = setup()
+      expect(output.props.placeholder).toEqual(&#39;What needs to be done?&#39;)
+      expect(output.props.value).toEqual(&#39;Use Redux&#39;)
+      expect(output.props.className).toEqual(&#39;&#39;)
+    })
+
+    it(&#39;should render correctly when editing=true&#39;, () =&gt; {
+      const { output } = setup({ editing: true })
+      expect(output.props.className).toEqual(&#39;edit&#39;)
+    })
+
+    it(&#39;should render correctly when newTodo=true&#39;, () =&gt; {
+      const { output } = setup({ newTodo: true })
+      expect(output.props.className).toEqual(&#39;new-todo&#39;)
+    })
+
+    it(&#39;should update value on change&#39;, () =&gt; {
+      const { output, renderer } = setup()
+      output.props.onChange({ target: { value: &#39;Use Radox&#39; } })
+      const updated = renderer.getRenderOutput()
+      expect(updated.props.value).toEqual(&#39;Use Radox&#39;)
+    })
+
+    it(&#39;should call onSave on return key press&#39;, () =&gt; {
+      const { output, props } = setup()
+      output.props.onKeyDown({ which: 13, target: { value: &#39;Use Redux&#39; } })
+      expect(props.onSave).toHaveBeenCalledWith(&#39;Use Redux&#39;)
+    })
+
+    it(&#39;should reset state on return key press if newTodo&#39;, () =&gt; {
+      const { output, renderer } = setup({ newTodo: true })
+      output.props.onKeyDown({ which: 13, target: { value: &#39;Use Redux&#39; } })
+      const updated = renderer.getRenderOutput()
+      expect(updated.props.value).toEqual(&#39;&#39;)
+    })
+
+    it(&#39;should call onSave on blur&#39;, () =&gt; {
+      const { output, props } = setup()
+      output.props.onBlur({ target: { value: &#39;Use Redux&#39; } })
+      expect(props.onSave).toHaveBeenCalledWith(&#39;Use Redux&#39;)
+    })
+
+    it(&#39;shouldnt call onSave on blur if newTodo&#39;, () =&gt; {
+      const { output, props } = setup({ newTodo: true })
+      output.props.onBlur({ target: { value: &#39;Use Redux&#39; } })
+      expect(props.onSave.calls.length).toBe(0)
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/Footer.spec.js" target="_blank">Footer.spec.js</a>
+        </div>
+        <div class="path">test/components/Footer.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import TestUtils from &#39;react-addons-test-utils&#39;
+import Footer from &#39;../../components/Footer&#39;
+import { SHOW_ALL, SHOW_ACTIVE } from &#39;../../constants/TodoFilters&#39;
+
+function setup(propOverrides) {
+  const props = Object.assign({
+    completedCount: 0,
+    activeCount: 0,
+    filter: SHOW_ALL,
+    onClearCompleted: expect.createSpy(),
+    onShow: expect.createSpy()
+  }, propOverrides)
+
+  const renderer = TestUtils.createRenderer()
+  renderer.render(&lt;Footer {...props} /&gt;)
+  const output = renderer.getRenderOutput()
+
+  return {
+    props: props,
+    output: output
+  }
+}
+
+function getTextContent(elem) {
+  const children = Array.isArray(elem.props.children) ?
+    elem.props.children : [ elem.props.children ]
+
+  return children.reduce(function concatText(out, child) {
+    // Children are either elements or text strings
+    return out + (child.props ? getTextContent(child) : child)
+  }, &#39;&#39;)
+}
+
+describe(&#39;components&#39;, () =&gt; {
+  describe(&#39;Footer&#39;, () =&gt; {
+    it(&#39;should render container&#39;, () =&gt; {
+      const { output } = setup()
+      expect(output.type).toBe(&#39;footer&#39;)
+      expect(output.props.className).toBe(&#39;footer&#39;)
+    })
+
+    it(&#39;should display active count when 0&#39;, () =&gt; {
+      const { output } = setup({ activeCount: 0 })
+      const [ count ] = output.props.children
+      expect(getTextContent(count)).toBe(&#39;No items left&#39;)
+    })
+
+    it(&#39;should display active count when above 0&#39;, () =&gt; {
+      const { output } = setup({ activeCount: 1 })
+      const [ count ] = output.props.children
+      expect(getTextContent(count)).toBe(&#39;1 item left&#39;)
+    })
+
+    it(&#39;should render filters&#39;, () =&gt; {
+      const { output } = setup()
+      const [ , filters ] = output.props.children
+      expect(filters.type).toBe(&#39;ul&#39;)
+      expect(filters.props.className).toBe(&#39;filters&#39;)
+      expect(filters.props.children.length).toBe(3)
+      filters.props.children.forEach(function checkFilter(filter, i) {
+        expect(filter.type).toBe(&#39;li&#39;)
+        const a = filter.props.children
+        expect(a.props.className).toBe(i === 0 ? &#39;selected&#39; : &#39;&#39;)
+        expect(a.props.children).toBe({
+          0: &#39;All&#39;,
+          1: &#39;Active&#39;,
+          2: &#39;Completed&#39;
+        }[i])
+      })
+    })
+
+    it(&#39;should call onShow when a filter is clicked&#39;, () =&gt; {
+      const { output, props } = setup()
+      const [ , filters ] = output.props.children
+      const filterLink = filters.props.children[1].props.children
+      filterLink.props.onClick({})
+      expect(props.onShow).toHaveBeenCalledWith(SHOW_ACTIVE)
+    })
+
+    it(&#39;shouldnt show clear button when no completed todos&#39;, () =&gt; {
+      const { output } = setup({ completedCount: 0 })
+      const [ , , clear ] = output.props.children
+      expect(clear).toBe(undefined)
+    })
+
+    it(&#39;should render clear button when completed todos&#39;, () =&gt; {
+      const { output } = setup({ completedCount: 1 })
+      const [ , , clear ] = output.props.children
+      expect(clear.type).toBe(&#39;button&#39;)
+      expect(clear.props.children).toBe(&#39;Clear completed&#39;)
+    })
+
+    it(&#39;should call onClearCompleted on clear button click&#39;, () =&gt; {
+      const { output, props } = setup({ completedCount: 1 })
+      const [ , , clear ] = output.props.children
+      clear.props.onClick({})
+      expect(props.onClearCompleted).toHaveBeenCalled()
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/MainSection.spec.js" target="_blank">MainSection.spec.js</a>
+        </div>
+        <div class="path">test/components/MainSection.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import expect from &#39;expect&#39;
+import React from &#39;react&#39;
+import TestUtils from &#39;react-addons-test-utils&#39;
+import MainSection from &#39;../../components/MainSection&#39;
+import TodoItem from &#39;../../components/TodoItem&#39;
+import Footer from &#39;../../components/Footer&#39;
+import { SHOW_ALL, SHOW_COMPLETED } from &#39;../../constants/TodoFilters&#39;
+
+function setup(propOverrides) {
+  const props = Object.assign({
+    todos: [
+      {
+        text: &#39;Use Redux&#39;,
+        completed: false,
+        id: 0
+      }, {
+        text: &#39;Run the tests&#39;,
+        completed: true,
+        id: 1
+      }
+    ],
+    actions: {
+      editTodo: expect.createSpy(),
+      deleteTodo: expect.createSpy(),
+      completeTodo: expect.createSpy(),
+      completeAll: expect.createSpy(),
+      clearCompleted: expect.createSpy()
+    }
+  }, propOverrides)
+
+  const renderer = TestUtils.createRenderer()
+  renderer.render(&lt;MainSection {...props} /&gt;)
+  const output = renderer.getRenderOutput()
+
+  return {
+    props: props,
+    output: output,
+    renderer: renderer
+  }
+}
+
+describe(&#39;components&#39;, () =&gt; {
+  describe(&#39;MainSection&#39;, () =&gt; {
+    it(&#39;should render container&#39;, () =&gt; {
+      const { output } = setup()
+      expect(output.type).toBe(&#39;section&#39;)
+      expect(output.props.className).toBe(&#39;main&#39;)
+    })
+
+    describe(&#39;toggle all input&#39;, () =&gt; {
+      it(&#39;should render&#39;, () =&gt; {
+        const { output } = setup()
+        const [ toggle ] = output.props.children
+        expect(toggle.type).toBe(&#39;input&#39;)
+        expect(toggle.props.type).toBe(&#39;checkbox&#39;)
+        expect(toggle.props.checked).toBe(false)
+      })
+
+      it(&#39;should be checked if all todos completed&#39;, () =&gt; {
+        const { output } = setup({ todos: [
+          {
+            text: &#39;Use Redux&#39;,
+            completed: true,
+            id: 0
+          }
+        ]
+        })
+        const [ toggle ] = output.props.children
+        expect(toggle.props.checked).toBe(true)
+      })
+
+      it(&#39;should call completeAll on change&#39;, () =&gt; {
+        const { output, props } = setup()
+        const [ toggle ] = output.props.children
+        toggle.props.onChange({})
+        expect(props.actions.completeAll).toHaveBeenCalled()
+      })
+    })
+
+    describe(&#39;footer&#39;, () =&gt; {
+      it(&#39;should render&#39;, () =&gt; {
+        const { output } = setup()
+        const [ , , footer ] = output.props.children
+        expect(footer.type).toBe(Footer)
+        expect(footer.props.completedCount).toBe(1)
+        expect(footer.props.activeCount).toBe(1)
+        expect(footer.props.filter).toBe(SHOW_ALL)
+      })
+
+      it(&#39;onShow should set the filter&#39;, () =&gt; {
+        const { output, renderer } = setup()
+        const [ , , footer ] = output.props.children
+        footer.props.onShow(SHOW_COMPLETED)
+        const updated = renderer.getRenderOutput()
+        const [ , , updatedFooter ] = updated.props.children
+        expect(updatedFooter.props.filter).toBe(SHOW_COMPLETED)
+      })
+
+      it(&#39;onClearCompleted should call clearCompleted&#39;, () =&gt; {
+        const { output, props } = setup()
+        const [ , , footer ] = output.props.children
+        footer.props.onClearCompleted()
+        expect(props.actions.clearCompleted).toHaveBeenCalled()
+      })
+    })
+
+    describe(&#39;todo list&#39;, () =&gt; {
+      it(&#39;should render&#39;, () =&gt; {
+        const { output, props } = setup()
+        const [ , list ] = output.props.children
+        expect(list.type).toBe(&#39;ul&#39;)
+        expect(list.props.children.length).toBe(2)
+        list.props.children.forEach((item, i) =&gt; {
+          expect(item.type).toBe(TodoItem)
+          expect(item.props.todo).toBe(props.todos[i])
+        })
+      })
+
+      it(&#39;should filter items&#39;, () =&gt; {
+        const { output, renderer, props } = setup()
+        const [ , , footer ] = output.props.children
+        footer.props.onShow(SHOW_COMPLETED)
+        const updated = renderer.getRenderOutput()
+        const [ , updatedList ] = updated.props.children
+        expect(updatedList.props.children.length).toBe(1)
+        expect(updatedList.props.children[0].props.todo).toBe(props.todos[1])
+      })
+    })
+  })
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var path = require(&#39;path&#39;)
+var webpack = require(&#39;webpack&#39;)
+
+module.exports = {
+  devtool: &#39;cheap-module-eval-source-map&#39;,
+  entry: [
+    &#39;webpack-hot-middleware/client&#39;,
+    &#39;./index&#39;
+  ],
+  output: {
+    path: path.join(__dirname, &#39;dist&#39;),
+    filename: &#39;bundle.js&#39;,
+    publicPath: &#39;/static/&#39;
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: [ &#39;babel&#39; ],
+        exclude: /node_modules/,
+        include: __dirname
+      },
+      {
+        test: /\.css?$/,
+        loaders: [ &#39;style&#39;, &#39;raw&#39; ],
+        include: __dirname
+      }
+    ]
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import &#39;babel-polyfill&#39;
+import React from &#39;react&#39;
+import { render } from &#39;react-dom&#39;
+import { Provider } from &#39;react-redux&#39;
+import App from &#39;./containers/App&#39;
+import configureStore from &#39;./store/configureStore&#39;
+import &#39;todomvc-app-css/index.css&#39;
+
+const store = configureStore()
+
+render(
+  &lt;Provider store={store}&gt;
+    &lt;App /&gt;
+  &lt;/Provider&gt;,
+  document.getElementById(&#39;root&#39;)
+)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import { combineReducers } from &#39;redux&#39;
+import todos from &#39;./todos&#39;
+
+const rootReducer = combineReducers({
+  todos
+})
+
+export default rootReducer
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/reducers/todos.js" target="_blank">todos.js</a>
+        </div>
+        <div class="path">reducers/todos.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from &#39;../constants/ActionTypes&#39;
+
+const initialState = [
+  {
+    text: &#39;Use Redux&#39;,
+    completed: false,
+    id: 0
+  }
+]
+
+export default function todos(state = initialState, action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [
+        {
+          id: state.reduce((maxId, todo) =&gt; Math.max(todo.id, maxId), -1) + 1,
+          completed: false,
+          text: action.text
+        }, 
+        ...state
+      ]
+
+    case DELETE_TODO:
+      return state.filter(todo =&gt;
+        todo.id !== action.id
+      )
+
+    case EDIT_TODO:
+      return state.map(todo =&gt;
+        todo.id === action.id ?
+          Object.assign({}, todo, { text: action.text }) :
+          todo
+      )
+
+    case COMPLETE_TODO:
+      return state.map(todo =&gt;
+        todo.id === action.id ?
+          Object.assign({}, todo, { completed: !todo.completed }) :
+          todo
+      )
+
+    case COMPLETE_ALL:
+      const areAllMarked = state.every(todo =&gt; todo.completed)
+      return state.map(todo =&gt; Object.assign({}, todo, {
+        completed: !areAllMarked
+      }))
+
+    case CLEAR_COMPLETED:
+      return state.filter(todo =&gt; todo.completed === false)
+
+    default:
+      return state
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/containers/App.js" target="_blank">App.js</a>
+        </div>
+        <div class="path">containers/App.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
+import { bindActionCreators } from &#39;redux&#39;
+import { connect } from &#39;react-redux&#39;
+import Header from &#39;../components/Header&#39;
+import MainSection from &#39;../components/MainSection&#39;
+import * as TodoActions from &#39;../actions&#39;
+
+class App extends Component {
+  render() {
+    const { todos, actions } = this.props
+    return (
+      &lt;div&gt;
+        &lt;Header addTodo={actions.addTodo} /&gt;
+        &lt;MainSection todos={todos} actions={actions} /&gt;
+      &lt;/div&gt;
+    )
+  }
+}
+
+App.propTypes = {
+  todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+  return {
+    todos: state.todos
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(TodoActions, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Redux TodoMVC example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class=&quot;todoapp&quot; id=&quot;root&quot;&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;/static/bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var webpack = require(&#39;webpack&#39;)
+var webpackDevMiddleware = require(&#39;webpack-dev-middleware&#39;)
+var webpackHotMiddleware = require(&#39;webpack-hot-middleware&#39;)
+var config = require(&#39;./webpack.config&#39;)
+
+var app = new (require(&#39;express&#39;))()
+var port = 3000
+
+var compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+app.use(webpackHotMiddleware(compiler))
+
+app.get(&quot;/&quot;, function(req, res) {
+  res.sendFile(__dirname + &#39;/index.html&#39;)
+})
+
+app.listen(port, function(error) {
+  if (error) {
+    console.error(error)
+  } else {
+    console.info(&quot;==&gt; 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.&quot;, port, port)
+  }
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/Header.js" target="_blank">Header.js</a>
+        </div>
+        <div class="path">components/Header.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { PropTypes, Component } from &#39;react&#39;
+import TodoTextInput from &#39;./TodoTextInput&#39;
+
+class Header extends Component {
+  handleSave(text) {
+    if (text.length !== 0) {
+      this.props.addTodo(text)
+    }
+  }
+
+  render() {
+    return (
+      &lt;header className=&quot;header&quot;&gt;
+          &lt;h1&gt;todos&lt;/h1&gt;
+          &lt;TodoTextInput newTodo
+                         onSave={this.handleSave.bind(this)}
+                         placeholder=&quot;What needs to be done?&quot; /&gt;
+      &lt;/header&gt;
+    )
+  }
+}
+
+Header.propTypes = {
+  addTodo: PropTypes.func.isRequired
+}
+
+export default Header
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/Footer.js" target="_blank">Footer.js</a>
+        </div>
+        <div class="path">components/Footer.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { PropTypes, Component } from &#39;react&#39;
+import classnames from &#39;classnames&#39;
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from &#39;../constants/TodoFilters&#39;
+
+const FILTER_TITLES = {
+  [SHOW_ALL]: &#39;All&#39;,
+  [SHOW_ACTIVE]: &#39;Active&#39;,
+  [SHOW_COMPLETED]: &#39;Completed&#39;
+}
+
+class Footer extends Component {
+  renderTodoCount() {
+    const { activeCount } = this.props
+    const itemWord = activeCount === 1 ? &#39;item&#39; : &#39;items&#39;
+
+    return (
+      &lt;span className=&quot;todo-count&quot;&gt;
+        &lt;strong&gt;{activeCount || &#39;No&#39;}&lt;/strong&gt; {itemWord} left
+      &lt;/span&gt;
+    )
+  }
+
+  renderFilterLink(filter) {
+    const title = FILTER_TITLES[filter]
+    const { filter: selectedFilter, onShow } = this.props
+
+    return (
+      &lt;a className={classnames({ selected: filter === selectedFilter })}
+         style={{ cursor: &#39;pointer&#39; }}
+         onClick={() =&gt; onShow(filter)}&gt;
+        {title}
+      &lt;/a&gt;
+    )
+  }
+
+  renderClearButton() {
+    const { completedCount, onClearCompleted } = this.props
+    if (completedCount &gt; 0) {
+      return (
+        &lt;button className=&quot;clear-completed&quot;
+                onClick={onClearCompleted} &gt;
+          Clear completed
+        &lt;/button&gt;
+      )
+    }
+  }
+
+  render() {
+    return (
+      &lt;footer className=&quot;footer&quot;&gt;
+        {this.renderTodoCount()}
+        &lt;ul className=&quot;filters&quot;&gt;
+          {[ SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED ].map(filter =&gt;
+            &lt;li key={filter}&gt;
+              {this.renderFilterLink(filter)}
+            &lt;/li&gt;
+          )}
+        &lt;/ul&gt;
+        {this.renderClearButton()}
+      &lt;/footer&gt;
+    )
+  }
+}
+
+Footer.propTypes = {
+  completedCount: PropTypes.number.isRequired,
+  activeCount: PropTypes.number.isRequired,
+  filter: PropTypes.string.isRequired,
+  onClearCompleted: PropTypes.func.isRequired,
+  onShow: PropTypes.func.isRequired
+}
+
+export default Footer
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/TodoItem.js" target="_blank">TodoItem.js</a>
+        </div>
+        <div class="path">components/TodoItem.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
+import classnames from &#39;classnames&#39;
+import TodoTextInput from &#39;./TodoTextInput&#39;
+
+class TodoItem extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      editing: false
+    }
+  }
+
+  handleDoubleClick() {
+    this.setState({ editing: true })
+  }
+
+  handleSave(id, text) {
+    if (text.length === 0) {
+      this.props.deleteTodo(id)
+    } else {
+      this.props.editTodo(id, text)
+    }
+    this.setState({ editing: false })
+  }
+
+  render() {
+    const { todo, completeTodo, deleteTodo } = this.props
+
+    let element
+    if (this.state.editing) {
+      element = (
+        &lt;TodoTextInput text={todo.text}
+                       editing={this.state.editing}
+                       onSave={(text) =&gt; this.handleSave(todo.id, text)} /&gt;
+      )
+    } else {
+      element = (
+        &lt;div className=&quot;view&quot;&gt;
+          &lt;input className=&quot;toggle&quot;
+                 type=&quot;checkbox&quot;
+                 checked={todo.completed}
+                 onChange={() =&gt; completeTodo(todo.id)} /&gt;
+          &lt;label onDoubleClick={this.handleDoubleClick.bind(this)}&gt;
+            {todo.text}
+          &lt;/label&gt;
+          &lt;button className=&quot;destroy&quot;
+                  onClick={() =&gt; deleteTodo(todo.id)} /&gt;
+        &lt;/div&gt;
+      )
+    }
+
+    return (
+      &lt;li className={classnames({
+        completed: todo.completed,
+        editing: this.state.editing
+      })}&gt;
+        {element}
+      &lt;/li&gt;
+    )
+  }
+}
+
+TodoItem.propTypes = {
+  todo: PropTypes.object.isRequired,
+  editTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  completeTodo: PropTypes.func.isRequired
+}
+
+export default TodoItem
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/TodoTextInput.js" target="_blank">TodoTextInput.js</a>
+        </div>
+        <div class="path">components/TodoTextInput.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
+import classnames from &#39;classnames&#39;
+
+class TodoTextInput extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      text: this.props.text || &#39;&#39;
+    }
+  }
+
+  handleSubmit(e) {
+    const text = e.target.value.trim()
+    if (e.which === 13) {
+      this.props.onSave(text)
+      if (this.props.newTodo) {
+        this.setState({ text: &#39;&#39; })
+      }
+    }
+  }
+
+  handleChange(e) {
+    this.setState({ text: e.target.value })
+  }
+
+  handleBlur(e) {
+    if (!this.props.newTodo) {
+      this.props.onSave(e.target.value)
+    }
+  }
+
+  render() {
+    return (
+      &lt;input className={
+        classnames({
+          edit: this.props.editing,
+          &#39;new-todo&#39;: this.props.newTodo
+        })}
+        type=&quot;text&quot;
+        placeholder={this.props.placeholder}
+        autoFocus=&quot;true&quot;
+        value={this.state.text}
+        onBlur={this.handleBlur.bind(this)}
+        onChange={this.handleChange.bind(this)}
+        onKeyDown={this.handleSubmit.bind(this)} /&gt;
+    )
+  }
+}
+
+TodoTextInput.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  text: PropTypes.string,
+  placeholder: PropTypes.string,
+  editing: PropTypes.bool,
+  newTodo: PropTypes.bool
+}
+
+export default TodoTextInput
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/MainSection.js" target="_blank">MainSection.js</a>
+        </div>
+        <div class="path">components/MainSection.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
+import TodoItem from &#39;./TodoItem&#39;
+import Footer from &#39;./Footer&#39;
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from &#39;../constants/TodoFilters&#39;
+
+const TODO_FILTERS = {
+  [SHOW_ALL]: () =&gt; true,
+  [SHOW_ACTIVE]: todo =&gt; !todo.completed,
+  [SHOW_COMPLETED]: todo =&gt; todo.completed
+}
+
+class MainSection extends Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = { filter: SHOW_ALL }
+  }
+
+  handleClearCompleted() {
+    this.props.actions.clearCompleted()
+  }
+
+  handleShow(filter) {
+    this.setState({ filter })
+  }
+
+  renderToggleAll(completedCount) {
+    const { todos, actions } = this.props
+    if (todos.length &gt; 0) {
+      return (
+        &lt;input className=&quot;toggle-all&quot;
+               type=&quot;checkbox&quot;
+               checked={completedCount === todos.length}
+               onChange={actions.completeAll} /&gt;
+      )
+    }
+  }
+
+  renderFooter(completedCount) {
+    const { todos } = this.props
+    const { filter } = this.state
+    const activeCount = todos.length - completedCount
+
+    if (todos.length) {
+      return (
+        &lt;Footer completedCount={completedCount}
+                activeCount={activeCount}
+                filter={filter}
+                onClearCompleted={this.handleClearCompleted.bind(this)}
+                onShow={this.handleShow.bind(this)} /&gt;
+      )
+    }
+  }
+
+  render() {
+    const { todos, actions } = this.props
+    const { filter } = this.state
+
+    const filteredTodos = todos.filter(TODO_FILTERS[filter])
+    const completedCount = todos.reduce((count, todo) =&gt;
+      todo.completed ? count + 1 : count,
+      0
+    )
+
+    return (
+      &lt;section className=&quot;main&quot;&gt;
+        {this.renderToggleAll(completedCount)}
+        &lt;ul className=&quot;todo-list&quot;&gt;
+          {filteredTodos.map(todo =&gt;
+            &lt;TodoItem key={todo.id} todo={todo} {...actions} /&gt;
+          )}
+        &lt;/ul&gt;
+        {this.renderFooter(completedCount)}
+      &lt;/section&gt;
+    )
+  }
+}
+
+MainSection.propTypes = {
+  todos: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+export default MainSection
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-redux-todomvc-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>typescript-import-json-file-with-type-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-import-json-file-with-type-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Import Json File Demo
+================================
+
+With typescript 2.9+ `resolveJsonModule` support, typescript can discovery the types of json file,
+and webstorm can also have type checking.
+
+Webstorm can give tips about the field names:
+
+![demo](./images/demo.jpg)
+
+If typed wrong field names, webstorm reports error:
+
+![demo2](./images/demo2.jpg)
+
+Typescript compiler will also give similar error:
+
+```
+$ npx ts-node hello.ts
+⨯ Unable to compile TypeScript:
+hello.ts(3,29): error TS2551: Property &#39;myName2&#39; does not exist on type &#39;{ &quot;myName&quot;: string; }&#39;. Did you mean &#39;myName&#39;?
+```
+
+Run
+---
+
+```
+npm install
+npx ts-node hello.ts
+```
+
+It will print `[ &#39;typescript&#39;, &#39;json&#39; ]`
+
+Notice
+------
+
+`tsconfig.json` has all necessary options for this demo working.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import data from &#39;./data.json&#39;
+
+console.log(data.map(x =&gt; x.myName))
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

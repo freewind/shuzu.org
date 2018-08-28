@@ -1,0 +1,115 @@
+<html>
+<head>
+    <title>redux-vanilla-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">redux-vanilla-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Redux with vanilla JavaScript
+=============================
+
+Just open the `index.html` file in a browser.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/redux-vanilla-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Redux basic example&lt;/title&gt;
+    &lt;script src=&quot;https://npmcdn.com/redux@latest/dist/redux.min.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div&gt;
+      &lt;p&gt;
+        Clicked: &lt;span id=&quot;value&quot;&gt;0&lt;/span&gt; times
+        &lt;button id=&quot;increment&quot;&gt;+&lt;/button&gt;
+        &lt;button id=&quot;decrement&quot;&gt;-&lt;/button&gt;
+        &lt;button id=&quot;incrementIfOdd&quot;&gt;Increment if odd&lt;/button&gt;
+        &lt;button id=&quot;incrementAsync&quot;&gt;Increment async&lt;/button&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+      function counter(state, action) {
+        if (typeof state === &#39;undefined&#39;) {
+          return 0
+        }
+
+        switch (action.type) {
+          case &#39;INCREMENT&#39;:
+            return state + 1
+          case &#39;DECREMENT&#39;:
+            return state - 1
+          default:
+            return state
+        }
+      }
+
+      var store = Redux.createStore(counter)
+      var valueEl = document.getElementById(&#39;value&#39;)
+
+      function render() {
+        valueEl.innerHTML = store.getState().toString()
+      }
+
+      render()
+      store.subscribe(render)
+
+      document.getElementById(&#39;increment&#39;)
+        .addEventListener(&#39;click&#39;, function () {
+          store.dispatch({ type: &#39;INCREMENT&#39; })
+        })
+
+      document.getElementById(&#39;decrement&#39;)
+        .addEventListener(&#39;click&#39;, function () {
+          store.dispatch({ type: &#39;DECREMENT&#39; })
+        })
+
+      document.getElementById(&#39;incrementIfOdd&#39;)
+        .addEventListener(&#39;click&#39;, function () {
+          if (store.getState() % 2 !== 0) {
+            store.dispatch({ type: &#39;INCREMENT&#39; })
+          }
+        })
+
+      document.getElementById(&#39;incrementAsync&#39;)
+        .addEventListener(&#39;click&#39;, function () {
+          setTimeout(function () {
+            store.dispatch({ type: &#39;INCREMENT&#39; })
+          }, 1000)
+        })
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/redux-vanilla-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/redux-vanilla-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

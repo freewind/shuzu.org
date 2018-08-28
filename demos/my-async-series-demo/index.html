@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>my-async-series-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">my-async-series-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        A very simple implementation of [async](https://github.com/caolan/async)&#39;s `series`.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/my-async-series-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const series = require(&#39;./series&#39;);
+
+function inc(n, callback) {
+  setTimeout(function() {
+    callback(null, n + 1);
+  }, 100);
+}
+
+function err(n, callback) {
+  setTimeout(function() {
+    callback(&#39;my-err&#39;, null);
+  }, 100);
+}
+
+series([
+  function(cb) {inc(3, cb); },
+  function(cb) {inc(8, cb); },
+  function(cb) {inc(2, cb); }
+], function(err, results) {
+  console.log(&#39;err: &#39;, err);
+  console.log(&#39;results: &#39;, results);
+});
+
+series([
+  function(cb) {inc(3, cb); },
+  function(cb) {err(8, cb); },
+  function(cb) {inc(2, cb); }
+], function(err, results) {
+  console.log(&#39;err: &#39;, err);
+  console.log(&#39;results: &#39;, results);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/my-async-series-demo/blob/master/series.js" target="_blank">series.js</a>
+        </div>
+        <div class="path">series.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function _series(tasks, callback, err, result) {
+  if (err) {
+    return callback(err, result);
+  }
+  if (tasks.length === 0) {
+    return callback(null, result);
+  }
+  const firstTask = tasks.shift()
+  firstTask(function(err, data) {
+    if (err) return _series([], callback, err, result);
+    result.push(data);
+    _series(tasks, callback, null, result);
+  })
+}
+
+module.exports = function series(tasks, callback) {
+  _series(tasks, callback, null, []);
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/my-async-series-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/my-async-series-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

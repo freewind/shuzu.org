@@ -1,0 +1,225 @@
+<html>
+<head>
+    <title>servlet-get-request-info-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">servlet-get-request-info-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Get Request Info in Servlet Demo
+===============================
+
+How to get request information in a servlet.
+
+```
+mvn jetty:run
+```
+
+Then visit &lt;http://localhost:8080/mycontext/hello/world?name=111&gt;, and see the information on the page.
+
+```
+RequestURL: http://localhost:8080/mycontext/hello/world
+Scheme: http
+Protocol: HTTP/1.1
+ContextPath: /mycontext
+ServletPath: /hello
+Method: GET
+PathInfo: /world
+QueryString: name=111
+------------------ parameters ------------------
+name : 111
+RequestedSessionId: oty91ifwybfe1cyfexanc6gou
+CharacterEncoding: null
+ContentType: null
+RemoteUser: null
+RemoteAddr: 0:0:0:0:0:0:0:1
+RemotePort: 58602
+RemoteHost: 0:0:0:0:0:0:0:1
+LocalAddr: 0:0:0:0:0:0:0:1
+LocalName: 0:0:0:0:0:0:0:1
+LocalPort: 8080
+ServerName: localhost
+```
+
+Note:
+- `contextPath` is defined in `pom.xml`
+
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/servlet-get-request-info-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-get-request-info-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;servlet-get-request-info-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;2.5&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.eclipse.jetty&lt;/groupId&gt;
+                &lt;artifactId&gt;jetty-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;9.3.14.v20161028&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;webApp&gt;
+                        &lt;contextPath&gt;/mycontext&lt;/contextPath&gt;
+                    &lt;/webApp&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/servlet-get-request-info-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HelloWorldServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.HelloWorldServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;HelloWorldServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/hello/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/servlet-get-request-info-demo/blob/master/src/main/java/demo/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/HelloWorldServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List&lt;String&gt; lines = new ArrayList&lt;String&gt;();
+
+        lines.add(&quot;RequestURL: &quot; + req.getRequestURL());
+
+        lines.add(&quot;Scheme: &quot; + req.getScheme());
+        lines.add(&quot;Protocol: &quot; + req.getProtocol());
+        lines.add(&quot;ContextPath: &quot; + req.getContextPath());
+        lines.add(&quot;ServletPath: &quot; + req.getServletPath());
+        lines.add(&quot;Method: &quot; + req.getMethod());
+        lines.add(&quot;PathInfo: &quot; + req.getPathInfo());
+
+        lines.add(&quot;QueryString: &quot; + req.getQueryString());
+        lines.add(&quot;------------------ parameters ------------------&quot;);
+        Enumeration parameterNames = req.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String name = (String) parameterNames.nextElement();
+            String value = req.getParameter(name);
+            lines.add(name + &quot;: &quot; + value);
+        }
+
+        lines.add(&quot;RequestedSessionId: &quot; + req.getRequestedSessionId());
+        lines.add(&quot;CharacterEncoding: &quot; + req.getCharacterEncoding());
+        lines.add(&quot;ContentType: &quot; + req.getContentType());
+
+        lines.add(&quot;RemoteUser: &quot; + req.getRemoteUser());
+        lines.add(&quot;RemoteAddr: &quot; + req.getRemoteAddr());
+        lines.add(&quot;RemotePort: &quot; + req.getRemotePort());
+        lines.add(&quot;RemoteHost: &quot; + req.getRemoteHost());
+
+        lines.add(&quot;LocalAddr: &quot; + req.getLocalAddr());
+        lines.add(&quot;LocalName: &quot; + req.getLocalName());
+        lines.add(&quot;LocalPort: &quot; + req.getLocalPort());
+
+        lines.add(&quot;ServerName: &quot; + req.getServerName());
+
+        lines.add(&quot;----------------- headers ------------------&quot;);
+        Enumeration headerNames = req.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = (String) headerNames.nextElement();
+            String value = req.getHeader(headerName);
+            lines.add(headerName + &quot;: &quot; + value);
+        }
+
+        lines.add(&quot;----------------- cookies ------------------&quot;);
+        for (Cookie cookie : req.getCookies()) {
+            lines.add(cookie.getName() + &quot;: &quot; + cookie.getValue());
+        }
+
+        for (String line : lines) {
+            resp.getWriter().append(&quot;&lt;div&gt;&quot; + line + &quot;&lt;/div&gt;&quot;);
+        }
+
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/servlet-get-request-info-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/servlet-get-request-info-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

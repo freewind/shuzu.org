@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>typescript-function-return-two-types-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-function-return-two-types-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Function Returns Two Types Demo
+==========================================
+
+Define a function returns two different types of result, and when using this function, how to check the types.
+
+```
+npm install
+npx ts-node hello.ts
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-function-return-two-types-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">function searchIndex(text: string, keyword: string): boolean | number {
+    if (text.includes(keyword)) {
+        return text.indexOf(keyword)
+    } else {
+        return false
+    }
+}
+
+const result = searchIndex(&#39;abc&#39;, &#39;b&#39;)
+if (typeof(result) === &#39;boolean&#39;) {
+    console.log(&#39;searching failed: &#39; + result)
+} else {
+    console.log(&#39;search index: &#39; + result)
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-function-return-two-types-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-function-return-two-types-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

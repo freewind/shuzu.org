@@ -1,0 +1,124 @@
+<html>
+<head>
+    <title>supertest-cookie-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">supertest-cookie-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Supertest with Cookie Demo
+==========================
+
+Using [supertest](https://github.com/visionmedia/supertest) to write tests with cookies.
+
+```
+npm install -g jasmine
+npm install
+node index.js
+```
+
+Run test:
+
+```
+npm test
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/app-spec.js" target="_blank">app-spec.js</a>
+        </div>
+        <div class="path">spec/app-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const request = require(&#39;supertest&#39;);
+const async = require(&#39;async&#39;);
+const app = require(&#39;../index&#39;);
+
+function finish(done) {
+  return (err) =&gt; {
+    if (err) done.fail(err);
+    else done();
+  }
+}
+
+describe(&#39;express application&#39;, () =&gt; {
+
+  it(&#39;/&#39;, (done) =&gt; {
+    request(app)
+      .get(&#39;/&#39;)
+      .expect(200, &#39;Hello, world!&#39;, finish(done));
+  });
+
+  it(&#39;send cookie to server&#39;, (done) =&gt; {
+    request(app)
+      .get(&#39;/set-cookie&#39;)
+      .set(&#39;Cookie&#39;, &#39;token1=111111;token2=222222&#39;)
+      .expect(200, {
+        token1: &#39;111111&#39;,
+        token2: &#39;222222&#39;
+      }, finish(done));
+  });
+
+
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+const cookieParser = require(&#39;cookie-parser&#39;);
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;Hello, world!&#39;);
+});
+
+app.get(&#39;/set-cookie&#39;, function (req, res) {
+  const cookies = req.cookies;
+  res.send(cookies);
+});
+
+
+app.listen(3000, function () {
+  console.log(&#39;Server listening at http://localhost:3000&#39;);
+});
+
+module.exports = app;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/supertest-cookie-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/supertest-cookie-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>express-react-views-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">express-react-views-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        express-react-views demo
+========================
+
+Render react components on the server side.
+
+```
+npm install -g babel-cli
+npm install
+npm start
+```
+
+Then visit:
+
+- &lt;http://localhost:3000/&gt;, you will see html code:
+
+    ```
+    &lt;!DOCTYPE html&gt;&lt;div&gt;Hello World!&lt;/div&gt;
+    ```
+
+- &lt;http://localhost:3000/data&gt;
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-views-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import express from &#39;express&#39;;
+import {createEngine as reactEngine} from &#39;express-react-views&#39;;
+
+const app = express();
+
+app.set(&#39;views&#39;, __dirname + &#39;/views&#39;);
+app.engine(&#39;jsx&#39;, reactEngine());
+
+app.get(&#39;/&#39;, function(req, res) {
+  res.render(&#39;hello.jsx&#39;);
+});
+
+app.get(&#39;/data&#39;, function(req, res) {
+  res.render(&#39;data.jsx&#39;, {names: [&#39;Jeff&#39;, &#39;Mike&#39;, &#39;Lily&#39;]});
+});
+
+app.listen(3000, function() {
+  console.log(&#39;Listening on 3000&#39;);
+});
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-react-views-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-react-views-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

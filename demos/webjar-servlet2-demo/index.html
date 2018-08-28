@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>webjar-servlet2-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">webjar-servlet2-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        how to run
+============
+
+`gradle jettyRun`
+
+Then you can visit:
+
+2. Bootstrap things: `http://localhost:8080/webjar-swagger-ui-demo/webjars/bootstrap/2.2.1/css/bootstrap.min.css`   
+3. Transitive jquery: `http://localhost:8080/webjar-swagger-ui-demo/webjars/jquery/1.8.2/jquery.js`
+
+# webjar with servlet 2
+
+`webjar` is supported directly in servlet 3, but not in servlet 2. 
+
+If you are using a servlet server which is not support with servlet 3, you have to use the `org.webjars:webjars-servlet-2.x:1.3` to make it work, as `web.xml` in this example does.
+
+# Reference
+
+1. Java project skeleton: 
+http://www.jeroenreijn.com/2012/11/hippo-cms-servlet-3-and-webjars.html
+2. https://github.com/webjars/webjars-servlet-2.x
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webjar-servlet2-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+apply plugin: &#39;idea&#39;
+apply plugin: &#39;jetty&#39;
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            &#39;org.webjars:bootstrap:2.2.1&#39;,
+            &#39;org.webjars:webjars-servlet-2.x:1.3&#39;
+    )
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webjar-servlet2-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee
+	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;
+         version=&quot;2.5&quot;&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;WebjarsServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.webjars.servlet.WebjarsServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;WebjarsServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/webjars/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/webjar-servlet2-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/webjar-servlet2-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

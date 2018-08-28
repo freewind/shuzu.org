@@ -1,0 +1,414 @@
+<html>
+<head>
+    <title>products-crud-api - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">products-crud-api</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Products CURD Api
+=================
+
+```
+npm install
+node app.js
+```
+
+Endpoints
+---------
+
+### `GET /products` 
+
+Returns all products information:
+
+```
+curl http://localhost:3000/products/
+```
+
+- `200` and products information in JSON
+
+### `GET /products/:id`
+
+Returns specified product information:
+
+```
+curl http://localhost:3000/products/1
+```
+
+- `200` and specified product information in JSON
+- `404` if not found
+
+### `DELETE /products/:id`
+
+Delete specified product:
+
+```
+curl -X DELETE http://localhost:3000/products/1
+```
+
+Returns: 
+
+- `204` if deleted successfully
+- `404` if not found
+
+### `POST /products`
+
+Create new product:
+
+```
+curl -X POST \
+     -d &#39;{&quot;name&quot;:&quot;Apple&quot;, &quot;unit&quot;: &quot;个&quot;, &quot;price&quot;: 3.4, &quot;barcode&quot;: &quot;23232&quot;}&#39; \
+     -H &quot;Content-Type: application/json&quot; \
+     http://localhost:3000/products
+```
+
+Returns: 
+
+- `201` and created product if created successfully, and the id should be increased each time
+- `400` if any field missing or has invalid type
+
+### `PUT /products/:id`
+
+Modify existing product:
+
+```
+curl -X PUT \
+     -d &#39;{&quot;name&quot;:&quot;Orange&quot;, &quot;unit&quot;: &quot;个&quot;, &quot;price&quot;: 5.5, &quot;barcode&quot;: &quot;sdfsdfsf&quot;}&#39; \
+     -H &quot;Content-Type: application/json&quot; \
+     http://localhost:3000/products/1
+```
+
+Returns: 
+
+- `200` and updated product if update successfully
+- `400` if any field missing or has invalid type
+- `404` if specified product is not existent    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api/blob/master/product-router.js" target="_blank">product-router.js</a>
+        </div>
+        <div class="path">product-router.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var productHandlers = require(&#39;./product-handlers&#39;);
+
+var router = express.Router();
+
+router.route(&#39;/&#39;)
+  .get(productHandlers.getAllProducts)
+  .post(productHandlers.saveProduct);
+
+router.route(&#39;/:id(\\d+)&#39;)
+  .get(productHandlers.getProduct)
+  .put(productHandlers.updateProduct)
+  .delete(productHandlers.deleteProduct);
+
+module.exports = router;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api/blob/master/product-store-file-system.js" target="_blank">product-store-file-system.js</a>
+        </div>
+        <div class="path">product-store-file-system.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var fs = require(&#39;fs&#39;);
+
+var DATA_FILE = &#39;./store.json&#39;;
+var CHARSET = &#39;utf-8&#39;;
+var EMPTY_STORE = {
+  nextId: 1,
+  items: []
+};
+
+function read(callback) {
+  fs.readFile(DATA_FILE, CHARSET, function (err, content) {
+    callback(err, content &amp;&amp; JSON.parse(content));
+  });
+}
+
+function write(store, callback) {
+  fs.writeFile(DATA_FILE, JSON.stringify(store), callback);
+}
+
+function _fileExistsSync(path) {
+  try {
+    var stat = fs.statSync(path);
+    return stat.isFile();
+  } catch (err) {
+    return false;
+  }
+}
+
+function initSync() {
+  var dataFileNotFound = !_fileExistsSync(DATA_FILE);
+  if (dataFileNotFound) {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(EMPTY_STORE));
+  }
+}
+
+module.exports = {
+  read: read,
+  write: write,
+  initSync: initSync
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+var storeFs = require(&#39;./product-store-file-system&#39;);
+var HttpCode = require(&#39;http-status-codes&#39;);
+
+storeFs.initSync();
+
+var app = express();
+app.use(bodyParser.json());
+
+app.use(&#39;/products&#39;, require(&#39;./product-router&#39;));
+
+app.use(function (err, req, res, next) {
+  console.error(err);
+  res.status(HttpCode.INTERNAL_SERVER_ERROR).send(&#39;Some errors happened, please see the log on server&#39;);
+});
+
+var server = app.listen(3000, function () {
+  console.log(&#39;Server listening at:&#39; + server.address().port);
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api/blob/master/product-store.js" target="_blank">product-store.js</a>
+        </div>
+        <div class="path">product-store.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var storeFs = require(&#39;./product-store-file-system&#39;);
+var _ = require(&#39;lodash&#39;);
+
+function _readAndSave(callback, operateOnStore) {
+  storeFs.read(function (err, store) {
+    if (err) return callback(err);
+    var result = operateOnStore(store);
+    storeFs.write(store, function (err) {
+      if (err) return callback(err);
+      callback(null, result);
+    });
+  });
+}
+
+function getAll(callback) {
+  storeFs.read(function (err, store) {
+    if (err) return callback(err);
+    callback(null, store.items);
+  })
+}
+
+function _findById(store, id) {
+  return _.find(store.items, function (item) {
+    return item.id === id;
+  });
+}
+
+function findById(id, callback) {
+  storeFs.read(function (err, store) {
+    if (err) return callback(err);
+    callback(null, _findById(store, id));
+  });
+}
+
+function _deleteById(store, id) {
+  store.items = _.reject(store.items, function (item) {
+    return item.id === id;
+  });
+}
+
+function deleteById(id, callback) {
+  _readAndSave(callback, function (store) {
+    var found = _findById(store, id);
+    if (found) {
+      _deleteById(store, id);
+      return true;
+    } else {
+      return false;
+    }
+  });
+}
+
+function _save(store, data) {
+  data.id = store.nextId;
+  store.items.push(data);
+  store.nextId += 1;
+  return data;
+}
+
+function save(data, callback) {
+  _readAndSave(callback, function (store) {
+    return _save(store, data);
+  });
+}
+
+function _update(store, id, newData) {
+  var index = _.findIndex(store.items, function (item) {
+    return item.id === id;
+  });
+  if (index &gt;= 0) {
+    store.items.splice(index, 1, newData);
+  }
+}
+
+function update(modifiedItem, callback) {
+  _readAndSave(callback, function (store) {
+    var found = _findById(store, modifiedItem.id);
+    if (found) {
+      _update(store, modifiedItem.id, modifiedItem);
+      return true;
+    } else {
+      return false;
+    }
+  })
+}
+
+module.exports = {
+  getAll: getAll,
+  findById: findById,
+  deleteById: deleteById,
+  save: save,
+  update: update
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/products-crud-api/blob/master/product-handlers.js" target="_blank">product-handlers.js</a>
+        </div>
+        <div class="path">product-handlers.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var productStore = require(&#39;./product-store&#39;);
+var HttpCode = require(&#39;http-status-codes&#39;);
+
+function _validData(data) {
+  return typeof data.barcode == &#39;string&#39; &amp;&amp;
+    typeof data.name == &#39;string&#39; &amp;&amp;
+    typeof data.unit == &#39;string&#39; &amp;&amp;
+    typeof data.price == &#39;number&#39;;
+}
+
+function _getProductData(id, body) {
+  return {
+    &quot;id&quot;: id,
+    &quot;barcode&quot;: body.barcode,
+    &quot;name&quot;: body.name,
+    &quot;unit&quot;: body.unit,
+    &quot;price&quot;: body.price
+  };
+}
+
+function deleteProduct(req, res, next) {
+  var id = parseInt(req.params.id);
+  productStore.deleteById(id, function (err, deleted) {
+    if (err)  return next(err);
+    if (deleted) {
+      res.sendStatus(HttpCode.NO_CONTENT);
+    } else {
+      res.sendStatus(HttpCode.NOT_FOUND);
+    }
+  });
+}
+
+function getAllProducts(req, res, next) {
+  productStore.getAll(function (err, items) {
+    if (err) return next(err);
+    res.status(HttpCode.OK).json(items);
+  });
+}
+
+function getProduct(req, res, next) {
+  var id = parseInt(req.params.id);
+  productStore.findById(id, function (err, found) {
+    if (err) return next(err);
+    if (found) {
+      res.status(HttpCode.OK).json(found);
+    } else {
+      res.sendStatus(HttpCode.NOT_FOUND);
+    }
+  });
+}
+
+function saveProduct(req, res, next) {
+  var userData = _getProductData(parseInt(req.params.id), req.body);
+  var invalidData = !_validData(userData);
+  if (invalidData) {
+    return res.sendStatus(HttpCode.BAD_REQUEST);
+  }
+  productStore.save(userData, function (err, insertedData) {
+    if (err) return next(err);
+    res.status(HttpCode.CREATED).json(insertedData);
+  });
+}
+
+function updateProduct(req, res, next) {
+  var modifiedData = _getProductData(parseInt(req.params.id), req.body);
+  var invalidData = !_validData(modifiedData);
+  if (invalidData) {
+    return res.sendStatus(HttpCode.BAD_REQUEST);
+  }
+  productStore.update(modifiedData, function (err, updated) {
+    if (err) return next(err);
+    if (updated) {
+      res.status(HttpCode.OK).json(modifiedData);
+    } else {
+      res.sendStatus(HttpCode.NOT_FOUND);
+    }
+  });
+}
+
+module.exports = {
+  getAllProducts: getAllProducts,
+  deleteProduct: deleteProduct,
+  getProduct: getProduct,
+  saveProduct: saveProduct,
+  updateProduct: updateProduct
+};</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/products-crud-api">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/products-crud-api/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

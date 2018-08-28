@@ -1,0 +1,547 @@
+<html>
+<head>
+    <title>angular-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angular-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        # AngularHelloWorldDemo
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Resource
+========
+
+The code of this project is coming from &lt;https://angular.io/guide/quickstart&gt;
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/e2e/app.e2e-spec.ts" target="_blank">app.e2e-spec.ts</a>
+        </div>
+        <div class="path">e2e/app.e2e-spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { AppPage } from &#39;./app.po&#39;;
+
+describe(&#39;angular-hello-world-demo App&#39;, () =&gt; {
+  let page: AppPage;
+
+  beforeEach(() =&gt; {
+    page = new AppPage();
+  });
+
+  it(&#39;should display welcome message&#39;, () =&gt; {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual(&#39;Welcome to app!&#39;);
+  });
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/e2e/app.po.ts" target="_blank">app.po.ts</a>
+        </div>
+        <div class="path">e2e/app.po.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { browser, by, element } from &#39;protractor&#39;;
+
+export class AppPage {
+  navigateTo() {
+    return browser.get(&#39;/&#39;);
+  }
+
+  getParagraphText() {
+    return element(by.css(&#39;app-root h1&#39;)).getText();
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/polyfills.ts" target="_blank">polyfills.ts</a>
+        </div>
+        <div class="path">src/polyfills.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">/**
+ * This file includes polyfills needed by Angular and is loaded before the app.
+ * You can add your own extra polyfills to this file.
+ *
+ * This file is divided into 2 sections:
+ *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+ *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *      file.
+ *
+ * The current setup is for so-called &quot;evergreen&quot; browsers; the last versions of browsers that
+ * automatically update themselves. This includes Safari &gt;= 10, Chrome &gt;= 55 (including Opera),
+ * Edge &gt;= 13 on the desktop, and iOS 10 and Chrome on mobile.
+ *
+ * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
+ */
+
+/***************************************************************************************************
+ * BROWSER POLYFILLS
+ */
+
+/** IE9, IE10 and IE11 requires all of the following polyfills. **/
+// import &#39;core-js/es6/symbol&#39;;
+// import &#39;core-js/es6/object&#39;;
+// import &#39;core-js/es6/function&#39;;
+// import &#39;core-js/es6/parse-int&#39;;
+// import &#39;core-js/es6/parse-float&#39;;
+// import &#39;core-js/es6/number&#39;;
+// import &#39;core-js/es6/math&#39;;
+// import &#39;core-js/es6/string&#39;;
+// import &#39;core-js/es6/date&#39;;
+// import &#39;core-js/es6/array&#39;;
+// import &#39;core-js/es6/regexp&#39;;
+// import &#39;core-js/es6/map&#39;;
+// import &#39;core-js/es6/weak-map&#39;;
+// import &#39;core-js/es6/set&#39;;
+
+/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+// import &#39;classlist.js&#39;;  // Run `npm install --save classlist.js`.
+
+/** IE10 and IE11 requires the following for the Reflect API. */
+// import &#39;core-js/es6/reflect&#39;;
+
+
+/** Evergreen browsers require these. **/
+// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
+import &#39;core-js/es7/reflect&#39;;
+
+
+/**
+ * Required to support Web Animations `@angular/platform-browser/animations`.
+ * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+ **/
+// import &#39;web-animations-js&#39;;  // Run `npm install --save web-animations-js`.
+
+
+
+/***************************************************************************************************
+ * Zone JS is required by default for Angular itself.
+ */
+import &#39;zone.js/dist/zone&#39;;  // Included with Angular CLI.
+
+
+
+/***************************************************************************************************
+ * APPLICATION IMPORTS
+ */
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/typings.d.ts" target="_blank">typings.d.ts</a>
+        </div>
+        <div class="path">src/typings.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">/* SystemJS module definition */
+declare var module: NodeModule;
+interface NodeModule {
+  id: string;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/app/app.component.ts" target="_blank">app.component.ts</a>
+        </div>
+        <div class="path">src/app/app.component.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {Component} from &#39;@angular/core&#39;;
+
+@Component({
+  selector: &#39;app-root&#39;,
+  templateUrl: &#39;./app.component.html&#39;,
+  styleUrls: [&#39;./app.component.css&#39;]
+})
+export class AppComponent {
+  title = &#39;Angular Hello World Demo&#39;;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/app/app.component.html" target="_blank">app.component.html</a>
+        </div>
+        <div class="path">src/app/app.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!--The content below is only a placeholder and can be replaced.--&gt;
+&lt;div style=&quot;text-align:center&quot;&gt;
+  &lt;h1&gt;
+    Welcome to {{ title }}!
+  &lt;/h1&gt;
+  &lt;img width=&quot;300&quot; alt=&quot;Angular Logo&quot; src=&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==&quot;&gt;
+&lt;/div&gt;
+&lt;h2&gt;Here are some links to help you start: &lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h2&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;https://angular.io/tutorial&quot;&gt;Tour of Heroes&lt;/a&gt;&lt;/h2&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;https://github.com/angular/angular-cli/wiki&quot;&gt;CLI Documentation&lt;/a&gt;&lt;/h2&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener&quot; href=&quot;https://blog.angular.io/&quot;&gt;Angular blog&lt;/a&gt;&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/app/app.component.spec.ts" target="_blank">app.component.spec.ts</a>
+        </div>
+        <div class="path">src/app/app.component.spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { TestBed, async } from &#39;@angular/core/testing&#39;;
+import { AppComponent } from &#39;./app.component&#39;;
+describe(&#39;AppComponent&#39;, () =&gt; {
+  beforeEach(async(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [
+        AppComponent
+      ],
+    }).compileComponents();
+  }));
+  it(&#39;should create the app&#39;, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
+  it(`should have as title &#39;app&#39;`, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual(&#39;app&#39;);
+  }));
+  it(&#39;should render title in a h1 tag&#39;, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector(&#39;h1&#39;).textContent).toContain(&#39;Welcome to app!&#39;);
+  }));
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/app/app.module.ts" target="_blank">app.module.ts</a>
+        </div>
+        <div class="path">src/app/app.module.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { BrowserModule } from &#39;@angular/platform-browser&#39;;
+import { NgModule } from &#39;@angular/core&#39;;
+
+
+import { AppComponent } from &#39;./app.component&#39;;
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/app/app.component.css" target="_blank">app.component.css</a>
+        </div>
+        <div class="path">src/app/app.component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/environments/environment.ts" target="_blank">environment.ts</a>
+        </div>
+        <div class="path">src/environments/environment.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+
+export const environment = {
+  production: false
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/environments/environment.prod.ts" target="_blank">environment.prod.ts</a>
+        </div>
+        <div class="path">src/environments/environment.prod.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">export const environment = {
+  production: true
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/test.ts" target="_blank">test.ts</a>
+        </div>
+        <div class="path">src/test.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">// This file is required by karma.conf.js and loads recursively all the .spec and framework files
+
+import &#39;zone.js/dist/zone-testing&#39;;
+import { getTestBed } from &#39;@angular/core/testing&#39;;
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from &#39;@angular/platform-browser-dynamic/testing&#39;;
+
+declare const require: any;
+
+// First, initialize the Angular testing environment.
+getTestBed().initTestEnvironment(
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting()
+);
+// Then we find all the tests.
+const context = require.context(&#39;./&#39;, true, /\.spec\.ts$/);
+// And load the modules.
+context.keys().map(context);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
+        </div>
+        <div class="path">src/main.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { enableProdMode } from &#39;@angular/core&#39;;
+import { platformBrowserDynamic } from &#39;@angular/platform-browser-dynamic&#39;;
+
+import { AppModule } from &#39;./app/app.module&#39;;
+import { environment } from &#39;./environments/environment&#39;;
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err =&gt; console.log(err));
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/styles.css" target="_blank">styles.css</a>
+        </div>
+        <div class="path">src/styles.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">/* You can add global styles to this file, and also import other style files */
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/src/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">src/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;AngularHelloWorldDemo&lt;/title&gt;
+  &lt;base href=&quot;/&quot;&gt;
+
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;favicon.ico&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/karma.conf.js" target="_blank">karma.conf.js</a>
+        </div>
+        <div class="path">karma.conf.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
+
+module.exports = function (config) {
+  config.set({
+    basePath: &#39;&#39;,
+    frameworks: [&#39;jasmine&#39;, &#39;@angular/cli&#39;],
+    plugins: [
+      require(&#39;karma-jasmine&#39;),
+      require(&#39;karma-chrome-launcher&#39;),
+      require(&#39;karma-jasmine-html-reporter&#39;),
+      require(&#39;karma-coverage-istanbul-reporter&#39;),
+      require(&#39;@angular/cli/plugins/karma&#39;)
+    ],
+    client:{
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    coverageIstanbulReporter: {
+      reports: [ &#39;html&#39;, &#39;lcovonly&#39; ],
+      fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: &#39;dev&#39;
+    },
+    reporters: [&#39;progress&#39;, &#39;kjhtml&#39;],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: [&#39;Chrome&#39;],
+    singleRun: false
+  });
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-hello-world-demo/blob/master/protractor.conf.js" target="_blank">protractor.conf.js</a>
+        </div>
+        <div class="path">protractor.conf.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Protractor configuration file, see link for more information
+// https://github.com/angular/protractor/blob/master/lib/config.ts
+
+const { SpecReporter } = require(&#39;jasmine-spec-reporter&#39;);
+
+exports.config = {
+  allScriptsTimeout: 11000,
+  specs: [
+    &#39;./e2e/**/*.e2e-spec.ts&#39;
+  ],
+  capabilities: {
+    &#39;browserName&#39;: &#39;chrome&#39;
+  },
+  directConnect: true,
+  baseUrl: &#39;http://localhost:4200/&#39;,
+  framework: &#39;jasmine&#39;,
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000,
+    print: function() {}
+  },
+  onPrepare() {
+    require(&#39;ts-node&#39;).register({
+      project: &#39;e2e/tsconfig.e2e.json&#39;
+    });
+    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+  }
+};
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angular-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angular-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

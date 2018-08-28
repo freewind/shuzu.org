@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>jest-specify-test-dir-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">jest-specify-test-dir-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Jest Demo
+==========
+
+Use jest to mock modules, and put test files in `spec`(not default `__tests__`)
+
+```
+npm install -g jest-cli
+npm install
+npm test
+```
+
+Notice `jest` configuration in `package.json`    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/spec/square-sum-spec.js" target="_blank">square-sum-spec.js</a>
+        </div>
+        <div class="path">spec/square-sum-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">jest.unmock(&#39;../square-sum&#39;);
+
+describe(&#39;square-sum&#39;, () =&gt; {
+  it(&#39;[1,2,5]&#39;, () =&gt; {
+    jest.mock(&#39;../square&#39;, () =&gt; {
+      return jest.fn((n) =&gt; n * n);
+    });
+    const squareSum = require(&#39;../square-sum&#39;);
+    const result = squareSum([1, 2, 5]);
+    expect(result).toEqual(30);
+  })
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square.js" target="_blank">square.js</a>
+        </div>
+        <div class="path">square.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function square(a) {
+  throw new Error(&#39;todo&#39;);
+}
+
+module.exports = square;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square-sum.js" target="_blank">square-sum.js</a>
+        </div>
+        <div class="path">square-sum.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const square = require(&#39;./square&#39;);
+
+function squareSum(numbers) {
+  return numbers.reduce((r, n) =&gt; r + square(n));
+}
+
+module.exports = squareSum;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

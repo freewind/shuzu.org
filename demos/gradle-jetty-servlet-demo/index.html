@@ -1,0 +1,138 @@
+<html>
+<head>
+    <title>gradle-jetty-servlet-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">gradle-jetty-servlet-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Servlet Demo
+============
+
+```
+gradle jettyRun
+```
+
+Then visit &lt;http://localhost:8080/gradle-jetty-servlet-demo&gt;
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jetty-servlet-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+apply plugin: &#39;idea&#39;
+apply plugin: &#39;jetty&#39;
+apply plugin: &#39;war&#39;
+
+repositories {
+    mavenLocal()
+    maven {
+        url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39;
+    }
+    maven {
+        url &quot;http://dl.bintray.com/greghaskins/maven&quot;
+    }
+}
+
+dependencies {
+    providedCompile &#39;javax.servlet:servlet-api:2.5&#39;
+    compile(
+            &#39;org.apache.commons:commons-lang3:3.2.1&#39;,
+            &#39;org.apache.commons:commons-io:1.3.2&#39;,
+            &#39;com.google.guava:guava:16.0&#39;
+    )
+    testCompile(
+            &#39;com.greghaskins:spectrum:0.4.4&#39;,
+            &#39;org.assertj:assertj-core:2.2.0&#39;,
+            &#39;junit:junit:4.11&#39;
+    )
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jetty-servlet-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+
+	&lt;servlet&gt;
+		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+		&lt;servlet-class&gt;example.HelloWorldServlet&lt;/servlet-class&gt;
+	&lt;/servlet&gt;
+
+	&lt;servlet-mapping&gt;
+		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+		&lt;url-pattern&gt;/&lt;/url-pattern&gt;
+	&lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jetty-servlet-demo/blob/master/src/main/java/example/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a>
+        </div>
+        <div class="path">src/main/java/example/HelloWorldServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        PrintWriter out = response.getWriter();
+        out.println(&quot;&lt;html&gt;&quot;);
+        out.println(&quot;&lt;body&gt;&quot;);
+        out.println(&quot;&lt;h1&gt;Hello World!&lt;/h1&gt;&quot;);
+        out.println(&quot;&lt;/body&gt;&quot;);
+        out.println(&quot;&lt;/html&gt;&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/gradle-jetty-servlet-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/gradle-jetty-servlet-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

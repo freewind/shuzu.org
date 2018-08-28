@@ -1,0 +1,164 @@
+<html>
+<head>
+    <title>kotlin-jdbc-rs-column-names-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-jdbc-rs-column-names-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Get Jdbc ResultSet Column Names Demo
+====================================
+
+Use h2 database for demo, get columeName and displayName(alias name) from `ResultSet`.
+
+See `Hello.kt` file and run it.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-jdbc-rs-column-names-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.50&#39;
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin&#39;
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    compile &quot;org.apache.commons:commons-lang3:3.7&quot;
+    compile &quot;commons-io:commons-io:2.6&quot;
+    compile &#39;com.h2database:h2:1.4.197&#39;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile &#39;org.assertj:assertj-core:3.9.0&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-jdbc-rs-column-names-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.ResultSet
+
+fun main(args: Array&lt;String&gt;) {
+    Class.forName(&quot;org.h2.Driver&quot;)
+
+    val conn = DriverManager.getConnection(&quot;jdbc:h2:mem:mydb&quot;, &quot;sa&quot;, &quot;sa&quot;) // (2)
+
+    conn.use {
+
+        conn.createStatement().use { stmt -&gt;
+            with(stmt) {
+                executeUpdate(&quot;create table users(id int primary key, name varchar(255))&quot;)
+                executeUpdate(&quot;insert into users values(1, &#39;Hello&#39;)&quot;)
+                executeUpdate(&quot;insert into users values(2, &#39;World&#39;)&quot;)
+            }
+        }
+
+        printColumnNames(conn)
+
+        printAliasNames(conn)
+    }
+
+}
+
+private fun printColumnNames(conn: Connection) {
+    conn.createStatement().use { stmt -&gt;
+        val rs = stmt.executeQuery(&quot;select * from users&quot;)
+        val columnNames = getColumnNames(rs)
+        columnNames.forEach { name -&gt; print(&quot;$name\t&quot;) }.also { println() }
+        printRsRows(rs, columnNames)
+    }
+}
+
+private fun printAliasNames(conn: Connection) {
+    conn.createStatement().use { stmt -&gt;
+        val rs = stmt.executeQuery(&quot;select id as id_alias, name as name_alias from users&quot;)
+        val aliasNames = getColumnAliasNames(rs)
+        aliasNames.forEach { name -&gt; print(&quot;$name\t&quot;) }.also { println() }
+        printRsRows(rs, aliasNames)
+    }
+}
+
+private fun printRsRows(rs: ResultSet, columnNames: List&lt;String&gt;) {
+    while (rs.next()) {
+        columnNames.forEach { name -&gt;
+            print(rs.getObject(name).toString() + &quot;\t&quot;)
+        }
+        println()
+    }
+}
+
+private fun getColumnNames(rs: ResultSet): List&lt;String&gt; {
+    val metaData = rs.metaData
+    return (1..metaData.columnCount).map { metaData.getColumnName(it) }.toList()
+}
+
+private fun getColumnAliasNames(rs: ResultSet): List&lt;String&gt; {
+    val metaData = rs.metaData
+    return (1..metaData.columnCount).map { metaData.getColumnLabel(it) }.toList()
+}
+
+fun &lt;T : AutoCloseable?, R&gt; T.use(block: (T) -&gt; R): R {
+    try {
+        return block(this)
+    } finally {
+        try {
+            this?.close()
+        } catch (e: Exception) {
+            println(e.toString())
+        }
+    }
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-jdbc-rs-column-names-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-jdbc-rs-column-names-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

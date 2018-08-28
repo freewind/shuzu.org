@@ -1,0 +1,112 @@
+<html>
+<head>
+    <title>virtual-dom-diff-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">virtual-dom-diff-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Virtual-Dom Demo
+================
+
+[vitual-dom](https://github.com/Matt-Esch/virtual-dom) demo.
+
+```
+npm install
+npm install -g browserify
+browserify index.js -o bundle.js
+open index.html
+```
+
+Open `index.html` to see the result.
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/virtual-dom-diff-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var h = require(&#39;virtual-dom/h&#39;);
+var diff = require(&#39;virtual-dom/diff&#39;);
+var patch = require(&#39;virtual-dom/patch&#39;);
+var createElement = require(&#39;virtual-dom/create-element&#39;);
+
+// 1: Create a function that declares what the DOM should look like
+function render(count)  {
+    return h(&#39;div&#39;, {
+        style: {
+            textAlign: &#39;center&#39;,
+            lineHeight: (100 + count) + &#39;px&#39;, 
+            border: &#39;1px solid red&#39;,
+            width: (100 + count) + &#39;px&#39;,
+            height: (100 + count) + &#39;px&#39;
+        }
+    }, [String(count)]);
+}
+
+// 2: Initialise the document
+var count = 0;      // We need some app data. Here we just store a count.
+
+var tree = render(count);               // We need an initial tree
+var rootNode = createElement(tree);     // Create an initial root DOM node ...
+document.body.appendChild(rootNode);    // ... and it should be in the document
+
+// 3: Wire up the update logic
+setInterval(function () {
+      count++;
+      
+      var newTree = render(count);
+      var patches = diff(tree, newTree);
+      rootNode = patch(rootNode, patches);
+      tree = newTree;
+}, 1000);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/virtual-dom-diff-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;style type=&#39;text/css&#39;&gt;
+html, body { margin: 0; padding: 0; border: 0; }
+body, html { height: 100%; width: 100%; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/virtual-dom-diff-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/virtual-dom-diff-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

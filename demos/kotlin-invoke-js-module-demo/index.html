@@ -1,0 +1,220 @@
+<html>
+<head>
+    <title>kotlin-invoke-js-module-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-invoke-js-module-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Invoke Js Module Demo
+=======================
+
+在JavaScript的AMD规范中，我们可以通过`define`来定义一个module:
+
+```
+define(&#39;hello&#39;, function() {
+    return function(name) {
+        console.log(&quot;Hello, &quot; + name + &quot;!&quot;);
+    }
+})
+```
+
+这里就定义了一个名为`hello`的module。
+
+那么我们的KotlinJs中，应该如何引用它呢？
+------------------------
+
+主要是通过`@JsModule`这个annotation将我们定义的某个wrapper与它关联起来：
+
+```
+@JsModule(&quot;hello&quot;)
+external val hello: (String) -&gt; Unit = definedExternally
+```
+
+运行示例
+-------
+
+为了能够让代码完整的运行起来，我们还需要借助一些AMD模块载入库，比如`requirejs`等，以及相应的配置。这些可以在`index.html`中看到。
+
+Run:
+
+```
+npm install
+./gradlew clean compileKotlin2Js
+npm install -g http-server
+http-server .
+```
+
+Open &lt;http://localhost:8080/index.html&gt; from your browser, you will see &quot;Hello, Kotlin!&quot; in console of your browser&#39;s developer panel.
+
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.60&#39;
+    repositories {
+        mavenCentral()
+        maven { url(&quot;https://plugins.gradle.org/m2/&quot;) }
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+
+}
+
+apply plugin: &#39;kotlin2js&#39;
+
+compileKotlin2Js.kotlinOptions.moduleKind = &quot;amd&quot;
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version&quot;
+}
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/kotlin/example/Hello.kt.md" target="_blank">Hello.kt.md</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">通过`@JsModule(&quot;hello&quot;)`中指定的`hello`，我们可以把一个不同名的函数`helloDifferentName`与它关联起来。
+
+这样当我们因某种需要修改了`helloDifferentName`函数的名字，它依然指向在Js文件中定义的`hello` module.</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlin.browser.document
+
+@JsModule(&quot;hello&quot;)
+external fun helloDifferentName(name: String): String = definedExternally
+
+fun main(args: Array&lt;String&gt;) {
+    document.getElementById(&quot;main&quot;)!!.innerHTML = helloDifferentName(&quot;KotlinJS&quot;)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/resources/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">src/main/resources/hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">define(&#39;hello&#39;, function() {
+    return function(name) {
+        return &quot;Hello, &quot; + name + &quot;!&quot;;
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/resources/hello.js.md" target="_blank">hello.js.md</a>
+        </div>
+        <div class="path">src/main/resources/hello.js.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">`define`是JavaScript中AMD规范中定义的方法，
+详情可见: &lt;https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/build.gradle.md" target="_blank">build.gradle.md</a>
+        </div>
+        <div class="path">build.gradle.md</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="md">需要注意的是，我们也必须使用`AMD`规范来发布我们自己的库：
+
+```
+compileKotlin2Js.kotlinOptions.moduleKind = &quot;amd&quot;
+```</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;kotlin-invoke-js-module-demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;main&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/requirejs/require.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    require.config({
+      paths: {
+        &quot;kotlin&quot;: &quot;./node_modules/kotlin/kotlin&quot;,
+        &quot;hello&quot;: &quot;src/main/resources/hello&quot;,
+        &quot;main&quot;: &quot;build/classes/kotlin/main/kotlin-invoke-js-module-demo&quot;
+      }
+　　 });
+    require([&quot;main&quot;]);
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

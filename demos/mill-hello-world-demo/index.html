@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>mill-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">mill-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Mill Base Project Demo
+======================
+
+Install mill:
+
+```
+sudo curl -L -o /usr/local/bin/mill https://github.com/lihaoyi/mill/releases/download/0.1.3/0.1.3 &amp;&amp; sudo chmod +x /usr/local/bin/mill
+```
+
+Run project:
+
+```
+mill demo.test
+```
+
+Generate IDEA project:
+
+```
+mill.scalalib.GenIdeaModule/idea
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mill-hello-world-demo/blob/master/demo/test/src/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
+        </div>
+        <div class="path">demo/test/src/example/HelloSpec.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+  test(&quot;The Hello object should say hello&quot;) {
+    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mill-hello-world-demo/blob/master/demo/src/example/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">demo/src/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+object Hello extends App {
+
+  def hello(name: String) = s&quot;Hello, $name!&quot;
+
+  println(hello(&quot;Scala&quot;))
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mill-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mill-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

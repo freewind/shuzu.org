@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>kotlin-gradle-dsl-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-gradle-dsl-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Use Gradle-Kotlin-DSL to write build file
+=========================================
+
+Use Kotlin to write `build.gradle.kts` instead of `build.gradle&#39;.
+
+But with `build.gradle.kts`, IDEA becomes quite slow, makes it inefficient.
+
+I tried but gave up to use it as the first choice, until the performance becomes better.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    println(hello(&quot;Kotlin&quot;))
+}
+
+fun hello(name: String): String = &quot;Hello, $name!&quot;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

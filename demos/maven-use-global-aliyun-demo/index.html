@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>maven-use-global-aliyun-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">maven-use-global-aliyun-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Maven Use Aliyun as Global Repository Demo
+==========================================
+
+Check the configuration files using by maven
+--------------------------------------------
+
+Run:
+
+```
+mvn -X
+```
+
+and search `settings`, you will see following output:
+
+```
+[DEBUG] Reading global settings from /usr/local/Cellar/maven/3.5.3/libexec/conf/settings.xml
+[DEBUG] Reading user settings from /Users/freewind/.m2/settings.xml
+[DEBUG] Reading global toolchains from /usr/local/Cellar/maven/3.5.3/libexec/conf/toolchains.xml
+[DEBUG] Reading user toolchains from /Users/freewind/.m2/toolchains.xml
+[DEBUG] Using local repository at /Users/freewind/.m2/repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for /Users/freewind/.m2/repository
+```
+
+Very useful information.
+
+Create ~/.m2/settings.xml
+-------------------------
+
+Check if `~/.m2/settings.xml` exist. If not, create it and fill with the basic content:
+
+```
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+          xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+&lt;/settings&gt;
+```
+
+also you can view the global `settings.xml` to see the complete example.
+
+Add aliyun
+----------
+
+Add aliyun as a mirror of `central` to `~/.m2/settings.xml`:
+
+```
+&lt;mirrors&gt;
+    &lt;mirror&gt;
+          &lt;id&gt;alimaven&lt;/id&gt;
+          &lt;name&gt;aliyun maven&lt;/name&gt;
+          &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+          &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+    &lt;/mirror&gt;
+&lt;/mirrors&gt;
+```
+
+or use the superset of maven central -- jcenter:
+
+```
+&lt;mirrors&gt;
+    &lt;mirror&gt;
+          &lt;id&gt;alimaven&lt;/id&gt;
+          &lt;name&gt;aliyun jcenter&lt;/name&gt;
+          &lt;url&gt;http://maven.aliyun.com/nexus/content/repositories/jcenter&lt;/url&gt;
+          &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+    &lt;/mirror&gt;
+&lt;/mirrors&gt;
+```
+
+Test
+----
+
+Run `mvn` command in this project, and add the `-X` argument, like
+
+```
+mvn test -X
+```
+
+You will see the url it uses in the log.
+
+Resources
+---------
+
+- &lt;https://www.jianshu.com/p/d95d0b1b6975&gt;
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-use-global-aliyun-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
+        </div>
+        <div class="path">pom.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+            &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+            &lt;version&gt;3.10.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-use-global-aliyun-demo/blob/master/src/test/java/demo/HelloTest.java" target="_blank">HelloTest.java</a>
+        </div>
+        <div class="path">src/test/java/demo/HelloTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class HelloTest {
+
+    @Test
+    public void shouldGreetingWithPassingName() throws Exception {
+        Hello hello = new Hello();
+        assertEquals(hello.greeting(&quot;Freewind&quot;), &quot;Hello, Freewind!&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-use-global-aliyun-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+public class Hello {
+
+    public String greeting(String name) {
+        return &quot;Hello, &quot; + name + &quot;!&quot;;
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/maven-use-global-aliyun-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/maven-use-global-aliyun-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>go-crypto-nacl-box-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">go-crypto-nacl-box-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Go Hello World Demo
+===================
+
+```
+brew install go
+go run hello.go
+```
+
+You will see `Hello, go!`
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-crypto-nacl-box-demo/blob/master/hello.go" target="_blank">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main;
+
+import (
+	&quot;crypto/rand&quot;
+	&quot;golang.org/x/crypto/nacl/box&quot;
+	&quot;golang.org/x/crypto/nacl/secretbox&quot;
+	&quot;fmt&quot;
+)
+
+func main() {
+	myPublicKey, myPrivateKey, _ := box.GenerateKey(rand.Reader)
+	fmt.Printf(&quot;My private key: %02X\n&quot;, myPrivateKey)
+	fmt.Printf(&quot;My public key: %02X\n&quot;, myPublicKey)
+
+	peerPublicKey, peerPrivateKey, _ := box.GenerateKey(rand.Reader)
+	fmt.Printf(&quot;Peer private key: %02X\n&quot;, peerPrivateKey)
+	fmt.Printf(&quot;Peer public key: %02X\n&quot;, peerPublicKey)
+
+	sharedSecret := computeSharedSecret(peerPublicKey, myPrivateKey)
+	fmt.Printf(&quot;Shared secret: %02X\n&quot;, sharedSecret)
+
+	message := []byte{1, 2, 3, 4, 5}
+	nonce := [24]byte{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24}
+	fmt.Printf(&quot;message : %02X\n&quot;, message)
+	fmt.Printf(&quot;Nonce   : %02X\n&quot;, nonce)
+
+	//output := []byte{10, 11}
+	box1 := secretbox.Seal([]byte{}, message, &amp;nonce, sharedSecret)
+	fmt.Printf(&quot;Box1    : %02X\n&quot;, box1)
+
+	opened, _ := secretbox.Open([]byte{}, box1, &amp;nonce, sharedSecret)
+	fmt.Printf(&quot;Opened  : %02X\n&quot;, opened)
+}
+
+func computeSharedSecret(peerPublicKey, privateKey *[32]byte) (sharedSecret *[32]byte) {
+	sharedSecret = new([32]byte)
+	box.Precompute(sharedSecret, peerPublicKey, privateKey)
+	return
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-crypto-nacl-box-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-crypto-nacl-box-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

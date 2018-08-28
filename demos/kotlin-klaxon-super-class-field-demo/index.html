@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title>kotlin-klaxon-super-class-field-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">kotlin-klaxon-super-class-field-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Kotlin Klaxon Super Class Field Demo
+======================================
+
+Parse and render a data class which has a super class also with fields.
+
+You can see the `id` field in super class is ignored when parsing a JSON string.    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.50&#39;
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+    }
+}
+
+apply plugin: &#39;kotlin&#39;
+apply plugin: &#39;application&#39;
+
+mainClassName = &#39;example.Hello&#39;
+
+defaultTasks &#39;run&#39;
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    implementation &#39;com.beust:klaxon:3.0.1&#39;
+    testCompile &quot;junit:junit:4.11&quot;
+    testCompile &#39;org.assertj:assertj-core:3.9.0&#39;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version&quot;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &quot;4.6&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import com.beust.klaxon.Json
+import com.beust.klaxon.Klaxon
+
+private val klaxon = Klaxon()
+
+fun main(args: Array&lt;String&gt;) {
+    render()
+    parse()
+}
+
+private fun render() {
+    val child = Child(&quot;Hello&quot;)
+    val json = klaxon.toJsonString(child)
+    println(json)
+}
+
+private fun parse() {
+    val json = &quot;&quot;&quot;{&quot;name&quot; : &quot;Hello&quot;, &quot;id&quot; : -99}&quot;&quot;&quot;
+    val child = klaxon.parse&lt;Child&gt;(json)
+    println(child)
+}
+
+
+private var id = 100
+private fun nextId(): Int {
+    return id++
+}
+
+open class Super(@Json(name = &quot;id&quot;, ignored = false) val id: Int = nextId())
+data class Child(val name: String) : Super()
+
+
+
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

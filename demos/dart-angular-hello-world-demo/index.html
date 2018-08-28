@@ -1,0 +1,222 @@
+<html>
+<head>
+    <title>dart-angular-hello-world-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">dart-angular-hello-world-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ## Setup for Development
+
+This project is cloned from &lt;https://github.com/angular-examples/quickstart&gt;.
+
+Welcome to the example app used in the
+[Setup for Development](https://webdev.dartlang.org/angular/guide/setup) page
+of [Dart for the web](https://webdev.dartlang.org).
+
+You can run a [hosted copy](https://webdev.dartlang.org/examples/quickstart) of this
+sample. Or run your own copy:
+
+1. Create a local copy of this repo (use the &quot;Clone or download&quot; button above).
+2. Get the dependencies: `pub get`
+3. Launch a development server: `pub serve`
+4. In a browser, open [http://localhost:8080](http://localhost:8080)
+
+In Dartium, you&#39;ll see the app right away. In other modern browsers,
+you&#39;ll have to wait a bit while pub converts the app.
+
+---
+
+*Note:* The content of this repository is generated from the
+[Angular docs repository][docs repo] by running the
+[dart-doc-syncer](//github.com/dart-lang/dart-doc-syncer) tool.
+If you find a problem with this sample&#39;s code, please open an [issue][].
+
+[docs repo]: //github.com/dart-lang/site-webdev/tree/master/examples/ng/doc/quickstart
+[issue]: //github.com/dart-lang/site-webdev/issues/new?title=examples/ng/doc/quickstart
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/blob/master/web/styles.css" target="_blank">styles.css</a>
+        </div>
+        <div class="path">web/styles.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">/* Master Styles */
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2, h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
+}
+a {
+  cursor: pointer;
+  cursor: hand;
+}
+button {
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+
+/* Navigation link styles */
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+}
+nav a:visited, a:link {
+  color: #607D8B;
+}
+nav a:hover {
+  color: #039be5;
+  background-color: #CFD8DC;
+}
+nav a.active {
+  color: #039be5;
+}
+
+/* items class */
+.items {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 24em;
+}
+.items li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.items li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.items li.selected {
+  background-color: #CFD8DC;
+  color: white;
+}
+.items li.selected:hover {
+  background-color: #BBD8DC;
+}
+.items .text {
+  position: relative;
+  top: -3px;
+}
+.items .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/blob/master/web/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">web/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;script&gt;
+    // WARNING: DO NOT set the &lt;base href&gt; like this in production!
+    // Details: https://webdev.dartlang.org/angular/guide/router
+    (function () {
+      var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+      document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
+    }());
+  &lt;/script&gt;
+
+  &lt;title&gt;Hello Angular&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+
+  &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
+  &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;my-app&gt;Loading...&lt;/my-app&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

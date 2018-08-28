@@ -1,0 +1,104 @@
+<html>
+<head>
+    <title>angularjs1-controller-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-controller-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Controller Demo
+===========================
+
+Define a controller in [AngularJS1](https://angularjs.org/).
+
+```
+npm install
+open index.html
+```
+
+The traps in the code
+---------------------
+
+### `angular.module(&#39;app&#39;, [])`
+
+`angular.module(&#39;app&#39;, [])` is to define a module, and `angular.module(&#39;app&#39;)` is to get a module.
+The only difference is the second argument, but the behavior is completely different!
+
+Why not give a better method name to guid user, rather than give error message in console like:
+
+&gt; angular.js:138 Uncaught Error: [$injector:modulerr] Failed to instantiate module app due to:
+&gt; Error: [$injector:nomod] Module &#39;app&#39; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.
+
+### `ng-app=&quot;app&quot;`
+
+The value `app` here should be equal to the one in `angular.module(&#39;app&#39;, [])`. Don&#39;t forget
+
+![demo](./images/demo.jpg)    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-controller-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div&gt;
+    &lt;div ng-controller=&quot;HelloController&quot;&gt;
+        &lt;label&gt;Name&lt;/label&gt;
+        &lt;input type=&quot;text&quot; ng-model=&quot;userName&quot;/&gt;
+        &lt;button ng-click=&quot;sayHello()&quot;&gt;Say Hi!&lt;/button&gt;
+        &lt;div ng-show=&quot;showHelloWords&quot;&gt;Hi, {{userName}}!&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-controller-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.controller(&#39;HelloController&#39;, function ($scope) {
+    $scope.userName = &quot;AngularJs1&quot;;
+    $scope.showHelloWords = false;
+    $scope.sayHello = function () {
+        this.showHelloWords = true
+    }
+});</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-controller-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-controller-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

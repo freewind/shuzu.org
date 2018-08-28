@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>python-class-extension-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">python-class-extension-demo</div>
+</div>
+
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python-class-extension-demo/blob/master/parent.py" target="_blank">parent.py</a>
+        </div>
+        <div class="path">parent.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">from abc import (abstractmethod)
+
+
+class Parent(object):
+    @abstractmethod
+    def name(self):
+        return &quot;parent&quot;
+
+    def hello(self):
+        print(&quot;Hello, &quot; + self.name())
+
+
+if __name__ == &#39;__main__&#39;:
+    Parent().hello()
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python-class-extension-demo/blob/master/child.py" target="_blank">child.py</a>
+        </div>
+        <div class="path">child.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">from parent import Parent
+
+
+class Child(Parent):
+    def name(self):
+        return &quot;child&quot;
+
+
+if __name__ == &#39;__main__&#39;:
+    Child().hello()
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/python-class-extension-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/python-class-extension-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>

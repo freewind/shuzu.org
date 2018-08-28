@@ -1,0 +1,252 @@
+<html>
+<head>
+    <title>react-redux-get-store-in-component-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">react-redux-get-store-in-component-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        React Redux TodoList
+====================
+
+Try to find a way to get store inside a react component directly.
+
+(But failed for now)
+
+```
+npm install
+npm run webpack
+npm start
+```
+
+Then open &lt;http://localhost:8080&gt;.
+
+Run test:
+
+```
+npm test
+```
+
+References
+----------
+
+- &lt;https://github.com/reactjs/react-redux/issues/193&gt;
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/spec/reducers/index-spec.js" target="_blank">index-spec.js</a>
+        </div>
+        <div class="path">spec/reducers/index-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import expect from &#39;expect&#39;;
+import reducer from &#39;../../src/reducers/index&#39;;
+
+describe(&#39;reducer&#39;, () =&gt; {
+
+  it(&#39;returns init store if no state passed in&#39;, () =&gt; {
+    expect(reducer(undefined, {type: &#39;any&#39;})).toEqual({
+      fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
+    })
+  });
+
+  it(&#39;deletes specified fruit&#39;, () =&gt; {
+    expect(reducer(
+      {fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]},
+      {type: &#39;DELETE_FRUIT&#39;, fruitName: &#39;Apples&#39;}
+    )).toEqual({
+      fruit: [&#39;Oranges&#39;]
+    })
+  })
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/spec/components/hello-spec.js" target="_blank">hello-spec.js</a>
+        </div>
+        <div class="path">spec/components/hello-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &#39;react&#39;;
+import Hello from &#39;../../src/components/Hello.jsx&#39;;
+import chai from &#39;chai&#39;;
+import spies  from &#39;chai-spies&#39;;
+import {shallow} from &#39;enzyme&#39;;
+
+chai.should();
+chai.use(spies);
+
+describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
+
+  it(&#39;shows fruit names&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]}/&gt;);
+    wrapper.contains(&#39;AAA&#39;).should.be.true;
+    wrapper.contains(&#39;BBB&#39;).should.be.true;
+  });
+
+  it(&#39;calls onFruitDelete if deletes a fruit&#39;, () =&gt; {
+    const spy = chai.spy();
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]} onDeleteFruit={spy}/&gt;);
+    wrapper.find(&#39;button[title=&quot;delete&quot;]&#39;).first().simulate(&#39;click&#39;);
+    spy.should.have.been.called.with(&#39;AAA&#39;);
+  })
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  entry: [
+    &#39;./src/entry.jsx&#39;
+  ],
+  output: {
+    path: __dirname + &#39;/public/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
+  }
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/src/actions/types.js" target="_blank">types.js</a>
+        </div>
+        <div class="path">src/actions/types.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const DELETE_FRUIT = &#39;DELETE_FRUIT&#39;;
+
+export default {
+  DELETE_FRUIT
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/src/actions/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/actions/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import types from &#39;./types&#39;;
+
+export function deleteFruit(fruitName) {
+  return {
+    type: types.DELETE_FRUIT,
+    fruitName: fruitName
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/src/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import actionTypes from &#39;../actions/types&#39;;
+
+const initStore = {
+  fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
+};
+
+function _handleDelete(state, action) {
+  return Object.assign({}, state, {
+    fruit: state.fruit.filter(name =&gt; name !== action.fruitName)
+  });
+}
+
+export default function (state = initStore, action) {
+  switch (action.type) {
+    case actionTypes.DELETE_FRUIT:
+      return _handleDelete(state, action);
+    default:
+      return state;
+  }
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-redux-get-store-in-component-demo/issues?q=">有问题上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="javascript" src="https://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+</body>
+</html>
