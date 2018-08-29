@@ -35,7 +35,7 @@ npm test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
     </div>
@@ -81,7 +81,38 @@ module.exports = app;</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/spec/app-spec.js" target="_blank">app-spec.js</a>
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;supertest-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jasmine&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;async&quot;: &quot;^2.0.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;supertest&quot;: &quot;^2.0.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/spec/app-spec.js" target="_blank" title="show github file">app-spec.js</a>
         </div>
         <div class="path">spec/app-spec.js</div>
     </div>
@@ -137,6 +168,28 @@ describe(&#39;express application&#39;, () =&gt; {
 });</code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
@@ -144,7 +197,7 @@ describe(&#39;express application&#39;, () =&gt; {
         <a href="https://github.com/freewind-demos/supertest-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/supertest-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/supertest-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

@@ -34,7 +34,7 @@ Open a page, and click the icon of this extension on toolbar, you will see a pop
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
         </div>
         <div class="path">build.gradle</div>
     </div>
@@ -82,7 +82,7 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/bundle.js" target="_blank">bundle.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/bundle.js" target="_blank" title="show github file">bundle.js</a>
         </div>
         <div class="path">extension/bundle.js</div>
     </div>
@@ -38134,7 +38134,7 @@ this[&#39;chrome-extension-kotlinjs-demo&#39;] = function (_, Kotlin, $module$ko
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/hello.html" target="_blank">hello.html</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/hello.html" target="_blank" title="show github file">hello.html</a>
         </div>
         <div class="path">extension/hello.html</div>
     </div>
@@ -38160,7 +38160,32 @@ this[&#39;chrome-extension-kotlinjs-demo&#39;] = function (_, Kotlin, $module$ko
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
+        </div>
+        <div class="path">extension/manifest.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;manifest_version&quot;: 2,
+
+  &quot;name&quot;: &quot;Get url of current tag&quot;,
+  &quot;description&quot;: &quot;This extension will alert the url of current tag&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+
+  &quot;browser_action&quot;: {
+    &quot;default_icon&quot;: &quot;icon.png&quot;,
+    &quot;default_popup&quot;: &quot;hello.html&quot;
+  },
+  &quot;permissions&quot;: [
+    &quot;activeTab&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
@@ -38196,7 +38221,7 @@ private fun getCurrentTabUrl(callback: (String) -&gt; Unit) {
         <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

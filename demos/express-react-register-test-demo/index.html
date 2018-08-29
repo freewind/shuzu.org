@@ -37,7 +37,7 @@ Note
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/app/register.js" target="_blank">register.js</a>
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/app/register.js" target="_blank" title="show github file">register.js</a>
         </div>
         <div class="path">app/register.js</div>
     </div>
@@ -66,7 +66,7 @@ export default function (req, res) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/app/server.js" target="_blank">server.js</a>
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
         <div class="path">app/server.js</div>
     </div>
@@ -111,7 +111,60 @@ app.listen(3000, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/public/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;express-react-register-test-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
+    &quot;test&quot;: &quot;jasmine || exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-register&quot;: &quot;^6.11.6&quot;,
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;enzyme&quot;: &quot;^2.4.1&quot;,
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
+    &quot;jasmine-enzyme&quot;: &quot;^1.2.0&quot;,
+    &quot;jsdom-global&quot;: &quot;^2.1.0&quot;,
+    &quot;nock&quot;: &quot;^8.0.0&quot;,
+    &quot;proxyquire&quot;: &quot;^1.7.10&quot;,
+    &quot;react-addons-test-utils&quot;: &quot;^15.3.1&quot;,
+    &quot;sinon&quot;: &quot;^1.17.5&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
+    &quot;webpack&quot;: &quot;^1.13.1&quot;,
+    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
+    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;jquery&quot;: &quot;^3.1.0&quot;,
+    &quot;react&quot;: &quot;^15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^15.3.0&quot;,
+    &quot;superagent&quot;: &quot;^2.2.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">public/index.html</div>
     </div>
@@ -132,7 +185,31 @@ app.listen(3000, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;,
+    &quot;**/*[sS]pec.jsx&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;../node_modules/babel-register/lib/node.js&quot;,
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
     </div>
@@ -177,7 +254,7 @@ module.exports = {
         <a href="https://github.com/freewind-demos/express-react-register-test-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/express-react-register-test-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/express-react-register-test-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

@@ -34,7 +34,7 @@ Then visit &lt;http://localhost:3000&gt;, and upload images. You will see upload
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank">server.js</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
         <div class="path">app/server.js</div>
     </div>
@@ -91,7 +91,7 @@ app.listen(3000, function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/bundle.js" target="_blank">bundle.js</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/bundle.js" target="_blank" title="show github file">bundle.js</a>
         </div>
         <div class="path">bundle.js</div>
     </div>
@@ -34978,7 +34978,54 @@ app.listen(3000, function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;express-react-upload-images-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
+    &quot;test&quot;: &quot;jasmine || exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
+    &quot;webpack&quot;: &quot;^1.13.1&quot;,
+    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
+    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;express-fileupload&quot;: &quot;0.0.5&quot;,
+    &quot;jquery&quot;: &quot;^3.1.0&quot;,
+    &quot;lodash&quot;: &quot;^4.14.1&quot;,
+    &quot;react&quot;: &quot;^15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^15.3.0&quot;,
+    &quot;superagent&quot;: &quot;^2.2.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">public/index.html</div>
     </div>
@@ -34999,7 +35046,7 @@ app.listen(3000, function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/spec/dummy-spec.js" target="_blank">dummy-spec.js</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/spec/dummy-spec.js" target="_blank" title="show github file">dummy-spec.js</a>
         </div>
         <div class="path">spec/dummy-spec.js</div>
     </div>
@@ -35016,7 +35063,29 @@ describe(&#39;dummy&#39;, () =&gt; {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
     </div>
@@ -35061,7 +35130,7 @@ module.exports = {
         <a href="https://github.com/freewind-demos/express-react-upload-images-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/express-react-upload-images-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/express-react-upload-images-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

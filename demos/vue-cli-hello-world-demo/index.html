@@ -56,7 +56,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.eslintrc.js" target="_blank">.eslintrc.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.eslintrc.js" target="_blank" title="show github file">.eslintrc.js</a>
         </div>
         <div class="path">.eslintrc.js</div>
     </div>
@@ -96,7 +96,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.postcssrc.js" target="_blank">.postcssrc.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.postcssrc.js" target="_blank" title="show github file">.postcssrc.js</a>
         </div>
         <div class="path">.postcssrc.js</div>
     </div>
@@ -117,7 +117,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/dev.env.js" target="_blank">dev.env.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/dev.env.js" target="_blank" title="show github file">dev.env.js</a>
         </div>
         <div class="path">config/dev.env.js</div>
     </div>
@@ -135,7 +135,7 @@ module.exports = merge(prodEnv, {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">config/index.js</div>
     </div>
@@ -222,7 +222,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/prod.env.js" target="_blank">prod.env.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/prod.env.js" target="_blank" title="show github file">prod.env.js</a>
         </div>
         <div class="path">config/prod.env.js</div>
     </div>
@@ -237,7 +237,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/test.env.js" target="_blank">test.env.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/test.env.js" target="_blank" title="show github file">test.env.js</a>
         </div>
         <div class="path">config/test.env.js</div>
     </div>
@@ -255,7 +255,7 @@ module.exports = merge(devEnv, {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
@@ -278,7 +278,116 @@ module.exports = merge(devEnv, {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/main.js" target="_blank">main.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;vue-cli-hello-world-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;A Vue.js project&quot;,
+  &quot;author&quot;: &quot;freewind &lt;nowindlee@gmail.com&gt;&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: {
+    &quot;dev&quot;: &quot;webpack-dev-server --inline --progress --config build/webpack.dev.conf.js&quot;,
+    &quot;start&quot;: &quot;npm run dev&quot;,
+    &quot;unit&quot;: &quot;cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run&quot;,
+    &quot;e2e&quot;: &quot;node test/e2e/runner.js&quot;,
+    &quot;test&quot;: &quot;npm run unit &amp;&amp; npm run e2e&quot;,
+    &quot;lint&quot;: &quot;eslint --ext .js,.vue src test/unit test/e2e/specs&quot;,
+    &quot;build&quot;: &quot;node build/build.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;vue&quot;: &quot;^2.5.2&quot;,
+    &quot;vue-router&quot;: &quot;^3.0.1&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;autoprefixer&quot;: &quot;^7.1.2&quot;,
+    &quot;babel-core&quot;: &quot;^6.22.1&quot;,
+    &quot;babel-eslint&quot;: &quot;^8.2.1&quot;,
+    &quot;babel-helper-vue-jsx-merge-props&quot;: &quot;^2.0.3&quot;,
+    &quot;babel-loader&quot;: &quot;^7.1.1&quot;,
+    &quot;babel-plugin-istanbul&quot;: &quot;^4.1.1&quot;,
+    &quot;babel-plugin-syntax-jsx&quot;: &quot;^6.18.0&quot;,
+    &quot;babel-plugin-transform-runtime&quot;: &quot;^6.22.0&quot;,
+    &quot;babel-plugin-transform-vue-jsx&quot;: &quot;^3.5.0&quot;,
+    &quot;babel-preset-env&quot;: &quot;^1.3.2&quot;,
+    &quot;babel-preset-stage-2&quot;: &quot;^6.22.0&quot;,
+    &quot;babel-register&quot;: &quot;^6.22.0&quot;,
+    &quot;chai&quot;: &quot;^4.1.2&quot;,
+    &quot;chalk&quot;: &quot;^2.0.1&quot;,
+    &quot;chromedriver&quot;: &quot;^2.27.2&quot;,
+    &quot;copy-webpack-plugin&quot;: &quot;^4.0.1&quot;,
+    &quot;cross-env&quot;: &quot;^5.0.1&quot;,
+    &quot;cross-spawn&quot;: &quot;^5.0.1&quot;,
+    &quot;css-loader&quot;: &quot;^0.28.0&quot;,
+    &quot;eslint&quot;: &quot;^4.15.0&quot;,
+    &quot;eslint-config-standard&quot;: &quot;^10.2.1&quot;,
+    &quot;eslint-friendly-formatter&quot;: &quot;^3.0.0&quot;,
+    &quot;eslint-loader&quot;: &quot;^1.7.1&quot;,
+    &quot;eslint-plugin-import&quot;: &quot;^2.7.0&quot;,
+    &quot;eslint-plugin-node&quot;: &quot;^5.2.0&quot;,
+    &quot;eslint-plugin-promise&quot;: &quot;^3.4.0&quot;,
+    &quot;eslint-plugin-standard&quot;: &quot;^3.0.1&quot;,
+    &quot;eslint-plugin-vue&quot;: &quot;^4.0.0&quot;,
+    &quot;extract-text-webpack-plugin&quot;: &quot;^3.0.0&quot;,
+    &quot;file-loader&quot;: &quot;^1.1.4&quot;,
+    &quot;friendly-errors-webpack-plugin&quot;: &quot;^1.6.1&quot;,
+    &quot;html-webpack-plugin&quot;: &quot;^2.30.1&quot;,
+    &quot;inject-loader&quot;: &quot;^3.0.0&quot;,
+    &quot;karma&quot;: &quot;^1.4.1&quot;,
+    &quot;karma-coverage&quot;: &quot;^1.1.1&quot;,
+    &quot;karma-mocha&quot;: &quot;^1.3.0&quot;,
+    &quot;karma-phantomjs-launcher&quot;: &quot;^1.0.2&quot;,
+    &quot;karma-phantomjs-shim&quot;: &quot;^1.4.0&quot;,
+    &quot;karma-sinon-chai&quot;: &quot;^1.3.1&quot;,
+    &quot;karma-sourcemap-loader&quot;: &quot;^0.3.7&quot;,
+    &quot;karma-spec-reporter&quot;: &quot;0.0.31&quot;,
+    &quot;karma-webpack&quot;: &quot;^2.0.2&quot;,
+    &quot;mocha&quot;: &quot;^3.2.0&quot;,
+    &quot;nightwatch&quot;: &quot;^0.9.12&quot;,
+    &quot;node-notifier&quot;: &quot;^5.1.2&quot;,
+    &quot;optimize-css-assets-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;ora&quot;: &quot;^1.2.0&quot;,
+    &quot;phantomjs-prebuilt&quot;: &quot;^2.1.14&quot;,
+    &quot;portfinder&quot;: &quot;^1.0.13&quot;,
+    &quot;postcss-import&quot;: &quot;^11.0.0&quot;,
+    &quot;postcss-loader&quot;: &quot;^2.0.8&quot;,
+    &quot;postcss-url&quot;: &quot;^7.2.1&quot;,
+    &quot;rimraf&quot;: &quot;^2.6.0&quot;,
+    &quot;selenium-server&quot;: &quot;^3.0.1&quot;,
+    &quot;semver&quot;: &quot;^5.3.0&quot;,
+    &quot;shelljs&quot;: &quot;^0.7.6&quot;,
+    &quot;sinon&quot;: &quot;^4.0.0&quot;,
+    &quot;sinon-chai&quot;: &quot;^2.8.0&quot;,
+    &quot;uglifyjs-webpack-plugin&quot;: &quot;^1.1.1&quot;,
+    &quot;url-loader&quot;: &quot;^0.5.8&quot;,
+    &quot;vue-loader&quot;: &quot;^13.3.0&quot;,
+    &quot;vue-style-loader&quot;: &quot;^3.0.1&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.2&quot;,
+    &quot;webpack&quot;: &quot;^3.6.0&quot;,
+    &quot;webpack-bundle-analyzer&quot;: &quot;^2.9.0&quot;,
+    &quot;webpack-dev-server&quot;: &quot;^2.9.1&quot;,
+    &quot;webpack-merge&quot;: &quot;^4.1.0&quot;
+  },
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;&gt;= 6.0.0&quot;,
+    &quot;npm&quot;: &quot;&gt;= 3.0.0&quot;
+  },
+  &quot;browserslist&quot;: [
+    &quot;&gt; 1%&quot;,
+    &quot;last 2 versions&quot;,
+    &quot;not ie &lt;= 8&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/main.js" target="_blank" title="show github file">main.js</a>
         </div>
         <div class="path">src/main.js</div>
     </div>
@@ -304,7 +413,7 @@ new Vue({
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/router/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/router/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">src/router/index.js</div>
     </div>
@@ -330,7 +439,7 @@ export default new Router({
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/custom-assertions/elementCount.js" target="_blank">elementCount.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/custom-assertions/elementCount.js" target="_blank" title="show github file">elementCount.js</a>
         </div>
         <div class="path">test/e2e/custom-assertions/elementCount.js</div>
     </div>
@@ -368,7 +477,7 @@ exports.assertion = function (selector, count) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/nightwatch.conf.js" target="_blank">nightwatch.conf.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/nightwatch.conf.js" target="_blank" title="show github file">nightwatch.conf.js</a>
         </div>
         <div class="path">test/e2e/nightwatch.conf.js</div>
     </div>
@@ -425,7 +534,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/runner.js" target="_blank">runner.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/runner.js" target="_blank" title="show github file">runner.js</a>
         </div>
         <div class="path">test/e2e/runner.js</div>
     </div>
@@ -484,7 +593,7 @@ devConfigPromise.then(devConfig =&gt; {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/specs/test.js" target="_blank">test.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/specs/test.js" target="_blank" title="show github file">test.js</a>
         </div>
         <div class="path">test/e2e/specs/test.js</div>
     </div>
@@ -514,7 +623,7 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">test/unit/index.js</div>
     </div>
@@ -538,7 +647,7 @@ srcContext.keys().forEach(srcContext)
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/karma.conf.js" target="_blank">karma.conf.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/karma.conf.js" target="_blank" title="show github file">karma.conf.js</a>
         </div>
         <div class="path">test/unit/karma.conf.js</div>
     </div>
@@ -582,7 +691,7 @@ module.exports = function karmaConfig (config) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/specs/HelloWorld.spec.js" target="_blank">HelloWorld.spec.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/specs/HelloWorld.spec.js" target="_blank" title="show github file">HelloWorld.spec.js</a>
         </div>
         <div class="path">test/unit/specs/HelloWorld.spec.js</div>
     </div>
@@ -608,7 +717,7 @@ describe(&#39;HelloWorld.vue&#39;, () =&gt; {
         <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

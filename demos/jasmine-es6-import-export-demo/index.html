@@ -53,7 +53,7 @@ Add to `spec/support/jasmine.json` `helpers`:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
     </div>
@@ -66,7 +66,34 @@ Add to `spec/support/jasmine.json` `helpers`:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/spec/index-spec.js" target="_blank">index-spec.js</a>
+            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;jasmine-es6-import-export-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-register&quot;: &quot;^6.11.6&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/spec/index-spec.js" target="_blank" title="show github file">index-spec.js</a>
         </div>
         <div class="path">spec/index-spec.js</div>
     </div>
@@ -80,6 +107,29 @@ describe(&#39;index&#39;, () =&gt; {
 })</code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+  	&quot;../node_modules/babel-register/lib/node.js&quot;,
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
@@ -87,7 +137,7 @@ describe(&#39;index&#39;, () =&gt; {
         <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/jasmine-es6-import-export-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

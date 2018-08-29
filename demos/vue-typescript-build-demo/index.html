@@ -55,7 +55,35 @@ The following packages are the final code:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/public/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;serve&quot;: &quot;vue-cli-service serve&quot;,
+    &quot;build&quot;: &quot;vue-cli-service build&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;vue&quot;: &quot;^2.5.17&quot;,
+    &quot;vue-class-component&quot;: &quot;^6.0.0&quot;,
+    &quot;vue-property-decorator&quot;: &quot;^7.0.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@vue/cli-plugin-typescript&quot;: &quot;^3.0.0-rc.12&quot;,
+    &quot;@vue/cli-service&quot;: &quot;^3.0.0-rc.12&quot;,
+    &quot;typescript&quot;: &quot;^3.0.0&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">public/index.html</div>
     </div>
@@ -73,7 +101,7 @@ The following packages are the final code:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/main.ts" target="_blank" title="show github file">main.ts</a>
         </div>
         <div class="path">src/main.ts</div>
     </div>
@@ -92,7 +120,7 @@ new Vue({
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/shims-tsx.d.ts" target="_blank">shims-tsx.d.ts</a>
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/shims-tsx.d.ts" target="_blank" title="show github file">shims-tsx.d.ts</a>
         </div>
         <div class="path">src/shims-tsx.d.ts</div>
     </div>
@@ -116,7 +144,7 @@ declare global {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/shims-vue.d.ts" target="_blank">shims-vue.d.ts</a>
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/src/shims-vue.d.ts" target="_blank" title="show github file">shims-vue.d.ts</a>
         </div>
         <div class="path">src/shims-vue.d.ts</div>
     </div>
@@ -128,6 +156,56 @@ declare global {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-build-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </div>
+        <div class="path">tsconfig.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es5&quot;,
+    &quot;module&quot;: &quot;esnext&quot;,
+    &quot;strict&quot;: true,
+    &quot;jsx&quot;: &quot;preserve&quot;,
+    &quot;importHelpers&quot;: true,
+    &quot;moduleResolution&quot;: &quot;node&quot;,
+    &quot;experimentalDecorators&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;allowSyntheticDefaultImports&quot;: true,
+    &quot;sourceMap&quot;: true,
+    &quot;baseUrl&quot;: &quot;.&quot;,
+    &quot;types&quot;: [
+      &quot;node&quot;
+    ],
+    &quot;paths&quot;: {
+      &quot;@/*&quot;: [
+        &quot;src/*&quot;
+      ]
+    },
+    &quot;lib&quot;: [
+      &quot;esnext&quot;,
+      &quot;dom&quot;,
+      &quot;dom.iterable&quot;,
+      &quot;scripthost&quot;
+    ]
+  },
+  &quot;include&quot;: [
+    &quot;src/**/*.ts&quot;,
+    &quot;src/**/*.tsx&quot;,
+    &quot;src/**/*.vue&quot;,
+    &quot;tests/**/*.ts&quot;,
+    &quot;tests/**/*.tsx&quot;
+  ],
+  &quot;exclude&quot;: [
+    &quot;node_modules&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
@@ -135,7 +213,7 @@ declare global {
         <a href="https://github.com/freewind-demos/vue-typescript-build-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/vue-typescript-build-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/vue-typescript-build-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

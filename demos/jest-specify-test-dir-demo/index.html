@@ -30,7 +30,37 @@ Notice `jest` configuration in `package.json`    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/spec/square-sum-spec.js" target="_blank">square-sum-spec.js</a>
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;jest-specify-test-dir-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jest&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;jest&quot;: &quot;^14.1.0&quot;,
+    &quot;jest-cli&quot;: &quot;^14.1.0&quot;
+  },
+  &quot;jest&quot;: {
+    &quot;testDirectoryName&quot;: &quot;spec&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/spec/square-sum-spec.js" target="_blank" title="show github file">square-sum-spec.js</a>
         </div>
         <div class="path">spec/square-sum-spec.js</div>
     </div>
@@ -52,7 +82,7 @@ describe(&#39;square-sum&#39;, () =&gt; {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square-sum.js" target="_blank">square-sum.js</a>
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square-sum.js" target="_blank" title="show github file">square-sum.js</a>
         </div>
         <div class="path">square-sum.js</div>
     </div>
@@ -69,7 +99,7 @@ module.exports = squareSum;</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square.js" target="_blank">square.js</a>
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
         </div>
         <div class="path">square.js</div>
     </div>
@@ -88,7 +118,7 @@ module.exports = square;</code></pre>
         <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

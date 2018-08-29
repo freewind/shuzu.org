@@ -42,7 +42,7 @@ The extension can&#39;t get the content of the page directly, instead, it has to
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
         </div>
         <div class="path">build.gradle</div>
     </div>
@@ -94,7 +94,7 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/k-chrome-api.js" target="_blank">k-chrome-api.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/k-chrome-api.js" target="_blank" title="show github file">k-chrome-api.js</a>
         </div>
         <div class="path">extension/k-chrome-api.js</div>
     </div>
@@ -536,7 +536,59 @@ this[&#39;k-chrome-api&#39;] = function (_, Kotlin) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/plugin.html" target="_blank">plugin.html</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
+        </div>
+        <div class="path">extension/manifest.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;manifest_version&quot;: 2,
+
+  &quot;name&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
+  &quot;description&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+
+  &quot;browser_action&quot;: {
+    &quot;default_icon&quot;: &quot;icon.png&quot;,
+    &quot;default_popup&quot;: &quot;plugin.html&quot;
+  },
+  &quot;permissions&quot;: [
+    &quot;activeTab&quot;,
+    &quot;&lt;all_urls&gt;&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">extension/package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;extension&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;kotlin&quot;: &quot;^1.2.51&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/plugin.html" target="_blank" title="show github file">plugin.html</a>
         </div>
         <div class="path">extension/plugin.html</div>
     </div>
@@ -560,7 +612,7 @@ this[&#39;k-chrome-api&#39;] = function (_, Kotlin) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">run-in-tab-project/src/main/kotlin/example/Hello.kt</div>
     </div>
@@ -582,7 +634,7 @@ fun main(args: Array&lt;String&gt;) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
         </div>
         <div class="path">run-in-tab-project/src/main/resources/lib/kotlin.js</div>
     </div>
@@ -38477,7 +38529,7 @@ fun main(args: Array&lt;String&gt;) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/settings.gradle" target="_blank">settings.gradle</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/settings.gradle" target="_blank" title="show github file">settings.gradle</a>
         </div>
         <div class="path">settings.gradle</div>
     </div>
@@ -38488,7 +38540,7 @@ fun main(args: Array&lt;String&gt;) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
@@ -38542,7 +38594,7 @@ private fun checkLastError(): Boolean {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
         </div>
         <div class="path">src/main/resources/lib/kotlin.js</div>
     </div>
@@ -76441,7 +76493,7 @@ private fun checkLastError(): Boolean {
         <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

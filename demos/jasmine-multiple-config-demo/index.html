@@ -44,7 +44,31 @@ npm run test-all
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/intergration-specs/my-spec.js" target="_blank">my-spec.js</a>
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;jasmine-multiple-config-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jasmine&quot;,
+    &quot;test-all&quot;: &quot;JASMINE_CONFIG_PATH=spec/support/jasmine-all.json jasmine || exit 0&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/intergration-specs/my-spec.js" target="_blank" title="show github file">my-spec.js</a>
         </div>
         <div class="path">spec/intergration-specs/my-spec.js</div>
     </div>
@@ -60,7 +84,51 @@ npm run test-all
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/unit-specs/my-spec.js" target="_blank">my-spec.js</a>
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/support/jasmine-all.json" target="_blank" title="show github file">jasmine-all.json</a>
+        </div>
+        <div class="path">spec/support/jasmine-all.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec/unit-specs&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;../helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/unit-specs/my-spec.js" target="_blank" title="show github file">my-spec.js</a>
         </div>
         <div class="path">spec/unit-specs/my-spec.js</div>
     </div>
@@ -80,7 +148,7 @@ npm run test-all
         <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

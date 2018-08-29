@@ -47,7 +47,7 @@ Chrome -&gt; `Extesions` -&gt; Find the extension -&gt; Click on the `Reload` ic
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/blob/master/hello.js" target="_blank">hello.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
         </div>
         <div class="path">hello.js</div>
     </div>
@@ -60,7 +60,34 @@ document.body.appendChild(node);
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/blob/master/public/test.html" target="_blank">test.html</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/blob/master/manifest.json" target="_blank" title="show github file">manifest.json</a>
+        </div>
+        <div class="path">manifest.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;manifest_version&quot;: 2,
+
+  &quot;name&quot;: &quot;Insert Text by content_scripts&quot;,
+  &quot;description&quot;: &quot;Insert Text to end of the page by content_scripts&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+
+  &quot;content_scripts&quot;: [
+    {
+      &quot;matches&quot;: [&quot;http://*/*&quot;, &quot;https://*/*&quot;],
+      &quot;js&quot;: [&quot;hello.js&quot;]
+    }
+  ],
+  &quot;permissions&quot;: [
+    &quot;tabs&quot;, &quot;http://*/*&quot;,&quot;https://*/*&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/blob/master/public/test.html" target="_blank" title="show github file">test.html</a>
         </div>
         <div class="path">public/test.html</div>
     </div>
@@ -81,7 +108,7 @@ document.body.appendChild(node);
         <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/issues?q=">有问题上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/chrome-extension-content-scripts-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
