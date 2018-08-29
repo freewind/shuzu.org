@@ -58,7 +58,7 @@ Open &lt;http://localhost:8080/index.html&gt; from your browser, you will see &q
     </div>
 </div>
 
-    <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -94,13 +94,13 @@ dependencies {
 </code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     需要注意的是，我们也必须使用`AMD`规范来发布我们自己的库：
 
 ```
 compileKotlin2Js.kotlinOptions.moduleKind = &quot;amd&quot;
 ```</div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -133,7 +133,7 @@ compileKotlin2Js.kotlinOptions.moduleKind = &quot;amd&quot;
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -154,11 +154,11 @@ fun main(args: Array&lt;String&gt;) {
 </code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     通过`@JsModule(&quot;hello&quot;)`中指定的`hello`，我们可以把一个不同名的函数`helloDifferentName`与它关联起来。
 
 这样当我们因某种需要修改了`helloDifferentName`函数的名字，它依然指向在Js文件中定义的`hello` module.</div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-invoke-js-module-demo/blob/master/src/main/resources/hello.js" target="_blank">hello.js</a>
@@ -173,10 +173,10 @@ fun main(args: Array&lt;String&gt;) {
 })</code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     `define`是JavaScript中AMD规范中定义的方法，
 详情可见: &lt;https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)&gt;</div>
-    
+
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
@@ -188,6 +188,8 @@ fun main(args: Array&lt;String&gt;) {
 </div>
 
 <script src="../../js/site.js"></script>
-<script type="javascript" src="http://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
 </html>

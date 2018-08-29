@@ -37,7 +37,7 @@ Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from 
     </div>
 </div>
 
-    <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -73,7 +73,7 @@ dependencies {
 }</code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     关键在于要指定`compileKotlin2Js`时，要使用`amd`规范，这样这个项目才会变成一个 **modular project**，不再报错：
 
 ```
@@ -95,7 +95,7 @@ npx http-server . -o
 ```
 
 可以看到打开的页面中，正常显示`Hello, JsModule!`。</div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -128,7 +128,7 @@ npx http-server . -o
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -148,12 +148,12 @@ fun main(args: Array&lt;String&gt;) {
 }</code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     ```
 Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from non-modular project
 ```
 </div>
-        <div class="code-file center-in-page panel markdown-body">
+<div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/resources/hello.js" target="_blank">hello.js</a>
@@ -168,10 +168,10 @@ Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from 
 })</code></pre>
     </div>
 </div>
-        <div class="markdown markdown-body center-in-page">
+<div class="markdown markdown-body center-in-page">
     `define`是JavaScript中AMD规范中定义的方法，
 详情可见: &lt;https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)&gt;</div>
-    
+
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
@@ -183,6 +183,8 @@ Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from 
 </div>
 
 <script src="../../js/site.js"></script>
-<script type="javascript" src="http://s13.cnzz.com/z_stat.php?id=1274292847&amp;web_id=1274292847"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
 </html>
