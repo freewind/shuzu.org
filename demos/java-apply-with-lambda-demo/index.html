@@ -13,16 +13,18 @@
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        Maven Demo
-==========
+        Java Apply with Lambda Demo
+===========================
 
-A very simple maven project demo.
+Use `apply` style, you can create an object and also have a place to do more with it.
+The code is clearer.
 
-```
-mvn clean install
-```
+See `NormalStyle.java` and `ApplyWithLambdaStyle.java` for more details.
 
-    </div>
+Run
+---
+
+Run `NormalStyle.java` or `ApplyWithLambdaStyle.java` in your IDE.    </div>
 </div>
 
     <div class="code-file center-in-page panel markdown-body">
@@ -70,74 +72,27 @@ mvn clean install
         <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/ApplyWithLambdaStyle.java" target="_blank">ApplyWithLambdaStyle.java</a>
         </div>
-        <div class="path">src/main/java/demo/Hello.java</div>
+        <div class="path">src/main/java/demo/ApplyWithLambdaStyle.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package demo;
 
 import static demo.Apply.apply;
 
-public class Hello {
+public class ApplyWithLambdaStyle {
+
+    private static User user = apply(new User(&quot;Freewind&quot;), self -&gt; {
+        self.email = &quot;hello@test.com&quot;;
+        self.address = &quot;China&quot;;
+    });
 
     public static void main(String[] args) {
-        normalStyle();
-        blockStyle();
-    }
-
-    private static void normalStyle() {
-        User user = new User(&quot;Freewind&quot;);
-        user.setEmail(&quot;hello@test.com&quot;);
-        user.setAddress(&quot;China&quot;);
-        System.out.println(user);
-    }
-
-    private static void blockStyle() {
-        User user = apply(new User(&quot;Freewind&quot;), self -&gt; {
-            self.setEmail(&quot;hello@test.com&quot;);
-            self.setAddress(&quot;China&quot;);
-        });
         System.out.println(user);
     }
 
 }
-
-final class User {
-    private final String name;
-    private String email;
-    private String address;
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    @Override
-    public String toString() {
-        return &quot;User{name=&#39;&quot; + name + &#39;\&#39;&#39; + &quot;, email=&#39;&quot; + email + &#39;\&#39;&#39; + &quot;, address=&#39;&quot; + address + &#39;\&#39;&#39; + &#39;}&#39;;
-    }
-}
-
 
 interface Apply&lt;T&gt; {
     void apply(T t);
@@ -147,7 +102,70 @@ interface Apply&lt;T&gt; {
         return t;
     }
 }
+
+
 </code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    ```
+User{name=&#39;Freewind&#39;, email=&#39;hello@test.com&#39;, address=&#39;China&#39;}
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/NormalStyle.java" target="_blank">NormalStyle.java</a>
+        </div>
+        <div class="path">src/main/java/demo/NormalStyle.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+public class NormalStyle {
+
+    private static User user = new User(&quot;Freewind&quot;);
+
+    static {
+        user.email = &quot;hello@test.com&quot;;
+        user.address = &quot;China&quot;;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(user);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    ```
+User{name=&#39;Freewind&#39;, email=&#39;hello@test.com&#39;, address=&#39;China&#39;}
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/User.java" target="_blank">User.java</a>
+        </div>
+        <div class="path">src/main/java/demo/User.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+class User {
+    String name;
+    String email;
+    String address;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{name=&#39;&quot; + name + &#39;\&#39;&#39; + &quot;, email=&#39;&quot; + email + &#39;\&#39;&#39; + &quot;, address=&#39;&quot; + address + &#39;\&#39;&#39; + &#39;}&#39;;
+    }
+}</code></pre>
     </div>
 </div>
     
