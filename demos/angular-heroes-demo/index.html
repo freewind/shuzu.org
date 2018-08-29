@@ -48,7 +48,7 @@ The code is from &lt;https://angular.io/tutorial/&gt;
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/e2e/app.e2e-spec.ts" target="_blank">app.e2e-spec.ts</a>
@@ -73,7 +73,7 @@ describe(&#39;angular-heroes-demo App&#39;, () =&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/e2e/app.po.ts" target="_blank">app.po.ts</a>
@@ -95,147 +95,90 @@ export class AppPage {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/polyfills.ts" target="_blank">polyfills.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/karma.conf.js" target="_blank">karma.conf.js</a>
         </div>
-        <div class="path">src/polyfills.ts</div>
+        <div class="path">karma.conf.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">/**
- * This file includes polyfills needed by Angular and is loaded before the app.
- * You can add your own extra polyfills to this file.
- *
- * This file is divided into 2 sections:
- *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
- *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
- *      file.
- *
- * The current setup is for so-called &quot;evergreen&quot; browsers; the last versions of browsers that
- * automatically update themselves. This includes Safari &gt;= 10, Chrome &gt;= 55 (including Opera),
- * Edge &gt;= 13 on the desktop, and iOS 10 and Chrome on mobile.
- *
- * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
- */
+        <pre class="content"><code class="js">// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 
-/***************************************************************************************************
- * BROWSER POLYFILLS
- */
-
-/** IE9, IE10 and IE11 requires all of the following polyfills. **/
-// import &#39;core-js/es6/symbol&#39;;
-// import &#39;core-js/es6/object&#39;;
-// import &#39;core-js/es6/function&#39;;
-// import &#39;core-js/es6/parse-int&#39;;
-// import &#39;core-js/es6/parse-float&#39;;
-// import &#39;core-js/es6/number&#39;;
-// import &#39;core-js/es6/math&#39;;
-// import &#39;core-js/es6/string&#39;;
-// import &#39;core-js/es6/date&#39;;
-// import &#39;core-js/es6/array&#39;;
-// import &#39;core-js/es6/regexp&#39;;
-// import &#39;core-js/es6/map&#39;;
-// import &#39;core-js/es6/weak-map&#39;;
-// import &#39;core-js/es6/set&#39;;
-
-/** IE10 and IE11 requires the following for NgClass support on SVG elements */
-// import &#39;classlist.js&#39;;  // Run `npm install --save classlist.js`.
-
-/** IE10 and IE11 requires the following for the Reflect API. */
-// import &#39;core-js/es6/reflect&#39;;
-
-
-/** Evergreen browsers require these. **/
-// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
-import &#39;core-js/es7/reflect&#39;;
-
-
-/**
- * Required to support Web Animations `@angular/platform-browser/animations`.
- * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
- **/
-// import &#39;web-animations-js&#39;;  // Run `npm install --save web-animations-js`.
-
-
-
-/***************************************************************************************************
- * Zone JS is required by default for Angular itself.
- */
-import &#39;zone.js/dist/zone&#39;;  // Included with Angular CLI.
-
-
-
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/typings.d.ts" target="_blank">typings.d.ts</a>
-        </div>
-        <div class="path">src/typings.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">/* SystemJS module definition */
-declare var module: NodeModule;
-interface NodeModule {
-  id: string;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.ts" target="_blank">app.component.ts</a>
-        </div>
-        <div class="path">src/app/app.component.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { Component } from &#39;@angular/core&#39;;
-
-@Component({
-  selector: &#39;app-root&#39;,
-  templateUrl: &#39;./app.component.html&#39;,
-  styleUrls: [&#39;./app.component.css&#39;]
-})
-export class AppComponent {
-  title = &#39;Tour of Heroes&#39;;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/message.service.spec.ts" target="_blank">message.service.spec.ts</a>
-        </div>
-        <div class="path">src/app/message.service.spec.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { TestBed, inject } from &#39;@angular/core/testing&#39;;
-
-import { MessageService } from &#39;./message.service&#39;;
-
-describe(&#39;MessageService&#39;, () =&gt; {
-  beforeEach(() =&gt; {
-    TestBed.configureTestingModule({
-      providers: [MessageService]
-    });
+module.exports = function (config) {
+  config.set({
+    basePath: &#39;&#39;,
+    frameworks: [&#39;jasmine&#39;, &#39;@angular/cli&#39;],
+    plugins: [
+      require(&#39;karma-jasmine&#39;),
+      require(&#39;karma-chrome-launcher&#39;),
+      require(&#39;karma-jasmine-html-reporter&#39;),
+      require(&#39;karma-coverage-istanbul-reporter&#39;),
+      require(&#39;@angular/cli/plugins/karma&#39;)
+    ],
+    client:{
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    coverageIstanbulReporter: {
+      reports: [ &#39;html&#39;, &#39;lcovonly&#39; ],
+      fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: &#39;dev&#39;
+    },
+    reporters: [&#39;progress&#39;, &#39;kjhtml&#39;],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: [&#39;Chrome&#39;],
+    singleRun: false
   });
-
-  it(&#39;should be created&#39;, inject([MessageService], (service: MessageService) =&gt; {
-    expect(service).toBeTruthy();
-  }));
-});
+};
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/protractor.conf.js" target="_blank">protractor.conf.js</a>
+        </div>
+        <div class="path">protractor.conf.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Protractor configuration file, see link for more information
+// https://github.com/angular/protractor/blob/master/lib/config.ts
+
+const { SpecReporter } = require(&#39;jasmine-spec-reporter&#39;);
+
+exports.config = {
+  allScriptsTimeout: 11000,
+  specs: [
+    &#39;./e2e/**/*.e2e-spec.ts&#39;
+  ],
+  capabilities: {
+    &#39;browserName&#39;: &#39;chrome&#39;
+  },
+  directConnect: true,
+  baseUrl: &#39;http://localhost:4200/&#39;,
+  framework: &#39;jasmine&#39;,
+  jasmineNodeOpts: {
+    showColors: true,
+    defaultTimeoutInterval: 30000,
+    print: function() {}
+  },
+  onPrepare() {
+    require(&#39;ts-node&#39;).register({
+      project: &#39;e2e/tsconfig.e2e.json&#39;
+    });
+    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+  }
+};
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app-routing.module.ts" target="_blank">app-routing.module.ts</a>
@@ -265,62 +208,153 @@ export class AppRoutingModule {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.html" target="_blank">dashboard.component.html</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.css" target="_blank">app.component.css</a>
         </div>
-        <div class="path">src/app/dashboard/dashboard.component.html</div>
+        <div class="path">src/app/app.component.css</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;h3&gt;Top Heroes&lt;/h3&gt;
-&lt;div class=&quot;grid grid-pad&quot;&gt;
-  &lt;a *ngFor=&quot;let hero of heroes&quot; class=&quot;col-1-4&quot; routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
-    &lt;div class=&quot;module hero&quot;&gt;
-      &lt;h4&gt;{{hero.name}}&lt;/h4&gt;
-    &lt;/div&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
+        <pre class="content"><code class="css"></code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.html" target="_blank">app.component.html</a>
+        </div>
+        <div class="path">src/app/app.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!--The content below is only a placeholder and can be replaced.--&gt;
+&lt;h1&gt;{{ title }}&lt;/h1&gt;
+&lt;nav&gt;
+  &lt;a routerLink=&quot;/dashboard&quot;&gt;Dashboard&lt;/a&gt;
+  &lt;a routerLink=&quot;/heroes&quot;&gt;Heroes&lt;/a&gt;
+&lt;/nav&gt;
+&lt;router-outlet&gt;
+&lt;app-messages&gt;&lt;/app-messages&gt;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.spec.ts" target="_blank">dashboard.component.spec.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.spec.ts" target="_blank">app.component.spec.ts</a>
         </div>
-        <div class="path">src/app/dashboard/dashboard.component.spec.ts</div>
+        <div class="path">src/app/app.component.spec.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
-
-import { DashboardComponent } from &#39;./dashboard.component&#39;;
-
-describe(&#39;DashboardComponent&#39;, () =&gt; {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture&lt;DashboardComponent&gt;;
-
+        <pre class="content"><code class="ts">import { TestBed, async } from &#39;@angular/core/testing&#39;;
+import { AppComponent } from &#39;./app.component&#39;;
+describe(&#39;AppComponent&#39;, () =&gt; {
   beforeEach(async(() =&gt; {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        AppComponent
+      ],
+    }).compileComponents();
   }));
-
-  beforeEach(() =&gt; {
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
+  it(&#39;should create the app&#39;, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
+  it(`should have as title &#39;app&#39;`, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual(&#39;app&#39;);
+  }));
+  it(&#39;should render title in a h1 tag&#39;, async(() =&gt; {
+    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-  });
-
-  it(&#39;should create&#39;, () =&gt; {
-    expect(component).toBeTruthy();
-  });
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector(&#39;h1&#39;).textContent).toContain(&#39;Welcome to app!&#39;);
+  }));
 });
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.ts" target="_blank">app.component.ts</a>
+        </div>
+        <div class="path">src/app/app.component.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { Component } from &#39;@angular/core&#39;;
+
+@Component({
+  selector: &#39;app-root&#39;,
+  templateUrl: &#39;./app.component.html&#39;,
+  styleUrls: [&#39;./app.component.css&#39;]
+})
+export class AppComponent {
+  title = &#39;Tour of Heroes&#39;;
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.module.ts" target="_blank">app.module.ts</a>
+        </div>
+        <div class="path">src/app/app.module.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {NgModule} from &#39;@angular/core&#39;;
+import {BrowserModule} from &#39;@angular/platform-browser&#39;;
+import {FormsModule} from &#39;@angular/forms&#39;;
+import {HttpClientModule} from &#39;@angular/common/http&#39;;
+
+import {HttpClientInMemoryWebApiModule} from &#39;angular-in-memory-web-api&#39;;
+import {InMemoryDataService} from &#39;./in-memory-data.service&#39;;
+
+import {AppRoutingModule} from &#39;./app-routing.module&#39;;
+
+import {AppComponent} from &#39;./app.component&#39;;
+import {DashboardComponent} from &#39;./dashboard/dashboard.component&#39;;
+import {HeroDetailComponent} from &#39;./hero-detail/hero-detail.component&#39;;
+import {HeroesComponent} from &#39;./heroes/heroes.component&#39;;
+import {HeroSearchComponent} from &#39;./hero-search/hero-search.component&#39;;
+import {HeroService} from &#39;./hero.service&#39;;
+import {MessageService} from &#39;./message.service&#39;;
+import {MessagesComponent} from &#39;./messages/messages.component&#39;;
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {dataEncapsulation: false}
+    )
+  ],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HeroesComponent,
+    HeroDetailComponent,
+    MessagesComponent,
+    HeroSearchComponent
+  ],
+  providers: [HeroService, MessageService],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.css" target="_blank">dashboard.component.css</a>
@@ -393,7 +427,62 @@ h4 {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.html" target="_blank">dashboard.component.html</a>
+        </div>
+        <div class="path">src/app/dashboard/dashboard.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;h3&gt;Top Heroes&lt;/h3&gt;
+&lt;div class=&quot;grid grid-pad&quot;&gt;
+  &lt;a *ngFor=&quot;let hero of heroes&quot; class=&quot;col-1-4&quot; routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
+    &lt;div class=&quot;module hero&quot;&gt;
+      &lt;h4&gt;{{hero.name}}&lt;/h4&gt;
+    &lt;/div&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.spec.ts" target="_blank">dashboard.component.spec.ts</a>
+        </div>
+        <div class="path">src/app/dashboard/dashboard.component.spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
+
+import { DashboardComponent } from &#39;./dashboard.component&#39;;
+
+describe(&#39;DashboardComponent&#39;, () =&gt; {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture&lt;DashboardComponent&gt;;
+
+  beforeEach(async(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ DashboardComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() =&gt; {
+    fixture = TestBed.createComponent(DashboardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it(&#39;should create&#39;, () =&gt; {
+    expect(component).toBeTruthy();
+  });
+});
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/dashboard/dashboard.component.ts" target="_blank">dashboard.component.ts</a>
@@ -427,63 +516,7 @@ export class DashboardComponent implements OnInit {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero.service.spec.ts" target="_blank">hero.service.spec.ts</a>
-        </div>
-        <div class="path">src/app/hero.service.spec.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { TestBed, inject } from &#39;@angular/core/testing&#39;;
-
-import { HeroService } from &#39;./hero.service&#39;;
-
-describe(&#39;HeroService&#39;, () =&gt; {
-  beforeEach(() =&gt; {
-    TestBed.configureTestingModule({
-      providers: [HeroService]
-    });
-  });
-
-  it(&#39;should be created&#39;, inject([HeroService], (service: HeroService) =&gt; {
-    expect(service).toBeTruthy();
-  }));
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/in-memory-data.service.ts" target="_blank">in-memory-data.service.ts</a>
-        </div>
-        <div class="path">src/app/in-memory-data.service.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { InMemoryDbService } from &#39;angular-in-memory-web-api&#39;;
-
-export class InMemoryDataService implements InMemoryDbService {
-  createDb() {
-    const heroes = [
-      { id: 11, name: &#39;Mr. Nice&#39; },
-      { id: 12, name: &#39;Narco&#39; },
-      { id: 13, name: &#39;Bombasto&#39; },
-      { id: 14, name: &#39;Celeritas&#39; },
-      { id: 15, name: &#39;Magneta&#39; },
-      { id: 16, name: &#39;RubberMan&#39; },
-      { id: 17, name: &#39;Dynama&#39; },
-      { id: 18, name: &#39;Dr IQ&#39; },
-      { id: 19, name: &#39;Magma&#39; },
-      { id: 20, name: &#39;Tornado&#39; }
-    ];
-    return {heroes};
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-detail/hero-detail.component.css" target="_blank">hero-detail.component.css</a>
@@ -494,7 +527,29 @@ export class InMemoryDataService implements InMemoryDbService {
         <pre class="content"><code class="css"></code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-detail/hero-detail.component.html" target="_blank">hero-detail.component.html</a>
+        </div>
+        <div class="path">src/app/hero-detail/hero-detail.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;div *ngIf=&quot;hero&quot;&gt;
+  &lt;h2&gt;{{ hero.name | uppercase }} Details&lt;/h2&gt;
+  &lt;div&gt;&lt;span&gt;id: &lt;/span&gt;{{hero.id}}&lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;name:
+      &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot;/&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button (click)=&quot;goBack()&quot;&gt;go back&lt;/button&gt;
+  &lt;button (click)=&quot;save()&quot;&gt;save&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-detail/hero-detail.component.spec.ts" target="_blank">hero-detail.component.spec.ts</a>
@@ -530,7 +585,7 @@ describe(&#39;HeroDetailComponent&#39;, () =&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-detail/hero-detail.component.ts" target="_blank">hero-detail.component.ts</a>
@@ -580,86 +635,196 @@ export class HeroDetailComponent implements OnInit {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-detail/hero-detail.component.html" target="_blank">hero-detail.component.html</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.css" target="_blank">hero-search.component.css</a>
         </div>
-        <div class="path">src/app/hero-detail/hero-detail.component.html</div>
+        <div class="path">src/app/hero-search/hero-search.component.css</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;div *ngIf=&quot;hero&quot;&gt;
-  &lt;h2&gt;{{ hero.name | uppercase }} Details&lt;/h2&gt;
-  &lt;div&gt;&lt;span&gt;id: &lt;/span&gt;{{hero.id}}&lt;/div&gt;
-  &lt;div&gt;
-    &lt;label&gt;name:
-      &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot;/&gt;
-    &lt;/label&gt;
-  &lt;/div&gt;
-  &lt;button (click)=&quot;goBack()&quot;&gt;go back&lt;/button&gt;
-  &lt;button (click)=&quot;save()&quot;&gt;save&lt;/button&gt;
+        <pre class="content"><code class="css">/* HeroSearch private styles */
+.search-result li {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  width:195px;
+  height: 16px;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.search-result li:hover {
+  background-color: #607D8B;
+}
+
+.search-result li a {
+  color: #888;
+  display: block;
+  text-decoration: none;
+}
+
+.search-result li a:hover {
+  color: white;
+}
+.search-result li a:active {
+  color: white;
+}
+#search-box {
+  width: 200px;
+  height: 20px;
+}
+
+
+ul.search-result {
+  margin-top: 0;
+  padding-left: 0;
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.html" target="_blank">hero-search.component.html</a>
+        </div>
+        <div class="path">src/app/hero-search/hero-search.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;div id=&quot;search-component&quot;&gt;
+  &lt;h4&gt;Hero Search&lt;/h4&gt;
+
+  &lt;input #searchBox id=&quot;search-box&quot; (keyup)=&quot;search(searchBox.value)&quot; /&gt;
+
+  &lt;ul class=&quot;search-result&quot;&gt;
+    &lt;li *ngFor=&quot;let hero of heroes$ | async&quot; &gt;
+      &lt;a routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
+        {{hero.name}}
+      &lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.html" target="_blank">app.component.html</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.spec.ts" target="_blank">hero-search.component.spec.ts</a>
         </div>
-        <div class="path">src/app/app.component.html</div>
+        <div class="path">src/app/hero-search/hero-search.component.spec.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!--The content below is only a placeholder and can be replaced.--&gt;
-&lt;h1&gt;{{ title }}&lt;/h1&gt;
-&lt;nav&gt;
-  &lt;a routerLink=&quot;/dashboard&quot;&gt;Dashboard&lt;/a&gt;
-  &lt;a routerLink=&quot;/heroes&quot;&gt;Heroes&lt;/a&gt;
-&lt;/nav&gt;
-&lt;router-outlet&gt;
-&lt;app-messages&gt;&lt;/app-messages&gt;
+        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
+
+import { HeroSearchComponent } from &#39;./hero-search.component&#39;;
+
+describe(&#39;HeroSearchComponent&#39;, () =&gt; {
+  let component: HeroSearchComponent;
+  let fixture: ComponentFixture&lt;HeroSearchComponent&gt;;
+
+  beforeEach(async(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ HeroSearchComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() =&gt; {
+    fixture = TestBed.createComponent(HeroSearchComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it(&#39;should create&#39;, () =&gt; {
+    expect(component).toBeTruthy();
+  });
+});
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.spec.ts" target="_blank">app.component.spec.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.ts" target="_blank">hero-search.component.ts</a>
         </div>
-        <div class="path">src/app/app.component.spec.ts</div>
+        <div class="path">src/app/hero-search/hero-search.component.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">import { TestBed, async } from &#39;@angular/core/testing&#39;;
-import { AppComponent } from &#39;./app.component&#39;;
-describe(&#39;AppComponent&#39;, () =&gt; {
-  beforeEach(async(() =&gt; {
+        <pre class="content"><code class="ts">import {Component, OnInit} from &#39;@angular/core&#39;;
+
+import {Observable} from &#39;rxjs/Observable&#39;;
+import {Subject} from &#39;rxjs/Subject&#39;;
+
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from &#39;rxjs/operators&#39;;
+
+import {Hero} from &#39;../hero&#39;;
+import {HeroService} from &#39;../hero.service&#39;;
+
+@Component({
+  selector: &#39;app-hero-search&#39;,
+  templateUrl: &#39;./hero-search.component.html&#39;,
+  styleUrls: [&#39;./hero-search.component.css&#39;]
+})
+export class HeroSearchComponent implements OnInit {
+  heroes$: Observable&lt;Hero[]&gt;;
+  private searchTerms = new Subject&lt;string&gt;();
+
+  constructor(private heroService: HeroService) {
+  }
+
+  // Push a search term into the observable stream.
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
+  ngOnInit(): void {
+    this.heroes$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) =&gt; this.heroService.searchHeroes(term)),
+    );
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero.service.spec.ts" target="_blank">hero.service.spec.ts</a>
+        </div>
+        <div class="path">src/app/hero.service.spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { TestBed, inject } from &#39;@angular/core/testing&#39;;
+
+import { HeroService } from &#39;./hero.service&#39;;
+
+describe(&#39;HeroService&#39;, () =&gt; {
+  beforeEach(() =&gt; {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
-  it(&#39;should create the app&#39;, async(() =&gt; {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title &#39;app&#39;`, async(() =&gt; {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual(&#39;app&#39;);
-  }));
-  it(&#39;should render title in a h1 tag&#39;, async(() =&gt; {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector(&#39;h1&#39;).textContent).toContain(&#39;Welcome to app!&#39;);
+      providers: [HeroService]
+    });
+  });
+
+  it(&#39;should be created&#39;, inject([HeroService], (service: HeroService) =&gt; {
+    expect(service).toBeTruthy();
   }));
 });
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero.service.ts" target="_blank">hero.service.ts</a>
@@ -791,274 +956,22 @@ export class HeroService {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.ts" target="_blank">hero-search.component.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero.ts" target="_blank">hero.ts</a>
         </div>
-        <div class="path">src/app/hero-search/hero-search.component.ts</div>
+        <div class="path">src/app/hero.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">import {Component, OnInit} from &#39;@angular/core&#39;;
-
-import {Observable} from &#39;rxjs/Observable&#39;;
-import {Subject} from &#39;rxjs/Subject&#39;;
-
-import {
-  debounceTime, distinctUntilChanged, switchMap
-} from &#39;rxjs/operators&#39;;
-
-import {Hero} from &#39;../hero&#39;;
-import {HeroService} from &#39;../hero.service&#39;;
-
-@Component({
-  selector: &#39;app-hero-search&#39;,
-  templateUrl: &#39;./hero-search.component.html&#39;,
-  styleUrls: [&#39;./hero-search.component.css&#39;]
-})
-export class HeroSearchComponent implements OnInit {
-  heroes$: Observable&lt;Hero[]&gt;;
-  private searchTerms = new Subject&lt;string&gt;();
-
-  constructor(private heroService: HeroService) {
-  }
-
-  // Push a search term into the observable stream.
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
-
-  ngOnInit(): void {
-    this.heroes$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) =&gt; this.heroService.searchHeroes(term)),
-    );
-  }
+        <pre class="content"><code class="ts">export class Hero {
+  id: number;
+  name: string;
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.html" target="_blank">hero-search.component.html</a>
-        </div>
-        <div class="path">src/app/hero-search/hero-search.component.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;div id=&quot;search-component&quot;&gt;
-  &lt;h4&gt;Hero Search&lt;/h4&gt;
-
-  &lt;input #searchBox id=&quot;search-box&quot; (keyup)=&quot;search(searchBox.value)&quot; /&gt;
-
-  &lt;ul class=&quot;search-result&quot;&gt;
-    &lt;li *ngFor=&quot;let hero of heroes$ | async&quot; &gt;
-      &lt;a routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
-        {{hero.name}}
-      &lt;/a&gt;
-    &lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.css" target="_blank">hero-search.component.css</a>
-        </div>
-        <div class="path">src/app/hero-search/hero-search.component.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css">/* HeroSearch private styles */
-.search-result li {
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  width:195px;
-  height: 16px;
-  padding: 5px;
-  background-color: white;
-  cursor: pointer;
-  list-style-type: none;
-}
-
-.search-result li:hover {
-  background-color: #607D8B;
-}
-
-.search-result li a {
-  color: #888;
-  display: block;
-  text-decoration: none;
-}
-
-.search-result li a:hover {
-  color: white;
-}
-.search-result li a:active {
-  color: white;
-}
-#search-box {
-  width: 200px;
-  height: 20px;
-}
-
-
-ul.search-result {
-  margin-top: 0;
-  padding-left: 0;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero-search/hero-search.component.spec.ts" target="_blank">hero-search.component.spec.ts</a>
-        </div>
-        <div class="path">src/app/hero-search/hero-search.component.spec.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
-
-import { HeroSearchComponent } from &#39;./hero-search.component&#39;;
-
-describe(&#39;HeroSearchComponent&#39;, () =&gt; {
-  let component: HeroSearchComponent;
-  let fixture: ComponentFixture&lt;HeroSearchComponent&gt;;
-
-  beforeEach(async(() =&gt; {
-    TestBed.configureTestingModule({
-      declarations: [ HeroSearchComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() =&gt; {
-    fixture = TestBed.createComponent(HeroSearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it(&#39;should create&#39;, () =&gt; {
-    expect(component).toBeTruthy();
-  });
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.module.ts" target="_blank">app.module.ts</a>
-        </div>
-        <div class="path">src/app/app.module.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import {NgModule} from &#39;@angular/core&#39;;
-import {BrowserModule} from &#39;@angular/platform-browser&#39;;
-import {FormsModule} from &#39;@angular/forms&#39;;
-import {HttpClientModule} from &#39;@angular/common/http&#39;;
-
-import {HttpClientInMemoryWebApiModule} from &#39;angular-in-memory-web-api&#39;;
-import {InMemoryDataService} from &#39;./in-memory-data.service&#39;;
-
-import {AppRoutingModule} from &#39;./app-routing.module&#39;;
-
-import {AppComponent} from &#39;./app.component&#39;;
-import {DashboardComponent} from &#39;./dashboard/dashboard.component&#39;;
-import {HeroDetailComponent} from &#39;./hero-detail/hero-detail.component&#39;;
-import {HeroesComponent} from &#39;./heroes/heroes.component&#39;;
-import {HeroSearchComponent} from &#39;./hero-search/hero-search.component&#39;;
-import {HeroService} from &#39;./hero.service&#39;;
-import {MessageService} from &#39;./message.service&#39;;
-import {MessagesComponent} from &#39;./messages/messages.component&#39;;
-
-@NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
-    )
-  ],
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
-    HeroSearchComponent
-  ],
-  providers: [HeroService, MessageService],
-  bootstrap: [AppComponent]
-})
-export class AppModule {
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/app.component.css" target="_blank">app.component.css</a>
-        </div>
-        <div class="path">src/app/app.component.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css"></code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.spec.ts" target="_blank">heroes.component.spec.ts</a>
-        </div>
-        <div class="path">src/app/heroes/heroes.component.spec.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
-
-import { HeroesComponent } from &#39;./heroes.component&#39;;
-
-describe(&#39;HeroesComponent&#39;, () =&gt; {
-  let component: HeroesComponent;
-  let fixture: ComponentFixture&lt;HeroesComponent&gt;;
-
-  beforeEach(async(() =&gt; {
-    TestBed.configureTestingModule({
-      declarations: [ HeroesComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() =&gt; {
-    fixture = TestBed.createComponent(HeroesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it(&#39;should create&#39;, () =&gt; {
-    expect(component).toBeTruthy();
-  });
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.css" target="_blank">heroes.component.css</a>
@@ -1142,7 +1055,75 @@ button.delete {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.html" target="_blank">heroes.component.html</a>
+        </div>
+        <div class="path">src/app/heroes/heroes.component.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;h2&gt;My Heroes&lt;/h2&gt;
+
+&lt;div&gt;
+  &lt;label&gt;Hero name:
+    &lt;input #heroName /&gt;
+  &lt;/label&gt;
+  &lt;!-- (click) passes input value to add() and then clears the input --&gt;
+  &lt;button (click)=&quot;add(heroName.value); heroName.value=&#39;&#39;&quot;&gt;
+    add
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;ul class=&quot;heroes&quot;&gt;
+  &lt;li *ngFor=&quot;let hero of heroes&quot;&gt;
+    &lt;a routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
+      &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+    &lt;/a&gt;
+    &lt;button class=&quot;delete&quot; title=&quot;delete hero&quot;
+            (click)=&quot;delete(hero)&quot;&gt;x&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.spec.ts" target="_blank">heroes.component.spec.ts</a>
+        </div>
+        <div class="path">src/app/heroes/heroes.component.spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
+
+import { HeroesComponent } from &#39;./heroes.component&#39;;
+
+describe(&#39;HeroesComponent&#39;, () =&gt; {
+  let component: HeroesComponent;
+  let fixture: ComponentFixture&lt;HeroesComponent&gt;;
+
+  beforeEach(async(() =&gt; {
+    TestBed.configureTestingModule({
+      declarations: [ HeroesComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() =&gt; {
+    fixture = TestBed.createComponent(HeroesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it(&#39;should create&#39;, () =&gt; {
+    expect(component).toBeTruthy();
+  });
+});
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.ts" target="_blank">heroes.component.ts</a>
@@ -1192,54 +1173,100 @@ export class HeroesComponent implements OnInit {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/heroes/heroes.component.html" target="_blank">heroes.component.html</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/in-memory-data.service.ts" target="_blank">in-memory-data.service.ts</a>
         </div>
-        <div class="path">src/app/heroes/heroes.component.html</div>
+        <div class="path">src/app/in-memory-data.service.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;h2&gt;My Heroes&lt;/h2&gt;
+        <pre class="content"><code class="ts">import { InMemoryDbService } from &#39;angular-in-memory-web-api&#39;;
 
-&lt;div&gt;
-  &lt;label&gt;Hero name:
-    &lt;input #heroName /&gt;
-  &lt;/label&gt;
-  &lt;!-- (click) passes input value to add() and then clears the input --&gt;
-  &lt;button (click)=&quot;add(heroName.value); heroName.value=&#39;&#39;&quot;&gt;
-    add
-  &lt;/button&gt;
-&lt;/div&gt;
-
-&lt;ul class=&quot;heroes&quot;&gt;
-  &lt;li *ngFor=&quot;let hero of heroes&quot;&gt;
-    &lt;a routerLink=&quot;/detail/{{hero.id}}&quot;&gt;
-      &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
-    &lt;/a&gt;
-    &lt;button class=&quot;delete&quot; title=&quot;delete hero&quot;
-            (click)=&quot;delete(hero)&quot;&gt;x&lt;/button&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/hero.ts" target="_blank">hero.ts</a>
-        </div>
-        <div class="path">src/app/hero.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">export class Hero {
-  id: number;
-  name: string;
+export class InMemoryDataService implements InMemoryDbService {
+  createDb() {
+    const heroes = [
+      { id: 11, name: &#39;Mr. Nice&#39; },
+      { id: 12, name: &#39;Narco&#39; },
+      { id: 13, name: &#39;Bombasto&#39; },
+      { id: 14, name: &#39;Celeritas&#39; },
+      { id: 15, name: &#39;Magneta&#39; },
+      { id: 16, name: &#39;RubberMan&#39; },
+      { id: 17, name: &#39;Dynama&#39; },
+      { id: 18, name: &#39;Dr IQ&#39; },
+      { id: 19, name: &#39;Magma&#39; },
+      { id: 20, name: &#39;Tornado&#39; }
+    ];
+    return {heroes};
+  }
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/message.service.spec.ts" target="_blank">message.service.spec.ts</a>
+        </div>
+        <div class="path">src/app/message.service.spec.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { TestBed, inject } from &#39;@angular/core/testing&#39;;
+
+import { MessageService } from &#39;./message.service&#39;;
+
+describe(&#39;MessageService&#39;, () =&gt; {
+  beforeEach(() =&gt; {
+    TestBed.configureTestingModule({
+      providers: [MessageService]
+    });
+  });
+
+  it(&#39;should be created&#39;, inject([MessageService], (service: MessageService) =&gt; {
+    expect(service).toBeTruthy();
+  }));
+});
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/message.service.ts" target="_blank">message.service.ts</a>
+        </div>
+        <div class="path">src/app/message.service.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import { Injectable } from &#39;@angular/core&#39;;
+
+@Injectable()
+export class MessageService {
+  messages: string[] = [];
+
+
+  add(message: string) {
+    this.messages.push(message);
+  }
+
+  clear() {
+    this.messages = [];
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.css" target="_blank">messages.component.css</a>
+        </div>
+        <div class="path">src/app/messages/messages.component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css"></code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.html" target="_blank">messages.component.html</a>
@@ -1259,45 +1286,7 @@ export class HeroesComponent implements OnInit {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.ts" target="_blank">messages.component.ts</a>
-        </div>
-        <div class="path">src/app/messages/messages.component.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import { Component, OnInit } from &#39;@angular/core&#39;;
-import { MessageService } from &#39;../message.service&#39;;
-
-@Component({
-  selector: &#39;app-messages&#39;,
-  templateUrl: &#39;./messages.component.html&#39;,
-  styleUrls: [&#39;./messages.component.css&#39;]
-})
-export class MessagesComponent implements OnInit {
-
-  constructor(public messageService: MessageService) { }
-
-  ngOnInit() {
-  }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.css" target="_blank">messages.component.css</a>
-        </div>
-        <div class="path">src/app/messages/messages.component.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css"></code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.spec.ts" target="_blank">messages.component.spec.ts</a>
@@ -1333,33 +1322,48 @@ describe(&#39;MessagesComponent&#39;, () =&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/message.service.ts" target="_blank">message.service.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/app/messages/messages.component.ts" target="_blank">messages.component.ts</a>
         </div>
-        <div class="path">src/app/message.service.ts</div>
+        <div class="path">src/app/messages/messages.component.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">import { Injectable } from &#39;@angular/core&#39;;
+        <pre class="content"><code class="ts">import { Component, OnInit } from &#39;@angular/core&#39;;
+import { MessageService } from &#39;../message.service&#39;;
 
-@Injectable()
-export class MessageService {
-  messages: string[] = [];
+@Component({
+  selector: &#39;app-messages&#39;,
+  templateUrl: &#39;./messages.component.html&#39;,
+  styleUrls: [&#39;./messages.component.css&#39;]
+})
+export class MessagesComponent implements OnInit {
 
+  constructor(public messageService: MessageService) { }
 
-  add(message: string) {
-    this.messages.push(message);
+  ngOnInit() {
   }
 
-  clear() {
-    this.messages = [];
-  }
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/environments/environment.prod.ts" target="_blank">environment.prod.ts</a>
+        </div>
+        <div class="path">src/environments/environment.prod.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">export const environment = {
+  production: true
+};
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/environments/environment.ts" target="_blank">environment.ts</a>
@@ -1378,52 +1382,32 @@ export const environment = {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/environments/environment.prod.ts" target="_blank">environment.prod.ts</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">src/environments/environment.prod.ts</div>
+        <div class="path">src/index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">export const environment = {
-  production: true
-};
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;AngularHeroesDemo&lt;/title&gt;
+  &lt;base href=&quot;/&quot;&gt;
+
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;favicon.ico&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;app-root&gt;&lt;/app-root&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/test.ts" target="_blank">test.ts</a>
-        </div>
-        <div class="path">src/test.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">// This file is required by karma.conf.js and loads recursively all the .spec and framework files
-
-import &#39;zone.js/dist/zone-testing&#39;;
-import { getTestBed } from &#39;@angular/core/testing&#39;;
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
-} from &#39;@angular/platform-browser-dynamic/testing&#39;;
-
-declare const require: any;
-
-// First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting()
-);
-// Then we find all the tests.
-const context = require.context(&#39;./&#39;, true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
@@ -1446,7 +1430,84 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/polyfills.ts" target="_blank">polyfills.ts</a>
+        </div>
+        <div class="path">src/polyfills.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">/**
+ * This file includes polyfills needed by Angular and is loaded before the app.
+ * You can add your own extra polyfills to this file.
+ *
+ * This file is divided into 2 sections:
+ *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+ *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *      file.
+ *
+ * The current setup is for so-called &quot;evergreen&quot; browsers; the last versions of browsers that
+ * automatically update themselves. This includes Safari &gt;= 10, Chrome &gt;= 55 (including Opera),
+ * Edge &gt;= 13 on the desktop, and iOS 10 and Chrome on mobile.
+ *
+ * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
+ */
+
+/***************************************************************************************************
+ * BROWSER POLYFILLS
+ */
+
+/** IE9, IE10 and IE11 requires all of the following polyfills. **/
+// import &#39;core-js/es6/symbol&#39;;
+// import &#39;core-js/es6/object&#39;;
+// import &#39;core-js/es6/function&#39;;
+// import &#39;core-js/es6/parse-int&#39;;
+// import &#39;core-js/es6/parse-float&#39;;
+// import &#39;core-js/es6/number&#39;;
+// import &#39;core-js/es6/math&#39;;
+// import &#39;core-js/es6/string&#39;;
+// import &#39;core-js/es6/date&#39;;
+// import &#39;core-js/es6/array&#39;;
+// import &#39;core-js/es6/regexp&#39;;
+// import &#39;core-js/es6/map&#39;;
+// import &#39;core-js/es6/weak-map&#39;;
+// import &#39;core-js/es6/set&#39;;
+
+/** IE10 and IE11 requires the following for NgClass support on SVG elements */
+// import &#39;classlist.js&#39;;  // Run `npm install --save classlist.js`.
+
+/** IE10 and IE11 requires the following for the Reflect API. */
+// import &#39;core-js/es6/reflect&#39;;
+
+
+/** Evergreen browsers require these. **/
+// Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
+import &#39;core-js/es7/reflect&#39;;
+
+
+/**
+ * Required to support Web Animations `@angular/platform-browser/animations`.
+ * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+ **/
+// import &#39;web-animations-js&#39;;  // Run `npm install --save web-animations-js`.
+
+
+
+/***************************************************************************************************
+ * Zone JS is required by default for Angular itself.
+ */
+import &#39;zone.js/dist/zone&#39;;  // Included with Angular CLI.
+
+
+
+/***************************************************************************************************
+ * APPLICATION IMPORTS
+ */
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/styles.css" target="_blank">styles.css</a>
@@ -1480,115 +1541,54 @@ body, input[text], button {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/test.ts" target="_blank">test.ts</a>
         </div>
-        <div class="path">src/index.html</div>
+        <div class="path">src/test.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;title&gt;AngularHeroesDemo&lt;/title&gt;
-  &lt;base href=&quot;/&quot;&gt;
+        <pre class="content"><code class="ts">// This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-  &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;favicon.ico&quot;&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;app-root&gt;&lt;/app-root&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+import &#39;zone.js/dist/zone-testing&#39;;
+import { getTestBed } from &#39;@angular/core/testing&#39;;
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from &#39;@angular/platform-browser-dynamic/testing&#39;;
+
+declare const require: any;
+
+// First, initialize the Angular testing environment.
+getTestBed().initTestEnvironment(
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting()
+);
+// Then we find all the tests.
+const context = require.context(&#39;./&#39;, true, /\.spec\.ts$/);
+// And load the modules.
+context.keys().map(context);
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/karma.conf.js" target="_blank">karma.conf.js</a>
+            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/src/typings.d.ts" target="_blank">typings.d.ts</a>
         </div>
-        <div class="path">karma.conf.js</div>
+        <div class="path">src/typings.d.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">// Karma configuration file, see link for more information
-// https://karma-runner.github.io/1.0/config/configuration-file.html
-
-module.exports = function (config) {
-  config.set({
-    basePath: &#39;&#39;,
-    frameworks: [&#39;jasmine&#39;, &#39;@angular/cli&#39;],
-    plugins: [
-      require(&#39;karma-jasmine&#39;),
-      require(&#39;karma-chrome-launcher&#39;),
-      require(&#39;karma-jasmine-html-reporter&#39;),
-      require(&#39;karma-coverage-istanbul-reporter&#39;),
-      require(&#39;@angular/cli/plugins/karma&#39;)
-    ],
-    client:{
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
-    },
-    coverageIstanbulReporter: {
-      reports: [ &#39;html&#39;, &#39;lcovonly&#39; ],
-      fixWebpackSourcePaths: true
-    },
-    angularCli: {
-      environment: &#39;dev&#39;
-    },
-    reporters: [&#39;progress&#39;, &#39;kjhtml&#39;],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: [&#39;Chrome&#39;],
-    singleRun: false
-  });
-};
+        <pre class="content"><code class="ts">/* SystemJS module definition */
+declare var module: NodeModule;
+interface NodeModule {
+  id: string;
+}
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angular-heroes-demo/blob/master/protractor.conf.js" target="_blank">protractor.conf.js</a>
-        </div>
-        <div class="path">protractor.conf.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">// Protractor configuration file, see link for more information
-// https://github.com/angular/protractor/blob/master/lib/config.ts
-
-const { SpecReporter } = require(&#39;jasmine-spec-reporter&#39;);
-
-exports.config = {
-  allScriptsTimeout: 11000,
-  specs: [
-    &#39;./e2e/**/*.e2e-spec.ts&#39;
-  ],
-  capabilities: {
-    &#39;browserName&#39;: &#39;chrome&#39;
-  },
-  directConnect: true,
-  baseUrl: &#39;http://localhost:4200/&#39;,
-  framework: &#39;jasmine&#39;,
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000,
-    print: function() {}
-  },
-  onPrepare() {
-    require(&#39;ts-node&#39;).register({
-      project: &#39;e2e/tsconfig.e2e.json&#39;
-    });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
-  }
-};
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -51,7 +51,7 @@ The reason why the Java version has no error, is `new Scene(root, 400, 200)` has
 See &lt;https://github.com/edvin/tornadofx/issues/778&gt; for more details.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -94,7 +94,43 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/java/example/JavaHello.java" target="_blank">JavaHello.java</a>
+        </div>
+        <div class="path">src/main/java/example/JavaHello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+
+public class JavaHello extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        FlowPane root = new FlowPane() {{
+            Region region = new Region();
+            region.setPrefSize(Double.MAX_VALUE, 0.0);
+            getChildren().add(region);
+        }};
+        primaryStage.setScene(new Scene(root, 400, 200));
+        primaryStage.show();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/kotlin/example/KotlinJavafxHello.kt" target="_blank">KotlinJavafxHello.kt</a>
@@ -134,7 +170,7 @@ object KotlinJavafxHello {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/kotlin/example/TornadofxHello.kt" target="_blank">TornadofxHello.kt</a>
@@ -168,43 +204,7 @@ fun main(args: Array&lt;String&gt;) {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/java/example/JavaHello.java" target="_blank">JavaHello.java</a>
-        </div>
-        <div class="path">src/main/java/example/JavaHello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package example;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-
-public class JavaHello extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        FlowPane root = new FlowPane() {{
-            Region region = new Region();
-            region.setPrefSize(Double.MAX_VALUE, 0.0);
-            getChildren().add(region);
-        }};
-        primaryStage.setScene(new Scene(root, 400, 200));
-        primaryStage.show();
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

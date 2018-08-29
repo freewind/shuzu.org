@@ -29,7 +29,58 @@ References
 - https://github.com/zinserjan/mocha-webpack    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
+        </div>
+        <div class="path">spec/hello-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &#39;react&#39;;
+import Hello from &#39;../src/hello.jsx&#39;;
+import chai from &#39;chai&#39;;
+import {shallow} from &#39;enzyme&#39;;
+
+chai.should();
+
+describe(&#39;react&#39;, () =&gt; {
+  it(&#39;renders the component to html&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello/&gt;);
+    wrapper.html().should.equal(&#39;&lt;div class=&quot;hello&quot;&gt;hello&lt;/div&gt;&#39;);
+  });
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/spec/test_helper.js" target="_blank">test_helper.js</a>
+        </div>
+        <div class="path">spec/test_helper.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const jsdomGlobal = require(&#39;jsdom-global&#39;);
+
+jsdomGlobal();</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/src/hello.less" target="_blank">hello.less</a>
+        </div>
+        <div class="path">src/hello.less</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="less">.hello {
+  color: red;
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/webpack.config-test.js" target="_blank">webpack.config-test.js</a>
@@ -61,45 +112,7 @@ module.exports = {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/spec/test_helper.js" target="_blank">test_helper.js</a>
-        </div>
-        <div class="path">spec/test_helper.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const jsdomGlobal = require(&#39;jsdom-global&#39;);
-
-jsdomGlobal();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mocha-webpack-test-demo/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
-        </div>
-        <div class="path">spec/hello-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &#39;react&#39;;
-import Hello from &#39;../src/hello.jsx&#39;;
-import chai from &#39;chai&#39;;
-import {shallow} from &#39;enzyme&#39;;
-
-chai.should();
-
-describe(&#39;react&#39;, () =&gt; {
-  it(&#39;renders the component to html&#39;, () =&gt; {
-    const wrapper = shallow(&lt;Hello/&gt;);
-    wrapper.html().should.equal(&#39;&lt;div class=&quot;hello&quot;&gt;hello&lt;/div&gt;&#39;);
-  });
-});</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

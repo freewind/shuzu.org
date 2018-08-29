@@ -29,7 +29,30 @@ jasmine
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/superagent-nock-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const request = require(&#39;superagent&#39;);
+const nock = require(&#39;nock&#39;);
+
+function login({username, password}, callback) {
+  request.post(&#39;/api/sessions&#39;)
+    .send({username, password})
+    .end((err, res) =&gt; {
+      callback(err, res &amp;&amp; res.ok, res &amp;&amp; res.body.message);
+    });
+}
+
+module.exports = {login};</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/superagent-nock-demo/blob/master/spec/login-spec.js" target="_blank">login-spec.js</a>
@@ -79,30 +102,7 @@ describe(&#39;login&#39;, () =&gt; {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/superagent-nock-demo/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-const request = require(&#39;superagent&#39;);
-const nock = require(&#39;nock&#39;);
-
-function login({username, password}, callback) {
-  request.post(&#39;/api/sessions&#39;)
-    .send({username, password})
-    .end((err, res) =&gt; {
-      callback(err, res &amp;&amp; res.ok, res &amp;&amp; res.body.message);
-    });
-}
-
-module.exports = {login};</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

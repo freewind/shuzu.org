@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -41,7 +41,337 @@
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/MoveForwardCommand.java" target="_blank">MoveForwardCommand.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/MoveForwardCommand.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
+
+import cn.thoughtworks.academy.marsrover.Rover;
+import cn.thoughtworks.academy.marsrover.RoverCommand;
+
+public class MoveForwardCommand implements RoverCommand {
+    public void execute(Rover rover) {
+        rover.moveForward();
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/TurnLeftCommand.java" target="_blank">TurnLeftCommand.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/TurnLeftCommand.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
+
+import cn.thoughtworks.academy.marsrover.Rover;
+import cn.thoughtworks.academy.marsrover.RoverCommand;
+
+public class TurnLeftCommand implements RoverCommand {
+    public void execute(Rover rover) {
+        rover.turnLeft();
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/TurnRightCommand.java" target="_blank">TurnRightCommand.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/TurnRightCommand.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
+
+import cn.thoughtworks.academy.marsrover.Rover;
+import cn.thoughtworks.academy.marsrover.RoverCommand;
+
+public class TurnRightCommand implements RoverCommand {
+    public void execute(Rover rover) {
+        rover.turnRight();
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Direction.java" target="_blank">Direction.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Direction.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+public enum Direction {
+    WEST() {
+        @Override
+        public Direction left() {
+            return SOUTH;
+        }
+
+        @Override
+        public Direction right() {
+            return NORTH;
+        }
+
+        @Override
+        public Offset offset() {
+            return new Offset(-1, 0);
+        }
+    },
+    SOUTH() {
+        @Override
+        public Direction left() {
+            return EAST;
+        }
+
+        @Override
+        public Direction right() {
+            return WEST;
+        }
+
+        @Override
+        public Offset offset() {
+            return new Offset(0, -1);
+        }
+    },
+    EAST() {
+        @Override
+        public Direction left() {
+            return NORTH;
+        }
+
+        @Override
+        public Direction right() {
+            return SOUTH;
+        }
+
+        @Override
+        public Offset offset() {
+            return new Offset(1, 0);
+        }
+    },
+    NORTH() {
+        @Override
+        public Direction left() {
+            return WEST;
+        }
+
+        @Override
+        public Direction right() {
+            return EAST;
+        }
+
+        @Override
+        public Offset offset() {
+            return new Offset(0, 1);
+        }
+    };
+
+    public abstract Direction left();
+
+    public abstract Direction right();
+
+    public abstract Offset offset();
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/MarsRover.java" target="_blank">MarsRover.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/MarsRover.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+import static cn.thoughtworks.academy.marsrover.Direction.WEST;
+
+public class MarsRover {
+
+    private final Rover[][] rovers;
+    private Rover rover;
+    private int x;
+    private int y;
+
+    public MarsRover(int width, int height) {
+        rovers = new Rover[width + 1][height + 1];
+    }
+
+    public MarsRover place(Rover rover) {
+        rover.setMarsRover(this);
+        this.rover = rover;
+        return this;
+    }
+
+    public MarsRover at(int x, int y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public void faceTo(Direction direction) {
+        rover.setDirection(direction);
+        rovers[x][y] = rover;
+    }
+
+    public Rover get(int x, int y) {
+        return rovers[x][y];
+    }
+
+
+    public MarsRover move(Rover rover) throws RoverNotFoundException {
+        for (int i = 0; i &lt; rovers.length; i++) {
+            for (int j = 0; j &lt; rovers[i].length; j++) {
+                if (rover.equals(rovers[i][j])) {
+                    this.x = i;
+                    this.y = j;
+                    return this;
+                }
+            }
+        }
+        throw new RoverNotFoundException();
+    }
+
+    public void to(Direction direction) {
+        Offset offset = direction.offset();
+        rovers[x + offset.getX()][y + offset.getY()] = rovers[x][y];
+        rovers[x][y] = null;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Offset.java" target="_blank">Offset.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Offset.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+public class Offset {
+    private int x;
+    private int y;
+
+    public Offset(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Rover.java" target="_blank">Rover.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Rover.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+import java.util.List;
+
+public class Rover {
+    private Direction direction;
+    private MarsRover marsRover;
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public void execute(List&lt;RoverCommand&gt; commands) {
+        for (RoverCommand command : commands) {
+            command.execute(this);
+        }
+    }
+
+    public void turnLeft() {
+        setDirection(direction.left());
+    }
+
+    public void turnRight() {
+        setDirection(direction.right());
+    }
+
+    public void moveForward() {
+        try {
+            marsRover.move(this).to(this.direction);
+        } catch (RoverNotFoundException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void setMarsRover(MarsRover marsRover) {
+        this.marsRover = marsRover;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/RoverCommand.java" target="_blank">RoverCommand.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/RoverCommand.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+public interface RoverCommand {
+    void execute(Rover rover);
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/RoverNotFoundException.java" target="_blank">RoverNotFoundException.java</a>
+        </div>
+        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/RoverNotFoundException.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
+
+public class RoverNotFoundException extends Exception {
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/test/java/cn/thoughtworks/academy/marsrover/MarsRoverTest.java" target="_blank">MarsRoverTest.java</a>
@@ -137,337 +467,7 @@ public class MarsRoverTest {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Direction.java" target="_blank">Direction.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Direction.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-public enum Direction {
-    WEST() {
-        @Override
-        public Direction left() {
-            return SOUTH;
-        }
-
-        @Override
-        public Direction right() {
-            return NORTH;
-        }
-
-        @Override
-        public Offset offset() {
-            return new Offset(-1, 0);
-        }
-    },
-    SOUTH() {
-        @Override
-        public Direction left() {
-            return EAST;
-        }
-
-        @Override
-        public Direction right() {
-            return WEST;
-        }
-
-        @Override
-        public Offset offset() {
-            return new Offset(0, -1);
-        }
-    },
-    EAST() {
-        @Override
-        public Direction left() {
-            return NORTH;
-        }
-
-        @Override
-        public Direction right() {
-            return SOUTH;
-        }
-
-        @Override
-        public Offset offset() {
-            return new Offset(1, 0);
-        }
-    },
-    NORTH() {
-        @Override
-        public Direction left() {
-            return WEST;
-        }
-
-        @Override
-        public Direction right() {
-            return EAST;
-        }
-
-        @Override
-        public Offset offset() {
-            return new Offset(0, 1);
-        }
-    };
-
-    public abstract Direction left();
-
-    public abstract Direction right();
-
-    public abstract Offset offset();
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/RoverNotFoundException.java" target="_blank">RoverNotFoundException.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/RoverNotFoundException.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-public class RoverNotFoundException extends Exception {
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/MoveForwardCommand.java" target="_blank">MoveForwardCommand.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/MoveForwardCommand.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
-
-import cn.thoughtworks.academy.marsrover.Rover;
-import cn.thoughtworks.academy.marsrover.RoverCommand;
-
-public class MoveForwardCommand implements RoverCommand {
-    public void execute(Rover rover) {
-        rover.moveForward();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/TurnRightCommand.java" target="_blank">TurnRightCommand.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/TurnRightCommand.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
-
-import cn.thoughtworks.academy.marsrover.Rover;
-import cn.thoughtworks.academy.marsrover.RoverCommand;
-
-public class TurnRightCommand implements RoverCommand {
-    public void execute(Rover rover) {
-        rover.turnRight();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/command/TurnLeftCommand.java" target="_blank">TurnLeftCommand.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/command/TurnLeftCommand.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover.command;
-
-import cn.thoughtworks.academy.marsrover.Rover;
-import cn.thoughtworks.academy.marsrover.RoverCommand;
-
-public class TurnLeftCommand implements RoverCommand {
-    public void execute(Rover rover) {
-        rover.turnLeft();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/RoverCommand.java" target="_blank">RoverCommand.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/RoverCommand.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-public interface RoverCommand {
-    void execute(Rover rover);
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/MarsRover.java" target="_blank">MarsRover.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/MarsRover.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-import static cn.thoughtworks.academy.marsrover.Direction.WEST;
-
-public class MarsRover {
-
-    private final Rover[][] rovers;
-    private Rover rover;
-    private int x;
-    private int y;
-
-    public MarsRover(int width, int height) {
-        rovers = new Rover[width + 1][height + 1];
-    }
-
-    public MarsRover place(Rover rover) {
-        rover.setMarsRover(this);
-        this.rover = rover;
-        return this;
-    }
-
-    public MarsRover at(int x, int y) {
-        this.x = x;
-        this.y = y;
-        return this;
-    }
-
-    public void faceTo(Direction direction) {
-        rover.setDirection(direction);
-        rovers[x][y] = rover;
-    }
-
-    public Rover get(int x, int y) {
-        return rovers[x][y];
-    }
-
-
-    public MarsRover move(Rover rover) throws RoverNotFoundException {
-        for (int i = 0; i &lt; rovers.length; i++) {
-            for (int j = 0; j &lt; rovers[i].length; j++) {
-                if (rover.equals(rovers[i][j])) {
-                    this.x = i;
-                    this.y = j;
-                    return this;
-                }
-            }
-        }
-        throw new RoverNotFoundException();
-    }
-
-    public void to(Direction direction) {
-        Offset offset = direction.offset();
-        rovers[x + offset.getX()][y + offset.getY()] = rovers[x][y];
-        rovers[x][y] = null;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Offset.java" target="_blank">Offset.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Offset.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-public class Offset {
-    private int x;
-    private int y;
-
-    public Offset(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mars-rover-with-enum-demo/blob/master/src/main/java/cn/thoughtworks/academy/marsrover/Rover.java" target="_blank">Rover.java</a>
-        </div>
-        <div class="path">src/main/java/cn/thoughtworks/academy/marsrover/Rover.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package cn.thoughtworks.academy.marsrover;
-
-import java.util.List;
-
-public class Rover {
-    private Direction direction;
-    private MarsRover marsRover;
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-    public void execute(List&lt;RoverCommand&gt; commands) {
-        for (RoverCommand command : commands) {
-            command.execute(this);
-        }
-    }
-
-    public void turnLeft() {
-        setDirection(direction.left());
-    }
-
-    public void turnRight() {
-        setDirection(direction.right());
-    }
-
-    public void moveForward() {
-        try {
-            marsRover.move(this).to(this.direction);
-        } catch (RoverNotFoundException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void setMarsRover(MarsRover marsRover) {
-        this.marsRover = marsRover;
-    }
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

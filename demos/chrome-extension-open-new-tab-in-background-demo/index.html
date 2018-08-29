@@ -40,7 +40,7 @@ chrome.tabs.create({
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -88,31 +88,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import chrome.tabs.CreateProperties
-import kotlinjs.common.jsonAs
-
-fun main(args: Array&lt;String&gt;) {
-    chrome.tabs.create(jsonAs&lt;CreateProperties&gt;().apply {
-        url = &quot;http://github.com&quot;
-        active = false
-    }) { tab -&gt;
-        console.log(&quot;Opened tab in background: ${tab.id}&quot;)
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/extension/bundle.js" target="_blank">bundle.js</a>
@@ -38182,7 +38158,7 @@ this[&#39;chrome-extension-open-new-tab-in-background-demo&#39;] = function (_, 
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/extension/hello.html" target="_blank">hello.html</a>
@@ -38208,7 +38184,31 @@ this[&#39;chrome-extension-open-new-tab-in-background-demo&#39;] = function (_, 
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
 
+import chrome.tabs.CreateProperties
+import kotlinjs.common.jsonAs
+
+fun main(args: Array&lt;String&gt;) {
+    chrome.tabs.create(jsonAs&lt;CreateProperties&gt;().apply {
+        url = &quot;http://github.com&quot;
+        active = false
+    }) { tab -&gt;
+        console.log(&quot;Opened tab in background: ${tab.id}&quot;)
+    }
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

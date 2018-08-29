@@ -32,7 +32,27 @@ cd testing-project
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-custom-plugin-in-standalone-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;groovy&#39;
+apply plugin: &#39;maven&#39;
+
+group &#39;freewind.demos&#39;
+version &#39;0.1.0&#39;
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-custom-plugin-in-standalone-demo/blob/master/testing-project/build.gradle" target="_blank">build.gradle</a>
@@ -56,27 +76,7 @@ hello {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-custom-plugin-in-standalone-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">apply plugin: &#39;groovy&#39;
-apply plugin: &#39;maven&#39;
-
-group &#39;freewind.demos&#39;
-version &#39;0.1.0&#39;
-
-dependencies {
-    compile gradleApi()
-    compile localGroovy()
-}</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

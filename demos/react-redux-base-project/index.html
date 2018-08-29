@@ -48,40 +48,29 @@ npm run webpack:watch
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/spec/reducers/index-spec.js" target="_blank">index-spec.js</a>
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/public/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">spec/reducers/index-spec.js</div>
+        <div class="path">public/index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-import expect from &#39;expect&#39;;
-import reducer from &#39;../../src/reducers/index&#39;;
-
-describe(&#39;reducer&#39;, () =&gt; {
-
-  it(&#39;returns init store if no state passed in&#39;, () =&gt; {
-    expect(reducer(undefined, {type: &#39;any&#39;})).toEqual({
-      fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
-    })
-  });
-
-  it(&#39;deletes specified fruit&#39;, () =&gt; {
-    expect(reducer(
-      {fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]},
-      {type: &#39;DELETE_FRUIT&#39;, fruitName: &#39;Apples&#39;}
-    )).toEqual({
-      fruit: [&#39;Oranges&#39;]
-    })
-  })
-
-});
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/spec/components/hello-spec.js" target="_blank">hello-spec.js</a>
@@ -118,7 +107,135 @@ describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/spec/reducers/index-spec.js" target="_blank">index-spec.js</a>
+        </div>
+        <div class="path">spec/reducers/index-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import expect from &#39;expect&#39;;
+import reducer from &#39;../../src/reducers/index&#39;;
+
+describe(&#39;reducer&#39;, () =&gt; {
+
+  it(&#39;returns init store if no state passed in&#39;, () =&gt; {
+    expect(reducer(undefined, {type: &#39;any&#39;})).toEqual({
+      fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
+    })
+  });
+
+  it(&#39;deletes specified fruit&#39;, () =&gt; {
+    expect(reducer(
+      {fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]},
+      {type: &#39;DELETE_FRUIT&#39;, fruitName: &#39;Apples&#39;}
+    )).toEqual({
+      fruit: [&#39;Oranges&#39;]
+    })
+  })
+
+});
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/actions/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/actions/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import types from &#39;./types&#39;;
+
+export function deleteFruit(fruitName) {
+  return {
+    type: types.DELETE_FRUIT,
+    fruitName: fruitName
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/actions/types.js" target="_blank">types.js</a>
+        </div>
+        <div class="path">src/actions/types.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const DELETE_FRUIT = &#39;DELETE_FRUIT&#39;;
+
+export default {
+  DELETE_FRUIT
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/containers/hello-container.js" target="_blank">hello-container.js</a>
+        </div>
+        <div class="path">src/containers/hello-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import Hello from &#39;../components/hello.jsx&#39;;
+import {connect} from &#39;react-redux&#39;;
+import * as actions from &#39;../actions&#39;;
+
+function mapStateToProps(state) {
+  return {
+    fruit: state.fruit
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onDeleteFruit: (name) =&gt; dispatch(actions.deleteFruit(name))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hello);
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import actionTypes from &#39;../actions/types&#39;;
+
+const initStore = {
+  fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
+};
+
+function _handleDelete(state, action) {
+  return Object.assign({}, state, {
+    fruit: state.fruit.filter(name =&gt; name !== action.fruitName)
+  });
+}
+
+export default function (state = initStore, action) {
+  switch (action.type) {
+    case actionTypes.DELETE_FRUIT:
+      return _handleDelete(state, action);
+    default:
+      return state;
+  }
+};
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
@@ -154,124 +271,7 @@ module.exports = {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/actions/types.js" target="_blank">types.js</a>
-        </div>
-        <div class="path">src/actions/types.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const DELETE_FRUIT = &#39;DELETE_FRUIT&#39;;
-
-export default {
-  DELETE_FRUIT
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/actions/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">src/actions/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import types from &#39;./types&#39;;
-
-export function deleteFruit(fruitName) {
-  return {
-    type: types.DELETE_FRUIT,
-    fruitName: fruitName
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/reducers/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">src/reducers/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import actionTypes from &#39;../actions/types&#39;;
-
-const initStore = {
-  fruit: [&#39;Apples&#39;, &#39;Oranges&#39;]
-};
-
-function _handleDelete(state, action) {
-  return Object.assign({}, state, {
-    fruit: state.fruit.filter(name =&gt; name !== action.fruitName)
-  });
-}
-
-export default function (state = initStore, action) {
-  switch (action.type) {
-    case actionTypes.DELETE_FRUIT:
-      return _handleDelete(state, action);
-    default:
-      return state;
-  }
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/containers/hello-container.js" target="_blank">hello-container.js</a>
-        </div>
-        <div class="path">src/containers/hello-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-import Hello from &#39;../components/hello.jsx&#39;;
-import {connect} from &#39;react-redux&#39;;
-import * as actions from &#39;../actions&#39;;
-
-function mapStateToProps(state) {
-  return {
-    fruit: state.fruit
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onDeleteFruit: (name) =&gt; dispatch(actions.deleteFruit(name))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Hello);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/public/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;title&gt;Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

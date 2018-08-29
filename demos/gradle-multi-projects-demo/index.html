@@ -24,7 +24,7 @@ Resource
 - &lt;https://docs.gradle.org/current/userguide/multi_project_builds.html&gt;    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -67,7 +67,27 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/project1/src/main/java/my/Hello1.java" target="_blank">Hello1.java</a>
+        </div>
+        <div class="path">project1/src/main/java/my/Hello1.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+public class Hello1 {
+    private HelloRoot helloRoot = new HelloRoot();
+
+    public String hello(String name) {
+        return &quot;(project1) Hello, &quot; + name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/project2/src/main/java/my/Hello2.java" target="_blank">Hello2.java</a>
@@ -89,7 +109,7 @@ public class Hello2 {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/settings.gradle" target="_blank">settings.gradle</a>
@@ -100,7 +120,25 @@ public class Hello2 {
         <pre class="content"><code class="gradle">include &#39;project1&#39;, &#39;project2&#39;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/src/main/java/my/HelloRoot.java" target="_blank">HelloRoot.java</a>
+        </div>
+        <div class="path">src/main/java/my/HelloRoot.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+public class HelloRoot {
+    public String hello(String name) {
+        return &quot;(root project) Hello, &quot; + name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
@@ -126,45 +164,7 @@ public class HelloSpec {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/src/main/java/my/HelloRoot.java" target="_blank">HelloRoot.java</a>
-        </div>
-        <div class="path">src/main/java/my/HelloRoot.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-public class HelloRoot {
-    public String hello(String name) {
-        return &quot;(root project) Hello, &quot; + name;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-multi-projects-demo/blob/master/project1/src/main/java/my/Hello1.java" target="_blank">Hello1.java</a>
-        </div>
-        <div class="path">project1/src/main/java/my/Hello1.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-public class Hello1 {
-    private HelloRoot helloRoot = new HelloRoot();
-
-    public String hello(String name) {
-        return &quot;(project1) Hello, &quot; + name;
-    }
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

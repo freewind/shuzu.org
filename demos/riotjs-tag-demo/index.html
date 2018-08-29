@@ -12,91 +12,7 @@
 </div>
 
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag1.js" target="_blank">sample-tag1.js</a>
-        </div>
-        <div class="path">sample-tag1.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">riot.tag(&#39;sample1&#39;,
-  &#39;&lt;div&gt;&lt;h3&gt;{ message }&lt;/h3&gt; &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt; &lt;button onclick=&quot;{ click }&quot;&gt;Click&lt;/button&gt;&lt;/div&gt;&#39;,
-  &quot;&quot;, // css
-  &#39;&#39;, // attrs
-  function (opts) {
-    this.message = &#39;Hello, Sample 1!&#39;;
-    this.techs = [
-      { name: &#39;HTML&#39; },
-      { name: &#39;JavaScript&#39; },
-      { name: &#39;CSS&#39; }
-    ];
-    this.click = function() {
-        alert(&#39;click on sample1&#39;);
-    };
-});
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag2.js" target="_blank">sample-tag2.js</a>
-        </div>
-        <div class="path">sample-tag2.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">riot.tag(&#39;sample2&#39;, false, function(opts) {
-  this.message = &#39;Sample 2&#39;;
-  this.techs = [
-        { name: &#39;HTML&#39; },
-        { name: &#39;JavaScript&#39; },
-        { name: &#39;CSS&#39; }
-      ];
-  this.click = function() {
-    alert(&#39;click on Sample2&#39;);
-  }
-})
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag3.js" target="_blank">sample-tag3.js</a>
-        </div>
-        <div class="path">sample-tag3.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">class SampleTag3 extends riot.Tag {
-  // mandatory in order to use and identify this component
-  get name() {
-    return &#39;sample3&#39;
-  }
-  get tmpl() {
-    return `&lt;div&gt;&lt;h1&gt;Sample3&lt;/h1&gt;&lt;p onclick=&quot;{ click }&quot;&gt;Dear user, { message }&lt;/p&gt;&lt;/div&gt;`
-  }
-  get attrs() {
-    return &#39;class=&quot;{ className }&quot;&#39;
-  }
-  get css() {
-    return &#39;sample3 p{ color: blue; }&#39;
-  }
-  onCreate(opts) {
-    console.log(&quot;### opts: &quot; + opts.message)
-    this.message = opts.message
-  }
-  click() {
-    this.message = &#39;goodbye&#39;
-  }
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -139,7 +55,91 @@
 &lt;/html&gt;</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag1.js" target="_blank">sample-tag1.js</a>
+        </div>
+        <div class="path">sample-tag1.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">riot.tag(&#39;sample1&#39;,
+  &#39;&lt;div&gt;&lt;h3&gt;{ message }&lt;/h3&gt; &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt; &lt;button onclick=&quot;{ click }&quot;&gt;Click&lt;/button&gt;&lt;/div&gt;&#39;,
+  &quot;&quot;, // css
+  &#39;&#39;, // attrs
+  function (opts) {
+    this.message = &#39;Hello, Sample 1!&#39;;
+    this.techs = [
+      { name: &#39;HTML&#39; },
+      { name: &#39;JavaScript&#39; },
+      { name: &#39;CSS&#39; }
+    ];
+    this.click = function() {
+        alert(&#39;click on sample1&#39;);
+    };
+});
 
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag2.js" target="_blank">sample-tag2.js</a>
+        </div>
+        <div class="path">sample-tag2.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">riot.tag(&#39;sample2&#39;, false, function(opts) {
+  this.message = &#39;Sample 2&#39;;
+  this.techs = [
+        { name: &#39;HTML&#39; },
+        { name: &#39;JavaScript&#39; },
+        { name: &#39;CSS&#39; }
+      ];
+  this.click = function() {
+    alert(&#39;click on Sample2&#39;);
+  }
+})
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag3.js" target="_blank">sample-tag3.js</a>
+        </div>
+        <div class="path">sample-tag3.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">class SampleTag3 extends riot.Tag {
+  // mandatory in order to use and identify this component
+  get name() {
+    return &#39;sample3&#39;
+  }
+  get tmpl() {
+    return `&lt;div&gt;&lt;h1&gt;Sample3&lt;/h1&gt;&lt;p onclick=&quot;{ click }&quot;&gt;Dear user, { message }&lt;/p&gt;&lt;/div&gt;`
+  }
+  get attrs() {
+    return &#39;class=&quot;{ className }&quot;&#39;
+  }
+  get css() {
+    return &#39;sample3 p{ color: blue; }&#39;
+  }
+  onCreate(opts) {
+    console.log(&quot;### opts: &quot; + opts.message)
+    this.message = opts.message
+  }
+  click() {
+    this.message = &#39;goodbye&#39;
+  }
+}
+
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

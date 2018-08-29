@@ -49,7 +49,44 @@ To make `resolveJsonModule` work, we need:
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;!-- built files will be auto injected --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
+        </div>
+        <div class="path">src/main.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h =&gt; h(App)
+}).$mount(&#39;#app&#39;)
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-tsx.d.ts" target="_blank">shims-tsx.d.ts</a>
@@ -73,7 +110,7 @@ declare global {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-vue.d.ts" target="_blank">shims-vue.d.ts</a>
@@ -88,44 +125,7 @@ declare global {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/main.ts" target="_blank">main.ts</a>
-        </div>
-        <div class="path">src/main.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import Vue from &#39;vue&#39;
-import App from &#39;./App.vue&#39;
-
-Vue.config.productionTip = false
-
-new Vue({
-  render: h =&gt; h(App)
-}).$mount(&#39;#app&#39;)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/public/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
-&lt;!-- built files will be auto injected --&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -159,51 +159,7 @@
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/test/files/testFiles.txt" target="_blank">testFiles.txt</a>
-        </div>
-        <div class="path">src/test/files/testFiles.txt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="txt">Place your test files in this folder</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/test/java/org/sonar/template/java/JavaCustomRulesDefinitionTest.java" target="_blank">JavaCustomRulesDefinitionTest.java</a>
-        </div>
-        <div class="path">src/test/java/org/sonar/template/java/JavaCustomRulesDefinitionTest.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package org.sonar.template.java;
-
-import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition;
-
-import static org.fest.assertions.Assertions.assertThat;
-
-public class JavaCustomRulesDefinitionTest {
-
-  @Test
-  public void registration_test() {
-    JavaCustomRulesDefinition definition = new JavaCustomRulesDefinition();
-    RulesDefinition.Context context = new RulesDefinition.Context();
-    definition.define(context);
-    RulesDefinition.Repository repository = context.repository(&quot;java-custom-rules-template&quot;);
-
-    assertThat(repository.key()).isEqualTo(&quot;java-custom-rules-template&quot;);
-    assertThat(repository.name()).isEqualTo(&quot;Java Custom Rules - Template&quot;);
-    assertThat(repository.language()).isEqualTo(&quot;java&quot;);
-    assertThat(repository.rules()).hasSize(JavaCustomRulesList.getChecks().size());
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/checks/package-info.java" target="_blank">package-info.java</a>
@@ -221,7 +177,39 @@ import javax.annotation.ParametersAreNonnullByDefault;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesCheckRegistrar.java" target="_blank">JavaCustomRulesCheckRegistrar.java</a>
+        </div>
+        <div class="path">src/main/java/org/sonar/template/java/JavaCustomRulesCheckRegistrar.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package org.sonar.template.java;
+
+import org.sonar.plugins.java.api.CheckRegistrar;
+
+/**
+ * Provide the &quot;checks&quot; (implementations of rules) classes that are going to be executed during
+ * source code analysis.
+ *
+ * This class is a batch extension by implementing the {@link org.sonar.plugins.java.api.CheckRegistrar} interface.
+ */
+public class JavaCustomRulesCheckRegistrar implements CheckRegistrar {
+
+  /**
+   * Register the classes that will be used to instantiate checks during analysis.
+   */
+  @Override
+  public void register(RegistrarContext registrarContext) {
+    // Call to registerClassesForRepository to associate the classes with the correct repository key
+    registrarContext.registerClassesForRepository(JavaCustomRulesDefinition.REPOSITORY_KEY, JavaCustomRulesList.getJavaChecks(), JavaCustomRulesList.getJavaTestChecks());
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesDefinition.java" target="_blank">JavaCustomRulesDefinition.java</a>
@@ -261,40 +249,7 @@ public class JavaCustomRulesDefinition implements RulesDefinition {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesPlugin.java" target="_blank">JavaCustomRulesPlugin.java</a>
-        </div>
-        <div class="path">src/main/java/org/sonar/template/java/JavaCustomRulesPlugin.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package org.sonar.template.java;
-
-import org.sonar.api.SonarPlugin;
-
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Entry point of plugin
- */
-public class JavaCustomRulesPlugin extends SonarPlugin {
-
-  @Override
-  public List getExtensions() {
-    return Arrays.asList(
-      // server extensions -&gt; objects are instantiated during server startup
-      JavaCustomRulesDefinition.class,
-
-      // batch extensions -&gt; objects are instantiated during code analysis
-      JavaCustomRulesCheckRegistrar.class);
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesList.java" target="_blank">JavaCustomRulesList.java</a>
@@ -334,39 +289,84 @@ public final class JavaCustomRulesList {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesCheckRegistrar.java" target="_blank">JavaCustomRulesCheckRegistrar.java</a>
+            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/main/java/org/sonar/template/java/JavaCustomRulesPlugin.java" target="_blank">JavaCustomRulesPlugin.java</a>
         </div>
-        <div class="path">src/main/java/org/sonar/template/java/JavaCustomRulesCheckRegistrar.java</div>
+        <div class="path">src/main/java/org/sonar/template/java/JavaCustomRulesPlugin.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package org.sonar.template.java;
 
-import org.sonar.plugins.java.api.CheckRegistrar;
+import org.sonar.api.SonarPlugin;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Provide the &quot;checks&quot; (implementations of rules) classes that are going to be executed during
- * source code analysis.
- *
- * This class is a batch extension by implementing the {@link org.sonar.plugins.java.api.CheckRegistrar} interface.
+ * Entry point of plugin
  */
-public class JavaCustomRulesCheckRegistrar implements CheckRegistrar {
+public class JavaCustomRulesPlugin extends SonarPlugin {
 
-  /**
-   * Register the classes that will be used to instantiate checks during analysis.
-   */
   @Override
-  public void register(RegistrarContext registrarContext) {
-    // Call to registerClassesForRepository to associate the classes with the correct repository key
-    registrarContext.registerClassesForRepository(JavaCustomRulesDefinition.REPOSITORY_KEY, JavaCustomRulesList.getJavaChecks(), JavaCustomRulesList.getJavaTestChecks());
+  public List getExtensions() {
+    return Arrays.asList(
+      // server extensions -&gt; objects are instantiated during server startup
+      JavaCustomRulesDefinition.class,
+
+      // batch extensions -&gt; objects are instantiated during code analysis
+      JavaCustomRulesCheckRegistrar.class);
   }
 }
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/test/files/testFiles.txt" target="_blank">testFiles.txt</a>
+        </div>
+        <div class="path">src/test/files/testFiles.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">Place your test files in this folder</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sonar-java-custom-rules-template/blob/master/src/test/java/org/sonar/template/java/JavaCustomRulesDefinitionTest.java" target="_blank">JavaCustomRulesDefinitionTest.java</a>
+        </div>
+        <div class="path">src/test/java/org/sonar/template/java/JavaCustomRulesDefinitionTest.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package org.sonar.template.java;
 
+import org.junit.Test;
+import org.sonar.api.server.rule.RulesDefinition;
+
+import static org.fest.assertions.Assertions.assertThat;
+
+public class JavaCustomRulesDefinitionTest {
+
+  @Test
+  public void registration_test() {
+    JavaCustomRulesDefinition definition = new JavaCustomRulesDefinition();
+    RulesDefinition.Context context = new RulesDefinition.Context();
+    definition.define(context);
+    RulesDefinition.Repository repository = context.repository(&quot;java-custom-rules-template&quot;);
+
+    assertThat(repository.key()).isEqualTo(&quot;java-custom-rules-template&quot;);
+    assertThat(repository.name()).isEqualTo(&quot;Java Custom Rules - Template&quot;);
+    assertThat(repository.language()).isEqualTo(&quot;java&quot;);
+    assertThat(repository.rules()).hasSize(JavaCustomRulesList.getChecks().size());
+  }
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

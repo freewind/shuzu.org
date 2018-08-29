@@ -26,7 +26,34 @@ npx tsc --strict hello.ts
 可以正常编译。    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-definite-assignment-assertion-demo/blob/master/hello-error.ts" target="_blank">hello-error.ts</a>
+        </div>
+        <div class="path">hello-error.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">class User {
+    private name: string
+    private email: string
+
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    ```
+npx tsc --strict hello-error.ts
+hello-error.ts:3:13 - error TS2564: Property &#39;email&#39; has no initializer and is not definitely assigned in the constructor.
+
+3     private email: string
+              ~~~~~
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-definite-assignment-assertion-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
@@ -56,43 +83,7 @@ user.initEmail()
 console.log(user.getEmail());</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-definite-assignment-assertion-demo/blob/master/hello-error.ts" target="_blank">hello-error.ts</a>
-        </div>
-        <div class="path">hello-error.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">class User {
-    private name: string
-    private email: string
-
-    constructor(name: string) {
-        this.name = name;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-definite-assignment-assertion-demo/blob/master/hello-error.ts.md" target="_blank">hello-error.ts.md</a>
-        </div>
-        <div class="path">hello-error.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-npx tsc --strict hello-error.ts
-hello-error.ts:3:13 - error TS2564: Property &#39;email&#39; has no initializer and is not definitely assigned in the constructor.
-
-3     private email: string
-              ~~~~~
-```</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

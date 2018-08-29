@@ -53,7 +53,7 @@ run.sh
 可以运行`./run.sh`来查看效果。    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -82,7 +82,35 @@ run.sh
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="markdown markdown-body center-in-page">
+    ```
+Downloading from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom
+Downloaded from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom (28 kB at 55 kB/s)
+Downloading from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar
+Downloaded from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar (500 kB at 1.5 MB/s)
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Hello {
+
+    public String greeting(String name) {
+        return &quot;Hello, &quot; + StringUtils.capitalize(name) + &quot;!&quot;;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/src/test/java/demo/HelloTest.java" target="_blank">HelloTest.java</a>
@@ -108,28 +136,7 @@ public class HelloTest {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Hello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import org.apache.commons.lang3.StringUtils;
-
-public class Hello {
-
-    public String greeting(String name) {
-        return &quot;Hello, &quot; + StringUtils.capitalize(name) + &quot;!&quot;;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/user-settings.xml" target="_blank">user-settings.xml</a>
@@ -154,23 +161,7 @@ public class Hello {
 &lt;/settings&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/run.sh.md" target="_blank">run.sh.md</a>
-        </div>
-        <div class="path">run.sh.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-Downloading from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom
-Downloaded from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.pom (28 kB at 55 kB/s)
-Downloading from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar
-Downloaded from central-mirror: http://maven.aliyun.com/nexus/content/repositories/jcenter/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar (500 kB at 1.5 MB/s)
-```</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

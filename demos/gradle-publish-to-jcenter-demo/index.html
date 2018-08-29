@@ -110,161 +110,7 @@ Resources
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/testing-project/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">testing-project/build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
-
-repositories {
-    // this package is not requested to be included in jcenter, since it&#39;s just a dummy project
-    // jcenter()
-    // but I&#39;m OK that we can use following url to get it
-    maven {
-        url &#39;https://dl.bintray.com/freewind/maven/&#39;
-    }
-}
-
-dependencies {
-    compile &quot;freewind.demos:gradle-publish-to-jcenter-demo:0.3.1&quot;
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/testing-project/src/main/java/testing/HelloTesting.java" target="_blank">HelloTesting.java</a>
-        </div>
-        <div class="path">testing-project/src/main/java/testing/HelloTesting.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package testing;
-
-import demos.gradle_publish_to_jcenter_demo.Hello;
-
-public class HelloTesting {
-    public static void main(String[] args) {
-        System.out.println(new Hello().hello(&quot;JCenter&quot;));
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">buildscript {
-    repositories {
-        mavenLocal()
-        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
-        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
-        jcenter()
-    }
-    dependencies {
-        classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3&#39;
-    }
-}
-
-apply plugin: &#39;java&#39;
-apply plugin: &#39;maven&#39;
-apply plugin: &#39;com.jfrog.bintray&#39;
-
-repositories {
-    mavenLocal()
-    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
-    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
-    jcenter()
-}
-
-dependencies {
-    testCompile &#39;junit:junit:4.11&#39;
-    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
-}
-
-ext {
-    // have to change
-    publishedGroupId = &#39;freewind.demos&#39;
-    // `artifact` also use as and `bintray.pkg.name` for simplifying
-    artifact = &#39;gradle-publish-to-jcenter-demo&#39;
-    libraryVersion = &#39;0.3.1&#39;
-    // `libraryName` also uses as `bintray.pkg.libraryName` and `bintray.pkg.version.libraryName`
-    libraryName = &#39;Gradle Publish To JCenter Demo&#39;
-
-    siteUrl = &#39;https://github.com/java-demos/gradle-publish-to-jcenter-demo&#39;
-
-    // normally no need to change
-    repoName = &#39;maven&#39;
-
-    gitUrl = &quot;${siteUrl}.git&quot;
-
-    developerId = &#39;freewind&#39;
-    developerName = &#39;Freewind&#39;
-    developerEmail = &#39;nowindlee@gmail.com&#39;
-
-    licenseName = &#39;The Apache Software License, Version 2.0&#39;
-    licenseUrl = &#39;http://www.apache.org/licenses/LICENSE-2.0.txt&#39;
-    allLicenses = [&quot;Apache-2.0&quot;]
-}
-
-apply from: &#39;bintray.gradle&#39;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java" target="_blank">HelloSpec.java</a>
-        </div>
-        <div class="path">src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demos.gradle_publish_to_local_maven_demo;
-
-import demos.gradle_publish_to_jcenter_demo.Hello;
-import org.junit.Test;
-
-import static org.fest.assertions.api.Assertions.assertThat;
-
-public class HelloSpec {
-
-    @Test
-    public void shouldSayHello() {
-        String greeting = new Hello().hello(&quot;gradle&quot;);
-        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/src/main/java/demos/gradle_publish_to_jcenter_demo/Hello.java" target="_blank">Hello.java</a>
-        </div>
-        <div class="path">src/main/java/demos/gradle_publish_to_jcenter_demo/Hello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demos.gradle_publish_to_jcenter_demo;
-
-public class Hello {
-    public String hello(String name) {
-        return &quot;Hello, &quot; + name;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/bintray.gradle" target="_blank">bintray.gradle</a>
@@ -349,7 +195,161 @@ bintray {
 }</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3&#39;
+    }
+}
 
+apply plugin: &#39;java&#39;
+apply plugin: &#39;maven&#39;
+apply plugin: &#39;com.jfrog.bintray&#39;
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+}
+
+dependencies {
+    testCompile &#39;junit:junit:4.11&#39;
+    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
+}
+
+ext {
+    // have to change
+    publishedGroupId = &#39;freewind.demos&#39;
+    // `artifact` also use as and `bintray.pkg.name` for simplifying
+    artifact = &#39;gradle-publish-to-jcenter-demo&#39;
+    libraryVersion = &#39;0.3.1&#39;
+    // `libraryName` also uses as `bintray.pkg.libraryName` and `bintray.pkg.version.libraryName`
+    libraryName = &#39;Gradle Publish To JCenter Demo&#39;
+
+    siteUrl = &#39;https://github.com/java-demos/gradle-publish-to-jcenter-demo&#39;
+
+    // normally no need to change
+    repoName = &#39;maven&#39;
+
+    gitUrl = &quot;${siteUrl}.git&quot;
+
+    developerId = &#39;freewind&#39;
+    developerName = &#39;Freewind&#39;
+    developerEmail = &#39;nowindlee@gmail.com&#39;
+
+    licenseName = &#39;The Apache Software License, Version 2.0&#39;
+    licenseUrl = &#39;http://www.apache.org/licenses/LICENSE-2.0.txt&#39;
+    allLicenses = [&quot;Apache-2.0&quot;]
+}
+
+apply from: &#39;bintray.gradle&#39;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/src/main/java/demos/gradle_publish_to_jcenter_demo/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demos/gradle_publish_to_jcenter_demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demos.gradle_publish_to_jcenter_demo;
+
+public class Hello {
+    public String hello(String name) {
+        return &quot;Hello, &quot; + name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java" target="_blank">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/demos/gradle_publish_to_local_maven_demo/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demos.gradle_publish_to_local_maven_demo;
+
+import demos.gradle_publish_to_jcenter_demo.Hello;
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/testing-project/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">testing-project/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;java&#39;
+
+repositories {
+    // this package is not requested to be included in jcenter, since it&#39;s just a dummy project
+    // jcenter()
+    // but I&#39;m OK that we can use following url to get it
+    maven {
+        url &#39;https://dl.bintray.com/freewind/maven/&#39;
+    }
+}
+
+dependencies {
+    compile &quot;freewind.demos:gradle-publish-to-jcenter-demo:0.3.1&quot;
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-publish-to-jcenter-demo/blob/master/testing-project/src/main/java/testing/HelloTesting.java" target="_blank">HelloTesting.java</a>
+        </div>
+        <div class="path">testing-project/src/main/java/testing/HelloTesting.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package testing;
+
+import demos.gradle_publish_to_jcenter_demo.Hello;
+
+public class HelloTesting {
+    public static void main(String[] args) {
+        System.out.println(new Hello().hello(&quot;JCenter&quot;));
+    }
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

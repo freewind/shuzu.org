@@ -21,7 +21,7 @@ Kotlin data classes &lt;-----(jackson)----&gt; json
 Open it in IDE and run `Hello.kt`    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -63,40 +63,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/src/main/kotlin/example/Hello.kt.md" target="_blank">Hello.kt.md</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-{
-  &quot;site_name&quot; : &quot;demo&quot;,
-  &quot;categories&quot; : [ {
-    &quot;title&quot; : &quot;java-demos&quot;,
-    &quot;articles&quot; : [ {
-      &quot;title&quot; : &quot;demo1&quot;,
-      &quot;content&quot; : &quot;content of demo1&quot;,
-      &quot;timestamp&quot; : 1533899929072,
-      &quot;state&quot; : &quot;_published_&quot;
-    }, {
-      &quot;title&quot; : &quot;demo2&quot;,
-      &quot;content&quot; : null,
-      &quot;timestamp&quot; : 1533899929076,
-      &quot;state&quot; : &quot;_draft_&quot;
-    } ]
-  } ]
-}
-```
-
-```
-Site(name=demo, categories=[Category(title=java-demos, articles=[Article(title=demo1, content=content of demo1, timestamp=1533899929072, state=Published), Article(title=demo2, content=null, timestamp=1533899929076, state=Draft)])])
-```</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-jackson-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -144,7 +111,31 @@ data class Site(@JsonProperty(&quot;site_name&quot;) val name: String, val categ
 </code></pre>
     </div>
 </div>
+        <div class="markdown markdown-body center-in-page">
+    ```
+{
+  &quot;site_name&quot; : &quot;demo&quot;,
+  &quot;categories&quot; : [ {
+    &quot;title&quot; : &quot;java-demos&quot;,
+    &quot;articles&quot; : [ {
+      &quot;title&quot; : &quot;demo1&quot;,
+      &quot;content&quot; : &quot;content of demo1&quot;,
+      &quot;timestamp&quot; : 1533899929072,
+      &quot;state&quot; : &quot;_published_&quot;
+    }, {
+      &quot;title&quot; : &quot;demo2&quot;,
+      &quot;content&quot; : null,
+      &quot;timestamp&quot; : 1533899929076,
+      &quot;state&quot; : &quot;_draft_&quot;
+    } ]
+  } ]
+}
+```
 
+```
+Site(name=demo, categories=[Category(title=java-demos, articles=[Article(title=demo1, content=content of demo1, timestamp=1533899929072, state=Published), Article(title=demo2, content=null, timestamp=1533899929076, state=Draft)])])
+```</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

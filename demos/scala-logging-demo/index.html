@@ -22,35 +22,7 @@ sbt test
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank">Hello.scala</a>
-        </div>
-        <div class="path">src/main/scala/my/Hello.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package my
-
-import com.typesafe.scalalogging.Logger
-
-object Hello extends App {
-
-  val logger = Logger(Hello.getClass)
-
-  println(&quot;Hello, logger!&quot;)
-
-  logger.trace(&quot;This is trace message&quot;)
-  logger.debug(&quot;This is debug message&quot;)
-  logger.info(&quot;This is info message&quot;)
-  logger.warn(&quot;This is warn message&quot;)
-  logger.error(&quot;This is error message&quot;)
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/resources/logback.xml" target="_blank">logback.xml</a>
@@ -88,7 +60,35 @@ object Hello extends App {
 &lt;/configuration&gt;</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">src/main/scala/my/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package my
 
+import com.typesafe.scalalogging.Logger
+
+object Hello extends App {
+
+  val logger = Logger(Hello.getClass)
+
+  println(&quot;Hello, logger!&quot;)
+
+  logger.trace(&quot;This is trace message&quot;)
+  logger.debug(&quot;This is debug message&quot;)
+  logger.info(&quot;This is info message&quot;)
+  logger.warn(&quot;This is warn message&quot;)
+  logger.error(&quot;This is error message&quot;)
+
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

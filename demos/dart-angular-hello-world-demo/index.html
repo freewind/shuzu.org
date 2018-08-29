@@ -44,7 +44,45 @@ If you find a problem with this sample&#39;s code, please open an [issue][].
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/blob/master/web/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">web/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+  &lt;script&gt;
+    // WARNING: DO NOT set the &lt;base href&gt; like this in production!
+    // Details: https://webdev.dartlang.org/angular/guide/router
+    (function () {
+      var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+      document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
+    }());
+  &lt;/script&gt;
+
+  &lt;title&gt;Hello Angular&lt;/title&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+
+  &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
+  &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;my-app&gt;Loading...&lt;/my-app&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/blob/master/web/styles.css" target="_blank">styles.css</a>
@@ -167,45 +205,7 @@ nav a.active {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-hello-world-demo/blob/master/web/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">web/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-
-&lt;head&gt;
-  &lt;script&gt;
-    // WARNING: DO NOT set the &lt;base href&gt; like this in production!
-    // Details: https://webdev.dartlang.org/angular/guide/router
-    (function () {
-      var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
-      document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
-    }());
-  &lt;/script&gt;
-
-  &lt;title&gt;Hello Angular&lt;/title&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
-  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
-
-  &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
-  &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-  &lt;my-app&gt;Loading...&lt;/my-app&gt;
-&lt;/body&gt;
-
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

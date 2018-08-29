@@ -140,267 +140,7 @@ curl -v http://localhost:3000/sendStatus
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/same-route-path.js" target="_blank">same-route-path.js</a>
-        </div>
-        <div class="path">same-route-path.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var app = express();
-
-app.route(&#39;/&#39;)
-  .get(function (req, res) {
-    res.send(&quot;get&quot;);
-  })
-  .put(function (req, res) {
-    res.send(&quot;put&quot;);
-  });
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers.js" target="_blank">routers.js</a>
-        </div>
-        <div class="path">routers.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var bodyParser = require(&#39;body-parser&#39;);
-var app = express();
-
-// This will applied to all router modules
-app.use(bodyParser.json());
-
-app.use(&#39;/users&#39;, require(&#39;./routers/users&#39;));
-app.use(&#39;/rooms&#39;, require(&#39;./routers/rooms&#39;));
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/http-methods.js" target="_blank">http-methods.js</a>
-        </div>
-        <div class="path">http-methods.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var _ = require(&#39;lodash&#39;);
-var app = express();
-
-var AVALIABLE_METHODS = [
-  &quot;get&quot;, &quot;post&quot;, &quot;put&quot;, &quot;head&quot;, &quot;delete&quot;, &quot;options&quot;,
-  &quot;trace&quot;, &quot;copy&quot;, &quot;lock&quot;, &quot;mkcol&quot;, &quot;move&quot;, &quot;purge&quot;,
-  &quot;propfind&quot;, &quot;proppatch&quot;, &quot;unlock&quot;, &quot;report&quot;, &quot;mkactivity&quot;,
-  &quot;checkout&quot;, &quot;merge&quot;, &quot;m-search&quot;, &quot;notify&quot;,
-  &quot;subscribe&quot;, &quot;unsubscribe&quot;, &quot;patch&quot;, &quot;search&quot;, &quot;connect&quot;
-];
-
-_.each(AVALIABLE_METHODS, function (method) {
-  app[method](&#39;/&#39;, function (req, res) {
-    res.send(&quot;Your http method is: &quot; + req.method);
-  });
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-all.js" target="_blank">route-all.js</a>
-        </div>
-        <div class="path">route-all.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var app = express();
-
-app.all(&#39;/&#39;, function (req, res, next) {
-  console.log(&quot;You http method is: &quot; + req.method);
-  next();
-});
-
-app.get(&#39;/&#39;, function (req, res) {
-  res.send(&quot;handle in get handler&quot;);
-});
-
-app.put(&#39;/&#39;, function (req, res) {
-  res.send(&quot;handle in put handler&quot;);
-});
-
-app.all(&#39;/&#39;, function (req, res) {
-  res.send(&quot;other method: &quot; + req.method);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-handlers.js" target="_blank">route-handlers.js</a>
-        </div>
-        <div class="path">route-handlers.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var _ = require(&#39;lodash&#39;);
-var app = express();
-
-app.get(&#39;/&#39;, function (req, res) {
-  res.send(&quot;Hello&quot;);
-});
-
-function handler1(req, res, next) {
-  console.log(&quot;In handler 1&quot;);
-  next();
-}
-
-function handler2(req, res, next) {
-  console.log(&quot;In handler 2&quot;);
-  next();
-}
-
-function handler3(req, res, next) {
-  console.log(&quot;In handler 3&quot;);
-  next();
-}
-
-app.get(&quot;/multi-handlers&quot;, handler1, handler2);
-app.get(&quot;/handler-array&quot;, [handler1, handler2]);
-app.get(&quot;/handler-combine1&quot;, [handler1, handler2], handler3);
-app.get(&quot;/handler-combine2&quot;, handler1, [handler2, handler3]);
-
-app.use(function (req, res) {
-  console.log(&quot;In final handler&quot;);
-  res.send(&quot;ok&quot;);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers/rooms.js" target="_blank">rooms.js</a>
-        </div>
-        <div class="path">routers/rooms.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var router = require(&#39;express&#39;).Router();
-
-router.get(&#39;/&#39;, function (req, res) {
-  res.send(&#39;rooms&#39;);
-});
-
-router.post(&#39;/&#39;, function (req, res) {
-  res.send(&quot;Your posted room data is: &quot; + JSON.stringify(req.body));
-});
-
-router.get(&#39;/:id&#39;, function (req, res) {
-  res.send(&#39;room: &#39; + req.params.id);
-});
-
-module.exports = router;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers/users.js" target="_blank">users.js</a>
-        </div>
-        <div class="path">routers/users.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var router = require(&#39;express&#39;).Router();
-
-router.get(&#39;/&#39;, function (req, res) {
-  res.send(&#39;users&#39;);
-});
-
-router.post(&#39;/&#39;, function (req, res) {
-  res.send(&quot;Your posted user data is: &quot; + JSON.stringify(req.body));
-});
-
-router.get(&#39;/:id&#39;, function (req, res) {
-  res.send(&#39;user: &#39; + req.params.id);
-});
-
-
-module.exports = router;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-paths.js" target="_blank">route-paths.js</a>
-        </div>
-        <div class="path">route-paths.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var app = express();
-
-app.get(&#39;/&#39;, function (req, res) {
-  res.send(&quot;index page&quot;);
-});
-
-app.get(&#39;/users/:name&#39;, function (req, res) {
-  res.send(&quot;The name is: &quot; + req.params.name);
-});
-
-app.get(&quot;/products/:id(\\d+)&quot;, function (req, res) {
-  res.send(&quot;Id: &quot; + req.params.id);
-});
-
-app.get(/go{2,}gle/, function (req, res) {
-  res.send(&quot;Google!&quot;);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-router-demo/blob/master/global-handlers.js" target="_blank">global-handlers.js</a>
@@ -435,7 +175,41 @@ var server = app.listen(3000, function () {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/http-methods.js" target="_blank">http-methods.js</a>
+        </div>
+        <div class="path">http-methods.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var _ = require(&#39;lodash&#39;);
+var app = express();
+
+var AVALIABLE_METHODS = [
+  &quot;get&quot;, &quot;post&quot;, &quot;put&quot;, &quot;head&quot;, &quot;delete&quot;, &quot;options&quot;,
+  &quot;trace&quot;, &quot;copy&quot;, &quot;lock&quot;, &quot;mkcol&quot;, &quot;move&quot;, &quot;purge&quot;,
+  &quot;propfind&quot;, &quot;proppatch&quot;, &quot;unlock&quot;, &quot;report&quot;, &quot;mkactivity&quot;,
+  &quot;checkout&quot;, &quot;merge&quot;, &quot;m-search&quot;, &quot;notify&quot;,
+  &quot;subscribe&quot;, &quot;unsubscribe&quot;, &quot;patch&quot;, &quot;search&quot;, &quot;connect&quot;
+];
+
+_.each(AVALIABLE_METHODS, function (method) {
+  app[method](&#39;/&#39;, function (req, res) {
+    res.send(&quot;Your http method is: &quot; + req.method);
+  });
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-router-demo/blob/master/responses.js" target="_blank">responses.js</a>
@@ -507,7 +281,233 @@ var server = app.listen(3000, function () {
 });</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-all.js" target="_blank">route-all.js</a>
+        </div>
+        <div class="path">route-all.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var app = express();
 
+app.all(&#39;/&#39;, function (req, res, next) {
+  console.log(&quot;You http method is: &quot; + req.method);
+  next();
+});
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&quot;handle in get handler&quot;);
+});
+
+app.put(&#39;/&#39;, function (req, res) {
+  res.send(&quot;handle in put handler&quot;);
+});
+
+app.all(&#39;/&#39;, function (req, res) {
+  res.send(&quot;other method: &quot; + req.method);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-handlers.js" target="_blank">route-handlers.js</a>
+        </div>
+        <div class="path">route-handlers.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var _ = require(&#39;lodash&#39;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&quot;Hello&quot;);
+});
+
+function handler1(req, res, next) {
+  console.log(&quot;In handler 1&quot;);
+  next();
+}
+
+function handler2(req, res, next) {
+  console.log(&quot;In handler 2&quot;);
+  next();
+}
+
+function handler3(req, res, next) {
+  console.log(&quot;In handler 3&quot;);
+  next();
+}
+
+app.get(&quot;/multi-handlers&quot;, handler1, handler2);
+app.get(&quot;/handler-array&quot;, [handler1, handler2]);
+app.get(&quot;/handler-combine1&quot;, [handler1, handler2], handler3);
+app.get(&quot;/handler-combine2&quot;, handler1, [handler2, handler3]);
+
+app.use(function (req, res) {
+  console.log(&quot;In final handler&quot;);
+  res.send(&quot;ok&quot;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/route-paths.js" target="_blank">route-paths.js</a>
+        </div>
+        <div class="path">route-paths.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var app = express();
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&quot;index page&quot;);
+});
+
+app.get(&#39;/users/:name&#39;, function (req, res) {
+  res.send(&quot;The name is: &quot; + req.params.name);
+});
+
+app.get(&quot;/products/:id(\\d+)&quot;, function (req, res) {
+  res.send(&quot;Id: &quot; + req.params.id);
+});
+
+app.get(/go{2,}gle/, function (req, res) {
+  res.send(&quot;Google!&quot;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers/rooms.js" target="_blank">rooms.js</a>
+        </div>
+        <div class="path">routers/rooms.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var router = require(&#39;express&#39;).Router();
+
+router.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;rooms&#39;);
+});
+
+router.post(&#39;/&#39;, function (req, res) {
+  res.send(&quot;Your posted room data is: &quot; + JSON.stringify(req.body));
+});
+
+router.get(&#39;/:id&#39;, function (req, res) {
+  res.send(&#39;room: &#39; + req.params.id);
+});
+
+module.exports = router;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers/users.js" target="_blank">users.js</a>
+        </div>
+        <div class="path">routers/users.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var router = require(&#39;express&#39;).Router();
+
+router.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;users&#39;);
+});
+
+router.post(&#39;/&#39;, function (req, res) {
+  res.send(&quot;Your posted user data is: &quot; + JSON.stringify(req.body));
+});
+
+router.get(&#39;/:id&#39;, function (req, res) {
+  res.send(&#39;user: &#39; + req.params.id);
+});
+
+
+module.exports = router;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/routers.js" target="_blank">routers.js</a>
+        </div>
+        <div class="path">routers.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+var app = express();
+
+// This will applied to all router modules
+app.use(bodyParser.json());
+
+app.use(&#39;/users&#39;, require(&#39;./routers/users&#39;));
+app.use(&#39;/rooms&#39;, require(&#39;./routers/rooms&#39;));
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-router-demo/blob/master/same-route-path.js" target="_blank">same-route-path.js</a>
+        </div>
+        <div class="path">same-route-path.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var app = express();
+
+app.route(&#39;/&#39;)
+  .get(function (req, res) {
+    res.send(&quot;get&quot;);
+  })
+  .put(function (req, res) {
+    res.send(&quot;put&quot;);
+  });
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

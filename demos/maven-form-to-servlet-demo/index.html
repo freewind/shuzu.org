@@ -26,7 +26,7 @@ Open &lt;http://localhost:8080&gt;, write some Chinese characters in the field, 
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -64,66 +64,7 @@ Open &lt;http://localhost:8080&gt;, write some Chinese characters in the field, 
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
-        </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
-         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
-
-    &lt;display-name&gt;Web Application&lt;/display-name&gt;
-
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.SendServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/send&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-&lt;/web-app&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">src/main/webapp/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;/&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
-    &lt;div&gt;
-        &lt;label&gt;Name:&lt;/label&gt;
-        &lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
-    &lt;/div&gt;
-    &lt;div&gt;
-        &lt;input type=&quot;submit&quot; value=&quot;Send&quot;/&gt;
-    &lt;/div&gt;
-&lt;/form&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/java/demo/SendServlet.java" target="_blank">SendServlet.java</a>
@@ -153,7 +94,66 @@ public class SendServlet extends HttpServlet {
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">src/main/webapp/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
+&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
+    &lt;div&gt;
+        &lt;label&gt;Name:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Send&quot;/&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+
+    &lt;display-name&gt;Web Application&lt;/display-name&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.SendServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/send&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

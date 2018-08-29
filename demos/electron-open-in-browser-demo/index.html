@@ -26,24 +26,7 @@ npm start
 Note in `package.json`, the `main` key should point to the js file which starts the electron window.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/electron-open-in-browser-demo/blob/master/src/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">src/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const $ = require(&#39;jquery&#39;);
-const shell = require(&#39;electron&#39;).shell;
-
-$(document).on(&#39;click&#39;, &#39;a[href^=&quot;http&quot;]&#39;, function (event) {
-    event.preventDefault();
-    shell.openExternal(this.href);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/electron-open-in-browser-demo/blob/master/src/index.html" target="_blank">index.html</a>
@@ -62,7 +45,24 @@ $(document).on(&#39;click&#39;, &#39;a[href^=&quot;http&quot;]&#39;, function (e
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-open-in-browser-demo/blob/master/src/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const $ = require(&#39;jquery&#39;);
+const shell = require(&#39;electron&#39;).shell;
+
+$(document).on(&#39;click&#39;, &#39;a[href^=&quot;http&quot;]&#39;, function (event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/electron-open-in-browser-demo/blob/master/src/main.js" target="_blank">main.js</a>
@@ -80,7 +80,7 @@ app.on(&#39;ready&#39;, function () {
 });</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

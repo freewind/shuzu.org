@@ -32,7 +32,7 @@ More information, see &lt;https://kotlinlang.org/docs/reference/delegated-proper
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -69,77 +69,162 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/LazyDelegate.kt" target="_blank">LazyDelegate.kt</a>
         </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+        <div class="path">src/main/kotlin/example/LazyDelegate.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+class LazyUser {
 
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    val name: String by lazy {
+        println(&quot;I&#39;m lazy&quot;)
+        &quot;Mr.Lazy&quot;
     }
 
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/VariableDelegate.kt" target="_blank">VariableDelegate.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/VariableDelegate.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
+}
 
 fun main(args: Array&lt;String&gt;) {
-    val lazyString by lazy {
-        println(&quot;I&#39;m lazy&quot;)
-        &quot;lazy-string&quot;
-    }
-    println(lazyString)
-    println(lazyString)
+    val user = LazyUser()
+    println(user.name)
+    println(user.name)
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/VetoableDelegate.kt" target="_blank">VetoableDelegate.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MapDelegete.kt" target="_blank">MapDelegete.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/VetoableDelegate.kt</div>
+        <div class="path">src/main/kotlin/example/MapDelegete.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+class MapUser(map: Map&lt;String, String&gt;) {
+    val name: String by map
+    val email: String by map
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val user = MapUser(mapOf(&quot;name&quot; to &quot;Freewind&quot;, &quot;other&quot; to &quot;other&quot;))
+    println(user.name)
+    println(user.email)
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MutableMapDelegete.kt" target="_blank">MutableMapDelegete.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/MutableMapDelegete.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+class MutableMapUser(map: MutableMap&lt;String, String&gt;) {
+    var name: String by map
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val map = LinkedHashMap&lt;String, String&gt;().apply { putAll(mapOf(&quot;name&quot; to &quot;Freewind&quot;, &quot;other&quot; to &quot;other&quot;)) }
+    val user = MutableMapUser(map)
+    user.name = &quot;Lily&quot;
+    println(map)
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MyDelegete.kt" target="_blank">MyDelegete.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/MyDelegete.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+
+
+class MyDelegate&lt;in R&gt; : ReadOnlyProperty&lt;R, String&gt; {
+    override fun getValue(thisRef: R, property: KProperty&lt;*&gt;): String {
+        return &quot;$thisRef.${property.name}&quot;
+    }
+
+}
+
+class MyUser {
+    val name by MyDelegate&lt;MyUser&gt;()
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val user = MyUser()
+    println(user.name)
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/NotNullDelegate.kt" target="_blank">NotNullDelegate.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/NotNullDelegate.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
 import kotlin.properties.Delegates
 
-class VetoableUser {
-    var name: String by Delegates.vetoable(&quot;init-name&quot;) { property, oldValue, newValue -&gt;
-        println(&quot;${property.name} want to change: $oldValue -&gt; $newValue, but rejected&quot;)
-        false
+class User {
+    var name: String by Delegates.notNull()
+}
+
+fun main(args: Array&lt;String&gt;) {
+    val user = User()
+
+    // IllegalStateException:
+    // Property name should be initialized before get.
+    // println(user.name)
+
+    user.name = &quot;good-name&quot;
+    println(user.name)
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/ObservableDelegate.kt" target="_blank">ObservableDelegate.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/ObservableDelegate.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlin.properties.Delegates
+
+class ObservableUser {
+    var name: String by Delegates.observable(&quot;init-name&quot;) { property, oldValue, newValue -&gt;
+        println(&quot;${property.name} changed: $oldValue -&gt; $newValue&quot;)
     }
 }
 
 fun main(args: Array&lt;String&gt;) {
-    val user = VetoableUser()
+    val user = ObservableUser()
     println(user.name)
     user.name = &quot;new-name&quot;
     println(user.name)
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/ProvideDelegate.kt" target="_blank">ProvideDelegate.kt</a>
@@ -197,162 +282,77 @@ class MyUI {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MyDelegete.kt" target="_blank">MyDelegete.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/VariableDelegate.kt" target="_blank">VariableDelegate.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/MyDelegete.kt</div>
+        <div class="path">src/main/kotlin/example/VariableDelegate.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
-
-
-class MyDelegate&lt;in R&gt; : ReadOnlyProperty&lt;R, String&gt; {
-    override fun getValue(thisRef: R, property: KProperty&lt;*&gt;): String {
-        return &quot;$thisRef.${property.name}&quot;
-    }
-
-}
-
-class MyUser {
-    val name by MyDelegate&lt;MyUser&gt;()
-}
-
 fun main(args: Array&lt;String&gt;) {
-    val user = MyUser()
-    println(user.name)
+    val lazyString by lazy {
+        println(&quot;I&#39;m lazy&quot;)
+        &quot;lazy-string&quot;
+    }
+    println(lazyString)
+    println(lazyString)
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/NotNullDelegate.kt" target="_blank">NotNullDelegate.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/VetoableDelegate.kt" target="_blank">VetoableDelegate.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/NotNullDelegate.kt</div>
+        <div class="path">src/main/kotlin/example/VetoableDelegate.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
 import kotlin.properties.Delegates
 
-class User {
-    var name: String by Delegates.notNull()
-}
-
-fun main(args: Array&lt;String&gt;) {
-    val user = User()
-
-    // IllegalStateException:
-    // Property name should be initialized before get.
-    // println(user.name)
-
-    user.name = &quot;good-name&quot;
-    println(user.name)
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/ObservableDelegate.kt" target="_blank">ObservableDelegate.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/ObservableDelegate.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import kotlin.properties.Delegates
-
-class ObservableUser {
-    var name: String by Delegates.observable(&quot;init-name&quot;) { property, oldValue, newValue -&gt;
-        println(&quot;${property.name} changed: $oldValue -&gt; $newValue&quot;)
+class VetoableUser {
+    var name: String by Delegates.vetoable(&quot;init-name&quot;) { property, oldValue, newValue -&gt;
+        println(&quot;${property.name} want to change: $oldValue -&gt; $newValue, but rejected&quot;)
+        false
     }
 }
 
 fun main(args: Array&lt;String&gt;) {
-    val user = ObservableUser()
+    val user = VetoableUser()
     println(user.name)
     user.name = &quot;new-name&quot;
     println(user.name)
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MapDelegete.kt" target="_blank">MapDelegete.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/MapDelegete.kt</div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-class MapUser(map: Map&lt;String, String&gt;) {
-    val name: String by map
-    val email: String by map
-}
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-fun main(args: Array&lt;String&gt;) {
-    val user = MapUser(mapOf(&quot;name&quot; to &quot;Freewind&quot;, &quot;other&quot; to &quot;other&quot;))
-    println(user.name)
-    println(user.email)
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/MutableMapDelegete.kt" target="_blank">MutableMapDelegete.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/MutableMapDelegete.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
+class HelloTest {
 
-class MutableMapUser(map: MutableMap&lt;String, String&gt;) {
-    var name: String by map
-}
-
-fun main(args: Array&lt;String&gt;) {
-    val map = LinkedHashMap&lt;String, String&gt;().apply { putAll(mapOf(&quot;name&quot; to &quot;Freewind&quot;, &quot;other&quot; to &quot;other&quot;)) }
-    val user = MutableMapUser(map)
-    user.name = &quot;Lily&quot;
-    println(map)
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-delegated-properties-demo/blob/master/src/main/kotlin/example/LazyDelegate.kt" target="_blank">LazyDelegate.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/LazyDelegate.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-class LazyUser {
-
-    val name: String by lazy {
-        println(&quot;I&#39;m lazy&quot;)
-        &quot;Mr.Lazy&quot;
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
     }
 
-}
-
-fun main(args: Array&lt;String&gt;) {
-    val user = LazyUser()
-    println(user.name)
-    println(user.name)
 }</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

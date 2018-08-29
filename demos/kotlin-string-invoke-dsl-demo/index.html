@@ -25,7 +25,7 @@ Use `operator` and `invoke`, to make use write code like:
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -69,7 +69,28 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    &quot;abc&quot; {
+        println(this)
+    }
+}
+
+operator fun String.invoke(fn: String.() -&gt; Unit) {
+    fn(this)
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
@@ -92,28 +113,7 @@ class HelloTest {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun main(args: Array&lt;String&gt;) {
-    &quot;abc&quot; {
-        println(this)
-    }
-}
-
-operator fun String.invoke(fn: String.() -&gt; Unit) {
-    fn(this)
-}</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

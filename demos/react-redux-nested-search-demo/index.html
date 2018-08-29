@@ -26,23 +26,7 @@ npm start
 Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/actions/types.js" target="_blank">types.js</a>
-        </div>
-        <div class="path">actions/types.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const SEARCH = &#39;SEARCH&#39;;
-
-export default {
-  SEARCH
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/actions/index.js" target="_blank">index.js</a>
@@ -58,7 +42,69 @@ export function search(keyword) {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/actions/types.js" target="_blank">types.js</a>
+        </div>
+        <div class="path">actions/types.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const SEARCH = &#39;SEARCH&#39;;
+
+export default {
+  SEARCH
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/reducers/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">reducers/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import initStore from &#39;../store/init-store&#39;;
+import actionTypes from &#39;../actions/types&#39;;
+
+export default function (state = initStore, action) {
+  switch (action.type) {
+    case &#39;SEARCH&#39;:
+      return Object.assign({}, state, {
+        keyword: action.keyword
+      });
+    default:
+      return state;
+  }
+};
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/store/init-store.js" target="_blank">init-store.js</a>
@@ -74,7 +120,7 @@ export function search(keyword) {
 export default initStore;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
@@ -103,53 +149,7 @@ export default initStore;</code></pre>
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/reducers/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">reducers/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-import initStore from &#39;../store/init-store&#39;;
-import actionTypes from &#39;../actions/types&#39;;
-
-export default function (state = initStore, action) {
-  switch (action.type) {
-    case &#39;SEARCH&#39;:
-      return Object.assign({}, state, {
-        keyword: action.keyword
-      });
-    default:
-      return state;
-  }
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-nested-search-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

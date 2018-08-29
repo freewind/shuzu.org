@@ -43,19 +43,7 @@ You will see the function `hello` from the root project is calling successfully.
 If we modify code in `my-npm-lib`, we don&#39;t need to do anything to use the new code in `testing-project`.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/npm-link-demo/blob/master/testing-project/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">testing-project/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const npmLinkDemo = require(&#39;npm-link-demo&#39;)
-npmLinkDemo.hello()</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/npm-link-demo/blob/master/index.js" target="_blank">index.js</a>
@@ -68,7 +56,19 @@ npmLinkDemo.hello()</code></pre>
 }</code></pre>
     </div>
 </div>
-
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/npm-link-demo/blob/master/testing-project/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">testing-project/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const npmLinkDemo = require(&#39;npm-link-demo&#39;)
+npmLinkDemo.hello()</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

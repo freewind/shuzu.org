@@ -81,167 +81,7 @@ npm install --save kotlin-js-publish-demo
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">buildscript {
-    ext.kotlin_version = &#39;1.2.51&#39;
-    repositories {
-        mavenLocal()
-        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
-        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
-        jcenter()
-        maven { url(&quot;https://plugins.gradle.org/m2/&quot;) }
-    }
-    dependencies {
-        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
-        classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3&#39;
-    }
-}
-
-apply plugin: &#39;kotlin2js&#39;
-apply plugin: &#39;maven&#39;
-apply plugin: &#39;com.jfrog.bintray&#39;
-
-compileKotlin2Js {
-    kotlinOptions.outputFile = &quot;${projectDir}/generated/hello.js&quot;
-}
-
-repositories {
-    mavenLocal()
-    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
-    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
-    jcenter()
-    maven { url &#39;https://dl.bintray.com/freewind/maven/&#39; }
-}
-
-dependencies {
-    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version&quot;
-    testCompile &quot;org.jetbrains.kotlin:kotlin-test-js:$kotlin_version&quot;
-}
-
-ext {
-    // have to change
-    publishedGroupId = &#39;freewind.demos&#39;
-    // `artifact` also use as and `bintray.pkg.name` for simplifying
-    artifact = &#39;kotlin-js-hello-world-publish-demo&#39;
-    libraryVersion = &#39;0.1.0&#39;
-    // `libraryName` also uses as `bintray.pkg.libraryName` and `bintray.pkg.version.libraryName`
-    libraryName = &#39;kotlin-js-hello-world-publish-demo&#39;
-
-    siteUrl = &#39;https://github.com/kotlin-demos/kotlin-js-hello-world-publish-demo&#39;
-
-    // normally no need to change
-    repoName = &#39;maven&#39;
-
-    gitUrl = &quot;${siteUrl}.git&quot;
-
-    developerId = &#39;freewind&#39;
-    developerName = &#39;Freewind&#39;
-    developerEmail = &#39;nowindlee@gmail.com&#39;
-
-    licenseName = &#39;The Apache Software License, Version 2.0&#39;
-    licenseUrl = &#39;http://www.apache.org/licenses/LICENSE-2.0.txt&#39;
-    allLicenses = [&quot;Apache-2.0&quot;]
-}
-
-apply from: &#39;bintray.gradle&#39;
-
-// gradle wrapper --gradle-version 4.8.1
-// ./gradlew -version
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/generated/hello.js" target="_blank">hello.js</a>
-        </div>
-        <div class="path">generated/hello.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
-  throw new Error(&quot;Error loading module &#39;hello&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;hello&#39;.&quot;);
-}
-var hello = function (_, Kotlin) {
-  &#39;use strict&#39;;
-  function main(args) {
-    console.log(hello(&#39;Kotlin JS&#39;));
-  }
-  function hello(name) {
-    return &#39;Hello, &#39; + name + &#39;!&#39;;
-  }
-  var package$example = _.example || (_.example = {});
-  package$example.main_kand9s$ = main;
-  package$example.hello_61zpoe$ = hello;
-  main([]);
-  Kotlin.defineModule(&#39;hello&#39;, _);
-  return _;
-}(typeof hello === &#39;undefined&#39; ? {} : hello, kotlin);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/generated/hello.meta.js" target="_blank">hello.meta.js</a>
-        </div>
-        <div class="path">generated/hello.meta.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">// Kotlin.kotlin_module_metadata(66049, &quot;hello&quot;, &quot;H4sIAAAAAAAAAC3OQQ7CIBQEUKAfSn5cfNnYsPIGNr2A8QzGA7AgtRGoQRZ6DVd6E48nmq7eZGYzzLw57lGefQgzqstcwpRQHUue0oiQXPQI0dUOTmkqCC6PN5SHnN0DW3938Rq82aIgjkozEh37KxfbqiBtd3ZNzIqeD4qanx/N7IagRjGsSFltwNS6b+rw0vDUApld/nwBRFJ09KUAAAA=&quot;);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun main(args: Array&lt;String&gt;) {
-    console.log(hello(&quot;Kotlin JS&quot;))
-}
-
-fun hello(name:String) = &quot;Hello, $name!&quot;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/bintray.gradle" target="_blank">bintray.gradle</a>
@@ -326,7 +166,167 @@ bintray {
 }</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+    ext.kotlin_version = &#39;1.2.51&#39;
+    repositories {
+        mavenLocal()
+        maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+        maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+        jcenter()
+        maven { url(&quot;https://plugins.gradle.org/m2/&quot;) }
+    }
+    dependencies {
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+        classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3&#39;
+    }
+}
 
+apply plugin: &#39;kotlin2js&#39;
+apply plugin: &#39;maven&#39;
+apply plugin: &#39;com.jfrog.bintray&#39;
+
+compileKotlin2Js {
+    kotlinOptions.outputFile = &quot;${projectDir}/generated/hello.js&quot;
+}
+
+repositories {
+    mavenLocal()
+    maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }
+    maven { url &#39;http://maven.aliyun.com/nexus/content/repositories/jcenter&#39; }
+    jcenter()
+    maven { url &#39;https://dl.bintray.com/freewind/maven/&#39; }
+}
+
+dependencies {
+    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version&quot;
+    testCompile &quot;org.jetbrains.kotlin:kotlin-test-js:$kotlin_version&quot;
+}
+
+ext {
+    // have to change
+    publishedGroupId = &#39;freewind.demos&#39;
+    // `artifact` also use as and `bintray.pkg.name` for simplifying
+    artifact = &#39;kotlin-js-hello-world-publish-demo&#39;
+    libraryVersion = &#39;0.1.0&#39;
+    // `libraryName` also uses as `bintray.pkg.libraryName` and `bintray.pkg.version.libraryName`
+    libraryName = &#39;kotlin-js-hello-world-publish-demo&#39;
+
+    siteUrl = &#39;https://github.com/kotlin-demos/kotlin-js-hello-world-publish-demo&#39;
+
+    // normally no need to change
+    repoName = &#39;maven&#39;
+
+    gitUrl = &quot;${siteUrl}.git&quot;
+
+    developerId = &#39;freewind&#39;
+    developerName = &#39;Freewind&#39;
+    developerEmail = &#39;nowindlee@gmail.com&#39;
+
+    licenseName = &#39;The Apache Software License, Version 2.0&#39;
+    licenseUrl = &#39;http://www.apache.org/licenses/LICENSE-2.0.txt&#39;
+    allLicenses = [&quot;Apache-2.0&quot;]
+}
+
+apply from: &#39;bintray.gradle&#39;
+
+// gradle wrapper --gradle-version 4.8.1
+// ./gradlew -version
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/generated/hello.js" target="_blank">hello.js</a>
+        </div>
+        <div class="path">generated/hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
+  throw new Error(&quot;Error loading module &#39;hello&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;hello&#39;.&quot;);
+}
+var hello = function (_, Kotlin) {
+  &#39;use strict&#39;;
+  function main(args) {
+    console.log(hello(&#39;Kotlin JS&#39;));
+  }
+  function hello(name) {
+    return &#39;Hello, &#39; + name + &#39;!&#39;;
+  }
+  var package$example = _.example || (_.example = {});
+  package$example.main_kand9s$ = main;
+  package$example.hello_61zpoe$ = hello;
+  main([]);
+  Kotlin.defineModule(&#39;hello&#39;, _);
+  return _;
+}(typeof hello === &#39;undefined&#39; ? {} : hello, kotlin);
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/generated/hello.meta.js" target="_blank">hello.meta.js</a>
+        </div>
+        <div class="path">generated/hello.meta.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Kotlin.kotlin_module_metadata(66049, &quot;hello&quot;, &quot;H4sIAAAAAAAAAC3OQQ7CIBQEUKAfSn5cfNnYsPIGNr2A8QzGA7AgtRGoQRZ6DVd6E48nmq7eZGYzzLw57lGefQgzqstcwpRQHUue0oiQXPQI0dUOTmkqCC6PN5SHnN0DW3938Rq82aIgjkozEh37KxfbqiBtd3ZNzIqeD4qanx/N7IagRjGsSFltwNS6b+rw0vDUApld/nwBRFJ09KUAAAA=&quot;);
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    console.log(hello(&quot;Kotlin JS&quot;))
+}
+
+fun hello(name:String) = &quot;Hello, $name!&quot;
+
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

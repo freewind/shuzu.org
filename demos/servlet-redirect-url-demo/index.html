@@ -29,7 +29,7 @@ It will redirect to &lt;http://taobao.com&gt; immediately.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/servlet-redirect-url-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -68,34 +68,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/servlet-redirect-url-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
-        </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
-xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
-http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
-
-	&lt;servlet&gt;
-		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
-		&lt;servlet-class&gt;example.HelloWorldServlet&lt;/servlet-class&gt;
-	&lt;/servlet&gt;
-
-	&lt;servlet-mapping&gt;
-		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
-		&lt;url-pattern&gt;/&lt;/url-pattern&gt;
-	&lt;/servlet-mapping&gt;
-&lt;/web-app&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/servlet-redirect-url-demo/blob/master/src/main/java/example/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a>
@@ -125,7 +98,34 @@ public class HelloWorldServlet extends HttpServlet {
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/servlet-redirect-url-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
 
+	&lt;servlet&gt;
+		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+		&lt;servlet-class&gt;example.HelloWorldServlet&lt;/servlet-class&gt;
+	&lt;/servlet&gt;
+
+	&lt;servlet-mapping&gt;
+		&lt;servlet-name&gt;My Hello World Servlet&lt;/servlet-name&gt;
+		&lt;url-pattern&gt;/&lt;/url-pattern&gt;
+	&lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -33,7 +33,23 @@ Notice
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/run-spec.js" target="_blank">run-spec.js</a>
+        </div>
+        <div class="path">run-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var jasmine = require(&#39;jasmine-node&#39;);
+jasmine.executeSpecsInFolder({
+  specFolders: [&#39;spec&#39;],
+  isVerbose: true,
+  showColors: true
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
@@ -51,7 +67,7 @@ describe(&quot;A suite&quot;, function () {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/src/hello.js" target="_blank">hello.js</a>
@@ -69,7 +85,7 @@ module.exports = class Hello {
 };</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/src/user.js" target="_blank">user.js</a>
@@ -89,23 +105,7 @@ module.exports = class Hello {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/run-spec.js" target="_blank">run-spec.js</a>
-        </div>
-        <div class="path">run-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var jasmine = require(&#39;jasmine-node&#39;);
-jasmine.executeSpecsInFolder({
-  specFolders: [&#39;spec&#39;],
-  isVerbose: true,
-  showColors: true
-});</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

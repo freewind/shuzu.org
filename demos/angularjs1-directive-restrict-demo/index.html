@@ -32,7 +32,24 @@ Resources
 - $element api: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-restrict-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.directive(&#39;hello&#39;, function () {
+    return {
+        restrict: &#39;EAC&#39;,
+        template: &quot;Hello, Directive&quot;
+    }
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-directive-restrict-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -64,24 +81,7 @@ Resources
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-restrict-demo/blob/master/app.js" target="_blank">app.js</a>
-        </div>
-        <div class="path">app.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
-app.directive(&#39;hello&#39;, function () {
-    return {
-        restrict: &#39;EAC&#39;,
-        template: &quot;Hello, Directive&quot;
-    }
-});</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

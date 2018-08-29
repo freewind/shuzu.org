@@ -33,7 +33,7 @@ Chrome -&gt; `Extensions` -&gt; Enable `Developer Mode` -&gt; `Load unpacked` -&
 Open a page, and click the icon of this extension on toolbar, you will see a popup dialog with current url.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -78,7 +78,76 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/hello.html" target="_blank">hello.html</a>
+        </div>
+        <div class="path">extension/hello.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;!--
+ This page is shown when the extension button is clicked, because the
+ &quot;browser_action&quot; field in manifest.json contains the &quot;default_popup&quot; key with
+ value &quot;popup.html&quot;.
+ --&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Show current Url&lt;/title&gt;
+    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/chrome-ts2kt/chrome-ts2kt.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./generated/hello.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/inject-scripts.js" target="_blank">inject-scripts.js</a>
+        </div>
+        <div class="path">extension/inject-scripts.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&#39;to-inject-isolated-way.js is loaded&#39;);
+
+function helloIsolate() {
+    alert(&quot;helloIsolate! You can&#39;t call me directly&quot;);
+}
+
+helloIsolate();
+
+let script = document.createElement(&quot;script&quot;);
+script.src = chrome.extension.getURL(&quot;target-functions.js&quot;)
+let base = document.head || document.documentElement
+base.appendChild(script)</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/target-functions.js" target="_blank">target-functions.js</a>
+        </div>
+        <div class="path">extension/target-functions.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&#39;target-functions.js is loaded&#39;);
+
+function helloAsPart() {
+    alert(&quot;helloAsPart! You can call me directly in the console of current page&quot;);
+}
+
+helloAsPart();
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -113,7 +182,7 @@ private fun currentTab(fn: (Tab) -&gt; Unit) {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
@@ -38008,76 +38077,7 @@ private fun currentTab(fn: (Tab) -&gt; Unit) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/hello.html" target="_blank">hello.html</a>
-        </div>
-        <div class="path">extension/hello.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!doctype html&gt;
-&lt;!--
- This page is shown when the extension button is clicked, because the
- &quot;browser_action&quot; field in manifest.json contains the &quot;default_popup&quot; key with
- value &quot;popup.html&quot;.
- --&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Show current Url&lt;/title&gt;
-    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/chrome-ts2kt/chrome-ts2kt.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./generated/hello.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/inject-scripts.js" target="_blank">inject-scripts.js</a>
-        </div>
-        <div class="path">extension/inject-scripts.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">console.log(&#39;to-inject-isolated-way.js is loaded&#39;);
-
-function helloIsolate() {
-    alert(&quot;helloIsolate! You can&#39;t call me directly&quot;);
-}
-
-helloIsolate();
-
-let script = document.createElement(&quot;script&quot;);
-script.src = chrome.extension.getURL(&quot;target-functions.js&quot;)
-let base = document.head || document.documentElement
-base.appendChild(script)</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-inject-script-demo/blob/master/extension/target-functions.js" target="_blank">target-functions.js</a>
-        </div>
-        <div class="path">extension/target-functions.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">console.log(&#39;target-functions.js is loaded&#39;);
-
-function helloAsPart() {
-    alert(&quot;helloAsPart! You can call me directly in the console of current page&quot;);
-}
-
-helloAsPart();
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

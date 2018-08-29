@@ -21,41 +21,7 @@ Some simple code to show the basis of blockchain.
 The code is from &lt;https://medium.com/@crisadamo/hi-daniel-i-found-your-post-super-cool-so-i-decided-to-port-this-to-go-6e666efc7f62&gt;    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/setup.py" target="_blank">setup.py</a>
-        </div>
-        <div class="path">setup.py</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
-
-from setuptools import setup
-
-setup(
-    name=&#39;hello&#39;,
-    version=&#39;1.0&#39;,
-    description=&#39;Hello&#39;,
-    author=&#39;Freewind&#39;,
-    author_email=&#39;nowindlee@gmail.com&#39;,
-    packages=[&#39;hello&#39;],
-    install_requires=[&#39;flask&#39;]
-)</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/requirements.txt" target="_blank">requirements.txt</a>
-        </div>
-        <div class="path">requirements.txt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="txt">flask</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/py-blockchain/blob/master/hello/__init__.py" target="_blank">__init__.py</a>
@@ -66,7 +32,7 @@ setup(
         <pre class="content"><code class="py">from .core import hmm</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/py-blockchain/blob/master/hello/blockchain.py" target="_blank">blockchain.py</a>
@@ -252,7 +218,41 @@ if __name__ == &#39;__main__&#39;:
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/requirements.txt" target="_blank">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">flask</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/setup.py" target="_blank">setup.py</a>
+        </div>
+        <div class="path">setup.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name=&#39;hello&#39;,
+    version=&#39;1.0&#39;,
+    description=&#39;Hello&#39;,
+    author=&#39;Freewind&#39;,
+    author_email=&#39;nowindlee@gmail.com&#39;,
+    packages=[&#39;hello&#39;],
+    install_requires=[&#39;flask&#39;]
+)</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/__init__.py" target="_blank">__init__.py</a>
@@ -263,31 +263,25 @@ if __name__ == &#39;__main__&#39;:
         <pre class="content"><code class="py"></code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/test_basic.py" target="_blank">test_basic.py</a>
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/context.py" target="_blank">context.py</a>
         </div>
-        <div class="path">tests/test_basic.py</div>
+        <div class="path">tests/context.py</div>
     </div>
     <div class="body">
         <pre class="content"><code class="py"># -*- coding: utf-8 -*-
 
-from .context import hello
+import sys
+import os
 
-import unittest
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
 
-class BasicTestSuite(unittest.TestCase):
-    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
-
-    def test_absolute_truth_and_meaning(self):
-        assert True
-
-if __name__ == &#39;__main__&#39;:
-    unittest.main()</code></pre>
+import hello</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/test_advanced.py" target="_blank">test_advanced.py</a>
@@ -313,25 +307,31 @@ if __name__ == &#39;__main__&#39;:
     unittest.main()</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/context.py" target="_blank">context.py</a>
+            <a href="https://github.com/freewind-demos/py-blockchain/blob/master/tests/test_basic.py" target="_blank">test_basic.py</a>
         </div>
-        <div class="path">tests/context.py</div>
+        <div class="path">tests/test_basic.py</div>
     </div>
     <div class="body">
         <pre class="content"><code class="py"># -*- coding: utf-8 -*-
 
-import sys
-import os
+from .context import hello
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
+import unittest
 
-import hello</code></pre>
+class BasicTestSuite(unittest.TestCase):
+    &quot;&quot;&quot;Basic test cases.&quot;&quot;&quot;
+
+    def test_absolute_truth_and_meaning(self):
+        assert True
+
+if __name__ == &#39;__main__&#39;:
+    unittest.main()</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

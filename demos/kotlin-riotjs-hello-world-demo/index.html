@@ -33,7 +33,7 @@ Open &lt;http://localhost:8080/index.html&gt; from your browser, you will see &q
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -74,7 +74,49 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin RiotJS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;sample message=&quot;Hello&quot;&gt;&lt;/sample&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/riot@3.9/riot+compiler.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-riotjs-hello-world-demo.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/src/main/kotlin/example/Main.kt" target="_blank">Main.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Main.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    buildSampleTag()
+    riot.mount(&quot;*&quot;)
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/src/main/kotlin/example/SampleTag.kt" target="_blank">SampleTag.kt</a>
@@ -117,24 +159,7 @@ fun buildSampleTag() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/src/main/kotlin/example/Main.kt" target="_blank">Main.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Main.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun main(args: Array&lt;String&gt;) {
-    buildSampleTag()
-    riot.mount(&quot;*&quot;)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/src/main/kotlin/example/ViotJs.kt" target="_blank">ViotJs.kt</a>
@@ -157,7 +182,7 @@ inline fun &lt;T&gt; buildScript(crossinline block: T.(dynamic) -&gt; Unit): (dy
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
@@ -38052,32 +38077,7 @@ inline fun &lt;T&gt; buildScript(crossinline block: T.(dynamic) -&gt; Unit): (dy
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-riotjs-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin RiotJS Hello World Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;sample message=&quot;Hello&quot;&gt;&lt;/sample&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/riot@3.9/riot+compiler.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-riotjs-hello-world-demo.js&quot;&gt;&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

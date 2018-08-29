@@ -25,15 +25,32 @@ cat hello.css
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/lesscss-mixin-demo/blob/master/hello.less.md" target="_blank">hello.less.md</a>
+            <a href="https://github.com/freewind-demos/lesscss-mixin-demo/blob/master/hello.less" target="_blank">hello.less</a>
         </div>
-        <div class="path">hello.less.md</div>
+        <div class="path">hello.less</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="md">```
+        <pre class="content"><code class="less">.center {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.header {
+  font-size: 100px;
+  .center
+}
+
+.body {
+  font-size: 16px;
+  .center
+}</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    ```
 $ npx lessc hello.less hello.css
 $ cat hello.css
 ```
@@ -53,10 +70,8 @@ $ cat hello.css
   margin: 0 auto;
   width: 400px;
 }
-```</code></pre>
-    </div>
-</div>
-
+```</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

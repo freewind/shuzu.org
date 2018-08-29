@@ -30,7 +30,7 @@ Visit &lt;http://localhost:8080&gt;, you will see `Hello, spring boot!`
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -91,7 +91,55 @@ Visit &lt;http://localhost:8080&gt;, you will see `Hello, spring boot!`
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/src/main/java/com/example/DemoApplication.java" target="_blank">DemoApplication.java</a>
+        </div>
+        <div class="path">src/main/java/com/example/DemoApplication.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package com.example;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/src/main/java/com/example/HelloController.java" target="_blank">HelloController.java</a>
+        </div>
+        <div class="path">src/main/java/com/example/HelloController.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package com.example;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+    @RequestMapping(&quot;/&quot;)
+    public String index() {
+        return &quot;Hello, spring boot!&quot;;
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/src/test/java/com/example/DemoApplicationTests.java" target="_blank">DemoApplicationTests.java</a>
@@ -118,55 +166,7 @@ public class DemoApplicationTests {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/src/main/java/com/example/DemoApplication.java" target="_blank">DemoApplication.java</a>
-        </div>
-        <div class="path">src/main/java/com/example/DemoApplication.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package com.example;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class DemoApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/spring-boot-generated-web-demo/blob/master/src/main/java/com/example/HelloController.java" target="_blank">HelloController.java</a>
-        </div>
-        <div class="path">src/main/java/com/example/HelloController.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package com.example;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class HelloController {
-
-    @RequestMapping(&quot;/&quot;)
-    public String index() {
-        return &quot;Hello, spring boot!&quot;;
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

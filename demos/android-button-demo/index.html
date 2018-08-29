@@ -33,7 +33,126 @@ sourceSets {
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">app/build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;com.android.application&#39;
+
+apply plugin: &#39;kotlin-android&#39;
+
+apply plugin: &#39;kotlin-android-extensions&#39;
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId &quot;demos.android_buytton_demo&quot;
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName &quot;1.0&quot;
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+    implementation &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
+    implementation &#39;com.android.support:appcompat-v7:28.0.0-rc01&#39;
+    implementation &#39;com.android.support.constraint:constraint-layout:1.1.2&#39;
+}
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
+        </div>
+        <div class="path">app/src/main/AndroidManifest.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+          package=&quot;demos&quot;&gt;
+
+    &lt;application
+            android:allowBackup=&quot;true&quot;
+            android:icon=&quot;@mipmap/ic_launcher&quot;
+            android:label=&quot;android-button-demo&quot;
+            android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+            android:supportsRtl=&quot;true&quot;
+            android:theme=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/java/demos/MainActivity.kt" target="_blank">MainActivity.kt</a>
+        </div>
+        <div class="path">app/src/main/java/demos/MainActivity.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package demos
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">activity_main.xml</a>
+        </div>
+        <div class="path">app/src/main/res/layout/activity_main.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout
+        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+        xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        tools:context=&quot;.MainActivity&quot;&gt;
+
+    &lt;Button
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;Hello World!&quot;
+            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+            app:layout_constraintRight_toRightOf=&quot;parent&quot;
+            app:layout_constraintTop_toTopOf=&quot;parent&quot;/&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/android-button-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -71,126 +190,7 @@ task clean(type: Delete) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">app/build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">apply plugin: &#39;com.android.application&#39;
-
-apply plugin: &#39;kotlin-android&#39;
-
-apply plugin: &#39;kotlin-android-extensions&#39;
-
-
-android {
-    compileSdkVersion 28
-    defaultConfig {
-        applicationId &quot;demos.android_buytton_demo&quot;
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName &quot;1.0&quot;
-    }
-}
-
-dependencies {
-    implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
-    implementation &quot;org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version&quot;
-    implementation &#39;com.android.support:appcompat-v7:28.0.0-rc01&#39;
-    implementation &#39;com.android.support.constraint:constraint-layout:1.1.2&#39;
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">activity_main.xml</a>
-        </div>
-        <div class="path">app/src/main/res/layout/activity_main.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;android.support.constraint.ConstraintLayout
-        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-        xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
-        xmlns:tools=&quot;http://schemas.android.com/tools&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;match_parent&quot;
-        tools:context=&quot;.MainActivity&quot;&gt;
-
-    &lt;Button
-            android:layout_width=&quot;wrap_content&quot;
-            android:layout_height=&quot;wrap_content&quot;
-            android:text=&quot;Hello World!&quot;
-            app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
-            app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
-            app:layout_constraintRight_toRightOf=&quot;parent&quot;
-            app:layout_constraintTop_toTopOf=&quot;parent&quot;/&gt;
-
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/java/demos/MainActivity.kt" target="_blank">MainActivity.kt</a>
-        </div>
-        <div class="path">app/src/main/java/demos/MainActivity.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package demos
-
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
-        </div>
-        <div class="path">app/src/main/AndroidManifest.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-          package=&quot;demos&quot;&gt;
-
-    &lt;application
-            android:allowBackup=&quot;true&quot;
-            android:icon=&quot;@mipmap/ic_launcher&quot;
-            android:label=&quot;android-button-demo&quot;
-            android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
-            android:supportsRtl=&quot;true&quot;
-            android:theme=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
-        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
-                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
-    &lt;/application&gt;
-
-&lt;/manifest&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/android-button-demo/blob/master/settings.gradle" target="_blank">settings.gradle</a>
@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity() {
 </code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

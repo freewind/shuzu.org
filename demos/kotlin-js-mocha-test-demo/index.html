@@ -31,7 +31,7 @@ You will see test report.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -95,41 +95,30 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/src/test/kotlin/SimpleTest.kt" target="_blank">SimpleTest.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">src/test/kotlin/SimpleTest.kt</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">import example.hello
-import kotlin.test.*
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-class SimpleTest {
+&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-js-hello-world-demo.js&quot;&gt;&lt;/script&gt;
 
-    @Test
-    fun testHello() {
-        assertEquals(&quot;Hello, Kotlin!&quot;, hello(&quot;Kotlin&quot;))
-    }
-
-    @Ignore
-    @Test
-    fun testFooWrong() {
-        assertEquals(&quot;aaa&quot;, hello(&quot;Kotlin&quot;))
-    }
-}
-
-@Ignore
-class TestTest {
-    @Test
-    fun emptyTest() {
-        // Will not run
-    }
-}</code></pre>
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -148,7 +137,7 @@ fun hello(name:String) = &quot;Hello, $name!&quot;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
@@ -38043,30 +38032,41 @@ fun hello(name:String) = &quot;Hello, $name!&quot;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-mocha-test-demo/blob/master/src/test/kotlin/SimpleTest.kt" target="_blank">SimpleTest.kt</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/test/kotlin/SimpleTest.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+        <pre class="content"><code class="kt">import example.hello
+import kotlin.test.*
 
-&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-js-hello-world-demo.js&quot;&gt;&lt;/script&gt;
+class SimpleTest {
 
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+    @Test
+    fun testHello() {
+        assertEquals(&quot;Hello, Kotlin!&quot;, hello(&quot;Kotlin&quot;))
+    }
+
+    @Ignore
+    @Test
+    fun testFooWrong() {
+        assertEquals(&quot;aaa&quot;, hello(&quot;Kotlin&quot;))
+    }
+}
+
+@Ignore
+class TestTest {
+    @Test
+    fun emptyTest() {
+        // Will not run
+    }
+}</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

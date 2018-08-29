@@ -59,7 +59,7 @@ Related question: &lt;https://stackoverflow.com/questions/49794446/is-it-possibl
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -96,7 +96,105 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin Vue Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;hello&quot;&gt;
+    &lt;div&gt;{{ name }}&lt;/div&gt;
+    &lt;hello-component&gt;&lt;/hello-component&gt;
+    &lt;hello-component&gt;&lt;/hello-component&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/_vue@2.5.16@vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./build/classes/kotlin/main/kotlin-vue-demo.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/kotlin/example/HelloComponent.kt" target="_blank">HelloComponent.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/HelloComponent.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import vue_wrappers.*
+
+external interface HelloComponent : VueComponent&lt;HelloComponent.Data, HelloComponent.Methods&gt; {
+
+    interface Data {
+        var username: String
+    }
+
+    interface Methods {
+        var changeName: () -&gt; Unit
+    }
+
+}
+
+val helloComponent = builder&lt;HelloComponent&gt; {
+    this.name = &quot;hello-component&quot;
+    this.template = &quot;&quot;&quot;&lt;ul&gt;&lt;li&gt;Hello, {{username}} &lt;button @click=&quot;changeName&quot;&gt;Change&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&quot;&quot;&quot;
+    this.data = defineData {
+        this.username = &quot;Freewind&quot;
+    }
+    this.methods = defineMethods {
+        this.changeName = {
+            self().username += &quot;!&quot;
+        }
+    }
+}
+
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/kotlin/example/Main.kt" target="_blank">Main.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Main.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">@file:Suppress(&quot;unused&quot;, &quot;MayBeConstant&quot;)
+
+package example
+
+import vue_wrappers.Vue
+
+fun main(args: Array&lt;String&gt;) {
+    Vue.component(helloComponent.name, helloComponent)
+
+    Vue(object {
+        val el = &quot;#hello&quot;
+        val data = object {
+            val name = &quot;Hello Demo&quot;
+        }
+    })
+
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/kotlin/vue_wrappers/VueComponent.kt" target="_blank">VueComponent.kt</a>
@@ -150,75 +248,7 @@ fun &lt;DATA, METHODS&gt; VueComponent&lt;DATA, METHODS&gt;.defineData(block: DA
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/kotlin/example/Main.kt" target="_blank">Main.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Main.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">@file:Suppress(&quot;unused&quot;, &quot;MayBeConstant&quot;)
-
-package example
-
-import vue_wrappers.Vue
-
-fun main(args: Array&lt;String&gt;) {
-    Vue.component(helloComponent.name, helloComponent)
-
-    Vue(object {
-        val el = &quot;#hello&quot;
-        val data = object {
-            val name = &quot;Hello Demo&quot;
-        }
-    })
-
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/kotlin/example/HelloComponent.kt" target="_blank">HelloComponent.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/HelloComponent.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import vue_wrappers.*
-
-external interface HelloComponent : VueComponent&lt;HelloComponent.Data, HelloComponent.Methods&gt; {
-
-    interface Data {
-        var username: String
-    }
-
-    interface Methods {
-        var changeName: () -&gt; Unit
-    }
-
-}
-
-val helloComponent = builder&lt;HelloComponent&gt; {
-    this.name = &quot;hello-component&quot;
-    this.template = &quot;&quot;&quot;&lt;ul&gt;&lt;li&gt;Hello, {{username}} &lt;button @click=&quot;changeName&quot;&gt;Change&lt;/button&gt;&lt;/li&gt;&lt;/ul&gt;&quot;&quot;&quot;
-    this.data = defineData {
-        this.username = &quot;Freewind&quot;
-    }
-    this.methods = defineMethods {
-        this.changeName = {
-            self().username += &quot;!&quot;
-        }
-    }
-}
-
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank">kotlin.js</a>
@@ -38113,37 +38143,7 @@ val helloComponent = builder&lt;HelloComponent&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-vue-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin Vue Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;div id=&quot;hello&quot;&gt;
-    &lt;div&gt;{{ name }}&lt;/div&gt;
-    &lt;hello-component&gt;&lt;/hello-component&gt;
-    &lt;hello-component&gt;&lt;/hello-component&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/_vue@2.5.16@vue/dist/vue.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;src/main/resources/lib/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./build/classes/kotlin/main/kotlin-vue-demo.js&quot;&gt;&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

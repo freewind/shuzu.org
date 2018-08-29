@@ -26,7 +26,7 @@ jasmine
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/proxyquire-demo/blob/master/core.js" target="_blank">core.js</a>
@@ -40,7 +40,24 @@ module.exports = function () {
 };</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/proxyquire-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const core = require(&#39;./core&#39;);
+const path = require(&#39;path&#39;);
+
+module.exports = function () {
+  return &#39;index &gt; &#39; + core() + &#39; &gt; &#39; + path.basename(&#39;/aaa/bbb&#39;);
+};</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/proxyquire-demo/blob/master/spec/index-spec.js" target="_blank">index-spec.js</a>
@@ -74,24 +91,7 @@ describe(&#39;proxyquire&#39;, ()=&gt; {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/proxyquire-demo/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-const core = require(&#39;./core&#39;);
-const path = require(&#39;path&#39;);
-
-module.exports = function () {
-  return &#39;index &gt; &#39; + core() + &#39; &gt; &#39; + path.basename(&#39;/aaa/bbb&#39;);
-};</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

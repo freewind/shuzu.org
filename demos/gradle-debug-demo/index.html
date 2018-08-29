@@ -113,7 +113,7 @@ Let&#39;s start debugging ...
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-debug-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -187,7 +187,25 @@ task prepareGradle() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-debug-demo/blob/master/src/main/java/my/Hello.java" target="_blank">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/my/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+public class Hello {
+    public String hello(String name) {
+        return &quot;Hello, &quot; + name;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-debug-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
@@ -213,25 +231,7 @@ public class HelloSpec {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-debug-demo/blob/master/src/main/java/my/Hello.java" target="_blank">Hello.java</a>
-        </div>
-        <div class="path">src/main/java/my/Hello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-public class Hello {
-    public String hello(String name) {
-        return &quot;Hello, &quot; + name;
-    }
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

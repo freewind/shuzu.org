@@ -27,7 +27,7 @@ Then visit:
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -65,7 +65,568 @@ Then visit:
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/CreateBookServlet.java" target="_blank">CreateBookServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/CreateBookServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import demo.dao.InMemoryDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class CreateBookServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String title = req.getParameter(&quot;title&quot;);
+        String description = req.getParameter(&quot;description&quot;);
+        Book book = new Book(title, description);
+        InMemoryDao.save(book);
+        resp.sendRedirect(&quot;/list-books.html&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/DeleteBookServlet.java" target="_blank">DeleteBookServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/DeleteBookServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import demo.dao.InMemoryDao;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class DeleteBookServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter(&quot;id&quot;));
+        InMemoryDao.deleteById(id);
+        resp.sendRedirect(&quot;/list-books.html?message=Operation successful&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/IndexPageServlet.java" target="_blank">IndexPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/IndexPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class IndexPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(&quot;/list-books.html&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/LoginServlet.java" target="_blank">LoginServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/LoginServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class LoginServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter(&quot;username&quot;);
+        String password = req.getParameter(&quot;password&quot;);
+        if (&quot;demo&quot;.equals(username) &amp;&amp; &quot;123456&quot;.equals(password)) {
+            req.getSession().setAttribute(&quot;username&quot;, username);
+            System.out.println(&quot;Session username: &quot; + username);
+            resp.sendRedirect(&quot;/list-books.html&quot;);
+        } else {
+            resp.sendRedirect(&quot;/login.html?message=Invalid username or password&quot;);
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/LogoutServlet.java" target="_blank">LogoutServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/LogoutServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class LogoutServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().removeAttribute(&quot;username&quot;);
+        resp.sendRedirect(&quot;/&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/UpdateBookServlet.java" target="_blank">UpdateBookServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/actions/UpdateBookServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.actions;
+
+import demo.dao.InMemoryDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class UpdateBookServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter(&quot;id&quot;));
+        Book book = InMemoryDao.findBookById(id);
+        book.setTitle(req.getParameter(&quot;title&quot;));
+        book.setDescription(req.getParameter(&quot;description&quot;));
+        InMemoryDao.update(book);
+        resp.sendRedirect(&quot;/list-books.html?message=Operation successful&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/dao/InMemoryDao.java" target="_blank">InMemoryDao.java</a>
+        </div>
+        <div class="path">src/main/java/demo/dao/InMemoryDao.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.dao;
+
+import demo.models.Book;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InMemoryDao {
+
+    private static List&lt;Book&gt; books = new ArrayList&lt;Book&gt;();
+
+    static {
+        save(new Book(&quot;Java编程思想&quot;, &quot;学Java的一本好书&quot;));
+        save(new Book(&quot;JavaScript语言精粹&quot;, &quot;学JavaScript的一本好书&quot;));
+    }
+
+    public static List&lt;Book&gt; getBooks() {
+        return books;
+    }
+
+    public static Book findBookById(Long id) {
+        for (Book book : InMemoryDao.getBooks()) {
+            if (book.getId().equals(id)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public static void deleteById(Long id) {
+        List&lt;Book&gt; books = getBooks();
+        for (int i = 0; i &lt; books.size(); i++) {
+            Book book = books.get(i);
+            if (book.getId().equals(id)) {
+                books.remove(i);
+                return;
+            }
+        }
+    }
+
+    public static void save(Book book) {
+        Long maxId = getMaxId();
+        book.setId(maxId + 1);
+        books.add(book);
+    }
+
+    public static void update(Book book) {
+        Book found = findBookById(book.getId());
+        found.setTitle(book.getTitle());
+        found.setDescription(book.getDescription());
+    }
+
+    private static Long getMaxId() {
+        Long maxId = 0L;
+        for (Book book : books) {
+            if (book.getId() &gt; maxId) {
+                maxId = book.getId();
+            }
+        }
+        return maxId;
+    }
+
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/filters/LoginCheckFilter.java" target="_blank">LoginCheckFilter.java</a>
+        </div>
+        <div class="path">src/main/java/demo/filters/LoginCheckFilter.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.filters;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LoginCheckFilter implements Filter {
+
+    private List&lt;String&gt; publicPaths;
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+        String publicPathsStr = filterConfig.getInitParameter(&quot;public-paths&quot;);
+        publicPaths = trimItems(Arrays.asList(publicPathsStr.split(&quot;,&quot;)));
+    }
+
+    private List&lt;String&gt; trimItems(List&lt;String&gt; items) {
+        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        for (String item : items) {
+            list.add(item.trim());
+        }
+        return list;
+    }
+
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        if (isPublicPath(request) || isLoggedIn(request)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            response.sendRedirect(&quot;/login.html?message=Please login first&quot;);
+        }
+    }
+
+    private boolean isPublicPath(HttpServletRequest request) {
+        String currentPath = request.getServletPath();
+        return publicPaths.contains(currentPath);
+    }
+
+    private boolean isLoggedIn(HttpServletRequest request) {
+        return request.getSession().getAttribute(&quot;username&quot;) != null;
+    }
+
+    public void destroy() {
+
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/models/Book.java" target="_blank">Book.java</a>
+        </div>
+        <div class="path">src/main/java/demo/models/Book.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.models;
+
+public class Book {
+
+    private Long id;
+    private String title;
+    private String description;
+
+    public Book(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public Book(Long id, String title, String description) {
+        this(title, description);
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Book{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, title=&#39;&quot; + title + &#39;\&#39;&#39; +
+                &quot;, description=&#39;&quot; + description + &#39;\&#39;&#39; +
+                &#39;}&#39;;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/CreateBookPageServlet.java" target="_blank">CreateBookPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/CreateBookPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class CreateBookPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/create.jsp&quot;).forward(request, response);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/EditBookPageServlet.java" target="_blank">EditBookPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/EditBookPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import demo.dao.InMemoryDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class EditBookPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.valueOf(request.getParameter(&quot;id&quot;));
+        Book book = InMemoryDao.findBookById(id);
+        request.setAttribute(&quot;book&quot;, book);
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/edit.jsp&quot;).forward(request, response);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ListBooksPageServlet.java" target="_blank">ListBooksPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/ListBooksPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import demo.dao.InMemoryDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+public class ListBooksPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List&lt;Book&gt; books = InMemoryDao.getBooks();
+        request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));
+        request.setAttribute(&quot;books&quot;, books);
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/list.jsp&quot;).forward(request, response);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/LoginPageServlet.java" target="_blank">LoginPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/LoginPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class LoginPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message = request.getParameter(&quot;message&quot;);
+        request.setAttribute(&quot;message&quot;, message);
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/login.jsp&quot;).forward(request, response);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ShowBookPageServlet.java" target="_blank">ShowBookPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/ShowBookPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import demo.dao.InMemoryDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class ShowBookPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.valueOf(request.getParameter(&quot;id&quot;));
+        Book book = InMemoryDao.findBookById(id);
+        request.setAttribute(&quot;book&quot;, book);
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/show.jsp&quot;).forward(request, response);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ViewHelper.java" target="_blank">ViewHelper.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/ViewHelper.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+public class ViewHelper {
+
+    public static Object null2empty(Object s) {
+        if (s == null) {
+            return &quot;&quot;;
+        }
+        return s;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
@@ -192,568 +753,7 @@ Then visit:
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ListBooksPageServlet.java" target="_blank">ListBooksPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/ListBooksPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import demo.dao.InMemoryDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-
-public class ListBooksPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List&lt;Book&gt; books = InMemoryDao.getBooks();
-        request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));
-        request.setAttribute(&quot;books&quot;, books);
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/list.jsp&quot;).forward(request, response);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/EditBookPageServlet.java" target="_blank">EditBookPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/EditBookPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import demo.dao.InMemoryDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class EditBookPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long id = Long.valueOf(request.getParameter(&quot;id&quot;));
-        Book book = InMemoryDao.findBookById(id);
-        request.setAttribute(&quot;book&quot;, book);
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/edit.jsp&quot;).forward(request, response);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/LoginPageServlet.java" target="_blank">LoginPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/LoginPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class LoginPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String message = request.getParameter(&quot;message&quot;);
-        request.setAttribute(&quot;message&quot;, message);
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/login.jsp&quot;).forward(request, response);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ViewHelper.java" target="_blank">ViewHelper.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/ViewHelper.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-public class ViewHelper {
-
-    public static Object null2empty(Object s) {
-        if (s == null) {
-            return &quot;&quot;;
-        }
-        return s;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/CreateBookPageServlet.java" target="_blank">CreateBookPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/CreateBookPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class CreateBookPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/create.jsp&quot;).forward(request, response);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ShowBookPageServlet.java" target="_blank">ShowBookPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/ShowBookPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import demo.dao.InMemoryDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class ShowBookPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long id = Long.valueOf(request.getParameter(&quot;id&quot;));
-        Book book = InMemoryDao.findBookById(id);
-        request.setAttribute(&quot;book&quot;, book);
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/show.jsp&quot;).forward(request, response);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/DeleteBookServlet.java" target="_blank">DeleteBookServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/DeleteBookServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import demo.dao.InMemoryDao;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class DeleteBookServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter(&quot;id&quot;));
-        InMemoryDao.deleteById(id);
-        resp.sendRedirect(&quot;/list-books.html?message=Operation successful&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/LogoutServlet.java" target="_blank">LogoutServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/LogoutServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class LogoutServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().removeAttribute(&quot;username&quot;);
-        resp.sendRedirect(&quot;/&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/CreateBookServlet.java" target="_blank">CreateBookServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/CreateBookServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import demo.dao.InMemoryDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class CreateBookServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String title = req.getParameter(&quot;title&quot;);
-        String description = req.getParameter(&quot;description&quot;);
-        Book book = new Book(title, description);
-        InMemoryDao.save(book);
-        resp.sendRedirect(&quot;/list-books.html&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/UpdateBookServlet.java" target="_blank">UpdateBookServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/UpdateBookServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import demo.dao.InMemoryDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class UpdateBookServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter(&quot;id&quot;));
-        Book book = InMemoryDao.findBookById(id);
-        book.setTitle(req.getParameter(&quot;title&quot;));
-        book.setDescription(req.getParameter(&quot;description&quot;));
-        InMemoryDao.update(book);
-        resp.sendRedirect(&quot;/list-books.html?message=Operation successful&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/IndexPageServlet.java" target="_blank">IndexPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/IndexPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class IndexPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(&quot;/list-books.html&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/actions/LoginServlet.java" target="_blank">LoginServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/LoginServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class LoginServlet extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter(&quot;username&quot;);
-        String password = req.getParameter(&quot;password&quot;);
-        if (&quot;demo&quot;.equals(username) &amp;&amp; &quot;123456&quot;.equals(password)) {
-            req.getSession().setAttribute(&quot;username&quot;, username);
-            System.out.println(&quot;Session username: &quot; + username);
-            resp.sendRedirect(&quot;/list-books.html&quot;);
-        } else {
-            resp.sendRedirect(&quot;/login.html?message=Invalid username or password&quot;);
-        }
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/filters/LoginCheckFilter.java" target="_blank">LoginCheckFilter.java</a>
-        </div>
-        <div class="path">src/main/java/demo/filters/LoginCheckFilter.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.filters;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class LoginCheckFilter implements Filter {
-
-    private List&lt;String&gt; publicPaths;
-
-    public void init(FilterConfig filterConfig) throws ServletException {
-        String publicPathsStr = filterConfig.getInitParameter(&quot;public-paths&quot;);
-        publicPaths = trimItems(Arrays.asList(publicPathsStr.split(&quot;,&quot;)));
-    }
-
-    private List&lt;String&gt; trimItems(List&lt;String&gt; items) {
-        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
-        for (String item : items) {
-            list.add(item.trim());
-        }
-        return list;
-    }
-
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (isPublicPath(request) || isLoggedIn(request)) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
-            response.sendRedirect(&quot;/login.html?message=Please login first&quot;);
-        }
-    }
-
-    private boolean isPublicPath(HttpServletRequest request) {
-        String currentPath = request.getServletPath();
-        return publicPaths.contains(currentPath);
-    }
-
-    private boolean isLoggedIn(HttpServletRequest request) {
-        return request.getSession().getAttribute(&quot;username&quot;) != null;
-    }
-
-    public void destroy() {
-
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/dao/InMemoryDao.java" target="_blank">InMemoryDao.java</a>
-        </div>
-        <div class="path">src/main/java/demo/dao/InMemoryDao.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.dao;
-
-import demo.models.Book;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class InMemoryDao {
-
-    private static List&lt;Book&gt; books = new ArrayList&lt;Book&gt;();
-
-    static {
-        save(new Book(&quot;Java编程思想&quot;, &quot;学Java的一本好书&quot;));
-        save(new Book(&quot;JavaScript语言精粹&quot;, &quot;学JavaScript的一本好书&quot;));
-    }
-
-    public static List&lt;Book&gt; getBooks() {
-        return books;
-    }
-
-    public static Book findBookById(Long id) {
-        for (Book book : InMemoryDao.getBooks()) {
-            if (book.getId().equals(id)) {
-                return book;
-            }
-        }
-        return null;
-    }
-
-    public static void deleteById(Long id) {
-        List&lt;Book&gt; books = getBooks();
-        for (int i = 0; i &lt; books.size(); i++) {
-            Book book = books.get(i);
-            if (book.getId().equals(id)) {
-                books.remove(i);
-                return;
-            }
-        }
-    }
-
-    public static void save(Book book) {
-        Long maxId = getMaxId();
-        book.setId(maxId + 1);
-        books.add(book);
-    }
-
-    public static void update(Book book) {
-        Book found = findBookById(book.getId());
-        found.setTitle(book.getTitle());
-        found.setDescription(book.getDescription());
-    }
-
-    private static Long getMaxId() {
-        Long maxId = 0L;
-        for (Book book : books) {
-            if (book.getId() &gt; maxId) {
-                maxId = book.getId();
-            }
-        }
-        return maxId;
-    }
-
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/models/Book.java" target="_blank">Book.java</a>
-        </div>
-        <div class="path">src/main/java/demo/models/Book.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.models;
-
-public class Book {
-
-    private Long id;
-    private String title;
-    private String description;
-
-    public Book(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
-    public Book(Long id, String title, String description) {
-        this(title, description);
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return &quot;Book{&quot; +
-                &quot;id=&quot; + id +
-                &quot;, title=&#39;&quot; + title + &#39;\&#39;&#39; +
-                &quot;, description=&#39;&quot; + description + &#39;\&#39;&#39; +
-                &#39;}&#39;;
-    }
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -24,7 +24,7 @@ A chat room to demostrate websocket server and client.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -59,156 +59,7 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
-        </div>
-        <div class="path">src/test/java/my/HelloSpec.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import org.junit.Test;
-
-import static org.fest.assertions.api.Assertions.assertThat;
-
-public class HelloSpec {
-
-    @Test
-    public void shouldSayHello() throws Exception {
-        String greeting = new Hello().hello(&quot;gradle&quot;);
-        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/src/main/java/my/ChatServer.java" target="_blank">ChatServer.java</a>
-        </div>
-        <div class="path">src/main/java/my/ChatServer.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*
- * Copyright (c) 2010-2018 Nathan Rajlich
- *
- *  Permission is hereby granted, free of charge, to any person
- *  obtaining a copy of this software and associated documentation
- *  files (the &quot;Software&quot;), to deal in the Software without
- *  restriction, including without limitation the rights to use,
- *  copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the
- *  Software is furnished to do so, subject to the following
- *  conditions:
- *
- *  The above copyright notice and this permission notice shall be
- *  included in all copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
- *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
- *  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- *  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- *  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- *  OTHER DEALINGS IN THE SOFTWARE.
- */
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-
-import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketImpl;
-import org.java_websocket.framing.Framedata;
-import org.java_websocket.handshake.ClientHandshake;
-import org.java_websocket.server.WebSocketServer;
-
-/**
- * A simple WebSocketServer implementation. Keeps track of a &quot;chatroom&quot;.
- */
-public class ChatServer extends WebSocketServer {
-
-    public ChatServer(int port) throws UnknownHostException {
-        super(new InetSocketAddress(port));
-    }
-
-    public ChatServer(InetSocketAddress address) {
-        super(address);
-    }
-
-    @Override
-    public void onOpen(WebSocket conn, ClientHandshake handshake) {
-        conn.send(&quot;Welcome to the server!&quot;); //This method sends a message to the new client
-        broadcast(&quot;new connection: &quot; + handshake.getResourceDescriptor()); //This method sends a message to all clients connected
-        System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + &quot; entered the room!&quot;);
-    }
-
-    @Override
-    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        broadcast(conn + &quot; has left the room!&quot;);
-        System.out.println(conn + &quot; has left the room!&quot;);
-    }
-
-    @Override
-    public void onMessage(WebSocket conn, String message) {
-        broadcast(message);
-        System.out.println(conn + &quot;: &quot; + message);
-    }
-
-    @Override
-    public void onMessage(WebSocket conn, ByteBuffer message) {
-        broadcast(message.array());
-        System.out.println(conn + &quot;: &quot; + message);
-    }
-
-
-    public static void main(String[] args) throws InterruptedException, IOException {
-        WebSocketImpl.DEBUG = true;
-        int port = 8887; // 843 flash policy port
-        try {
-            port = Integer.parseInt(args[0]);
-        } catch (Exception ex) {
-        }
-        ChatServer s = new ChatServer(port);
-        s.start();
-        System.out.println(&quot;ChatServer started on port: &quot; + s.getPort());
-
-        BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            String in = sysin.readLine();
-            s.broadcast(in);
-            if (in.equals(&quot;exit&quot;)) {
-                s.stop(1000);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void onError(WebSocket conn, Exception ex) {
-        ex.printStackTrace();
-        if (conn != null) {
-            // some errors like port binding failed may not be assignable to a specific websocket
-        }
-    }
-
-    @Override
-    public void onStart() {
-        System.out.println(&quot;Server started!&quot;);
-    }
-
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/src/main/java/my/ChatClient.java" target="_blank">ChatClient.java</a>
@@ -404,7 +255,156 @@ public class ChatClient extends JFrame implements ActionListener {
 }</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/src/main/java/my/ChatServer.java" target="_blank">ChatServer.java</a>
+        </div>
+        <div class="path">src/main/java/my/ChatServer.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*
+ * Copyright (c) 2010-2018 Nathan Rajlich
+ *
+ *  Permission is hereby granted, free of charge, to any person
+ *  obtaining a copy of this software and associated documentation
+ *  files (the &quot;Software&quot;), to deal in the Software without
+ *  restriction, including without limitation the rights to use,
+ *  copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following
+ *  conditions:
+ *
+ *  The above copyright notice and this permission notice shall be
+ *  included in all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ *  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ *  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ *  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ *  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ *  OTHER DEALINGS IN THE SOFTWARE.
+ */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+
+import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketImpl;
+import org.java_websocket.framing.Framedata;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
+
+/**
+ * A simple WebSocketServer implementation. Keeps track of a &quot;chatroom&quot;.
+ */
+public class ChatServer extends WebSocketServer {
+
+    public ChatServer(int port) throws UnknownHostException {
+        super(new InetSocketAddress(port));
+    }
+
+    public ChatServer(InetSocketAddress address) {
+        super(address);
+    }
+
+    @Override
+    public void onOpen(WebSocket conn, ClientHandshake handshake) {
+        conn.send(&quot;Welcome to the server!&quot;); //This method sends a message to the new client
+        broadcast(&quot;new connection: &quot; + handshake.getResourceDescriptor()); //This method sends a message to all clients connected
+        System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + &quot; entered the room!&quot;);
+    }
+
+    @Override
+    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+        broadcast(conn + &quot; has left the room!&quot;);
+        System.out.println(conn + &quot; has left the room!&quot;);
+    }
+
+    @Override
+    public void onMessage(WebSocket conn, String message) {
+        broadcast(message);
+        System.out.println(conn + &quot;: &quot; + message);
+    }
+
+    @Override
+    public void onMessage(WebSocket conn, ByteBuffer message) {
+        broadcast(message.array());
+        System.out.println(conn + &quot;: &quot; + message);
+    }
+
+
+    public static void main(String[] args) throws InterruptedException, IOException {
+        WebSocketImpl.DEBUG = true;
+        int port = 8887; // 843 flash policy port
+        try {
+            port = Integer.parseInt(args[0]);
+        } catch (Exception ex) {
+        }
+        ChatServer s = new ChatServer(port);
+        s.start();
+        System.out.println(&quot;ChatServer started on port: &quot; + s.getPort());
+
+        BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            String in = sysin.readLine();
+            s.broadcast(in);
+            if (in.equals(&quot;exit&quot;)) {
+                s.stop(1000);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onError(WebSocket conn, Exception ex) {
+        ex.printStackTrace();
+        if (conn != null) {
+            // some errors like port binding failed may not be assignable to a specific websocket
+        }
+    }
+
+    @Override
+    public void onStart() {
+        System.out.println(&quot;Server started!&quot;);
+    }
+
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-swing-chat-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/my/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() throws Exception {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

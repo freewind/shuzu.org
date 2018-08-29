@@ -93,7 +93,7 @@ https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/db.js" target="_blank">db.js</a>
@@ -113,60 +113,7 @@ module.exports = {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/user.js" target="_blank">user.js</a>
-        </div>
-        <div class="path">src/user.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var mongoose = require(&#39;mongoose&#39;);
-
-var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
-	name: String,
-    admin: Boolean
-});
-
-// the collection&#39;s name is `users`
-var User = mongoose.model(&#39;User&#39;, userSchema);
-
-module.exports = User;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/save.js" target="_blank">save.js</a>
-        </div>
-        <div class="path">src/save.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var db = require(&#39;./db.js&#39;);
-
-var User = require(&#39;./user.js&#39;);
-
-var freewind = new User({
-	name: &quot;Freewind&quot;,
-	admin: true
-});
-
-db.connect();
-
-freewind.save(function(err) {
-	if(err) throw err;
-
-	console.log(&#39;User saved&#39;);
-	
-	db.close();
-});
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/query.js" target="_blank">query.js</a>
@@ -210,7 +157,60 @@ User.findOne({name: &quot;Non-existent-user&quot;}, function(err, user) {
 });</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/save.js" target="_blank">save.js</a>
+        </div>
+        <div class="path">src/save.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var db = require(&#39;./db.js&#39;);
 
+var User = require(&#39;./user.js&#39;);
+
+var freewind = new User({
+	name: &quot;Freewind&quot;,
+	admin: true
+});
+
+db.connect();
+
+freewind.save(function(err) {
+	if(err) throw err;
+
+	console.log(&#39;User saved&#39;);
+	
+	db.close();
+});
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mongoose-demo/blob/master/src/user.js" target="_blank">user.js</a>
+        </div>
+        <div class="path">src/user.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var mongoose = require(&#39;mongoose&#39;);
+
+var Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+	name: String,
+    admin: Boolean
+});
+
+// the collection&#39;s name is `users`
+var User = mongoose.model(&#39;User&#39;, userSchema);
+
+module.exports = User;</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

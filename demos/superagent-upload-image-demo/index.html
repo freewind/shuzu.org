@@ -38,30 +38,7 @@ Articles
 - Uploading files with superagent in the browser:  &lt;https://blog.gaya.ninja/articles/uploading-files-superagent-in-browser/&gt;    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/superagent-upload-image-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./public/entry.js&#39;,
-  output: {
-    path: __dirname + &#39;/public&#39;,
-    filename: &#39;bundle.js&#39;
-  },
-  module: {
-    loaders: [{
-      test: /\.css$/,
-      loader: &#39;style!css&#39; // note style is before css
-    }]
-  }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/superagent-upload-image-demo/blob/master/index.js" target="_blank">index.js</a>
@@ -103,7 +80,7 @@ app.listen(3000, function () {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/superagent-upload-image-demo/blob/master/public/entry.js" target="_blank">entry.js</a>
@@ -132,7 +109,7 @@ function uploadImage(event) {
 $(&#39;#form&#39;).bind(&#39;submit&#39;, uploadImage);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/superagent-upload-image-demo/blob/master/public/index.html" target="_blank">index.html</a>
@@ -160,7 +137,30 @@ $(&#39;#form&#39;).bind(&#39;submit&#39;, uploadImage);</code></pre>
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/superagent-upload-image-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./public/entry.js&#39;,
+  output: {
+    path: __dirname + &#39;/public&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: &#39;style!css&#39; // note style is before css
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

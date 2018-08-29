@@ -23,7 +23,25 @@ node index.js
 (`node -v` should `&gt;=6`)    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">let Core1 = require(&#39;./core1&#39;);
+let {Core2} = require(&#39;./core2&#39;);
+
+let core1 = new Core1();
+let core2 = new Core2();
+
+core1.hello();
+core2.hello();</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/core1.js" target="_blank">core1.js</a>
@@ -40,25 +58,7 @@ node index.js
 module.exports = Core1;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">let Core1 = require(&#39;./core1&#39;);
-let {Core2} = require(&#39;./core2&#39;);
-
-let core1 = new Core1();
-let core2 = new Core2();
-
-core1.hello();
-core2.hello();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/core2.js" target="_blank">core2.js</a>
@@ -77,12 +77,12 @@ module.exports = {
 };</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/app.js" target="_blank">app.js</a>
+            <a href="https://github.com/freewind-demos/export-es6-class-demo/blob/master/index.js" target="_blank">index.js</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">index.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">let Core1 = require(&#39;./core1&#39;);
@@ -95,7 +95,7 @@ core1.hello();
 core2.hello();</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

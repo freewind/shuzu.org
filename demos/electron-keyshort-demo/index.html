@@ -26,7 +26,7 @@ npm start
 Press any key, you will see logs on the window.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/electron-keyshort-demo/blob/master/src/index.css" target="_blank">index.css</a>
@@ -39,23 +39,7 @@ Press any key, you will see logs on the window.    </div>
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/electron-keyshort-demo/blob/master/src/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">src/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">document.onkeyup = function (event) {
-    const code = event.keyCode;
-    document.getElementById(&quot;content&quot;).innerText =
-        document.getElementById(&quot;content&quot;).innerText + &quot;You just pressed key code: &quot; + code + &quot;\n&quot;;
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/electron-keyshort-demo/blob/master/src/index.html" target="_blank">index.html</a>
@@ -75,7 +59,23 @@ Press any key, you will see logs on the window.    </div>
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/electron-keyshort-demo/blob/master/src/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">src/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">document.onkeyup = function (event) {
+    const code = event.keyCode;
+    document.getElementById(&quot;content&quot;).innerText =
+        document.getElementById(&quot;content&quot;).innerText + &quot;You just pressed key code: &quot; + code + &quot;\n&quot;;
+};
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/electron-keyshort-demo/blob/master/src/main.js" target="_blank">main.js</a>
@@ -98,7 +98,7 @@ app.on(&#39;ready&#39;, function () {
 });</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -41,38 +41,7 @@ Resources
 1. https://github.com/webpack/webpack-dev-middleware    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
-
-module.exports = {
-  entry: [
-    &#39;./public/entry.js&#39;, 
-    &#39;webpack-hot-middleware/client&#39;
-  ],
-  output: {
-    path: __dirname,
-    publicPath: &#39;/assets/&#39;,
-    filename: &#39;bundle.js&#39;
-  },
-  plugins: [
-    // Webpack 1.0
-    new webpack.optimize.OccurenceOrderPlugin(),
-    // Webpack 2.0 fixed this mispelling
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/public/entry.js" target="_blank">entry.js</a>
@@ -94,7 +63,7 @@ if (module.hot) {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/public/index.html" target="_blank">index.html</a>
@@ -115,7 +84,7 @@ if (module.hot) {
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/server.js" target="_blank">server.js</a>
@@ -157,7 +126,38 @@ app.listen(3000, function() {
 });</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-hot-middleware-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
 
+module.exports = {
+  entry: [
+    &#39;./public/entry.js&#39;, 
+    &#39;webpack-hot-middleware/client&#39;
+  ],
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    // Webpack 1.0
+    new webpack.optimize.OccurenceOrderPlugin(),
+    // Webpack 2.0 fixed this mispelling
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+}</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

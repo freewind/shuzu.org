@@ -21,7 +21,7 @@ Try [pebble](https://github.com/PebbleTemplates/pebble/) to render templates wit
 Run `Hello.java` in your IDE.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -85,7 +85,7 @@ Run `Hello.java` in your IDE.    </div>
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
@@ -125,25 +125,7 @@ public class Hello {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/home.html" target="_blank">home.html</a>
-        </div>
-        <div class="path">src/main/resources/home.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">{% extends &quot;base.html&quot; %}
-
-{% block title %} Home {% endblock %}
-
-{% block content %}
-&lt;h1&gt; Home &lt;/h1&gt;
-&lt;p&gt; Welcome to my home page. My name is {{ name }}.&lt;/p&gt;
-{% endblock %}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/base.html" target="_blank">base.html</a>
@@ -168,7 +150,25 @@ public class Hello {
 &lt;/html&gt;</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/home.html" target="_blank">home.html</a>
+        </div>
+        <div class="path">src/main/resources/home.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">{% extends &quot;base.html&quot; %}
 
+{% block title %} Home {% endblock %}
+
+{% block content %}
+&lt;h1&gt; Home &lt;/h1&gt;
+&lt;p&gt; Welcome to my home page. My name is {{ name }}.&lt;/p&gt;
+{% endblock %}</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

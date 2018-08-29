@@ -42,24 +42,7 @@ Resources
 2. [Why webpack-dev-middleware provides `publicPath` configuration?](http://stackoverflow.com/questions/38815241/why-webpack-dev-middleware-provides-publicpath-configuration)    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./public/entry.js&#39;,
-  output: {
-    path: __dirname,
-    filename: &#39;bundle.js&#39;
-  }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/public/entry.js" target="_blank">entry.js</a>
@@ -70,7 +53,7 @@ Resources
         <pre class="content"><code class="js">document.write(&#39;it works&#39;);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/public/index.html" target="_blank">index.html</a>
@@ -90,7 +73,7 @@ Resources
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/server.js" target="_blank">server.js</a>
@@ -145,7 +128,24 @@ app.listen(3000, function() {
 });</code></pre>
     </div>
 </div>
-
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./public/entry.js&#39;,
+  output: {
+    path: __dirname,
+    filename: &#39;bundle.js&#39;
+  }
+}</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

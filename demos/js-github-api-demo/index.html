@@ -61,32 +61,7 @@ Resources
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/stars.js" target="_blank">stars.js</a>
-        </div>
-        <div class="path">src/stars.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
-import Github from &#39;github-api&#39;;
-
-const gh = new Github({
-    token: token
-});
-
-const user = gh.getUser(&#39;freewind&#39;);
-
-user.listStarredRepos()
-    .then(function ({data: reposJson}) {
-        console.log(&#39;--- StarredRepos ---&#39;);
-        console.log(reposJson);
-    });
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/gists.js" target="_blank">gists.js</a>
@@ -111,32 +86,7 @@ user.listGists()
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/repos.js" target="_blank">repos.js</a>
-        </div>
-        <div class="path">src/repos.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
-import Github from &#39;github-api&#39;;
-
-const gh = new Github({
-    token: token
-});
-
-const user = gh.getUser(&#39;freewind&#39;);
-
-user.listRepos()
-    .then(function ({data: repos}) {
-        console.log(&#39;--- repos ---&#39;);
-        console.log(repos);
-    });
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/orgs.js" target="_blank">orgs.js</a>
@@ -162,7 +112,57 @@ user.listOrgs()
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/repos.js" target="_blank">repos.js</a>
+        </div>
+        <div class="path">src/repos.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
+import Github from &#39;github-api&#39;;
 
+const gh = new Github({
+    token: token
+});
+
+const user = gh.getUser(&#39;freewind&#39;);
+
+user.listRepos()
+    .then(function ({data: repos}) {
+        console.log(&#39;--- repos ---&#39;);
+        console.log(repos);
+    });
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/stars.js" target="_blank">stars.js</a>
+        </div>
+        <div class="path">src/stars.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
+import Github from &#39;github-api&#39;;
+
+const gh = new Github({
+    token: token
+});
+
+const user = gh.getUser(&#39;freewind&#39;);
+
+user.listStarredRepos()
+    .then(function ({data: reposJson}) {
+        console.log(&#39;--- StarredRepos ---&#39;);
+        console.log(reposJson);
+    });
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

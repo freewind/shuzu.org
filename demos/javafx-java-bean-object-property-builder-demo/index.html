@@ -21,7 +21,7 @@ Use `JavaBeanObjectPropertyBuilder` to create a property for textfields to conne
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/javafx-java-bean-object-property-builder-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -68,7 +68,40 @@ Use `JavaBeanObjectPropertyBuilder` to create a property for textfields to conne
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-java-bean-object-property-builder-demo/blob/master/src/main/java/demo/DataBean.java" target="_blank">DataBean.java</a>
+        </div>
+        <div class="path">src/main/java/demo/DataBean.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import java.util.List;
+
+public class DataBean {
+
+    private final List&lt;String&gt; data;
+    private final int index;
+
+    public DataBean(List&lt;String&gt; data, int index) {
+        this.data = data;
+        this.index = index;
+    }
+
+    public String getValue() {
+        return this.data.get(index);
+    }
+
+    public void setValue(String value) {
+        this.data.set(index, value);
+    }
+
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/javafx-java-bean-object-property-builder-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
@@ -157,40 +190,7 @@ public class Hello extends Application {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/javafx-java-bean-object-property-builder-demo/blob/master/src/main/java/demo/DataBean.java" target="_blank">DataBean.java</a>
-        </div>
-        <div class="path">src/main/java/demo/DataBean.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import java.util.List;
-
-public class DataBean {
-
-    private final List&lt;String&gt; data;
-    private final int index;
-
-    public DataBean(List&lt;String&gt; data, int index) {
-        this.data = data;
-        this.index = index;
-    }
-
-    public String getValue() {
-        return this.data.get(index);
-    }
-
-    public void setValue(String value) {
-        this.data.set(index, value);
-    }
-
-}</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

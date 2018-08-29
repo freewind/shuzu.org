@@ -13,7 +13,48 @@
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        WebStorm TypeScript Lodash Completion Issue Demo
+        npm 
+---
+
+```
+$ npm -version
+6.3.0
+```
+
+cnpm
+----
+
+```
+$ npm install -g cnpm
+$ cnpm -version
+cnpm@6.0.0 (/usr/local/lib/node_modules/cnpm/lib/parse_argv.js)
+npm@6.4.0 (/usr/local/lib/node_modules/cnpm/node_modules/npm/lib/npm.js)
+node@10.5.0 (/usr/local/Cellar/node/10.5.0_1/bin/node)
+npminstall@3.11.0 (/usr/local/lib/node_modules/cnpm/node_modules/npminstall/lib/index.js)
+prefix=/usr/local
+darwin x64 17.4.0
+registry=https://registry.npm.taobao.org
+```
+
+    </div>
+</div>
+
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/webstorm-typescript-lodash-completion-issue-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as _ from &#39;lodash&#39;
+
+console.log(&#39;Hello, &#39; + _.capitalize(&#39;typescript&#39;))
+</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    WebStorm TypeScript Lodash Completion Issue Demo
 ================================================
 
 &lt;s&gt;Can&#39;t find a way to make webstorm show lodash completion for typescript project with `tsconfig.json`.&lt;/s&gt;
@@ -82,117 +123,9 @@ What about VSCODE?
 I use vscode to open this project. Without any configuration, the completion is also working perfect.
 
 ![vscode.jpg](./images/vscode.jpg)
-    </div>
 </div>
-
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webstorm-typescript-lodash-completion-issue-demo/blob/master/webstorm-config-project-library.md" target="_blank">webstorm-config-project-library.md</a>
-        </div>
-        <div class="path">webstorm-config-project-library.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">Webstorm config lodash library manually
-=======================================
-
-NOT needed.
-
-NOT needed.
-
-NOT needed.
-
-Webstorm handles everything perfectly if you use `npm install` not `cnpm install`.
-
-Configuration Webstorm
-----------------------
-
-Install dependencies first:
-
-```
-npm install
-```
-
-Then add the `node_modules/@types/lodash` as a javascript library to current project:
-
-![webstorm-lodash-work-1.jpg](./images/webstorm-lodash-work-1.jpg)
-
-Choose the `node_modules/@types/lodash` directory of current project:
-
-![webstorm-lodash-work-2.jpg](./images/webstorm-lodash-work-2.jpg)
-
-Make sure the `lodash` library is added:
-
-![webstorm-lodash-work-3.jpg](./images/webstorm-lodash-work-3.jpg)
-
-Try:
-
-![webstorm-lodash-work-4.jpg](./images/webstorm-lodash-work-4.jpg)
-
-It also works if we import lodash as `_`:
-
-![webstorm-lodash-work-as-underscore.jpg](./images/webstorm-lodash-work-as-underscore.jpg)
-
-It works but we have to do this manually, which is quite boring.</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webstorm-typescript-lodash-completion-issue-demo/blob/master/hello.ts" target="_blank">hello.ts</a>
-        </div>
-        <div class="path">hello.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import * as _ from &#39;lodash&#39;
-
-console.log(&#39;Hello, &#39; + _.capitalize(&#39;typescript&#39;))
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webstorm-typescript-lodash-completion-issue-demo/blob/master/npm-issue-data/README.md" target="_blank">README.md</a>
-        </div>
-        <div class="path">npm-issue-data/README.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">npm 
----
-
-```
-$ npm -version
-6.3.0
-```
-
-cnpm
-----
-
-```
-$ npm install -g cnpm
-$ cnpm -version
-cnpm@6.0.0 (/usr/local/lib/node_modules/cnpm/lib/parse_argv.js)
-npm@6.4.0 (/usr/local/lib/node_modules/cnpm/node_modules/npm/lib/npm.js)
-node@10.5.0 (/usr/local/Cellar/node/10.5.0_1/bin/node)
-npminstall@3.11.0 (/usr/local/lib/node_modules/cnpm/node_modules/npminstall/lib/index.js)
-prefix=/usr/local
-darwin x64 17.4.0
-registry=https://registry.npm.taobao.org
-```
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webstorm-typescript-lodash-completion-issue-demo/blob/master/webstorm-config-global-library.md" target="_blank">webstorm-config-global-library.md</a>
-        </div>
-        <div class="path">webstorm-config-global-library.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">Webstorm Config Global Lodash Library
+        <div class="markdown markdown-body center-in-page">
+    Webstorm Config Global Lodash Library
 =====================================
 
 NOT needed.
@@ -257,10 +190,50 @@ You will find the lodash completion is broken, there is no completion:
 &lt;s&gt;No matter how I configure the `tsconfig.json` or webstorm itself, I can&#39;t find a way to make the completion work again.&lt;/s&gt;
 
 update: use the new way to configure webstorm in [README](./README.md)
-</code></pre>
-    </div>
 </div>
+        <div class="markdown markdown-body center-in-page">
+    Webstorm config lodash library manually
+=======================================
 
+NOT needed.
+
+NOT needed.
+
+NOT needed.
+
+Webstorm handles everything perfectly if you use `npm install` not `cnpm install`.
+
+Configuration Webstorm
+----------------------
+
+Install dependencies first:
+
+```
+npm install
+```
+
+Then add the `node_modules/@types/lodash` as a javascript library to current project:
+
+![webstorm-lodash-work-1.jpg](./images/webstorm-lodash-work-1.jpg)
+
+Choose the `node_modules/@types/lodash` directory of current project:
+
+![webstorm-lodash-work-2.jpg](./images/webstorm-lodash-work-2.jpg)
+
+Make sure the `lodash` library is added:
+
+![webstorm-lodash-work-3.jpg](./images/webstorm-lodash-work-3.jpg)
+
+Try:
+
+![webstorm-lodash-work-4.jpg](./images/webstorm-lodash-work-4.jpg)
+
+It also works if we import lodash as `_`:
+
+![webstorm-lodash-work-as-underscore.jpg](./images/webstorm-lodash-work-as-underscore.jpg)
+
+It works but we have to do this manually, which is quite boring.</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

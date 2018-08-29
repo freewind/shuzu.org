@@ -28,7 +28,7 @@ See the output.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -64,183 +64,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcQuery.java" target="_blank">JdbcQuery.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcQuery.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcQuery {
-
-    public static void queryById(Long bookId) throws SQLException {
-        System.out.println(&quot;------- query by id ------&quot;);
-        Connection conn = DriverManager.getConnection(DB.URL);
-        PreparedStatement stmt = conn.prepareStatement(&quot;select * from books where id=?&quot;);
-        stmt.setLong(1, bookId);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Long id = rs.getLong(&quot;id&quot;);
-            String title = rs.getString(&quot;title&quot;);
-            String description = rs.getString(&quot;description&quot;);
-            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
-        }
-        stmt.close();
-        conn.close();
-    }
-
-    public static void main(String[] args) throws SQLException {
-        queryById(1L);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcDelete.java" target="_blank">JdbcDelete.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcDelete.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcDelete {
-
-    public static void deleteById(Long bookId) throws SQLException {
-        System.out.println(&quot;------- delete by id ------&quot;);
-        Connection conn = DriverManager.getConnection(DB.URL);
-        PreparedStatement stmt = conn.prepareStatement(&quot;delete from books where id=?&quot;);
-        stmt.setLong(1, bookId);
-        int deletedCount = stmt.executeUpdate();
-        stmt.close();
-        conn.close();
-
-        System.out.println(&quot;Delete &quot; + deletedCount + &quot; rows&quot;);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        deleteById(1L);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcUpdate.java" target="_blank">JdbcUpdate.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcUpdate.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcUpdate {
-
-
-    public static void update(Long bookId) throws SQLException {
-        System.out.println(&quot;------- update by id ------&quot;);
-        Connection conn = DriverManager.getConnection(DB.URL);
-        PreparedStatement stmt = conn.prepareStatement(&quot;update books set title=?, description=? where id=?&quot;);
-        stmt.setString(1, &quot;new-title&quot;);
-        stmt.setString(2, &quot;new-description&quot;);
-        stmt.setLong(3, bookId);
-        int updatedCount = stmt.executeUpdate();
-        stmt.close();
-        conn.close();
-        System.out.println(&quot;Updated &quot; + updatedCount + &quot; rows&quot;);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        update(1L);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcLoad.java" target="_blank">JdbcLoad.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcLoad.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcLoad {
-
-    public static void loadAll() throws SQLException {
-        System.out.println(&quot;------- load all ------&quot;);
-        Connection conn = DriverManager.getConnection(DB.URL);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(&quot;select * from books&quot;);
-        while (rs.next()) {
-            Long id = rs.getLong(&quot;id&quot;);
-            String title = rs.getString(&quot;title&quot;);
-            String description = rs.getString(&quot;description&quot;);
-            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
-        }
-        conn.close();
-    }
-
-    public static void main(String[] args) throws SQLException {
-        loadAll();
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/Main.java" target="_blank">Main.java</a>
-        </div>
-        <div class="path">src/main/java/my/Main.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.SQLException;
-
-public class Main {
-
-    public static void main(String[] args) throws SQLException {
-        DB.createTable();
-
-        JdbcInsert.insert();
-        JdbcLoad.loadAll();
-
-        JdbcQuery.queryById(1L);
-
-        JdbcUpdate.update(1L);
-        JdbcLoad.loadAll();
-
-        JdbcDelete.deleteById(1L);
-        JdbcLoad.loadAll();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/DB.java" target="_blank">DB.java</a>
@@ -280,7 +104,41 @@ public class DB {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcDelete.java" target="_blank">JdbcDelete.java</a>
+        </div>
+        <div class="path">src/main/java/my/JdbcDelete.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcDelete {
+
+    public static void deleteById(Long bookId) throws SQLException {
+        System.out.println(&quot;------- delete by id ------&quot;);
+        Connection conn = DriverManager.getConnection(DB.URL);
+        PreparedStatement stmt = conn.prepareStatement(&quot;delete from books where id=?&quot;);
+        stmt.setLong(1, bookId);
+        int deletedCount = stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+
+        System.out.println(&quot;Delete &quot; + deletedCount + &quot; rows&quot;);
+    }
+
+    public static void main(String[] args) throws SQLException {
+        deleteById(1L);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcInsert.java" target="_blank">JdbcInsert.java</a>
@@ -325,7 +183,149 @@ public class JdbcInsert {
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcLoad.java" target="_blank">JdbcLoad.java</a>
+        </div>
+        <div class="path">src/main/java/my/JdbcLoad.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
 
+import java.sql.*;
+
+public class JdbcLoad {
+
+    public static void loadAll() throws SQLException {
+        System.out.println(&quot;------- load all ------&quot;);
+        Connection conn = DriverManager.getConnection(DB.URL);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(&quot;select * from books&quot;);
+        while (rs.next()) {
+            Long id = rs.getLong(&quot;id&quot;);
+            String title = rs.getString(&quot;title&quot;);
+            String description = rs.getString(&quot;description&quot;);
+            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
+        }
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        loadAll();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcQuery.java" target="_blank">JdbcQuery.java</a>
+        </div>
+        <div class="path">src/main/java/my/JdbcQuery.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcQuery {
+
+    public static void queryById(Long bookId) throws SQLException {
+        System.out.println(&quot;------- query by id ------&quot;);
+        Connection conn = DriverManager.getConnection(DB.URL);
+        PreparedStatement stmt = conn.prepareStatement(&quot;select * from books where id=?&quot;);
+        stmt.setLong(1, bookId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Long id = rs.getLong(&quot;id&quot;);
+            String title = rs.getString(&quot;title&quot;);
+            String description = rs.getString(&quot;description&quot;);
+            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
+        }
+        stmt.close();
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        queryById(1L);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/JdbcUpdate.java" target="_blank">JdbcUpdate.java</a>
+        </div>
+        <div class="path">src/main/java/my/JdbcUpdate.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+
+public class JdbcUpdate {
+
+
+    public static void update(Long bookId) throws SQLException {
+        System.out.println(&quot;------- update by id ------&quot;);
+        Connection conn = DriverManager.getConnection(DB.URL);
+        PreparedStatement stmt = conn.prepareStatement(&quot;update books set title=?, description=? where id=?&quot;);
+        stmt.setString(1, &quot;new-title&quot;);
+        stmt.setString(2, &quot;new-description&quot;);
+        stmt.setLong(3, bookId);
+        int updatedCount = stmt.executeUpdate();
+        stmt.close();
+        conn.close();
+        System.out.println(&quot;Updated &quot; + updatedCount + &quot; rows&quot;);
+    }
+
+    public static void main(String[] args) throws SQLException {
+        update(1L);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-jdbc-demo/blob/master/src/main/java/my/Main.java" target="_blank">Main.java</a>
+        </div>
+        <div class="path">src/main/java/my/Main.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.SQLException;
+
+public class Main {
+
+    public static void main(String[] args) throws SQLException {
+        DB.createTable();
+
+        JdbcInsert.insert();
+        JdbcLoad.loadAll();
+
+        JdbcQuery.queryById(1L);
+
+        JdbcUpdate.update(1L);
+        JdbcLoad.loadAll();
+
+        JdbcDelete.deleteById(1L);
+        JdbcLoad.loadAll();
+    }
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -59,43 +59,7 @@ Explained and resolved here: &lt;https://stackoverflow.com/questions/17933234/ch
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/popup.html" target="_blank">popup.html</a>
-        </div>
-        <div class="path">popup.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Chrome Extension Add Button Demo&lt;/title&gt;
-    &lt;script src=&quot;popup.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;/html&gt;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/popup.js" target="_blank">popup.js</a>
-        </div>
-        <div class="path">popup.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">console.log(&quot;enter: chrome-extension-tabs-executescript-add-button-demo&quot;)
-
-chrome.tabs.executeScript({
-    file: &quot;add-button.js&quot;
-}, function() {
-    console.log(&quot;add-button.js injected&quot;)
-})</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/add-button.js" target="_blank">add-button.js</a>
@@ -123,7 +87,43 @@ alert(&#39;Button inserted to page bottom, please scroll down the page, find and
 window.scrollTo(0, document.body.scrollHeight)</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/popup.html" target="_blank">popup.html</a>
+        </div>
+        <div class="path">popup.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Chrome Extension Add Button Demo&lt;/title&gt;
+    &lt;script src=&quot;popup.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;/html&gt;
 
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/popup.js" target="_blank">popup.js</a>
+        </div>
+        <div class="path">popup.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&quot;enter: chrome-extension-tabs-executescript-add-button-demo&quot;)
+
+chrome.tabs.executeScript({
+    file: &quot;add-button.js&quot;
+}, function() {
+    console.log(&quot;add-button.js injected&quot;)
+})</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

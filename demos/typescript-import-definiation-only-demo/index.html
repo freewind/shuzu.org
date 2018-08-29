@@ -24,47 +24,7 @@ npx ts-node hello.ts
 It will print `Hello, TypeScript!`    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-a.ts.md" target="_blank">hello-a.ts.md</a>
-        </div>
-        <div class="path">hello-a.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-npx ts-node hello-a.ts
-```
-
-有类型提示：
-
-![hello-a](./images/hello-a.jpg)
-
-如果参数类型不对，编译期就会失败。
-
-```
-Hello, typescript (from a)
-```
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts" target="_blank">hello-c.ts</a>
-        </div>
-        <div class="path">hello-c.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import {hello} from &quot;./modules/c&quot;;
-
-hello(&quot;typescript&quot;);
-
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-a.ts" target="_blank">hello-a.ts</a>
@@ -81,7 +41,24 @@ hello(&quot;typescript&quot;);
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="markdown markdown-body center-in-page">
+    ```
+npx ts-node hello-a.ts
+```
+
+有类型提示：
+
+![hello-a](./images/hello-a.jpg)
+
+如果参数类型不对，编译期就会失败。
+
+```
+Hello, typescript (from a)
+```
+</div>
+        <div class="markdown markdown-body center-in-page">
+    </div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-b.ts" target="_blank">hello-b.ts</a>
@@ -95,51 +72,8 @@ hello(&quot;typescript&quot;);
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-b.md" target="_blank">hello-b.md</a>
-        </div>
-        <div class="path">hello-b.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md"></code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts.md" target="_blank">hello-c.ts.md</a>
-        </div>
-        <div class="path">hello-c.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-npx ts-node hello-c.ts
-```
-
-在编辑器中看起来一切正常，还有类型提示。
-
-![hello-c](./images/hello-c.jpg)
-
-但是运行时，会提示找不到`./modules/c`，因为没有提供真正运行的js文件：
-
-```
-Cannot find module &#39;./modules/c&#39;
-```
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-b.ts.md" target="_blank">hello-b.ts.md</a>
-        </div>
-        <div class="path">hello-b.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
+        <div class="markdown markdown-body center-in-page">
+    ```
 npx ts-node hello-b.ts
 ```
 
@@ -153,10 +87,52 @@ npx ts-node hello-b.ts
 Hello, typescript (from b)
 ```
 
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts" target="_blank">hello-c.ts</a>
+        </div>
+        <div class="path">hello-c.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {hello} from &quot;./modules/c&quot;;
+
+hello(&quot;typescript&quot;);
+
+
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="markdown markdown-body center-in-page">
+    ```
+npx ts-node hello-c.ts
+```
+
+在编辑器中看起来一切正常，还有类型提示。
+
+![hello-c](./images/hello-c.jpg)
+
+但是运行时，会提示找不到`./modules/c`，因为没有提供真正运行的js文件：
+
+```
+Cannot find module &#39;./modules/c&#39;
+```
+
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.d.ts" target="_blank">a.d.ts</a>
+        </div>
+        <div class="path">modules/a.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">export declare function hello(name: any): void;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.js" target="_blank">a.js</a>
@@ -173,31 +149,7 @@ exports.hello = hello;
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/c.d.ts" target="_blank">c.d.ts</a>
-        </div>
-        <div class="path">modules/c.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">export declare function hello(name: any): void;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.d.ts" target="_blank">a.d.ts</a>
-        </div>
-        <div class="path">modules/a.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">export declare function hello(name: any): void;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/b.js" target="_blank">b.js</a>
@@ -214,7 +166,19 @@ exports.hello = hello;
 </code></pre>
     </div>
 </div>
-
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/c.d.ts" target="_blank">c.d.ts</a>
+        </div>
+        <div class="path">modules/c.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">export declare function hello(name: any): void;
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

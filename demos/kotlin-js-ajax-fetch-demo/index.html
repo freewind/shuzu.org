@@ -38,7 +38,7 @@ See output of Chrome developer console and server-side express output.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -84,59 +84,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import kotlinjs.common.jsonAs
-import org.w3c.fetch.RequestInit
-import kotlin.browser.document
-import kotlin.browser.window
-import kotlin.js.json
-
-fun main(args: Array&lt;String&gt;) {
-    document.getElementById(&quot;get&quot;)!!.addEventListener(&quot;click&quot;, { _ -&gt;
-        getExample()
-    })
-
-    document.getElementById(&quot;post&quot;)!!.addEventListener(&quot;click&quot;, { _ -&gt;
-        postExample()
-    })
-}
-
-private fun getExample() {
-    console.log(&quot;---- getExample ----&quot;)
-    console.log(&quot;fetch &#39;data.json&#39; with &#39;get&#39;&quot;)
-    window.fetch(&quot;/data.json&quot;).then { res -&gt;
-        res.text().then { console.log(it) }
-    }
-}
-
-private fun postExample() {
-    console.log(&quot;---- postExample ----&quot;)
-    console.log(&quot;fetch &#39;data.json&#39; with &#39;post&#39;&quot;)
-    window.fetch(&quot;/data.json&quot;, jsonAs&lt;RequestInit&gt;().apply {
-        method = &quot;POST&quot;
-        headers = json().apply {
-            this[&quot;Content-Type&quot;] = &quot;application/json&quot;
-        }
-        body = JSON.stringify(json().apply {
-            this[&quot;clientData&quot;] = &quot;I&#39;m posted by client&quot;
-        })
-    }).then { res -&gt;
-        res.text().then { console.log(it) }
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -165,7 +113,7 @@ private fun postExample() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/server/index.js" target="_blank">index.js</a>
@@ -206,7 +154,7 @@ app.listen(3000, function() {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/server/public/bundle.js" target="_blank">bundle.js</a>
@@ -38270,7 +38218,7 @@ this[&#39;kotlin-js-ajax-fetch-demo&#39;] = function (_, Kotlin, $module$kotlin_
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/server/public/index.html" target="_blank">index.html</a>
@@ -38299,7 +38247,59 @@ this[&#39;kotlin-js-ajax-fetch-demo&#39;] = function (_, Kotlin, $module$kotlin_
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-js-ajax-fetch-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
 
+import kotlinjs.common.jsonAs
+import org.w3c.fetch.RequestInit
+import kotlin.browser.document
+import kotlin.browser.window
+import kotlin.js.json
+
+fun main(args: Array&lt;String&gt;) {
+    document.getElementById(&quot;get&quot;)!!.addEventListener(&quot;click&quot;, { _ -&gt;
+        getExample()
+    })
+
+    document.getElementById(&quot;post&quot;)!!.addEventListener(&quot;click&quot;, { _ -&gt;
+        postExample()
+    })
+}
+
+private fun getExample() {
+    console.log(&quot;---- getExample ----&quot;)
+    console.log(&quot;fetch &#39;data.json&#39; with &#39;get&#39;&quot;)
+    window.fetch(&quot;/data.json&quot;).then { res -&gt;
+        res.text().then { console.log(it) }
+    }
+}
+
+private fun postExample() {
+    console.log(&quot;---- postExample ----&quot;)
+    console.log(&quot;fetch &#39;data.json&#39; with &#39;post&#39;&quot;)
+    window.fetch(&quot;/data.json&quot;, jsonAs&lt;RequestInit&gt;().apply {
+        method = &quot;POST&quot;
+        headers = json().apply {
+            this[&quot;Content-Type&quot;] = &quot;application/json&quot;
+        }
+        body = JSON.stringify(json().apply {
+            this[&quot;clientData&quot;] = &quot;I&#39;m posted by client&quot;
+        })
+    }).then { res -&gt;
+        res.text().then { console.log(it) }
+    }
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

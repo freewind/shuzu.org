@@ -66,7 +66,7 @@ curl -v http://localhost:3000/version
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/about-router.js" target="_blank">about-router.js</a>
@@ -84,7 +84,30 @@ router.get(&#39;/version&#39;, function (req, res) {
 module.exports = router;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var app = express();
+app.use(bodyParser.json());
+
+app.use(&#39;/products&#39;, require(&#39;./products-router&#39;));
+app.use(&#39;/about&#39;, require(&#39;./about-router&#39;));
+
+var server = app.listen(3000, function () {
+  var port = server.address().port;
+  console.log(&quot;listen on &quot; + port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/next-id.js" target="_blank">next-id.js</a>
@@ -101,7 +124,7 @@ module.exports = function () {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/products-manager.js" target="_blank">products-manager.js</a>
@@ -137,30 +160,7 @@ module.exports = {
 };</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var bodyParser = require(&#39;body-parser&#39;);
-
-var app = express();
-app.use(bodyParser.json());
-
-app.use(&#39;/products&#39;, require(&#39;./products-router&#39;));
-app.use(&#39;/about&#39;, require(&#39;./about-router&#39;));
-
-var server = app.listen(3000, function () {
-  var port = server.address().port;
-  console.log(&quot;listen on &quot; + port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/products-router.js" target="_blank">products-router.js</a>
@@ -197,7 +197,7 @@ router.get(&#39;/:id&#39;, function (req, res) {
 module.exports = router;</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

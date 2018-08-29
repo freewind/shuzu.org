@@ -26,7 +26,7 @@ To show debug information, use `WebSocketImpl.DEBUG = true;` in code.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -61,33 +61,7 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
-        </div>
-        <div class="path">src/test/java/my/HelloSpec.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import org.junit.Test;
-
-import static org.fest.assertions.api.Assertions.assertThat;
-
-public class HelloSpec {
-
-    @Test
-    public void shouldSayHello() throws Exception {
-        String greeting = new Hello().hello(&quot;gradle&quot;);
-        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/main/java/my/Client.java" target="_blank">Client.java</a>
@@ -146,7 +120,7 @@ public class Client {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/main/java/my/Server.java" target="_blank">Server.java</a>
@@ -233,7 +207,33 @@ public class Server extends WebSocketServer {
 }</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/my/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
 
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() throws Exception {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

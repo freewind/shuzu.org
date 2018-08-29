@@ -55,7 +55,7 @@ Open developer console of browser, you will see the error mentioned above.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -90,30 +90,32 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlinx-html/kotlinx-html-js.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-js-dom-update-with-setTimeout-demo.js&quot;&gt;&lt;/script&gt;
 
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
-
-}</code></pre>
+&lt;/body&gt;
+&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
@@ -148,32 +150,30 @@ fun createMyDiv(): Node {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-dom-update-with-setTimeout-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+        <pre class="content"><code class="kt">package example
 
-&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./node_modules/kotlinx-html/kotlinx-html-js.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;build/classes/kotlin/main/kotlin-js-dom-update-with-setTimeout-demo.js&quot;&gt;&lt;/script&gt;
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-&lt;/body&gt;
-&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
-&lt;/html&gt;</code></pre>
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

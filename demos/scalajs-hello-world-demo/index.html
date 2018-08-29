@@ -28,29 +28,32 @@ Notice: The testing part is not included in this demo.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
+            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">src/test/scala/example/HelloSpec.scala</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="scala">package example
-
-import org.scalatest._
-
-class HelloSpec extends FunSuite with Matchers {
-
-  test(&quot;The Hello object should say hello&quot;) {
-    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
-  }
-
-}
-</code></pre>
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;The Scala.js Tutorial&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- Include Scala.js compiled code --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-jsdeps.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-fastopt.js&quot;&gt;&lt;/script&gt;
+&lt;button id=&quot;click-me-button&quot; type=&quot;button&quot;&gt;
+    Click me!
+&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank">Hello.scala</a>
@@ -93,32 +96,29 @@ object Hello {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/scalajs-hello-world-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/test/scala/example/HelloSpec.scala</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;The Scala.js Tutorial&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;!-- Include Scala.js compiled code --&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-jsdeps.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;./target/scala-2.12/scalajs-hello-world-demo-fastopt.js&quot;&gt;&lt;/script&gt;
-&lt;button id=&quot;click-me-button&quot; type=&quot;button&quot;&gt;
-    Click me!
-&lt;/button&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+  test(&quot;The Hello object should say hello&quot;) {
+    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+  }
+
+}
+</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

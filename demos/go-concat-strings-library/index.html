@@ -35,7 +35,7 @@ Note
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/hello.go" target="_blank">hello.go</a>
@@ -57,38 +57,7 @@ func main() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/strlib/strlib.go.md" target="_blank">strlib.go.md</a>
-        </div>
-        <div class="path">strlib/strlib.go.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">定义了一个名为`strlib`的package。其它地方使用该package下的函数时，必须使用以下方式导入：
-
-```
-import &quot;github.com/golang-demos/go-concat-strings-library/strlib&quot;
-```
-
-哪怕是在同一个项目中。
-
-注意点
------
-
-### `package strlib`
-
-当前package为`strlib`，它必须跟所在目录同名。
-
-该目录下所有的go文件，都必须声明为同一个package，它们同属于一个package。
-
-### `ConcatStrs`
-
-以大写字母开头，表示它是一个public的函数，可以被别的包下的代码使用。如果是小写，则为private，只能在当前package中可见。
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/go-concat-strings-library/blob/master/strlib/strlib.go" target="_blank">strlib.go</a>
@@ -113,7 +82,29 @@ func ConcatStrs(strs ...string) string {
 </code></pre>
     </div>
 </div>
+        <div class="markdown markdown-body center-in-page">
+    定义了一个名为`strlib`的package。其它地方使用该package下的函数时，必须使用以下方式导入：
 
+```
+import &quot;github.com/golang-demos/go-concat-strings-library/strlib&quot;
+```
+
+哪怕是在同一个项目中。
+
+注意点
+-----
+
+### `package strlib`
+
+当前package为`strlib`，它必须跟所在目录同名。
+
+该目录下所有的go文件，都必须声明为同一个package，它们同属于一个package。
+
+### `ConcatStrs`
+
+以大写字母开头，表示它是一个public的函数，可以被别的包下的代码使用。如果是小写，则为private，只能在当前package中可见。
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -23,7 +23,7 @@ Code is from &lt;https://gist.github.com/Nicolas56/e02b29431b820d7c8c218c804f026
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -65,7 +65,160 @@ Code is from &lt;https://gist.github.com/Nicolas56/e02b29431b820d7c8c218c804f026
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/AdvCandleStickChart.java" target="_blank">AdvCandleStickChart.java</a>
+        </div>
+        <div class="path">src/main/java/demo/AdvCandleStickChart.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.collections.ObservableList;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.layout.Pane;
+
+import static demo.Apply.apply;
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class AdvCandleStickChart extends Pane {
+
+
+    public AdvCandleStickChart(double[][] data) {
+        final NumberAxis xAxis = apply(new NumberAxis(0, 32, 1), self -&gt; {
+            self.setMinorTickCount(0);
+            self.setLabel(&quot;Day&quot;);
+        });
+
+        final NumberAxis yAxis = apply(new NumberAxis(), self -&gt; {
+            self.setLabel(&quot;Price&quot;);
+            self.setForceZeroInRange(false);
+        });
+
+        final CandleStickChart chart = apply(new CandleStickChart(xAxis, yAxis, convertData(data)), self -&gt; {
+            self.setTitle(&quot;Custom Candle Stick Chart&quot;);
+        });
+
+        getChildren().add(chart);
+    }
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+    private static ObservableList&lt;XYChart.Series&lt;Number, Number&gt;&gt; convertData(double[][] data) {
+        XYChart.Series&lt;Number, Number&gt; series = new XYChart.Series&lt;&gt;();
+        for (double[] day : data) {
+            series.getData().add(
+                    new XYChart.Data&lt;&gt;(day[0], day[1], new CandleStickExtraValues(day[2], day[3], day[4], day[5]))
+            );
+        }
+        return observableArrayList(series);
+    }
+
+}
+
+
+
+
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Apply.java" target="_blank">Apply.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Apply.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+public interface Apply&lt;T&gt; {
+    void apply(T t);
+
+    static &lt;T&gt; T apply(T t, Apply&lt;T&gt; callback) {
+        callback.apply(t);
+        return t;
+    }
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Candle.java" target="_blank">Candle.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Candle.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.scene.Group;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
+
+/**
+ * Candle node used for drawing a candle
+ */
+class Candle extends Group {
+
+    private Line highLowLine = new Line();
+    private Region bar = new Region();
+    private String seriesStyleClass;
+    private String dataStyleClass;
+    private boolean openAboveClose = true;
+    private Tooltip tooltip = new Tooltip();
+
+    public Candle(String seriesStyleClass, String dataStyleClass) {
+        setAutoSizeChildren(false);
+        getChildren().addAll(highLowLine, bar);
+        this.seriesStyleClass = seriesStyleClass;
+        this.dataStyleClass = dataStyleClass;
+        updateStyleClasses();
+        tooltip.setGraphic(new TooltipContent());
+        Tooltip.install(bar, tooltip);
+    }
+
+    public void setSeriesAndDataStyleClasses(String seriesStyleClass, String dataStyleClass) {
+        this.seriesStyleClass = seriesStyleClass;
+        this.dataStyleClass = dataStyleClass;
+        updateStyleClasses();
+    }
+
+    public void update(double closeOffset, double highOffset, double lowOffset, double candleWidth) {
+        openAboveClose = closeOffset &gt; 0;
+        updateStyleClasses();
+        highLowLine.setStartY(highOffset);
+        highLowLine.setEndY(lowOffset);
+        if (candleWidth == -1) {
+            candleWidth = bar.prefWidth(-1);
+        }
+        if (openAboveClose) {
+            bar.resizeRelocate(-candleWidth / 2, 0, candleWidth, closeOffset);
+        } else {
+            bar.resizeRelocate(-candleWidth / 2, closeOffset, candleWidth, closeOffset * -1);
+        }
+    }
+
+    public void updateTooltip(double open, double close, double high, double low) {
+        TooltipContent tooltipContent = (TooltipContent) tooltip.getGraphic();
+        tooltipContent.update(open, close, high, low);
+    }
+
+    private void updateStyleClasses() {
+        getStyleClass().setAll(&quot;candlestick-candle&quot;, seriesStyleClass, dataStyleClass);
+        highLowLine.getStyleClass().setAll(&quot;candlestick-line&quot;, seriesStyleClass, dataStyleClass,
+                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
+        bar.getStyleClass().setAll(&quot;candlestick-bar&quot;, seriesStyleClass, dataStyleClass,
+                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/CandleStickChart.java" target="_blank">CandleStickChart.java</a>
@@ -308,7 +461,53 @@ class CandleStickChart extends XYChart&lt;Number, Number&gt; {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/CandleStickExtraValues.java" target="_blank">CandleStickExtraValues.java</a>
+        </div>
+        <div class="path">src/main/java/demo/CandleStickExtraValues.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+/**
+ * Data extra values for storing close, high and low.
+ */
+class CandleStickExtraValues {
+
+    private final double close;
+    private final double high;
+    private final double low;
+    private final double average;
+
+    public CandleStickExtraValues(double close, double high, double low, double average) {
+        this.close = close;
+        this.high = high;
+        this.low = low;
+        this.average = average;
+    }
+
+    public double getClose() {
+        return close;
+    }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public double getLow() {
+        return low;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Hello.java" target="_blank">Hello.java</a>
@@ -377,147 +576,7 @@ public class Hello extends Application {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/CandleStickExtraValues.java" target="_blank">CandleStickExtraValues.java</a>
-        </div>
-        <div class="path">src/main/java/demo/CandleStickExtraValues.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-/**
- * Data extra values for storing close, high and low.
- */
-class CandleStickExtraValues {
-
-    private final double close;
-    private final double high;
-    private final double low;
-    private final double average;
-
-    public CandleStickExtraValues(double close, double high, double low, double average) {
-        this.close = close;
-        this.high = high;
-        this.low = low;
-        this.average = average;
-    }
-
-    public double getClose() {
-        return close;
-    }
-
-    public double getHigh() {
-        return high;
-    }
-
-    public double getLow() {
-        return low;
-    }
-
-    public double getAverage() {
-        return average;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Apply.java" target="_blank">Apply.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Apply.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-public interface Apply&lt;T&gt; {
-    void apply(T t);
-
-    static &lt;T&gt; T apply(T t, Apply&lt;T&gt; callback) {
-        callback.apply(t);
-        return t;
-    }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/Candle.java" target="_blank">Candle.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Candle.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javafx.scene.Group;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Line;
-
-/**
- * Candle node used for drawing a candle
- */
-class Candle extends Group {
-
-    private Line highLowLine = new Line();
-    private Region bar = new Region();
-    private String seriesStyleClass;
-    private String dataStyleClass;
-    private boolean openAboveClose = true;
-    private Tooltip tooltip = new Tooltip();
-
-    public Candle(String seriesStyleClass, String dataStyleClass) {
-        setAutoSizeChildren(false);
-        getChildren().addAll(highLowLine, bar);
-        this.seriesStyleClass = seriesStyleClass;
-        this.dataStyleClass = dataStyleClass;
-        updateStyleClasses();
-        tooltip.setGraphic(new TooltipContent());
-        Tooltip.install(bar, tooltip);
-    }
-
-    public void setSeriesAndDataStyleClasses(String seriesStyleClass, String dataStyleClass) {
-        this.seriesStyleClass = seriesStyleClass;
-        this.dataStyleClass = dataStyleClass;
-        updateStyleClasses();
-    }
-
-    public void update(double closeOffset, double highOffset, double lowOffset, double candleWidth) {
-        openAboveClose = closeOffset &gt; 0;
-        updateStyleClasses();
-        highLowLine.setStartY(highOffset);
-        highLowLine.setEndY(lowOffset);
-        if (candleWidth == -1) {
-            candleWidth = bar.prefWidth(-1);
-        }
-        if (openAboveClose) {
-            bar.resizeRelocate(-candleWidth / 2, 0, candleWidth, closeOffset);
-        } else {
-            bar.resizeRelocate(-candleWidth / 2, closeOffset, candleWidth, closeOffset * -1);
-        }
-    }
-
-    public void updateTooltip(double open, double close, double high, double low) {
-        TooltipContent tooltipContent = (TooltipContent) tooltip.getGraphic();
-        tooltipContent.update(open, close, high, low);
-    }
-
-    private void updateStyleClasses() {
-        getStyleClass().setAll(&quot;candlestick-candle&quot;, seriesStyleClass, dataStyleClass);
-        highLowLine.getStyleClass().setAll(&quot;candlestick-line&quot;, seriesStyleClass, dataStyleClass,
-                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
-        bar.getStyleClass().setAll(&quot;candlestick-bar&quot;, seriesStyleClass, dataStyleClass,
-                openAboveClose ? &quot;open-above-close&quot; : &quot;close-above-open&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/TooltipContent.java" target="_blank">TooltipContent.java</a>
@@ -580,66 +639,7 @@ public class TooltipContent extends GridPane {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/java/demo/AdvCandleStickChart.java" target="_blank">AdvCandleStickChart.java</a>
-        </div>
-        <div class="path">src/main/java/demo/AdvCandleStickChart.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javafx.collections.ObservableList;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Pane;
-
-import static demo.Apply.apply;
-import static javafx.collections.FXCollections.observableArrayList;
-
-public class AdvCandleStickChart extends Pane {
-
-
-    public AdvCandleStickChart(double[][] data) {
-        final NumberAxis xAxis = apply(new NumberAxis(0, 32, 1), self -&gt; {
-            self.setMinorTickCount(0);
-            self.setLabel(&quot;Day&quot;);
-        });
-
-        final NumberAxis yAxis = apply(new NumberAxis(), self -&gt; {
-            self.setLabel(&quot;Price&quot;);
-            self.setForceZeroInRange(false);
-        });
-
-        final CandleStickChart chart = apply(new CandleStickChart(xAxis, yAxis, convertData(data)), self -&gt; {
-            self.setTitle(&quot;Custom Candle Stick Chart&quot;);
-        });
-
-        getChildren().add(chart);
-    }
-
-    @SuppressWarnings(&quot;unchecked&quot;)
-    private static ObservableList&lt;XYChart.Series&lt;Number, Number&gt;&gt; convertData(double[][] data) {
-        XYChart.Series&lt;Number, Number&gt; series = new XYChart.Series&lt;&gt;();
-        for (double[] day : data) {
-            series.getData().add(
-                    new XYChart.Data&lt;&gt;(day[0], day[1], new CandleStickExtraValues(day[2], day[3], day[4], day[5]))
-            );
-        }
-        return observableArrayList(series);
-    }
-
-}
-
-
-
-
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-candle-stick-chart-demo/blob/master/src/main/resources/Ensemble_AdvCandleStickChart.css" target="_blank">Ensemble_AdvCandleStickChart.css</a>
@@ -725,7 +725,7 @@ public class AdvCandleStickChart extends Pane {
 }</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

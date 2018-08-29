@@ -21,7 +21,7 @@ Use [ktor](http://ktor.io) to write restful api.
 Run `Hello.kt` in your IDE.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -67,38 +67,68 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
         </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import io.ktor.application.call
+import io.ktor.http.ContentType
+import io.ktor.http.HttpMethod
+import io.ktor.response.respondText
+import io.ktor.routing.*
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+fun main(args: Array&lt;String&gt;) {
+    val server = embeddedServer(Netty, port = 8080) {
+        routing {
+            route(&quot;/users&quot;) {
+                get {
+                    call.respondText(&quot;get /users&quot;)
+                }
+                post {
+                    call.respondText(&quot;post /users&quot;)
+                }
+                route(&quot;/{id}&quot;) {
+                    get {
+                        val id = call.parameters[&quot;id&quot;]
+                        call.respondText(&quot;get /users/$id&quot;)
+                    }
+                    post {
+                        val id = call.parameters[&quot;id&quot;]
+                        call.respondText(&quot;post /users/$id&quot;)
+                    }
+                    put {
+                        val id = call.parameters[&quot;id&quot;]
+                        call.respondText(&quot;put /users/$id&quot;)
+                    }
+                    delete {
+                        val id = call.parameters[&quot;id&quot;]
+                        call.respondText(&quot;delete /users/$id&quot;)
+                    }
+                    method(HttpMethod(&quot;CUSTOM&quot;)) {
+                        handle {
+                            val id = call.parameters[&quot;id&quot;]
+                            call.respondText(&quot;CUSTOM /users/$id&quot;)
+                        }
+                    }
+                }
+            }
+        }
     }
-
-}</code></pre>
+    server.start(wait = true)
+}
+</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/src/main/kotlin/example/Hello.kt.md" target="_blank">Hello.kt.md</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
+        <div class="markdown markdown-body center-in-page">
+    ```
 $ http http://localhost:8080/users
 HTTP/1.1 200 OK
 Connection: keep-alive
@@ -167,70 +197,31 @@ Content-Length: 17
 Content-Type: text/plain; charset=UTF-8
 
 CUSTOM /users/111
-```</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-ktor-restful-api-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import io.ktor.application.call
-import io.ktor.http.ContentType
-import io.ktor.http.HttpMethod
-import io.ktor.response.respondText
-import io.ktor.routing.*
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-fun main(args: Array&lt;String&gt;) {
-    val server = embeddedServer(Netty, port = 8080) {
-        routing {
-            route(&quot;/users&quot;) {
-                get {
-                    call.respondText(&quot;get /users&quot;)
-                }
-                post {
-                    call.respondText(&quot;post /users&quot;)
-                }
-                route(&quot;/{id}&quot;) {
-                    get {
-                        val id = call.parameters[&quot;id&quot;]
-                        call.respondText(&quot;get /users/$id&quot;)
-                    }
-                    post {
-                        val id = call.parameters[&quot;id&quot;]
-                        call.respondText(&quot;post /users/$id&quot;)
-                    }
-                    put {
-                        val id = call.parameters[&quot;id&quot;]
-                        call.respondText(&quot;put /users/$id&quot;)
-                    }
-                    delete {
-                        val id = call.parameters[&quot;id&quot;]
-                        call.respondText(&quot;delete /users/$id&quot;)
-                    }
-                    method(HttpMethod(&quot;CUSTOM&quot;)) {
-                        handle {
-                            val id = call.parameters[&quot;id&quot;]
-                            call.respondText(&quot;CUSTOM /users/$id&quot;)
-                        }
-                    }
-                }
-            }
-        }
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
     }
-    server.start(wait = true)
-}
-</code></pre>
+
+}</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

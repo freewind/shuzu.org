@@ -53,7 +53,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.eslintrc.js" target="_blank">.eslintrc.js</a>
@@ -93,299 +93,28 @@ module.exports = {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/specs/test.js" target="_blank">test.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.postcssrc.js" target="_blank">.postcssrc.js</a>
         </div>
-        <div class="path">test/e2e/specs/test.js</div>
+        <div class="path">.postcssrc.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">// For authoring Nightwatch tests, see
-// http://nightwatchjs.org/guide#usage
+        <pre class="content"><code class="js">// https://github.com/michael-ciniawsky/postcss-load-config
 
 module.exports = {
-  &#39;default e2e tests&#39;: function (browser) {
-    // automatically uses dev Server port from /config.index.js
-    // default: http://localhost:8080
-    // see nightwatch.conf.js
-    const devServer = browser.globals.devServerURL
-
-    browser
-      .url(devServer)
-      .waitForElementVisible(&#39;#app&#39;, 5000)
-      .assert.elementPresent(&#39;.hello&#39;)
-      .assert.containsText(&#39;h1&#39;, &#39;Welcome to Your Vue.js App&#39;)
-      .assert.elementCount(&#39;img&#39;, 1)
-      .end()
+  &quot;plugins&quot;: {
+    &quot;postcss-import&quot;: {},
+    &quot;postcss-url&quot;: {},
+    // to edit target browsers: use &quot;browserslist&quot; field in package.json
+    &quot;autoprefixer&quot;: {}
   }
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/runner.js" target="_blank">runner.js</a>
-        </div>
-        <div class="path">test/e2e/runner.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">// 1. start the dev server using production config
-process.env.NODE_ENV = &#39;testing&#39;
-
-const webpack = require(&#39;webpack&#39;)
-const DevServer = require(&#39;webpack-dev-server&#39;)
-
-const webpackConfig = require(&#39;../../build/webpack.prod.conf&#39;)
-const devConfigPromise = require(&#39;../../build/webpack.dev.conf&#39;)
-
-let server
-
-devConfigPromise.then(devConfig =&gt; {
-  const devServerOptions = devConfig.devServer
-  const compiler = webpack(webpackConfig)
-  server = new DevServer(compiler, devServerOptions)
-  const port = devServerOptions.port
-  const host = devServerOptions.host
-  return server.listen(port, host)
-})
-.then(() =&gt; {
-  // 2. run the nightwatch test suite against it
-  // to run in additional browsers:
-  //    1. add an entry in test/e2e/nightwatch.conf.js under &quot;test_settings&quot;
-  //    2. add it to the --env flag below
-  // or override the environment flag, for example: `npm run e2e -- --env chrome,firefox`
-  // For more information on Nightwatch&#39;s config file, see
-  // http://nightwatchjs.org/guide#settings-file
-  let opts = process.argv.slice(2)
-  if (opts.indexOf(&#39;--config&#39;) === -1) {
-    opts = opts.concat([&#39;--config&#39;, &#39;test/e2e/nightwatch.conf.js&#39;])
-  }
-  if (opts.indexOf(&#39;--env&#39;) === -1) {
-    opts = opts.concat([&#39;--env&#39;, &#39;chrome&#39;])
-  }
-
-  const spawn = require(&#39;cross-spawn&#39;)
-  const runner = spawn(&#39;./node_modules/.bin/nightwatch&#39;, opts, { stdio: &#39;inherit&#39; })
-
-  runner.on(&#39;exit&#39;, function (code) {
-    server.close()
-    process.exit(code)
-  })
-
-  runner.on(&#39;error&#39;, function (err) {
-    server.close()
-    throw err
-  })
-})
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/nightwatch.conf.js" target="_blank">nightwatch.conf.js</a>
-        </div>
-        <div class="path">test/e2e/nightwatch.conf.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">require(&#39;babel-register&#39;)
-var config = require(&#39;../../config&#39;)
-
-// http://nightwatchjs.org/gettingstarted#settings-file
-module.exports = {
-  src_folders: [&#39;test/e2e/specs&#39;],
-  output_folder: &#39;test/e2e/reports&#39;,
-  custom_assertions_path: [&#39;test/e2e/custom-assertions&#39;],
-
-  selenium: {
-    start_process: true,
-    server_path: require(&#39;selenium-server&#39;).path,
-    host: &#39;127.0.0.1&#39;,
-    port: 4444,
-    cli_args: {
-      &#39;webdriver.chrome.driver&#39;: require(&#39;chromedriver&#39;).path
-    }
-  },
-
-  test_settings: {
-    default: {
-      selenium_port: 4444,
-      selenium_host: &#39;localhost&#39;,
-      silent: true,
-      globals: {
-        devServerURL: &#39;http://localhost:&#39; + (process.env.PORT || config.dev.port)
-      }
-    },
-
-    chrome: {
-      desiredCapabilities: {
-        browserName: &#39;chrome&#39;,
-        javascriptEnabled: true,
-        acceptSslCerts: true
-      }
-    },
-
-    firefox: {
-      desiredCapabilities: {
-        browserName: &#39;firefox&#39;,
-        javascriptEnabled: true,
-        acceptSslCerts: true
-      }
-    }
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/custom-assertions/elementCount.js" target="_blank">elementCount.js</a>
-        </div>
-        <div class="path">test/e2e/custom-assertions/elementCount.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">// A custom Nightwatch assertion.
-// The assertion name is the filename.
-// Example usage:
-//
-//   browser.assert.elementCount(selector, count)
-//
-// For more information on custom assertions see:
-// http://nightwatchjs.org/guide#writing-custom-assertions
-
-exports.assertion = function (selector, count) {
-  this.message = &#39;Testing if element &lt;&#39; + selector + &#39;&gt; has count: &#39; + count
-  this.expected = count
-  this.pass = function (val) {
-    return val === this.expected
-  }
-  this.value = function (res) {
-    return res.value
-  }
-  this.command = function (cb) {
-    var self = this
-    return this.api.execute(function (selector) {
-      return document.querySelectorAll(selector).length
-    }, [selector], function (res) {
-      cb.call(self, res)
-    })
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/specs/HelloWorld.spec.js" target="_blank">HelloWorld.spec.js</a>
-        </div>
-        <div class="path">test/unit/specs/HelloWorld.spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
-import HelloWorld from &#39;@/components/HelloWorld&#39;
-
-describe(&#39;HelloWorld.vue&#39;, () =&gt; {
-  it(&#39;should render correct contents&#39;, () =&gt; {
-    const Constructor = Vue.extend(HelloWorld)
-    const vm = new Constructor().$mount()
-    expect(vm.$el.querySelector(&#39;.hello h1&#39;).textContent)
-      .to.equal(&#39;Welcome to Your Vue.js App&#39;)
-  })
-})
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">test/unit/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
-
-Vue.config.productionTip = false
-
-// require all test files (files that ends with .spec.js)
-const testsContext = require.context(&#39;./specs&#39;, true, /\.spec$/)
-testsContext.keys().forEach(testsContext)
-
-// require all src files except main.js for coverage.
-// you can also change this to match only the subset of files that
-// you want coverage for.
-const srcContext = require.context(&#39;../../src&#39;, true, /^\.\/(?!main(\.js)?$)/)
-srcContext.keys().forEach(srcContext)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/karma.conf.js" target="_blank">karma.conf.js</a>
-        </div>
-        <div class="path">test/unit/karma.conf.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">// This is a karma config file. For more details see
-//   http://karma-runner.github.io/0.13/config/configuration-file.html
-// we are also using it with karma-webpack
-//   https://github.com/webpack/karma-webpack
-
-var webpackConfig = require(&#39;../../build/webpack.test.conf&#39;)
-
-module.exports = function karmaConfig (config) {
-  config.set({
-    // to run in additional browsers:
-    // 1. install corresponding karma launcher
-    //    http://karma-runner.github.io/0.13/config/browsers.html
-    // 2. add it to the `browsers` array below.
-    browsers: [&#39;PhantomJS&#39;],
-    frameworks: [&#39;mocha&#39;, &#39;sinon-chai&#39;, &#39;phantomjs-shim&#39;],
-    reporters: [&#39;spec&#39;, &#39;coverage&#39;],
-    files: [&#39;./index.js&#39;],
-    preprocessors: {
-      &#39;./index.js&#39;: [&#39;webpack&#39;, &#39;sourcemap&#39;]
-    },
-    webpack: webpackConfig,
-    webpackMiddleware: {
-      noInfo: true
-    },
-    coverageReporter: {
-      dir: &#39;./coverage&#39;,
-      reporters: [
-        { type: &#39;lcov&#39;, subdir: &#39;.&#39; },
-        { type: &#39;text-summary&#39; }
-      ]
-    }
-  })
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/test.env.js" target="_blank">test.env.js</a>
-        </div>
-        <div class="path">config/test.env.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;
-const merge = require(&#39;webpack-merge&#39;)
-const devEnv = require(&#39;./dev.env&#39;)
-
-module.exports = merge(devEnv, {
-  NODE_ENV: &#39;&quot;testing&quot;&#39;
-})
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/dev.env.js" target="_blank">dev.env.js</a>
@@ -403,22 +132,7 @@ module.exports = merge(prodEnv, {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/prod.env.js" target="_blank">prod.env.js</a>
-        </div>
-        <div class="path">config/prod.env.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;
-module.exports = {
-  NODE_ENV: &#39;&quot;production&quot;&#39;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/index.js" target="_blank">index.js</a>
@@ -505,33 +219,63 @@ module.exports = {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/router/index.js" target="_blank">index.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/prod.env.js" target="_blank">prod.env.js</a>
         </div>
-        <div class="path">src/router/index.js</div>
+        <div class="path">config/prod.env.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
-import Router from &#39;vue-router&#39;
-import HelloWorld from &#39;@/components/HelloWorld&#39;
+        <pre class="content"><code class="js">&#39;use strict&#39;
+module.exports = {
+  NODE_ENV: &#39;&quot;production&quot;&#39;
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/test.env.js" target="_blank">test.env.js</a>
+        </div>
+        <div class="path">config/test.env.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;
+const merge = require(&#39;webpack-merge&#39;)
+const devEnv = require(&#39;./dev.env&#39;)
 
-Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: &#39;/&#39;,
-      name: &#39;HelloWorld&#39;,
-      component: HelloWorld
-    }
-  ]
+module.exports = merge(devEnv, {
+  NODE_ENV: &#39;&quot;testing&quot;&#39;
 })
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;title&gt;vue-cli-hello-world-demo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+    &lt;!-- built files will be auto injected --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/main.js" target="_blank">main.js</a>
@@ -557,51 +301,307 @@ new Vue({
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/index.html" target="_blank">index.html</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/router/index.js" target="_blank">index.js</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/router/index.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
-    &lt;title&gt;vue-cli-hello-world-demo&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
-    &lt;!-- built files will be auto injected --&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
+        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
+import Router from &#39;vue-router&#39;
+import HelloWorld from &#39;@/components/HelloWorld&#39;
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: &#39;/&#39;,
+      name: &#39;HelloWorld&#39;,
+      component: HelloWorld
+    }
+  ]
+})
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.postcssrc.js" target="_blank">.postcssrc.js</a>
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/custom-assertions/elementCount.js" target="_blank">elementCount.js</a>
         </div>
-        <div class="path">.postcssrc.js</div>
+        <div class="path">test/e2e/custom-assertions/elementCount.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">// https://github.com/michael-ciniawsky/postcss-load-config
+        <pre class="content"><code class="js">// A custom Nightwatch assertion.
+// The assertion name is the filename.
+// Example usage:
+//
+//   browser.assert.elementCount(selector, count)
+//
+// For more information on custom assertions see:
+// http://nightwatchjs.org/guide#writing-custom-assertions
 
-module.exports = {
-  &quot;plugins&quot;: {
-    &quot;postcss-import&quot;: {},
-    &quot;postcss-url&quot;: {},
-    // to edit target browsers: use &quot;browserslist&quot; field in package.json
-    &quot;autoprefixer&quot;: {}
+exports.assertion = function (selector, count) {
+  this.message = &#39;Testing if element &lt;&#39; + selector + &#39;&gt; has count: &#39; + count
+  this.expected = count
+  this.pass = function (val) {
+    return val === this.expected
+  }
+  this.value = function (res) {
+    return res.value
+  }
+  this.command = function (cb) {
+    var self = this
+    return this.api.execute(function (selector) {
+      return document.querySelectorAll(selector).length
+    }, [selector], function (res) {
+      cb.call(self, res)
+    })
   }
 }
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/nightwatch.conf.js" target="_blank">nightwatch.conf.js</a>
+        </div>
+        <div class="path">test/e2e/nightwatch.conf.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">require(&#39;babel-register&#39;)
+var config = require(&#39;../../config&#39;)
 
+// http://nightwatchjs.org/gettingstarted#settings-file
+module.exports = {
+  src_folders: [&#39;test/e2e/specs&#39;],
+  output_folder: &#39;test/e2e/reports&#39;,
+  custom_assertions_path: [&#39;test/e2e/custom-assertions&#39;],
+
+  selenium: {
+    start_process: true,
+    server_path: require(&#39;selenium-server&#39;).path,
+    host: &#39;127.0.0.1&#39;,
+    port: 4444,
+    cli_args: {
+      &#39;webdriver.chrome.driver&#39;: require(&#39;chromedriver&#39;).path
+    }
+  },
+
+  test_settings: {
+    default: {
+      selenium_port: 4444,
+      selenium_host: &#39;localhost&#39;,
+      silent: true,
+      globals: {
+        devServerURL: &#39;http://localhost:&#39; + (process.env.PORT || config.dev.port)
+      }
+    },
+
+    chrome: {
+      desiredCapabilities: {
+        browserName: &#39;chrome&#39;,
+        javascriptEnabled: true,
+        acceptSslCerts: true
+      }
+    },
+
+    firefox: {
+      desiredCapabilities: {
+        browserName: &#39;firefox&#39;,
+        javascriptEnabled: true,
+        acceptSslCerts: true
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/runner.js" target="_blank">runner.js</a>
+        </div>
+        <div class="path">test/e2e/runner.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// 1. start the dev server using production config
+process.env.NODE_ENV = &#39;testing&#39;
+
+const webpack = require(&#39;webpack&#39;)
+const DevServer = require(&#39;webpack-dev-server&#39;)
+
+const webpackConfig = require(&#39;../../build/webpack.prod.conf&#39;)
+const devConfigPromise = require(&#39;../../build/webpack.dev.conf&#39;)
+
+let server
+
+devConfigPromise.then(devConfig =&gt; {
+  const devServerOptions = devConfig.devServer
+  const compiler = webpack(webpackConfig)
+  server = new DevServer(compiler, devServerOptions)
+  const port = devServerOptions.port
+  const host = devServerOptions.host
+  return server.listen(port, host)
+})
+.then(() =&gt; {
+  // 2. run the nightwatch test suite against it
+  // to run in additional browsers:
+  //    1. add an entry in test/e2e/nightwatch.conf.js under &quot;test_settings&quot;
+  //    2. add it to the --env flag below
+  // or override the environment flag, for example: `npm run e2e -- --env chrome,firefox`
+  // For more information on Nightwatch&#39;s config file, see
+  // http://nightwatchjs.org/guide#settings-file
+  let opts = process.argv.slice(2)
+  if (opts.indexOf(&#39;--config&#39;) === -1) {
+    opts = opts.concat([&#39;--config&#39;, &#39;test/e2e/nightwatch.conf.js&#39;])
+  }
+  if (opts.indexOf(&#39;--env&#39;) === -1) {
+    opts = opts.concat([&#39;--env&#39;, &#39;chrome&#39;])
+  }
+
+  const spawn = require(&#39;cross-spawn&#39;)
+  const runner = spawn(&#39;./node_modules/.bin/nightwatch&#39;, opts, { stdio: &#39;inherit&#39; })
+
+  runner.on(&#39;exit&#39;, function (code) {
+    server.close()
+    process.exit(code)
+  })
+
+  runner.on(&#39;error&#39;, function (err) {
+    server.close()
+    throw err
+  })
+})
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/e2e/specs/test.js" target="_blank">test.js</a>
+        </div>
+        <div class="path">test/e2e/specs/test.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// For authoring Nightwatch tests, see
+// http://nightwatchjs.org/guide#usage
+
+module.exports = {
+  &#39;default e2e tests&#39;: function (browser) {
+    // automatically uses dev Server port from /config.index.js
+    // default: http://localhost:8080
+    // see nightwatch.conf.js
+    const devServer = browser.globals.devServerURL
+
+    browser
+      .url(devServer)
+      .waitForElementVisible(&#39;#app&#39;, 5000)
+      .assert.elementPresent(&#39;.hello&#39;)
+      .assert.containsText(&#39;h1&#39;, &#39;Welcome to Your Vue.js App&#39;)
+      .assert.elementCount(&#39;img&#39;, 1)
+      .end()
+  }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">test/unit/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
+
+Vue.config.productionTip = false
+
+// require all test files (files that ends with .spec.js)
+const testsContext = require.context(&#39;./specs&#39;, true, /\.spec$/)
+testsContext.keys().forEach(testsContext)
+
+// require all src files except main.js for coverage.
+// you can also change this to match only the subset of files that
+// you want coverage for.
+const srcContext = require.context(&#39;../../src&#39;, true, /^\.\/(?!main(\.js)?$)/)
+srcContext.keys().forEach(srcContext)
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/karma.conf.js" target="_blank">karma.conf.js</a>
+        </div>
+        <div class="path">test/unit/karma.conf.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// This is a karma config file. For more details see
+//   http://karma-runner.github.io/0.13/config/configuration-file.html
+// we are also using it with karma-webpack
+//   https://github.com/webpack/karma-webpack
+
+var webpackConfig = require(&#39;../../build/webpack.test.conf&#39;)
+
+module.exports = function karmaConfig (config) {
+  config.set({
+    // to run in additional browsers:
+    // 1. install corresponding karma launcher
+    //    http://karma-runner.github.io/0.13/config/browsers.html
+    // 2. add it to the `browsers` array below.
+    browsers: [&#39;PhantomJS&#39;],
+    frameworks: [&#39;mocha&#39;, &#39;sinon-chai&#39;, &#39;phantomjs-shim&#39;],
+    reporters: [&#39;spec&#39;, &#39;coverage&#39;],
+    files: [&#39;./index.js&#39;],
+    preprocessors: {
+      &#39;./index.js&#39;: [&#39;webpack&#39;, &#39;sourcemap&#39;]
+    },
+    webpack: webpackConfig,
+    webpackMiddleware: {
+      noInfo: true
+    },
+    coverageReporter: {
+      dir: &#39;./coverage&#39;,
+      reporters: [
+        { type: &#39;lcov&#39;, subdir: &#39;.&#39; },
+        { type: &#39;text-summary&#39; }
+      ]
+    }
+  })
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/specs/HelloWorld.spec.js" target="_blank">HelloWorld.spec.js</a>
+        </div>
+        <div class="path">test/unit/specs/HelloWorld.spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import Vue from &#39;vue&#39;
+import HelloWorld from &#39;@/components/HelloWorld&#39;
+
+describe(&#39;HelloWorld.vue&#39;, () =&gt; {
+  it(&#39;should render correct contents&#39;, () =&gt; {
+    const Constructor = Vue.extend(HelloWorld)
+    const vm = new Constructor().$mount()
+    expect(vm.$el.querySelector(&#39;.hello h1&#39;).textContent)
+      .to.equal(&#39;Welcome to Your Vue.js App&#39;)
+  })
+})
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

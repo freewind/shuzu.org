@@ -38,7 +38,7 @@ Or import the project directly with IDEA.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -73,7 +73,7 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateComparisonDemo.java" target="_blank">DateComparisonDemo.java</a>
@@ -108,7 +108,37 @@ public class DateComparisonDemo {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateDiffDemo.java" target="_blank">DateDiffDemo.java</a>
+        </div>
+        <div class="path">src/main/java/my/DateDiffDemo.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+
+public class DateDiffDemo {
+
+    public static void main(String[] args) {
+        plusDays();
+    }
+
+    private static void plusDays() {
+        DateTime now = new DateTime();
+        DateTime future1000 = now.plus(Period.days(1000));
+        System.out.println(&quot;Now: &quot; + now.toString(&quot;yyyy-MM-dd&quot;));
+        System.out.println(&quot;Future: &quot; + future1000.toString(&quot;yyyy-MM-dd&quot;));
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateTimeFormatDemo.java" target="_blank">DateTimeFormatDemo.java</a>
@@ -145,7 +175,7 @@ public class DateTimeFormatDemo {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/ParseDateDemo.java" target="_blank">ParseDateDemo.java</a>
@@ -175,37 +205,7 @@ public class ParseDateDemo {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/joda-time-demo/blob/master/src/main/java/my/DateDiffDemo.java" target="_blank">DateDiffDemo.java</a>
-        </div>
-        <div class="path">src/main/java/my/DateDiffDemo.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import org.joda.time.DateTime;
-import org.joda.time.Period;
-
-public class DateDiffDemo {
-
-    public static void main(String[] args) {
-        plusDays();
-    }
-
-    private static void plusDays() {
-        DateTime now = new DateTime();
-        DateTime future1000 = now.plus(Period.days(1000));
-        System.out.println(&quot;Now: &quot; + now.toString(&quot;yyyy-MM-dd&quot;));
-        System.out.println(&quot;Future: &quot; + future1000.toString(&quot;yyyy-MM-dd&quot;));
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -43,7 +43,29 @@ The value `app` here should be equal to the one in `angular.module(&#39;app&#39;
 ![demo](./images/demo.jpg)    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-controller-standalone-function-demo/blob/master/app.js" target="_blank">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.controller(&#39;HelloController&#39;, HelloController);
+
+function HelloController($scope) {
+    $scope.userName = &quot;AngularJs1&quot;;
+    $scope.showHelloWords = false;
+    $scope.sayHello = function () {
+        this.showHelloWords = true
+    }
+}
+
+HelloController.$inject = [&#39;$scope&#39;];</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-controller-standalone-function-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -69,29 +91,7 @@ The value `app` here should be equal to the one in `angular.module(&#39;app&#39;
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-controller-standalone-function-demo/blob/master/app.js" target="_blank">app.js</a>
-        </div>
-        <div class="path">app.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
-app.controller(&#39;HelloController&#39;, HelloController);
-
-function HelloController($scope) {
-    $scope.userName = &quot;AngularJs1&quot;;
-    $scope.showHelloWords = false;
-    $scope.sayHello = function () {
-        this.showHelloWords = true
-    }
-}
-
-HelloController.$inject = [&#39;$scope&#39;];</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

@@ -26,7 +26,24 @@ npm install
 Then set some break points, you can single debug in webstorm by running `run-specs.js` directly in debugging mode.     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/run-spec.js" target="_blank">run-spec.js</a>
+        </div>
+        <div class="path">run-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var Jasmine = require(&#39;jasmine&#39;);
+var jasmine = new Jasmine();
+
+jasmine.loadConfigFile(&#39;spec/support/jasmine.json&#39;);
+
+jasmine.execute();
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/spec/hello-spec.js" target="_blank">hello-spec.js</a>
@@ -43,7 +60,7 @@ describe(&quot;A suite&quot;, function () {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/src/core.js" target="_blank">core.js</a>
@@ -56,7 +73,7 @@ describe(&quot;A suite&quot;, function () {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/src/hello.js" target="_blank">hello.js</a>
@@ -74,24 +91,7 @@ module.exports = function () {
 };</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/run-spec.js" target="_blank">run-spec.js</a>
-        </div>
-        <div class="path">run-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var Jasmine = require(&#39;jasmine&#39;);
-var jasmine = new Jasmine();
-
-jasmine.loadConfigFile(&#39;spec/support/jasmine.json&#39;);
-
-jasmine.execute();
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

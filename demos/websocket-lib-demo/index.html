@@ -46,47 +46,7 @@ Reference
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/server.js" target="_blank">server.js</a>
-        </div>
-        <div class="path">server.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">#!/usr/bin/env node
-var WebSocketServer = require(&#39;websocket&#39;).server;
-var http = require(&#39;http&#39;);
-
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + &#39; Received request for &#39; + request.url);
-    response.writeHead(404);
-    response.end();
-});
-server.listen(8080, function() {
-    console.log((new Date()) + &#39; Server is listening on port 8080&#39;);
-});
-
-wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: true
-});
-
-wsServer.on(&#39;connect&#39;, function(connection) {
-    console.log((new Date()) + &#39; Connection accepted.&#39;);
-    connection.on(&#39;message&#39;, function(message) {
-        if (message.type === &#39;utf8&#39;) {
-            console.log(&#39;Received Message: &#39; + message.utf8Data);
-            connection.sendUTF(message.utf8Data);    
-        }
-    });
-    connection.on(&#39;close&#39;, function(reasonCode, description) {
-        console.log((new Date()) + &#39; Peer &#39; + connection.remoteAddress + &#39; disconnected.&#39;);
-    });
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/client.js" target="_blank">client.js</a>
@@ -136,7 +96,47 @@ client.on(&#39;connect&#39;, function(connection) {
 client.connect(&#39;ws://localhost:8080/&#39;);</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">#!/usr/bin/env node
+var WebSocketServer = require(&#39;websocket&#39;).server;
+var http = require(&#39;http&#39;);
 
+var server = http.createServer(function(request, response) {
+    console.log((new Date()) + &#39; Received request for &#39; + request.url);
+    response.writeHead(404);
+    response.end();
+});
+server.listen(8080, function() {
+    console.log((new Date()) + &#39; Server is listening on port 8080&#39;);
+});
+
+wsServer = new WebSocketServer({
+    httpServer: server,
+    autoAcceptConnections: true
+});
+
+wsServer.on(&#39;connect&#39;, function(connection) {
+    console.log((new Date()) + &#39; Connection accepted.&#39;);
+    connection.on(&#39;message&#39;, function(message) {
+        if (message.type === &#39;utf8&#39;) {
+            console.log(&#39;Received Message: &#39; + message.utf8Data);
+            connection.sendUTF(message.utf8Data);    
+        }
+    });
+    connection.on(&#39;close&#39;, function(reasonCode, description) {
+        console.log((new Date()) + &#39; Peer &#39; + connection.remoteAddress + &#39; disconnected.&#39;);
+    });
+});</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

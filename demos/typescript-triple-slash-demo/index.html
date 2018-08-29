@@ -40,99 +40,7 @@ Resources
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello2.ts.md" target="_blank">hello2.ts.md</a>
-        </div>
-        <div class="path">hello2.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">如果没有声明类型文件，则编译不会报错。参数会最终传到JavaScript那里执行。
-
-```
-npx ts-node hello2.ts
-```
-
-```
-Hello, 1 (from a)
-```</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/a.d.ts.md" target="_blank">a.d.ts.md</a>
-        </div>
-        <div class="path">a.d.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">之前的定义是由ts文件生成的(`tsc --declaration a.ts`)，内容如下：
-
-```
-export declare function hello(name: any): void;
-```
-
-可惜这种定义无法跟`/// &lt;reference ...`配合使用，因为没有声明`module`。
-
-最后参考了其它文章，改成了现在的样子，主要就是加了`declare module &#39;a&#39;`的声明。</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/a.js" target="_blank">a.js</a>
-        </div>
-        <div class="path">my-module/a.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports.hello = function (name) {
-    console.log(&quot;Hello, &quot; + name + &quot; (from a)&quot;);
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello1.ts.md" target="_blank">hello1.ts.md</a>
-        </div>
-        <div class="path">hello1.ts.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">当指定了类型声明文件时：
-
-```
-/// &lt;reference path=&quot;./a.d.ts&quot; /&gt;
-```
-
-如果参数类型和声明的不一样，编译会报错：
-
-```
-npx ts-node hello1.ts
-```
-
-```
-⨯ Unable to compile TypeScript:
-hello1.ts(4,7): error TS2345: Argument of type &#39;1&#39; is not assignable to parameter of type &#39;string&#39;.
-```</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello2.ts" target="_blank">hello2.ts</a>
-        </div>
-        <div class="path">hello2.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import {hello} from &quot;a&quot;;
-
-hello(1);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/a.d.ts" target="_blank">a.d.ts</a>
@@ -147,7 +55,17 @@ hello(1);
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="markdown markdown-body center-in-page">
+    之前的定义是由ts文件生成的(`tsc --declaration a.ts`)，内容如下：
+
+```
+export declare function hello(name: any): void;
+```
+
+可惜这种定义无法跟`/// &lt;reference ...`配合使用，因为没有声明`module`。
+
+最后参考了其它文章，改成了现在的样子，主要就是加了`declare module &#39;a&#39;`的声明。</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello1.ts" target="_blank">hello1.ts</a>
@@ -161,7 +79,62 @@ import {hello} from &quot;a&quot;;
 hello(1);</code></pre>
     </div>
 </div>
+        <div class="markdown markdown-body center-in-page">
+    当指定了类型声明文件时：
 
+```
+/// &lt;reference path=&quot;./a.d.ts&quot; /&gt;
+```
+
+如果参数类型和声明的不一样，编译会报错：
+
+```
+npx ts-node hello1.ts
+```
+
+```
+⨯ Unable to compile TypeScript:
+hello1.ts(4,7): error TS2345: Argument of type &#39;1&#39; is not assignable to parameter of type &#39;string&#39;.
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello2.ts" target="_blank">hello2.ts</a>
+        </div>
+        <div class="path">hello2.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {hello} from &quot;a&quot;;
+
+hello(1);
+</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    如果没有声明类型文件，则编译不会报错。参数会最终传到JavaScript那里执行。
+
+```
+npx ts-node hello2.ts
+```
+
+```
+Hello, 1 (from a)
+```</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/a.js" target="_blank">a.js</a>
+        </div>
+        <div class="path">my-module/a.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports.hello = function (name) {
+    console.log(&quot;Hello, &quot; + name + &quot; (from a)&quot;);
+};
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

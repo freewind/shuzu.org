@@ -62,24 +62,7 @@
 由于这里实在太复杂，项目中只是提供了一些js代码，但是并没有注释，可以试着自己运行并解释运行结果。。    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick.js" target="_blank">next-tick.js</a>
-        </div>
-        <div class="path">next-tick.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">console.log(&#39;111&#39;);
-
-process.nextTick(function() {
-  console.log(&#39;nextTick: 111&#39;);
-});
-
-console.log(&#39;222&#39;);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/all.js" target="_blank">all.js</a>
@@ -135,7 +118,7 @@ setTimeout(function() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/crazy-next-tick.js" target="_blank">crazy-next-tick.js</a>
@@ -178,57 +161,43 @@ setTimeout(function() {
 }, 0);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-main.js" target="_blank">set-timeout-set-immediate-in-main.js</a>
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/crazy-set-immediate.js" target="_blank">crazy-set-immediate.js</a>
         </div>
-        <div class="path">set-timeout-set-immediate-in-main.js</div>
+        <div class="path">crazy-set-immediate.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">setTimeout(function timeout () {
-  console.log(&#39;timeout&#39;);
-},0);
+        <pre class="content"><code class="js">setImmediate(function () {
+  console.log(&quot;setImmediate: 1&quot;);
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 2&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 3&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 4&quot;);
+    });
+  });
 
-setImmediate(function immediate () {
-  console.log(&#39;immediate&#39;);
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 5&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 6&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 7&quot;);
+    });
+  });
 });
 
-/////////////////////////////
-/*
-$ node d.js
-immediate
-timeout
-$ node d.js
-timeout
-immediate
-*/</code></pre>
+setTimeout(function() {
+  console.log(&#39;setTimeout&#39;);
+}, 0);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick-recursive.js" target="_blank">next-tick-recursive.js</a>
-        </div>
-        <div class="path">next-tick-recursive.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">function myNextTick() {
-  process.nextTick(function() {
-    console.log(&#39;In nextTick&#39;);
-    myNextTick();
-  })
-}
-
-setImmediate(function() {
-  console.log(&#39;In setImmediate&#39;);
-  throw new Error(&#39;my-setImmediate-error&#39;);
-});
-
-myNextTick();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/inspect-event-queue.js" target="_blank">inspect-event-queue.js</a>
@@ -252,7 +221,95 @@ setImmediate(function() {
 showRequests();</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick-recursive.js" target="_blank">next-tick-recursive.js</a>
+        </div>
+        <div class="path">next-tick-recursive.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function myNextTick() {
+  process.nextTick(function() {
+    console.log(&#39;In nextTick&#39;);
+    myNextTick();
+  })
+}
+
+setImmediate(function() {
+  console.log(&#39;In setImmediate&#39;);
+  throw new Error(&#39;my-setImmediate-error&#39;);
+});
+
+myNextTick();</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick.js" target="_blank">next-tick.js</a>
+        </div>
+        <div class="path">next-tick.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&#39;111&#39;);
+
+process.nextTick(function() {
+  console.log(&#39;nextTick: 111&#39;);
+});
+
+console.log(&#39;222&#39;);</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/read-file-and-sleep.js" target="_blank">read-file-and-sleep.js</a>
+        </div>
+        <div class="path">read-file-and-sleep.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var fs = require(&#39;fs&#39;);
+var sleep = require(&#39;sleep&#39;).sleep;
+
+function showQueue() {
+  console.log(process._getActiveRequests().length);  
+}
+
+showQueue();
+
+var stream = fs.createReadStream(&quot;./package.json&quot;);
+
+showQueue();
+
+// block the code for 3s
+sleep(3);
+
+showQueue();
+
+var i = 0;
+
+stream.on(&#39;open&#39;, function() {
+  console.log(&#39;file is opened&#39;);
+});
+
+stream.on(&#39;data&#39;, function(data) {
+  i += 1;
+  showQueue();
+  console.log(&#39;data &#39; + i + &#39;: &#39; + data.length);
+});
+
+
+stream.on(&#39;end&#39;, function() {
+  console.log(&#39;------------ end -----------&#39;);
+  showQueue();
+})
+
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-immediate-next-tick.js" target="_blank">set-immediate-next-tick.js</a>
@@ -304,7 +361,7 @@ setTimeout(function() {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-immediate.js" target="_blank">set-immediate.js</a>
@@ -321,43 +378,7 @@ setImmediate(function() {
 console.log(&quot;222&quot;);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/crazy-set-immediate.js" target="_blank">crazy-set-immediate.js</a>
-        </div>
-        <div class="path">crazy-set-immediate.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">setImmediate(function () {
-  console.log(&quot;setImmediate: 1&quot;);
-  setImmediate(function () {
-    console.log(&quot;setImmediate: 2&quot;);
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 3&quot;);
-    });
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 4&quot;);
-    });
-  });
-
-  setImmediate(function () {
-    console.log(&quot;setImmediate: 5&quot;);
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 6&quot;);
-    });
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 7&quot;);
-    });
-  });
-});
-
-setTimeout(function() {
-  console.log(&#39;setTimeout&#39;);
-}, 0);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-a-io-callback.js" target="_blank">set-timeout-set-immediate-in-a-io-callback.js</a>
@@ -377,7 +398,34 @@ fs.readFile(__filename, () =&gt; {
 })</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-main.js" target="_blank">set-timeout-set-immediate-in-main.js</a>
+        </div>
+        <div class="path">set-timeout-set-immediate-in-main.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">setTimeout(function timeout () {
+  console.log(&#39;timeout&#39;);
+},0);
+
+setImmediate(function immediate () {
+  console.log(&#39;immediate&#39;);
+});
+
+/////////////////////////////
+/*
+$ node d.js
+immediate
+timeout
+$ node d.js
+timeout
+immediate
+*/</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate.js" target="_blank">set-timeout-set-immediate.js</a>
@@ -394,55 +442,7 @@ setImmediate(function() {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/read-file-and-sleep.js" target="_blank">read-file-and-sleep.js</a>
-        </div>
-        <div class="path">read-file-and-sleep.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var fs = require(&#39;fs&#39;);
-var sleep = require(&#39;sleep&#39;).sleep;
-
-function showQueue() {
-  console.log(process._getActiveRequests().length);  
-}
-
-showQueue();
-
-var stream = fs.createReadStream(&quot;./package.json&quot;);
-
-showQueue();
-
-// block the code for 3s
-sleep(3);
-
-showQueue();
-
-var i = 0;
-
-stream.on(&#39;open&#39;, function() {
-  console.log(&#39;file is opened&#39;);
-});
-
-stream.on(&#39;data&#39;, function(data) {
-  i += 1;
-  showQueue();
-  console.log(&#39;data &#39; + i + &#39;: &#39; + data.length);
-});
-
-
-stream.on(&#39;end&#39;, function() {
-  console.log(&#39;------------ end -----------&#39;);
-  showQueue();
-})
-
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout.js" target="_blank">set-timeout.js</a>
@@ -467,7 +467,7 @@ setTimeout(function() {
 console.log(&quot;222&quot;);</code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

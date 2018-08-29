@@ -12,45 +12,7 @@
 </div>
 
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/build.gradle" target="_blank">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
-        
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/build.gradle" target="_blank">build.gradle</a>
@@ -89,34 +51,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/test/java/demos/hello_world_created_by_ide/ExampleUnitTest.java" target="_blank">ExampleUnitTest.java</a>
-        </div>
-        <div class="path">app/src/test/java/demos/hello_world_created_by_ide/ExampleUnitTest.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demos.hello_world_created_by_ide;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see &lt;a href=&quot;http://d.android.com/tools/testing&quot;&gt;Testing documentation&lt;/a&gt;
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/androidTest/java/demos/hello_world_created_by_ide/ExampleInstrumentedTest.java" target="_blank">ExampleInstrumentedTest.java</a>
@@ -153,90 +88,62 @@ public class ExampleInstrumentedTest {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" target="_blank">ic_launcher_round.xml</a>
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
         </div>
-        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml</div>
+        <div class="path">app/src/main/AndroidManifest.xml</div>
     </div>
     <div class="body">
         <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
-    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
-&lt;/adaptive-icon&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" target="_blank">ic_launcher.xml</a>
-        </div>
-        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
-    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
-&lt;/adaptive-icon&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/colors.xml" target="_blank">colors.xml</a>
-        </div>
-        <div class="path">app/src/main/res/values/colors.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;resources&gt;
-    &lt;color name=&quot;colorPrimary&quot;&gt;#3F51B5&lt;/color&gt;
-    &lt;color name=&quot;colorPrimaryDark&quot;&gt;#303F9F&lt;/color&gt;
-    &lt;color name=&quot;colorAccent&quot;&gt;#FF4081&lt;/color&gt;
-&lt;/resources&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/styles.xml" target="_blank">styles.xml</a>
-        </div>
-        <div class="path">app/src/main/res/values/styles.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;resources&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;demos.hello_world_created_by_ide&quot;&gt;
 
-    &lt;!-- Base application theme. --&gt;
-    &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light.DarkActionBar&quot;&gt;
-        &lt;!-- Customize your theme here. --&gt;
-        &lt;item name=&quot;colorPrimary&quot;&gt;@color/colorPrimary&lt;/item&gt;
-        &lt;item name=&quot;colorPrimaryDark&quot;&gt;@color/colorPrimaryDark&lt;/item&gt;
-        &lt;item name=&quot;colorAccent&quot;&gt;@color/colorAccent&lt;/item&gt;
-    &lt;/style&gt;
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
 
-&lt;/resources&gt;
-</code></pre>
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/strings.xml" target="_blank">strings.xml</a>
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/java/demos/hello_world_created_by_ide/MainActivity.java" target="_blank">MainActivity.java</a>
         </div>
-        <div class="path">app/src/main/res/values/strings.xml</div>
+        <div class="path">app/src/main/java/demos/hello_world_created_by_ide/MainActivity.java</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="xml">&lt;resources&gt;
-    &lt;string name=&quot;app_name&quot;&gt;hello-world-created-by-ide&lt;/string&gt;
-&lt;/resources&gt;
+        <pre class="content"><code class="java">package demos.hello_world_created_by_ide;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/drawable/ic_launcher_background.xml" target="_blank">ic_launcher_background.xml</a>
@@ -417,7 +324,7 @@ public class ExampleInstrumentedTest {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" target="_blank">ic_launcher_foreground.xml</a>
@@ -462,7 +369,7 @@ public class ExampleInstrumentedTest {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">activity_main.xml</a>
@@ -490,62 +397,155 @@ public class ExampleInstrumentedTest {
 &lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/java/demos/hello_world_created_by_ide/MainActivity.java" target="_blank">MainActivity.java</a>
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" target="_blank">ic_launcher.xml</a>
         </div>
-        <div class="path">app/src/main/java/demos/hello_world_created_by_ide/MainActivity.java</div>
+        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
+    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
+&lt;/adaptive-icon&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" target="_blank">ic_launcher_round.xml</a>
+        </div>
+        <div class="path">app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;adaptive-icon xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;background android:drawable=&quot;@drawable/ic_launcher_background&quot; /&gt;
+    &lt;foreground android:drawable=&quot;@drawable/ic_launcher_foreground&quot; /&gt;
+&lt;/adaptive-icon&gt;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/colors.xml" target="_blank">colors.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/colors.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;color name=&quot;colorPrimary&quot;&gt;#3F51B5&lt;/color&gt;
+    &lt;color name=&quot;colorPrimaryDark&quot;&gt;#303F9F&lt;/color&gt;
+    &lt;color name=&quot;colorAccent&quot;&gt;#FF4081&lt;/color&gt;
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/strings.xml" target="_blank">strings.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/strings.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;resources&gt;
+    &lt;string name=&quot;app_name&quot;&gt;hello-world-created-by-ide&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/res/values/styles.xml" target="_blank">styles.xml</a>
+        </div>
+        <div class="path">app/src/main/res/values/styles.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;resources&gt;
+
+    &lt;!-- Base application theme. --&gt;
+    &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;!-- Customize your theme here. --&gt;
+        &lt;item name=&quot;colorPrimary&quot;&gt;@color/colorPrimary&lt;/item&gt;
+        &lt;item name=&quot;colorPrimaryDark&quot;&gt;@color/colorPrimaryDark&lt;/item&gt;
+        &lt;item name=&quot;colorAccent&quot;&gt;@color/colorAccent&lt;/item&gt;
+    &lt;/style&gt;
+
+&lt;/resources&gt;
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/test/java/demos/hello_world_created_by_ide/ExampleUnitTest.java" target="_blank">ExampleUnitTest.java</a>
+        </div>
+        <div class="path">app/src/test/java/demos/hello_world_created_by_ide/ExampleUnitTest.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package demos.hello_world_created_by_ide;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import org.junit.Test;
 
-public class MainActivity extends AppCompatActivity {
+import static org.junit.Assert.*;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see &lt;a href=&quot;http://d.android.com/tools/testing&quot;&gt;Testing documentation&lt;/a&gt;
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() {
+        assertEquals(4, 2 + 2);
     }
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/build.gradle" target="_blank">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/app/src/main/AndroidManifest.xml" target="_blank">AndroidManifest.xml</a>
-        </div>
-        <div class="path">app/src/main/AndroidManifest.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    package=&quot;demos.hello_world_created_by_ide&quot;&gt;
-
-    &lt;application
-        android:allowBackup=&quot;true&quot;
-        android:icon=&quot;@mipmap/ic_launcher&quot;
-        android:label=&quot;@string/app_name&quot;
-        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
-        android:supportsRtl=&quot;true&quot;
-        android:theme=&quot;@style/AppTheme&quot;&gt;
-        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
-
-                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
-    &lt;/application&gt;
-
-&lt;/manifest&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/hello-world-created-by-ide/blob/master/settings.gradle" target="_blank">settings.gradle</a>
@@ -557,7 +557,7 @@ public class MainActivity extends AppCompatActivity {
 </code></pre>
     </div>
 </div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

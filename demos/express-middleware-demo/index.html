@@ -92,7 +92,192 @@ curl -X POST -d &#39;{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;b
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/3rd-party-middleware.js" target="_blank">3rd-party-middleware.js</a>
+        </div>
+        <div class="path">3rd-party-middleware.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var cookieParser = require(&#39;cookie-parser&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var app = express();
+
+// load 3rd party middlewares
+app.use(cookieParser());
+app.use(bodyParser.json());
+
+app.get(&#39;/cookie&#39;, function (req, res) {
+  res.send(&#39;Cookies &#39; + JSON.stringify(req.cookies));
+});
+
+app.post(&#39;/json&#39;, function (req, res) {
+  res.send(&#39;Post data: &#39; + JSON.stringify(req.body));
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/application-level-middleware.js" target="_blank">application-level-middleware.js</a>
+        </div>
+        <div class="path">application-level-middleware.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+// a middleware
+app.use(function(req, res, next) {
+  console.log(&quot;req: &quot; + req.path);
+  next();
+});
+
+// a middleware bind to a path
+app.get(&#39;/&#39;, function(req, res, next) {
+  console.log(&quot;Hello&quot;);
+  next();
+}, function(req, res) {
+  res.send(&quot;World!&quot;);
+});
+
+// a middleware bind to a path
+app.get(&#39;/next-route&#39;, function(req, res, next) {
+  res.send(&quot;World!&quot;);
+  next(&#39;route&#39;); // will skip next handler
+}, function(req, res) {
+  console.log(&quot;Should not get here !!&quot;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/built-in-middleware.js" target="_blank">built-in-middleware.js</a>
+        </div>
+        <div class="path">built-in-middleware.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+// express.static is the only one built-in
+// middleware after 4.x
+app.use(express.static(&#39;public&#39;, {
+  dotfiles: &#39;ignore&#39;,
+  etag: false,
+  extensions: [&#39;html&#39;],
+  index: false,
+  maxAge: &#39;1d&#39;,
+  redirect: false,
+  setHeaders: function (res, path, stat) {
+    res.set(&#39;x-timestamp&#39;, Date.now());
+  }
+}));
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/error-level-middleware.js" target="_blank">error-level-middleware.js</a>
+        </div>
+        <div class="path">error-level-middleware.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+// a middleware
+app.use(function(err, req, res, next) {
+  console.log(&quot;we have an error: &quot; + err);
+});
+
+// a middleware bind to a path
+app.get(&#39;/&#39;, function(req, res, next) {
+  next(&#39;my-error&#39;);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+function myLogger(req, res, next) {
+  console.log(&#39;LOGGED: &#39; + req.path);
+  next();
+};
+
+app.use(myLogger);
+
+app.get(&#39;/:name&#39;, function (req, res) {
+  res.send(&#39;Hello: &#39; + req.params.name);
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/public/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">Hello!
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/router-level-middleware.js" target="_blank">router-level-middleware.js</a>
@@ -137,192 +322,7 @@ var server = app.listen(3000, function () {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/application-level-middleware.js" target="_blank">application-level-middleware.js</a>
-        </div>
-        <div class="path">application-level-middleware.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-// a middleware
-app.use(function(req, res, next) {
-  console.log(&quot;req: &quot; + req.path);
-  next();
-});
-
-// a middleware bind to a path
-app.get(&#39;/&#39;, function(req, res, next) {
-  console.log(&quot;Hello&quot;);
-  next();
-}, function(req, res) {
-  res.send(&quot;World!&quot;);
-});
-
-// a middleware bind to a path
-app.get(&#39;/next-route&#39;, function(req, res, next) {
-  res.send(&quot;World!&quot;);
-  next(&#39;route&#39;); // will skip next handler
-}, function(req, res) {
-  console.log(&quot;Should not get here !!&quot;);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/built-in-middleware.js" target="_blank">built-in-middleware.js</a>
-        </div>
-        <div class="path">built-in-middleware.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-// express.static is the only one built-in
-// middleware after 4.x
-app.use(express.static(&#39;public&#39;, {
-  dotfiles: &#39;ignore&#39;,
-  etag: false,
-  extensions: [&#39;html&#39;],
-  index: false,
-  maxAge: &#39;1d&#39;,
-  redirect: false,
-  setHeaders: function (res, path, stat) {
-    res.set(&#39;x-timestamp&#39;, Date.now());
-  }
-}));
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-function myLogger(req, res, next) {
-  console.log(&#39;LOGGED: &#39; + req.path);
-  next();
-};
-
-app.use(myLogger);
-
-app.get(&#39;/:name&#39;, function (req, res) {
-  res.send(&#39;Hello: &#39; + req.params.name);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/public/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">Hello!
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/3rd-party-middleware.js" target="_blank">3rd-party-middleware.js</a>
-        </div>
-        <div class="path">3rd-party-middleware.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var cookieParser = require(&#39;cookie-parser&#39;);
-var bodyParser = require(&#39;body-parser&#39;);
-
-var app = express();
-
-// load 3rd party middlewares
-app.use(cookieParser());
-app.use(bodyParser.json());
-
-app.get(&#39;/cookie&#39;, function (req, res) {
-  res.send(&#39;Cookies &#39; + JSON.stringify(req.cookies));
-});
-
-app.post(&#39;/json&#39;, function (req, res) {
-  res.send(&#39;Post data: &#39; + JSON.stringify(req.body));
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/error-level-middleware.js" target="_blank">error-level-middleware.js</a>
-        </div>
-        <div class="path">error-level-middleware.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-// a middleware
-app.use(function(err, req, res, next) {
-  console.log(&quot;we have an error: &quot; + err);
-});
-
-// a middleware bind to a path
-app.get(&#39;/&#39;, function(req, res, next) {
-  next(&#39;my-error&#39;);
-});
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

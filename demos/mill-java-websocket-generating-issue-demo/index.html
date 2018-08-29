@@ -37,7 +37,27 @@ Update: it seems a random issue, since it successfully generated the Java-WebSoc
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mill-java-websocket-generating-issue-demo/blob/master/foo/src/example/Hello.scala" target="_blank">Hello.scala</a>
+        </div>
+        <div class="path">foo/src/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+object Hello extends App {
+
+  def hello(name: String) = s&quot;Hello, $name!&quot;
+
+  println(hello(&quot;Scala&quot;))
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/mill-java-websocket-generating-issue-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank">HelloSpec.scala</a>
@@ -59,27 +79,7 @@ class HelloSpec extends FunSuite with Matchers {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mill-java-websocket-generating-issue-demo/blob/master/foo/src/example/Hello.scala" target="_blank">Hello.scala</a>
-        </div>
-        <div class="path">foo/src/example/Hello.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package example
-
-object Hello extends App {
-
-  def hello(name: String) = s&quot;Hello, $name!&quot;
-
-  println(hello(&quot;Scala&quot;))
-
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

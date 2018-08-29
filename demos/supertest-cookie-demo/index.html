@@ -32,7 +32,40 @@ npm test
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/index.js" target="_blank">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+const cookieParser = require(&#39;cookie-parser&#39;);
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;Hello, world!&#39;);
+});
+
+app.get(&#39;/set-cookie&#39;, function (req, res) {
+  const cookies = req.cookies;
+  res.send(cookies);
+});
+
+
+app.listen(3000, function () {
+  console.log(&#39;Server listening at http://localhost:3000&#39;);
+});
+
+module.exports = app;</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/app-spec.js" target="_blank">app-spec.js</a>
@@ -74,40 +107,7 @@ describe(&#39;express application&#39;, () =&gt; {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/index.js" target="_blank">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
-const bodyParser = require(&#39;body-parser&#39;);
-const cookieParser = require(&#39;cookie-parser&#39;);
-
-const app = express();
-app.use(bodyParser.json());
-app.use(cookieParser());
-
-app.get(&#39;/&#39;, function (req, res) {
-  res.send(&#39;Hello, world!&#39;);
-});
-
-app.get(&#39;/set-cookie&#39;, function (req, res) {
-  const cookies = req.cookies;
-  res.send(cookies);
-});
-
-
-app.listen(3000, function () {
-  console.log(&#39;Server listening at http://localhost:3000&#39;);
-});
-
-module.exports = app;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

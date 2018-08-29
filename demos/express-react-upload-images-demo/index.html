@@ -31,7 +31,64 @@ Then visit &lt;http://localhost:3000&gt;, and upload images. You will see upload
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank">server.js</a>
+        </div>
+        <div class="path">app/server.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import webpack from &#39;webpack&#39;;
+import webpackConfig from &#39;../webpack.config&#39;;
+import webpackDevMiddleware from &#39;webpack-dev-middleware&#39;;
+import webpackHotMiddleware from &#39;webpack-hot-middleware&#39;;
+import express from &#39;express&#39;;
+import fileUpload from &#39;express-fileupload&#39;;
+import path from &#39;path&#39;;
+
+const app = express();
+app.use(fileUpload());
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  lazy: false,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
+  },
+  publicPath: webpackConfig.output.publicPath
+}));
+
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}));
+
+app.use(express.static(&#39;./public&#39;));
+
+app.post(&#39;/api/uploaded-images&#39;, function(req, res) {
+  const imageFile = req.files.image;
+  const targetName = generateTargetName(imageFile.name);
+  imageFile.mv(&#39;./public/uploaded-images/&#39; + targetName, function(err) {
+    if (err) return res.status(500).send(&#39;Error happens when uploading&#39;);
+    res.status(201).send(&#39;/uploaded-images/&#39; + targetName);
+  })
+});
+
+function generateTargetName(fileName) {
+  const extName = path.extname(fileName);
+  const prefixName = path.basename(fileName, extName);
+  const timestamp = Date.now();
+  return prefixName + &#39;-&#39; + timestamp + extName;
+}
+
+app.listen(3000, function() {
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/bundle.js" target="_blank">bundle.js</a>
@@ -34918,64 +34975,28 @@ Then visit &lt;http://localhost:3000&gt;, and upload images. You will see upload
 /******/ ]);</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank">server.js</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank">index.html</a>
         </div>
-        <div class="path">app/server.js</div>
+        <div class="path">public/index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">import webpack from &#39;webpack&#39;;
-import webpackConfig from &#39;../webpack.config&#39;;
-import webpackDevMiddleware from &#39;webpack-dev-middleware&#39;;
-import webpackHotMiddleware from &#39;webpack-hot-middleware&#39;;
-import express from &#39;express&#39;;
-import fileUpload from &#39;express-fileupload&#39;;
-import path from &#39;path&#39;;
-
-const app = express();
-app.use(fileUpload());
-const compiler = webpack(webpackConfig);
-
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  lazy: false,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
-  publicPath: webpackConfig.output.publicPath
-}));
-
-app.use(webpackHotMiddleware(compiler, {
-  log: console.log
-}));
-
-app.use(express.static(&#39;./public&#39;));
-
-app.post(&#39;/api/uploaded-images&#39;, function(req, res) {
-  const imageFile = req.files.image;
-  const targetName = generateTargetName(imageFile.name);
-  imageFile.mv(&#39;./public/uploaded-images/&#39; + targetName, function(err) {
-    if (err) return res.status(500).send(&#39;Error happens when uploading&#39;);
-    res.status(201).send(&#39;/uploaded-images/&#39; + targetName);
-  })
-});
-
-function generateTargetName(fileName) {
-  const extName = path.extname(fileName);
-  const prefixName = path.basename(fileName, extName);
-  const timestamp = Date.now();
-  return prefixName + &#39;-&#39; + timestamp + extName;
-}
-
-app.listen(3000, function() {
-  console.log(&#39;Listening on 3000&#39;);
-});</code></pre>
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/spec/dummy-spec.js" target="_blank">dummy-spec.js</a>
@@ -34992,7 +35013,7 @@ describe(&#39;dummy&#39;, () =&gt; {
 });</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/webpack.config.js" target="_blank">webpack.config.js</a>
@@ -35033,28 +35054,7 @@ module.exports = {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

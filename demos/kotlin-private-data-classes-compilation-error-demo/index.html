@@ -30,7 +30,7 @@ e: /Users/freewind/workspace/kotlin-private-data-classes-compilation-error-demo/
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -69,7 +69,35 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/src/main/kotlin/example/Hello1.kt" target="_blank">Hello1.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello1.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+private data class User(val name: String)
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/src/main/kotlin/example/Hello2.kt" target="_blank">Hello2.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello2.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+private data class User(val name: String)
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
@@ -92,35 +120,7 @@ class HelloTest {
 }</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/src/main/kotlin/example/Hello2.kt" target="_blank">Hello2.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello2.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-private data class User(val name: String)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-private-data-classes-compilation-error-demo/blob/master/src/main/kotlin/example/Hello1.kt" target="_blank">Hello1.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello1.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-private data class User(val name: String)
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

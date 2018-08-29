@@ -220,7 +220,7 @@ curl -X PUT \
 ```    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -332,253 +332,52 @@ curl -X PUT \
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/running.txt" target="_blank">running.txt</a>
         </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+        <div class="path">running.txt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!--
+        <pre class="content"><code class="txt">You need Maven 2.2.0 or later to build project.
+You can download it from http://maven.apache.org/download.html
 
-    Copyright (c) 2012-2016 Codenvy, S.A.
-    All rights reserved. This program and the accompanying materials
-    are made available under the terms of the Eclipse Public License v1.0
-    which accompanies this distribution, and is available at
-    http://www.eclipse.org/legal/epl-v10.html
+1. Build war.
+   
+   Build and install it in local maven repository:
+   mvn clean install.
+   
+   Create war but do not install it in maven repository:
+   mvn package
+   
+   As result you will get ${PROJECT_HOME}/target/book-service.war.
+   You can deploy it at apache-tomcat or other servlet container and try
+   it (see section 3). jar file that can be add in already existed web
+   application available at ${PROJECT_HOME}/target/book-service/WEB-INF/lib/books-service.jar
 
-    Contributors:
-      Codenvy, S.A. - initial API and implementation
+2. Run project with maven-jetty plugin.
+   Run command: mvn jetty:run.
 
---&gt;
-&lt;web-app id=&quot;WebApp_ID&quot; version=&quot;3.0&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd&quot;&gt;
-    &lt;display-name&gt;book-service&lt;/display-name&gt;
-    &lt;!--context-param&gt;
-        &lt;param-name&gt;javax.ws.rs.Application&lt;/param-name&gt;
-        &lt;param-value&gt;org.everrest.sample.book.BookApplication&lt;/param-value&gt;
-    &lt;/context-param--&gt;
-    &lt;context-param&gt;
-        &lt;param-name&gt;org.everrest.scan.components&lt;/param-name&gt;
-        &lt;param-value&gt;1&lt;/param-value&gt;
-    &lt;/context-param&gt;
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.everrest.sample.book.BookServiceBootstrap&lt;/listener-class&gt;
-    &lt;/listener&gt;
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.everrest.core.servlet.EverrestInitializedListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.everrest.websockets.ServerContainerInitializeListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
-    &lt;listener&gt;
-        &lt;listener-class&gt;org.everrest.websockets.WSConnectionTracker&lt;/listener-class&gt;
-    &lt;/listener&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;EverrestServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;org.everrest.core.servlet.EverrestServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;EverrestServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-&lt;/web-app&gt;
+3. How to try.
+   Point you web browser to http://localhost:8080/book-service/books/101.
+   You will see JSON representation of book:
+   {&quot;id&quot;:&quot;101&quot;,&quot;author&quot;:&quot;Vincent Massol&quot;,&quot;title&quot;:&quot;JUnit in Action&quot;,&quot;price&quot;:19.37,&quot;pages&quot;:386}
+    
+   If you are under linux or other unix like OS the you can use curl utility
+   (often it is already installed). Binary build of this utility available for
+   windows also at http://curl.haxx.se/download.html. With curl you able to add
+   new book in storage via command:
+
+   curl -X PUT \
+   -H &quot;Content-type:application/json&quot; \
+   -d &#39;{&quot;author&quot;:&quot;My Author&quot;,&quot;title&quot;:&quot;My Title&quot;,&quot;price&quot;:1.00,&quot;pages&quot;:100}&#39; \
+   http://localhost:8080/book-service/books/ 
+         
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/webapp/WEB-INF/classes/logback.xml" target="_blank">logback.xml</a>
-        </div>
-        <div class="path">src/main/webapp/WEB-INF/classes/logback.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!--
-
-    Copyright (c) 2012-2016 Codenvy, S.A.
-    All rights reserved. This program and the accompanying materials
-    are made available under the terms of the Eclipse Public License v1.0
-    which accompanies this distribution, and is available at
-    http://www.eclipse.org/legal/epl-v10.html
-
-    Contributors:
-      Codenvy, S.A. - initial API and implementation
-
---&gt;
-&lt;configuration&gt;
-
-    &lt;appender name=&quot;stdout&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
-        &lt;encoder&gt;
-            &lt;pattern&gt;%-41(%date[%.15thread]) %-45([%-5level] [%.30logger{30} %L]) - %msg%n&lt;/pattern&gt;
-        &lt;/encoder&gt;
-    &lt;/appender&gt;
-
-
-    &lt;root level=&quot;DEBUG&quot;&gt;
-        &lt;appender-ref ref=&quot;stdout&quot;/&gt;
-    &lt;/root&gt;
-
-&lt;/configuration&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookNotFoundExceptionMapper.java" target="_blank">BookNotFoundExceptionMapper.java</a>
-        </div>
-        <div class="path">src/main/java/org/everrest/sample/book/BookNotFoundExceptionMapper.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*******************************************************************************
- * Copyright (c) 2012-2016 Codenvy, S.A.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Codenvy, S.A. - initial API and implementation
- *******************************************************************************/
-package org.everrest.sample.book;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
-
-/**
- * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
- * @version $Id$
- */
-@Provider
-public class BookNotFoundExceptionMapper implements ExceptionMapper&lt;BookNotFoundException&gt; {
-    @Override
-    public Response toResponse(BookNotFoundException exception) {
-        return Response.status(404).entity(exception.getMessage()).type(&quot;text/plain&quot;).build();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookServiceBootstrap.java" target="_blank">BookServiceBootstrap.java</a>
-        </div>
-        <div class="path">src/main/java/org/everrest/sample/book/BookServiceBootstrap.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*******************************************************************************
- * Copyright (c) 2012-2016 Codenvy, S.A.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Codenvy, S.A. - initial API and implementation
- *******************************************************************************/
-package org.everrest.sample.book;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-/**
- * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
- * @version $Id$
- */
-public class BookServiceBootstrap implements ServletContextListener {
-    static final String BOOK_STORAGE_NAME = BookStorage.class.getName();
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        ServletContext sctx = sce.getServletContext();
-        sctx.removeAttribute(BOOK_STORAGE_NAME);
-    }
-
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        ServletContext sctx = sce.getServletContext();
-        sctx.setAttribute(BOOK_STORAGE_NAME, new BookStorage());
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookService.java" target="_blank">BookService.java</a>
-        </div>
-        <div class="path">src/main/java/org/everrest/sample/book/BookService.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*******************************************************************************
- * Copyright (c) 2012-2016 Codenvy, S.A.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Codenvy, S.A. - initial API and implementation
- *******************************************************************************/
-package org.everrest.sample.book;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import java.net.URI;
-import java.util.Collection;
-
-/**
- * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
- * @version $Id$
- */
-@Path(&quot;books&quot;)
-public class BookService {
-    @javax.inject.Inject
-    private BookStorage bookStorage;
-
-    @Path(&quot;{id}&quot;)
-    @GET
-    @Produces(&quot;application/json&quot;)
-    public Book get(@PathParam(&quot;id&quot;) String id) throws BookNotFoundException {
-        Book book = bookStorage.getBook(id);
-        if (book == null)
-            throw new BookNotFoundException(id);
-        return book;
-    }
-
-    @GET
-    @Produces(&quot;application/json&quot;)
-    public Collection&lt;Book&gt; getAll() {
-        return bookStorage.getAll();
-    }
-
-    @PUT
-    @Consumes(&quot;application/json&quot;)
-    public Response put(Book book, @Context UriInfo uriInfo) {
-        String id = bookStorage.putBook(book);
-        URI location = uriInfo.getBaseUriBuilder().path(getClass()).path(id).build();
-        return Response.created(location).entity(location.toString()).type(&quot;text/plain&quot;).build();
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/Book.java" target="_blank">Book.java</a>
@@ -661,7 +460,238 @@ public class Book {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookApplication.java" target="_blank">BookApplication.java</a>
+        </div>
+        <div class="path">src/main/java/org/everrest/sample/book/BookApplication.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*******************************************************************************
+ * Copyright (c) 2012-2016 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package org.everrest.sample.book;
+
+import javax.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
+ * @version $Id$
+ */
+public class BookApplication extends Application {
+    @Override
+    public Set&lt;Class&lt;?&gt;&gt; getClasses() {
+        Set&lt;Class&lt;?&gt;&gt; cls = new HashSet&lt;Class&lt;?&gt;&gt;(1);
+        cls.add(BookService.class);
+        return cls;
+    }
+
+    @Override
+    public Set&lt;Object&gt; getSingletons() {
+        Set&lt;Object&gt; objs = new HashSet&lt;Object&gt;(1);
+        objs.add(new BookNotFoundExceptionMapper());
+        return objs;
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookNotFoundException.java" target="_blank">BookNotFoundException.java</a>
+        </div>
+        <div class="path">src/main/java/org/everrest/sample/book/BookNotFoundException.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*******************************************************************************
+ * Copyright (c) 2012-2016 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package org.everrest.sample.book;
+
+/**
+ * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
+ * @version $Id$
+ */
+@SuppressWarnings(&quot;serial&quot;)
+public class BookNotFoundException extends Exception {
+    public BookNotFoundException(String id) {
+        super(&quot;Book with id &quot; + id + &quot; not found.&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookNotFoundExceptionMapper.java" target="_blank">BookNotFoundExceptionMapper.java</a>
+        </div>
+        <div class="path">src/main/java/org/everrest/sample/book/BookNotFoundExceptionMapper.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*******************************************************************************
+ * Copyright (c) 2012-2016 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package org.everrest.sample.book;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
+
+/**
+ * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
+ * @version $Id$
+ */
+@Provider
+public class BookNotFoundExceptionMapper implements ExceptionMapper&lt;BookNotFoundException&gt; {
+    @Override
+    public Response toResponse(BookNotFoundException exception) {
+        return Response.status(404).entity(exception.getMessage()).type(&quot;text/plain&quot;).build();
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookService.java" target="_blank">BookService.java</a>
+        </div>
+        <div class="path">src/main/java/org/everrest/sample/book/BookService.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*******************************************************************************
+ * Copyright (c) 2012-2016 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package org.everrest.sample.book;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.Collection;
+
+/**
+ * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
+ * @version $Id$
+ */
+@Path(&quot;books&quot;)
+public class BookService {
+    @javax.inject.Inject
+    private BookStorage bookStorage;
+
+    @Path(&quot;{id}&quot;)
+    @GET
+    @Produces(&quot;application/json&quot;)
+    public Book get(@PathParam(&quot;id&quot;) String id) throws BookNotFoundException {
+        Book book = bookStorage.getBook(id);
+        if (book == null)
+            throw new BookNotFoundException(id);
+        return book;
+    }
+
+    @GET
+    @Produces(&quot;application/json&quot;)
+    public Collection&lt;Book&gt; getAll() {
+        return bookStorage.getAll();
+    }
+
+    @PUT
+    @Consumes(&quot;application/json&quot;)
+    public Response put(Book book, @Context UriInfo uriInfo) {
+        String id = bookStorage.putBook(book);
+        URI location = uriInfo.getBaseUriBuilder().path(getClass()).path(id).build();
+        return Response.created(location).entity(location.toString()).type(&quot;text/plain&quot;).build();
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookServiceBootstrap.java" target="_blank">BookServiceBootstrap.java</a>
+        </div>
+        <div class="path">src/main/java/org/everrest/sample/book/BookServiceBootstrap.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">/*******************************************************************************
+ * Copyright (c) 2012-2016 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package org.everrest.sample.book;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+/**
+ * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
+ * @version $Id$
+ */
+public class BookServiceBootstrap implements ServletContextListener {
+    static final String BOOK_STORAGE_NAME = BookStorage.class.getName();
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ServletContext sctx = sce.getServletContext();
+        sctx.removeAttribute(BOOK_STORAGE_NAME);
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        ServletContext sctx = sce.getServletContext();
+        sctx.setAttribute(BOOK_STORAGE_NAME, new BookStorage());
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookStorage.java" target="_blank">BookStorage.java</a>
@@ -737,86 +767,7 @@ public class BookStorage {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookNotFoundException.java" target="_blank">BookNotFoundException.java</a>
-        </div>
-        <div class="path">src/main/java/org/everrest/sample/book/BookNotFoundException.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*******************************************************************************
- * Copyright (c) 2012-2016 Codenvy, S.A.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Codenvy, S.A. - initial API and implementation
- *******************************************************************************/
-package org.everrest.sample.book;
-
-/**
- * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
- * @version $Id$
- */
-@SuppressWarnings(&quot;serial&quot;)
-public class BookNotFoundException extends Exception {
-    public BookNotFoundException(String id) {
-        super(&quot;Book with id &quot; + id + &quot; not found.&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/java/org/everrest/sample/book/BookApplication.java" target="_blank">BookApplication.java</a>
-        </div>
-        <div class="path">src/main/java/org/everrest/sample/book/BookApplication.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">/*******************************************************************************
- * Copyright (c) 2012-2016 Codenvy, S.A.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *   Codenvy, S.A. - initial API and implementation
- *******************************************************************************/
-package org.everrest.sample.book;
-
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * @author &lt;a href=&quot;mailto:andrew00x@gmail.com&quot;&gt;Andrey Parfonov&lt;/a&gt;
- * @version $Id$
- */
-public class BookApplication extends Application {
-    @Override
-    public Set&lt;Class&lt;?&gt;&gt; getClasses() {
-        Set&lt;Class&lt;?&gt;&gt; cls = new HashSet&lt;Class&lt;?&gt;&gt;(1);
-        cls.add(BookService.class);
-        return cls;
-    }
-
-    @Override
-    public Set&lt;Object&gt; getSingletons() {
-        Set&lt;Object&gt; objs = new HashSet&lt;Object&gt;(1);
-        objs.add(new BookNotFoundExceptionMapper());
-        return objs;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/resources/logback.xml" target="_blank">logback.xml</a>
@@ -854,52 +805,101 @@ public class BookApplication extends Application {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/running.txt" target="_blank">running.txt</a>
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/webapp/WEB-INF/classes/logback.xml" target="_blank">logback.xml</a>
         </div>
-        <div class="path">running.txt</div>
+        <div class="path">src/main/webapp/WEB-INF/classes/logback.xml</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="txt">You need Maven 2.2.0 or later to build project.
-You can download it from http://maven.apache.org/download.html
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--
 
-1. Build war.
-   
-   Build and install it in local maven repository:
-   mvn clean install.
-   
-   Create war but do not install it in maven repository:
-   mvn package
-   
-   As result you will get ${PROJECT_HOME}/target/book-service.war.
-   You can deploy it at apache-tomcat or other servlet container and try
-   it (see section 3). jar file that can be add in already existed web
-   application available at ${PROJECT_HOME}/target/book-service/WEB-INF/lib/books-service.jar
+    Copyright (c) 2012-2016 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
 
-2. Run project with maven-jetty plugin.
-   Run command: mvn jetty:run.
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
 
-3. How to try.
-   Point you web browser to http://localhost:8080/book-service/books/101.
-   You will see JSON representation of book:
-   {&quot;id&quot;:&quot;101&quot;,&quot;author&quot;:&quot;Vincent Massol&quot;,&quot;title&quot;:&quot;JUnit in Action&quot;,&quot;price&quot;:19.37,&quot;pages&quot;:386}
-    
-   If you are under linux or other unix like OS the you can use curl utility
-   (often it is already installed). Binary build of this utility available for
-   windows also at http://curl.haxx.se/download.html. With curl you able to add
-   new book in storage via command:
+--&gt;
+&lt;configuration&gt;
 
-   curl -X PUT \
-   -H &quot;Content-type:application/json&quot; \
-   -d &#39;{&quot;author&quot;:&quot;My Author&quot;,&quot;title&quot;:&quot;My Title&quot;,&quot;price&quot;:1.00,&quot;pages&quot;:100}&#39; \
-   http://localhost:8080/book-service/books/ 
-         
+    &lt;appender name=&quot;stdout&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%-41(%date[%.15thread]) %-45([%-5level] [%.30logger{30} %L]) - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+
+
+    &lt;root level=&quot;DEBUG&quot;&gt;
+        &lt;appender-ref ref=&quot;stdout&quot;/&gt;
+    &lt;/root&gt;
+
+&lt;/configuration&gt;
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/everrest-book-service-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!--
 
+    Copyright (c) 2012-2016 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+--&gt;
+&lt;web-app id=&quot;WebApp_ID&quot; version=&quot;3.0&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd&quot;&gt;
+    &lt;display-name&gt;book-service&lt;/display-name&gt;
+    &lt;!--context-param&gt;
+        &lt;param-name&gt;javax.ws.rs.Application&lt;/param-name&gt;
+        &lt;param-value&gt;org.everrest.sample.book.BookApplication&lt;/param-value&gt;
+    &lt;/context-param--&gt;
+    &lt;context-param&gt;
+        &lt;param-name&gt;org.everrest.scan.components&lt;/param-name&gt;
+        &lt;param-value&gt;1&lt;/param-value&gt;
+    &lt;/context-param&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.everrest.sample.book.BookServiceBootstrap&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.everrest.core.servlet.EverrestInitializedListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.everrest.websockets.ServerContainerInitializeListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.everrest.websockets.WSConnectionTracker&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;EverrestServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.everrest.core.servlet.EverrestServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;EverrestServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

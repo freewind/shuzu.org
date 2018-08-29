@@ -51,62 +51,7 @@ Resources
 - $element api: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/index.html.md" target="_blank">index.html.md</a>
-        </div>
-        <div class="path">index.html.md</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="md">```
-some-div (compile)
-app.js:9 parent (compile)
-app.js:9 ..first-child (compile)
-app.js:9 ..second-child (compile)
-app.js:6 some-div (controller)
-app.js:12 some-div (pre-link)
-app.js:15 some-div (post-link)
-app.js:6 parent (controller)
-app.js:12 parent (pre-link)
-app.js:6 ..first-child (controller)
-app.js:12 ..first-child (pre-link)
-app.js:15 ..first-child (post-link)
-app.js:6 ..second-child (controller)
-app.js:12 ..second-child (pre-link)
-app.js:15 ..second-child (post-link)
-app.js:15 parent (post-link)
-```</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-&lt;/head&gt;
-&lt;body ng-app=&quot;app&quot;&gt;
-
-&lt;div log=&#39;some-div&#39;&gt;some div&lt;/div&gt;
-
-&lt;div log=&#39;parent&#39;&gt;
-    parent
-    &lt;div log=&#39;..first-child&#39;&gt;first child&lt;/div&gt;
-    &lt;div log=&#39;..second-child&#39;&gt;second child&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/app.js" target="_blank">app.js</a>
@@ -136,7 +81,53 @@ app.directive(&#39;log&#39;, function () {
 });</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-execution-log-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
 
+&lt;div log=&#39;some-div&#39;&gt;some div&lt;/div&gt;
+
+&lt;div log=&#39;parent&#39;&gt;
+    parent
+    &lt;div log=&#39;..first-child&#39;&gt;first child&lt;/div&gt;
+    &lt;div log=&#39;..second-child&#39;&gt;second child&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+        <div class="markdown markdown-body center-in-page">
+    ```
+some-div (compile)
+app.js:9 parent (compile)
+app.js:9 ..first-child (compile)
+app.js:9 ..second-child (compile)
+app.js:6 some-div (controller)
+app.js:12 some-div (pre-link)
+app.js:15 some-div (post-link)
+app.js:6 parent (controller)
+app.js:12 parent (pre-link)
+app.js:6 ..first-child (controller)
+app.js:12 ..first-child (pre-link)
+app.js:15 ..first-child (post-link)
+app.js:6 ..second-child (controller)
+app.js:12 ..second-child (pre-link)
+app.js:15 ..second-child (post-link)
+app.js:15 parent (post-link)
+```</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

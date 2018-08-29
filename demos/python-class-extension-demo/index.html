@@ -12,7 +12,28 @@
 </div>
 
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python-class-extension-demo/blob/master/child.py" target="_blank">child.py</a>
+        </div>
+        <div class="path">child.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py">from parent import Parent
+
+
+class Child(Parent):
+    def name(self):
+        return &quot;child&quot;
+
+
+if __name__ == &#39;__main__&#39;:
+    Child().hello()
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/python-class-extension-demo/blob/master/parent.py" target="_blank">parent.py</a>
@@ -37,28 +58,7 @@ if __name__ == &#39;__main__&#39;:
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/python-class-extension-demo/blob/master/child.py" target="_blank">child.py</a>
-        </div>
-        <div class="path">child.py</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="py">from parent import Parent
-
-
-class Child(Parent):
-    def name(self):
-        return &quot;child&quot;
-
-
-if __name__ == &#39;__main__&#39;:
-    Child().hello()
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

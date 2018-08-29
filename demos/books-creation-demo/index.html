@@ -27,7 +27,7 @@ Then visit:
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -70,181 +70,7 @@ Then visit:
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
-        </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
-         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
-
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;LoginPageServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.views.LoginPageServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;ListBooksPageServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.views.ListBooksPageServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;CreateBookServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.actions.CreateBookServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.actions.LoginServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;LogoutServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.actions.LogoutServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-
-
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;LoginPageServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/login.html&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;ListBooksPageServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;CreateBookServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/create-book&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/login&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;LogoutServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/logout&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-    &lt;filter&gt;
-        &lt;filter-name&gt;LoginCheckFilter&lt;/filter-name&gt;
-        &lt;filter-class&gt;demo.filters.LoginCheckFilter&lt;/filter-class&gt;
-        &lt;init-param&gt;
-            &lt;param-name&gt;public-paths&lt;/param-name&gt;
-            &lt;param-value&gt;
-                /login.html,/login,/logout
-            &lt;/param-value&gt;
-        &lt;/init-param&gt;
-    &lt;/filter&gt;
-
-    &lt;filter-mapping&gt;
-        &lt;filter-name&gt;LoginCheckFilter&lt;/filter-name&gt;
-        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-    &lt;/filter-mapping&gt;
-
-&lt;/web-app&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/views/ListBooksPageServlet.java" target="_blank">ListBooksPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/ListBooksPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import demo.dao.BooksDao;
-import demo.models.Book;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-
-public class ListBooksPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            List&lt;Book&gt; books = BooksDao.loadAll();
-            request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));
-            request.setAttribute(&quot;books&quot;, books);
-            request.getRequestDispatcher(&quot;/WEB-INF/pages/list.jsp&quot;).forward(request, response);
-        } catch (SQLException e) {
-            throw new ServletException(e);
-        }
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/views/LoginPageServlet.java" target="_blank">LoginPageServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/views/LoginPageServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.views;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class LoginPageServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String message = request.getParameter(&quot;message&quot;);
-        request.setAttribute(&quot;message&quot;, message);
-        request.getRequestDispatcher(&quot;/WEB-INF/pages/login.jsp&quot;).forward(request, response);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/actions/LogoutServlet.java" target="_blank">LogoutServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/actions/LogoutServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.actions;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class LogoutServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().removeAttribute(&quot;username&quot;);
-        resp.sendRedirect(&quot;/&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/actions/CreateBookServlet.java" target="_blank">CreateBookServlet.java</a>
@@ -282,7 +108,7 @@ public class CreateBookServlet extends HttpServlet {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/actions/LoginServlet.java" target="_blank">LoginServlet.java</a>
@@ -316,68 +142,34 @@ public class LoginServlet extends HttpServlet {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/filters/LoginCheckFilter.java" target="_blank">LoginCheckFilter.java</a>
+            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/actions/LogoutServlet.java" target="_blank">LogoutServlet.java</a>
         </div>
-        <div class="path">src/main/java/demo/filters/LoginCheckFilter.java</div>
+        <div class="path">src/main/java/demo/actions/LogoutServlet.java</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="java">package demo.filters;
+        <pre class="content"><code class="java">package demo.actions;
 
-import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class LoginCheckFilter implements Filter {
+public class LogoutServlet extends HttpServlet {
 
-    private List&lt;String&gt; publicPaths;
-
-    public void init(FilterConfig filterConfig) throws ServletException {
-        String publicPathsStr = filterConfig.getInitParameter(&quot;public-paths&quot;);
-        publicPaths = trimItems(Arrays.asList(publicPathsStr.split(&quot;,&quot;)));
-    }
-
-    private List&lt;String&gt; trimItems(List&lt;String&gt; items) {
-        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
-        for (String item : items) {
-            list.add(item.trim());
-        }
-        return list;
-    }
-
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        if (isPublicPath(request) || isLoggedIn(request)) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
-            response.sendRedirect(&quot;/login.html?message=Please login first&quot;);
-        }
-    }
-
-    private boolean isPublicPath(HttpServletRequest request) {
-        String currentPath = request.getServletPath();
-        return publicPaths.contains(currentPath);
-    }
-
-    private boolean isLoggedIn(HttpServletRequest request) {
-        return request.getSession().getAttribute(&quot;username&quot;) != null;
-    }
-
-    public void destroy() {
-
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().removeAttribute(&quot;username&quot;);
+        resp.sendRedirect(&quot;/&quot;);
     }
 }
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/dao/BooksDao.java" target="_blank">BooksDao.java</a>
@@ -485,7 +277,68 @@ public class BooksDao {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/filters/LoginCheckFilter.java" target="_blank">LoginCheckFilter.java</a>
+        </div>
+        <div class="path">src/main/java/demo/filters/LoginCheckFilter.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.filters;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LoginCheckFilter implements Filter {
+
+    private List&lt;String&gt; publicPaths;
+
+    public void init(FilterConfig filterConfig) throws ServletException {
+        String publicPathsStr = filterConfig.getInitParameter(&quot;public-paths&quot;);
+        publicPaths = trimItems(Arrays.asList(publicPathsStr.split(&quot;,&quot;)));
+    }
+
+    private List&lt;String&gt; trimItems(List&lt;String&gt; items) {
+        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        for (String item : items) {
+            list.add(item.trim());
+        }
+        return list;
+    }
+
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        if (isPublicPath(request) || isLoggedIn(request)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            response.sendRedirect(&quot;/login.html?message=Please login first&quot;);
+        }
+    }
+
+    private boolean isPublicPath(HttpServletRequest request) {
+        String currentPath = request.getServletPath();
+        return publicPaths.contains(currentPath);
+    }
+
+    private boolean isLoggedIn(HttpServletRequest request) {
+        return request.getSession().getAttribute(&quot;username&quot;) != null;
+    }
+
+    public void destroy() {
+
+    }
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/models/Book.java" target="_blank">Book.java</a>
@@ -547,7 +400,154 @@ public class Book {
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/views/ListBooksPageServlet.java" target="_blank">ListBooksPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/ListBooksPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
 
+import demo.dao.BooksDao;
+import demo.models.Book;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+public class ListBooksPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            List&lt;Book&gt; books = BooksDao.loadAll();
+            request.setAttribute(&quot;message&quot;, request.getParameter(&quot;message&quot;));
+            request.setAttribute(&quot;books&quot;, books);
+            request.getRequestDispatcher(&quot;/WEB-INF/pages/list.jsp&quot;).forward(request, response);
+        } catch (SQLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/java/demo/views/LoginPageServlet.java" target="_blank">LoginPageServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/views/LoginPageServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.views;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class LoginPageServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message = request.getParameter(&quot;message&quot;);
+        request.setAttribute(&quot;message&quot;, message);
+        request.getRequestDispatcher(&quot;/WEB-INF/pages/login.jsp&quot;).forward(request, response);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-creation-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;LoginPageServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.views.LoginPageServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;ListBooksPageServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.views.ListBooksPageServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;CreateBookServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.actions.CreateBookServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.actions.LoginServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;LogoutServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.actions.LogoutServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;LoginPageServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/login.html&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;ListBooksPageServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;CreateBookServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/create-book&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;LoginServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/login&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;LogoutServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/logout&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;LoginCheckFilter&lt;/filter-name&gt;
+        &lt;filter-class&gt;demo.filters.LoginCheckFilter&lt;/filter-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;public-paths&lt;/param-name&gt;
+            &lt;param-value&gt;
+                /login.html,/login,/logout
+            &lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/filter&gt;
+
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;LoginCheckFilter&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

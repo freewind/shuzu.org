@@ -31,7 +31,7 @@ You will see test result from console.
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -100,97 +100,7 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
-        </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import kotlin.test.*
-
-class HelloTest {
-
-    @Test
-    fun testHello() {
-        assertEquals(hello(&quot;you&quot;), &quot;Hello, you!&quot;)
-    }
-
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/functions.kt" target="_blank">functions.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/functions.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun hello(name: String) = &quot;Hello, $name!&quot;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/main.kt" target="_blank">main.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/main.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun main(args: Array&lt;String&gt;) {
-    val my = MyClass(&quot;Kotlin&quot;)
-    my.helloExt()
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/classes.kt" target="_blank">classes.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/classes.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-open class Parent(open val name: String) {
-    open fun say(): Unit = println(&quot;[parent] Hello, $name&quot;)
-}
-
-class Child(override val name: String, val age: Int) : Parent(name) {
-    override fun say() {
-        println(&quot;[child] $name $age&quot; + super.say())
-    }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/extension_methods.kt" target="_blank">extension_methods.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/extension_methods.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-class MyClass(val name: String)
-
-fun MyClass.helloExt() = println(&quot;Hello, $name&quot;)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/index.html" target="_blank">index.html</a>
@@ -213,7 +123,97 @@ fun MyClass.helloExt() = println(&quot;Hello, $name&quot;)
 &lt;/html&gt;</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/classes.kt" target="_blank">classes.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/classes.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
 
+open class Parent(open val name: String) {
+    open fun say(): Unit = println(&quot;[parent] Hello, $name&quot;)
+}
+
+class Child(override val name: String, val age: Int) : Parent(name) {
+    override fun say() {
+        println(&quot;[child] $name $age&quot; + super.say())
+    }
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/extension_methods.kt" target="_blank">extension_methods.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/extension_methods.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+class MyClass(val name: String)
+
+fun MyClass.helloExt() = println(&quot;Hello, $name&quot;)
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/functions.kt" target="_blank">functions.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/functions.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun hello(name: String) = &quot;Hello, $name!&quot;
+
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/main/kotlin/example/main.kt" target="_blank">main.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/main.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    val my = MyClass(&quot;Kotlin&quot;)
+    my.helloExt()
+}</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-generated-js-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlin.test.*
+
+class HelloTest {
+
+    @Test
+    fun testHello() {
+        assertEquals(hello(&quot;you&quot;), &quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

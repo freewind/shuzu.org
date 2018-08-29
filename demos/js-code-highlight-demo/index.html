@@ -38,51 +38,7 @@ See `app-all.js`:
 And we have to use `browserify` to convert it if we want to use it in html page.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/js-code-highlight-demo/blob/master/index.html" target="_blank">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;./node_modules/highlight.js/styles/default.css&quot;&gt;
-    &lt;script src=&quot;app-all-bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;h3&gt;Js&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;
-function hello() {
-    alert(&#39;hello&#39;);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;Java&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;
-public class Hello {
-    public static void main(String[] args) {
-        System.out.println(&quot;Hello!&quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3&gt;No Highlight&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;nohighlight&quot;&gt;
-public class Hello {
-    public static void main(String[] args) {
-        System.out.println(&quot;Hello!&quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/js-code-highlight-demo/blob/master/app-all.js" target="_blank">app-all.js</a>
@@ -272,7 +228,51 @@ hljs.registerLanguage(&#39;zephir&#39;, require(&#39;highlight.js/lib/languages/
 hljs.initHighlightingOnLoad();</code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-code-highlight-demo/blob/master/index.html" target="_blank">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;./node_modules/highlight.js/styles/default.css&quot;&gt;
+    &lt;script src=&quot;app-all-bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
+&lt;h3&gt;Js&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;js&quot;&gt;
+function hello() {
+    alert(&#39;hello&#39;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;Java&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello!&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;No Highlight&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&quot;nohighlight&quot;&gt;
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello!&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

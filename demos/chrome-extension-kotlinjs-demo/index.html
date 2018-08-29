@@ -31,7 +31,7 @@ Chrome -&gt; `Extensions` -&gt; Enable `Developer Mode` -&gt; `Load unpacked` -&
 Open a page, and click the icon of this extension on toolbar, you will see a popup dialog with current url.    </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/build.gradle" target="_blank">build.gradle</a>
@@ -79,39 +79,7 @@ dependencies {
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import chrome.tabs.QueryInfo
-import kotlinjs.common.jsonAs
-import kotlin.browser.window
-
-fun main(args: Array&lt;String&gt;) {
-    getCurrentTabUrl { url -&gt;
-        window.alert(&quot;current url is: $url&quot;)
-    }
-}
-
-private fun getCurrentTabUrl(callback: (String) -&gt; Unit) {
-    chrome.tabs.query(jsonAs&lt;QueryInfo&gt;().apply {
-        active = true
-        currentWindow = true
-    }) { tabs -&gt;
-        tabs.firstOrNull()?.url?.run(callback)
-    }
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/bundle.js" target="_blank">bundle.js</a>
@@ -38163,7 +38131,7 @@ this[&#39;chrome-extension-kotlinjs-demo&#39;] = function (_, Kotlin, $module$ko
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/hello.html" target="_blank">hello.html</a>
@@ -38189,7 +38157,39 @@ this[&#39;chrome-extension-kotlinjs-demo&#39;] = function (_, Kotlin, $module$ko
 </code></pre>
     </div>
 </div>
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
 
+import chrome.tabs.QueryInfo
+import kotlinjs.common.jsonAs
+import kotlin.browser.window
+
+fun main(args: Array&lt;String&gt;) {
+    getCurrentTabUrl { url -&gt;
+        window.alert(&quot;current url is: $url&quot;)
+    }
+}
+
+private fun getCurrentTabUrl(callback: (String) -&gt; Unit) {
+    chrome.tabs.query(jsonAs&lt;QueryInfo&gt;().apply {
+        active = true
+        currentWindow = true
+    }) { tabs -&gt;
+        tabs.firstOrNull()?.url?.run(callback)
+    }
+}
+
+</code></pre>
+    </div>
+</div>
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">

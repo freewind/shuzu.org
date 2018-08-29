@@ -33,7 +33,7 @@ If we don&#39;t provide it, it will just list all files when visit &lt;http://lo
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
+    <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/servlet-as-index-page-demo/blob/master/pom.xml" target="_blank">pom.xml</a>
@@ -71,7 +71,34 @@ If we don&#39;t provide it, it will just list all files when visit &lt;http://lo
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/servlet-as-index-page-demo/blob/master/src/main/java/demo/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a>
+        </div>
+        <div class="path">src/main/java/demo/HelloWorldServlet.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().append(&quot;Hello, servlet&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/servlet-as-index-page-demo/blob/master/src/main/webapp/hello.html" target="_blank">hello.html</a>
@@ -83,7 +110,7 @@ If we don&#39;t provide it, it will just list all files when visit &lt;http://lo
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
+        <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
             <a href="https://github.com/freewind-demos/servlet-as-index-page-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank">web.xml</a>
@@ -114,34 +141,7 @@ If we don&#39;t provide it, it will just list all files when visit &lt;http://lo
 </code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/servlet-as-index-page-demo/blob/master/src/main/java/demo/HelloWorldServlet.java" target="_blank">HelloWorldServlet.java</a>
-        </div>
-        <div class="path">src/main/java/demo/HelloWorldServlet.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-public class HelloWorldServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().append(&quot;Hello, servlet&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-
+    
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
