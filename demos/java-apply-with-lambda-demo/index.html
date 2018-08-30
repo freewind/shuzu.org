@@ -48,23 +48,6 @@ Run `NormalStyle.java` or `ApplyWithLambdaStyle.java` in your IDE.    </div>
         &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
         &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
     &lt;/properties&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
-            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
-            &lt;version&gt;1.11&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
-            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
-            &lt;version&gt;3.7&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;commons-io&lt;/groupId&gt;
-            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
-            &lt;version&gt;2.6&lt;/version&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
 &lt;/project&gt;
 </code></pre>
     </div>
@@ -72,16 +55,16 @@ Run `NormalStyle.java` or `ApplyWithLambdaStyle.java` in your IDE.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/ApplyWithLambdaStyle.java" target="_blank" title="show github file">ApplyWithLambdaStyle.java</a>
+            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/ApplyStyle.java" target="_blank" title="show github file">ApplyStyle.java</a>
         </div>
-        <div class="path">src/main/java/demo/ApplyWithLambdaStyle.java</div>
+        <div class="path">src/main/java/demo/ApplyStyle.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package demo;
 
 import static demo.Apply.apply;
 
-public class ApplyWithLambdaStyle {
+public class ApplyStyle {
 
     private static User user = apply(new User(&quot;Freewind&quot;), self -&gt; {
         self.email = &quot;hello@test.com&quot;;
@@ -108,8 +91,10 @@ interface Apply&lt;T&gt; {
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
-    ```
-User{name=&#39;Freewind&#39;, email=&#39;hello@test.com&#39;, address=&#39;China&#39;}
+    Output:
+
+```
+User{name=Freewind, email=hello@test.com, address=China}
 ```</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
@@ -139,8 +124,10 @@ public class NormalStyle {
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
-    ```
-User{name=&#39;Freewind&#39;, email=&#39;hello@test.com&#39;, address=&#39;China&#39;}
+    Output:
+
+```
+User{name=Freewind, email=hello@test.com, address=China}
 ```</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
@@ -163,7 +150,7 @@ class User {
 
     @Override
     public String toString() {
-        return &quot;User{name=&#39;&quot; + name + &#39;\&#39;&#39; + &quot;, email=&#39;&quot; + email + &#39;\&#39;&#39; + &quot;, address=&#39;&quot; + address + &#39;\&#39;&#39; + &#39;}&#39;;
+        return &quot;User{name=&quot; + name + &quot;, email=&quot; + email + &quot;, address=&quot; + address + &#39;}&#39;;
     }
 }</code></pre>
     </div>

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>angularjs1-directive-link-demo - 数组网</title>
+    <title>angularjs1-directive-transclude-multiple-elements-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,15 +8,15 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">angularjs1-directive-link-demo</div>
+    <div class="site-slogan">angularjs1-directive-transclude-multiple-elements-demo</div>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        AngularJS1 Directive Link Demo
-==============================
+        AngularJS1 Directive Transclude Multiple Elements Demo
+======================================================
 
-Do some DOM operations in `link` function of directive.
+Use directive&#39;s `transclude` with named slots to handle multiple elements.
 
 ```
 npm install
@@ -29,42 +29,58 @@ Resources
 ---------
 
 - AngularJS1: &lt;https://angularjs.org/&gt;
-- directive api: &lt;https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object&gt;
+- transclude api and sample: &lt;https://docs.angularjs.org/api/ng/directive/ngTransclude&gt;
 - $element api: &lt;https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite&gt;    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-link-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
         <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
-app.directive(&#39;bgColor&#39;, function () {
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.directive(&#39;hello&#39;, function () {
     return {
-        restrict: &#39;A&#39;,
-        link: function (scope, element, attrs) {
-            element.css(&quot;background-color&quot;, attrs.bgColor)
-        }
+        restrict: &#39;E&#39;,
+        transclude: {
+            &#39;name1&#39;: &#39;name1&#39;,
+            &#39;name2&#39;: &#39;name2&#39;
+        },
+        template: &#39;&lt;div&gt;Hello, &#39; +
+            &#39;&lt;span ng-transclude=&quot;name1&quot; class=&quot;bg-yellow&quot;&gt;&lt;/span&gt;&#39; +
+            &#39; and &#39; +
+            &#39;&lt;span ng-transclude=&quot;name2&quot; class=&quot;bg-green&quot;&gt;&lt;/span&gt;&#39; +
+            &#39;!&lt;/div&gt;&#39;
     }
-});</code></pre>
+})</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-link-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
     <div class="body">
         <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-&lt;/head&gt;
+&lt;style&gt;
+    .bg-yellow {
+        background-color: yellow;
+    }
+
+    .bg-green {
+        background-color: green;
+    }
+&lt;/style&gt;
 &lt;body ng-app=&quot;app&quot;&gt;
-&lt;div bg-color=&quot;red&quot;&gt;Hello, world!&lt;/div&gt;
+&lt;hello&gt;
+    &lt;name1&gt;JavaScript&lt;/name1&gt;
+    &lt;name2&gt;AngularJs1&lt;/name2&gt;
+&lt;/hello&gt;
 &lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
@@ -74,7 +90,7 @@ app.directive(&#39;bgColor&#39;, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-link-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
     </div>
@@ -91,10 +107,10 @@ app.directive(&#39;bgColor&#39;, function () {
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/angularjs1-directive-link-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/angularjs1-directive-link-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
