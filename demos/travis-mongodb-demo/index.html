@@ -192,6 +192,26 @@ module.exports = saveAsAdmin;
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/travis-mongodb-demo/blob/master/.travis.yml" target="_blank" title="show github file">.travis.yml</a>
+        </div>
+        <div class="path">.travis.yml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="yml">env:
+  global:
+    - MONGODB_VERSION=3.0.1
+
+language: node_js
+node_js:
+  - &quot;6&quot;
+
+services:
+  - mongodb</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

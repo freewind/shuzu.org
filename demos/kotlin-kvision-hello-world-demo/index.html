@@ -404,6 +404,396 @@ fun start(state: dynamic): ApplicationBase? {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/detekt.yml" target="_blank" title="show github file">detekt.yml</a>
+        </div>
+        <div class="path">detekt.yml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="yml">autoCorrect: true
+failFast: false
+
+test-pattern: # Configure exclusions for test sources
+  active: true
+  patterns: # Test file regexes
+    - &#39;.*/test/.*&#39;
+    - &#39;.*Test.kt&#39;
+    - &#39;.*Spec.kt&#39;
+  exclude-rule-sets:
+    - &#39;comments&#39;
+  exclude-rules:
+    - &#39;NamingRules&#39;
+    - &#39;WildcardImport&#39;
+    - &#39;MagicNumber&#39;
+    - &#39;MaxLineLength&#39;
+    - &#39;LateinitUsage&#39;
+    - &#39;StringLiteralDuplication&#39;
+    - &#39;SpreadOperator&#39;
+    - &#39;TooManyFunctions&#39;
+
+build:
+  maxIssues: 10
+  weights:
+    # complexity: 2
+    # LongParameterList: 1
+    # style: 1
+    # comments: 1
+
+processors:
+  active: true
+  exclude:
+  # - &#39;FunctionCountProcessor&#39;
+  # - &#39;PropertyCountProcessor&#39;
+  # - &#39;ClassCountProcessor&#39;
+  # - &#39;PackageCountProcessor&#39;
+  # - &#39;KtFileCountProcessor&#39;
+
+console-reports:
+  active: true
+  exclude:
+  #  - &#39;ProjectStatisticsReport&#39;
+  #  - &#39;ComplexityReport&#39;
+  #  - &#39;NotificationReport&#39;
+  #  - &#39;FindingsReport&#39;
+  #  - &#39;BuildFailureReport&#39;
+
+output-reports:
+  active: true
+  exclude:
+  #  - &#39;HtmlOutputReport&#39;
+  #  - &#39;PlainOutputReport&#39;
+  #  - &#39;XmlOutputReport&#39;
+
+comments:
+  active: true
+  CommentOverPrivateFunction:
+    active: false
+  CommentOverPrivateProperty:
+    active: false
+  EndOfSentenceFormat:
+    active: false
+    endOfSentenceFormat: ([.?!][ \t\n\r\f&lt;])|([.?!]$)
+  UndocumentedPublicClass:
+    active: false
+    searchInNestedClass: true
+    searchInInnerClass: true
+    searchInInnerObject: true
+    searchInInnerInterface: true
+  UndocumentedPublicFunction:
+    active: false
+
+complexity:
+  active: true
+  ComplexCondition:
+    active: true
+    threshold: 4
+  ComplexInterface:
+    active: false
+    threshold: 10
+    includeStaticDeclarations: false
+  ComplexMethod:
+    active: true
+    threshold: 10
+    ignoreSingleWhenExpression: false
+  LabeledExpression:
+    active: false
+  LargeClass:
+    active: true
+    threshold: 150
+  LongMethod:
+    active: true
+    threshold: 20
+  LongParameterList:
+    active: true
+    threshold: 6
+    ignoreDefaultParameters: true
+  MethodOverloading:
+    active: false
+    threshold: 6
+  NestedBlockDepth:
+    active: true
+    threshold: 4
+  StringLiteralDuplication:
+    active: false
+    threshold: 3
+    ignoreAnnotation: true
+    excludeStringsWithLessThan5Characters: true
+    ignoreStringsRegex: &#39;$^&#39;
+  TooManyFunctions:
+    active: true
+    thresholdInFiles: 11
+    thresholdInClasses: 11
+    thresholdInInterfaces: 11
+    thresholdInObjects: 11
+    thresholdInEnums: 11
+
+empty-blocks:
+  active: true
+  EmptyCatchBlock:
+    active: true
+    allowedExceptionNameRegex: &quot;^(ignore|expected).*&quot;
+  EmptyClassBlock:
+    active: true
+  EmptyDefaultConstructor:
+    active: true
+  EmptyDoWhileBlock:
+    active: true
+  EmptyElseBlock:
+    active: true
+  EmptyFinallyBlock:
+    active: true
+  EmptyForBlock:
+    active: true
+  EmptyFunctionBlock:
+    active: true
+  EmptyIfBlock:
+    active: true
+  EmptyInitBlock:
+    active: true
+  EmptyKtFile:
+    active: true
+  EmptySecondaryConstructor:
+    active: true
+  EmptyWhenBlock:
+    active: true
+  EmptyWhileBlock:
+    active: true
+
+exceptions:
+  active: true
+  ExceptionRaisedInUnexpectedLocation:
+    active: false
+    methodNames: &#39;toString,hashCode,equals,finalize&#39;
+  InstanceOfCheckForException:
+    active: false
+  NotImplementedDeclaration:
+    active: false
+  PrintStackTrace:
+    active: false
+  RethrowCaughtException:
+    active: false
+  ReturnFromFinally:
+    active: false
+  SwallowedException:
+    active: false
+  ThrowingExceptionFromFinally:
+    active: false
+  ThrowingExceptionInMain:
+    active: false
+  ThrowingExceptionsWithoutMessageOrCause:
+    active: false
+    exceptions: &#39;IllegalArgumentException,IllegalStateException,IOException&#39;
+  ThrowingNewInstanceOfSameException:
+    active: false
+  TooGenericExceptionCaught:
+    active: true
+    exceptionNames:
+     - ArrayIndexOutOfBoundsException
+     - Error
+     - Exception
+     - IllegalMonitorStateException
+     - NullPointerException
+     - IndexOutOfBoundsException
+     - RuntimeException
+     - Throwable
+  TooGenericExceptionThrown:
+    active: true
+    exceptionNames:
+     - Error
+     - Exception
+     - Throwable
+     - RuntimeException
+
+naming:
+  active: true
+  ClassNaming:
+    active: true
+    classPattern: &#39;[A-Z$][a-zA-Z0-9$]*&#39;
+  EnumNaming:
+    active: true
+    enumEntryPattern: &#39;^[A-Z][_a-zA-Z0-9]*&#39;
+  ForbiddenClassName:
+    active: false
+    forbiddenName: &#39;&#39;
+  FunctionMaxLength:
+    active: false
+    maximumFunctionNameLength: 30
+  FunctionMinLength:
+    active: false
+    minimumFunctionNameLength: 3
+  FunctionNaming:
+    active: true
+    functionPattern: &#39;^([a-z$][a-zA-Z$0-9]*)|(`.*`)$&#39;
+    excludeClassPattern: &#39;$^&#39;
+  MatchingDeclarationName:
+    active: true
+  MemberNameEqualsClassName:
+    active: false
+    ignoreOverriddenFunction: true
+  ObjectPropertyNaming:
+    active: true
+    propertyPattern: &#39;[A-Za-z][_A-Za-z0-9]*&#39;
+  PackageNaming:
+    active: true
+    packagePattern: &#39;^[a-z]+(\.[a-z][a-z0-9]*)*$&#39;
+  TopLevelPropertyNaming:
+    active: true
+    constantPattern: &#39;[A-Z][_A-Z0-9]*&#39;
+    propertyPattern: &#39;[a-z][A-Za-z\d]*&#39;
+    privatePropertyPattern: &#39;(_)?[a-z][A-Za-z0-9]*&#39;
+  VariableMaxLength:
+    active: false
+    maximumVariableNameLength: 64
+  VariableMinLength:
+    active: false
+    minimumVariableNameLength: 1
+  VariableNaming:
+    active: true
+    variablePattern: &#39;[a-z][A-Za-z0-9]*&#39;
+    privateVariablePattern: &#39;(_)?[a-z][A-Za-z0-9]*&#39;
+    excludeClassPattern: &#39;$^&#39;
+
+performance:
+  active: true
+  ForEachOnRange:
+    active: true
+  SpreadOperator:
+    active: true
+  UnnecessaryTemporaryInstantiation:
+    active: true
+
+potential-bugs:
+  active: true
+  DuplicateCaseInWhenExpression:
+    active: true
+  EqualsAlwaysReturnsTrueOrFalse:
+    active: false
+  EqualsWithHashCodeExist:
+    active: true
+  ExplicitGarbageCollectionCall:
+    active: true
+  InvalidRange:
+    active: false
+  IteratorHasNextCallsNextMethod:
+    active: false
+  IteratorNotThrowingNoSuchElementException:
+    active: false
+  LateinitUsage:
+    active: false
+    excludeAnnotatedProperties: &quot;&quot;
+    ignoreOnClassesPattern: &quot;&quot;
+  UnconditionalJumpStatementInLoop:
+    active: false
+  UnreachableCode:
+    active: true
+  UnsafeCallOnNullableType:
+    active: false
+  UnsafeCast:
+    active: false
+  UselessPostfixExpression:
+    active: false
+  WrongEqualsTypeParameter:
+    active: false
+
+style:
+  active: true
+  CollapsibleIfStatements:
+    active: false
+  DataClassContainsFunctions:
+    active: false
+    conversionFunctionPrefix: &#39;to&#39;
+  EqualsNullCall:
+    active: false
+  ExpressionBodySyntax:
+    active: false
+  ForbiddenComment:
+    active: true
+    values: &#39;TODO:,FIXME:,STOPSHIP:&#39;
+  ForbiddenImport:
+    active: false
+    imports: &#39;&#39;
+  FunctionOnlyReturningConstant:
+    active: false
+    ignoreOverridableFunction: true
+    excludedFunctions: &#39;describeContents&#39;
+  LoopWithTooManyJumpStatements:
+    active: false
+    maxJumpCount: 1
+  MagicNumber:
+    active: true
+    ignoreNumbers: &#39;-1,0,1,2&#39;
+    ignoreHashCodeFunction: false
+    ignorePropertyDeclaration: false
+    ignoreConstantDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotation: false
+    ignoreNamedArgument: true
+    ignoreEnums: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 120
+    excludePackageStatements: false
+    excludeImportStatements: false
+  MayBeConst:
+    active: false
+  ModifierOrder:
+    active: true
+  NestedClassesVisibility:
+    active: false
+  NewLineAtEndOfFile:
+    active: true
+  NoTabs:
+    active: false
+  OptionalAbstractKeyword:
+    active: true
+  OptionalUnit:
+    active: false
+  OptionalWhenBraces:
+    active: false
+  ProtectedMemberInFinalClass:
+    active: false
+  RedundantVisibilityModifierRule:
+    active: false
+  ReturnCount:
+    active: true
+    max: 2
+    excludedFunctions: &quot;equals&quot;
+  SafeCast:
+    active: true
+  SerialVersionUIDInSerializableClass:
+    active: false
+  SpacingBetweenPackageAndImports:
+    active: false
+  ThrowsCount:
+    active: true
+    max: 2
+  TrailingWhitespace:
+    active: false
+  UnnecessaryAbstractClass:
+    active: false
+  UnnecessaryInheritance:
+    active: false
+  UnnecessaryParentheses:
+    active: false
+  UntilInsteadOfRangeTo:
+    active: false
+  UnusedImports:
+    active: false
+  UnusedPrivateMember:
+    active: false
+  UseDataClass:
+    active: false
+    excludeAnnotatedClasses: &quot;&quot;
+  UtilityClassWithPublicConstructor:
+    active: false
+  WildcardImport:
+    active: true
+    excludeImports: &#39;java.util.*,kotlinx.android.synthetic.*&#39;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/css.js" target="_blank" title="show github file">css.js</a>
         </div>
         <div class="path">webpack.config.d/css.js</div>
