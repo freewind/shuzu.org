@@ -84,25 +84,28 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;kotlin-js-date-format-demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+        <pre class="content"><code class="kt">package example
 
-&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
+import kotlinjs.common.JsObj
+import kotlin.browser.window
+import kotlin.js.Date
 
-&lt;/body&gt;
-&lt;/html&gt;
+fun main(args: Array&lt;String&gt;) {
+    window.alert(today())
+}
+
+private fun today(): String {
+    fun option() = JsObj&lt;Date.LocaleOptions&gt;()
+    val year = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { year = &quot;numeric&quot; })
+    val month = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { month = &quot;2-digit&quot; })
+    val day = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { day = &quot;2-digit&quot; })
+    return &quot;$year-$month-$day&quot;
+}
 </code></pre>
     </div>
 </div>
@@ -144,28 +147,25 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-js-date-format-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;kotlin-js-date-format-demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-import kotlinjs.common.JsObj
-import kotlin.browser.window
-import kotlin.js.Date
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
 
-fun main(args: Array&lt;String&gt;) {
-    window.alert(today())
-}
-
-private fun today(): String {
-    fun option() = JsObj&lt;Date.LocaleOptions&gt;()
-    val year = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { year = &quot;numeric&quot; })
-    val month = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { month = &quot;2-digit&quot; })
-    val day = Date().toLocaleDateString(&quot;en-GB&quot;, option().apply { day = &quot;2-digit&quot; })
-    return &quot;$year-$month-$day&quot;
-}
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>

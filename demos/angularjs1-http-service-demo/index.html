@@ -29,36 +29,23 @@ Click on the &quot;Fetch&quot; button, you will see:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-app.controller(&#39;MyController&#39;, function ($scope, $http) {
-    $scope.fetchData = function () {
-        $http.get(&#39;/data.json&#39;)
-            .then(function success(response) {
-                $scope.data = response.data
-            }, function error(response) {
-                $scope.data = &#39;Failed: &#39; + JSON.stringify(response)
-            })
-    }
-})</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
-        </div>
-        <div class="path">data.json</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;AngularJS&quot;,
-  &quot;url&quot;: &quot;https://angularjs.org/&quot;
-}</code></pre>
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;http-server . -c-1 -o&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -89,23 +76,36 @@ app.controller(&#39;MyController&#39;, function ($scope, $http) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.controller(&#39;MyController&#39;, function ($scope, $http) {
+    $scope.fetchData = function () {
+        $http.get(&#39;/data.json&#39;)
+            .then(function success(response) {
+                $scope.data = response.data
+            }, function error(response) {
+                $scope.data = &#39;Failed: &#39; + JSON.stringify(response)
+            })
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
+        </div>
+        <div class="path">data.json</div>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;http-server . -c-1 -o&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;http-server&quot;: &quot;^0.11.1&quot;
-  }
-}
-</code></pre>
+  &quot;name&quot;: &quot;AngularJS&quot;,
+  &quot;url&quot;: &quot;https://angularjs.org/&quot;
+}</code></pre>
     </div>
 </div>
 

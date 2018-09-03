@@ -36,53 +36,6 @@ Notice
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;jasmine-es6-without-import-debugging-in-webstorm&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;jasmine-node --verbose --junitreport spec&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;babel-preset-es2015&quot;: &quot;^6.9.0&quot;,
-    &quot;jasmine&quot;: &quot;^2.4.1&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
-    &quot;jasmine-node&quot;: &quot;^1.14.5&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/run-spec.js" target="_blank" title="show github file">run-spec.js</a>
-        </div>
-        <div class="path">run-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var jasmine = require(&#39;jasmine-node&#39;);
-jasmine.executeSpecsInFolder({
-  specFolders: [&#39;spec&#39;],
-  isVerbose: true,
-  showColors: true
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
         </div>
         <div class="path">spec/hello-spec.js</div>
@@ -134,6 +87,53 @@ module.exports = class Hello {
     return bang;
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;jasmine-es6-without-import-debugging-in-webstorm&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jasmine-node --verbose --junitreport spec&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.9.0&quot;,
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
+    &quot;jasmine-node&quot;: &quot;^1.14.5&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-es6-without-import-debugging-in-webstorm/blob/master/run-spec.js" target="_blank" title="show github file">run-spec.js</a>
+        </div>
+        <div class="path">run-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var jasmine = require(&#39;jasmine-node&#39;);
+jasmine.executeSpecsInFolder({
+  specFolders: [&#39;spec&#39;],
+  isVerbose: true,
+  showColors: true
+});</code></pre>
     </div>
 </div>
 

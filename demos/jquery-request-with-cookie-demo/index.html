@@ -48,6 +48,35 @@ Cookie: _ga=GA1.1.1940290804.1517624988; Idea-e65a76ea=55cfa0a1-ed31-4683-9aaf-4
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/views/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">views/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        function getData() {
+            $.get(&#39;./data.json&#39;, function(data) {
+                $(&quot;#content&quot;).text(JSON.stringify(data));
+            })
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;button onclick=&quot;getData()&quot;&gt;Click to send AJAX GET&lt;/button&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
@@ -125,35 +154,6 @@ app.get(&#39;/data.json&#39;, function(req, res) {
 app.listen(3000, function() {
     console.log(&#39;server is listening on 3000&#39;);
 })</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jquery-request-with-cookie-demo/blob/master/views/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">views/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-
-&lt;head&gt;
-    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
-    &lt;script&gt;
-        function getData() {
-            $.get(&#39;./data.json&#39;, function(data) {
-                $(&quot;#content&quot;).text(JSON.stringify(data));
-            })
-        }
-    &lt;/script&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-    &lt;button onclick=&quot;getData()&quot;&gt;Click to send AJAX GET&lt;/button&gt;
-    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
-&lt;/body&gt;
-
-&lt;/html&gt;</code></pre>
     </div>
 </div>
 

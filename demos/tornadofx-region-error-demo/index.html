@@ -97,42 +97,6 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/java/example/JavaHello.java" target="_blank" title="show github file">JavaHello.java</a>
-        </div>
-        <div class="path">src/main/java/example/JavaHello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package example;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Region;
-import javafx.stage.Stage;
-
-public class JavaHello extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        FlowPane root = new FlowPane() {{
-            Region region = new Region();
-            region.setPrefSize(Double.MAX_VALUE, 0.0);
-            getChildren().add(region);
-        }};
-        primaryStage.setScene(new Scene(root, 400, 200));
-        primaryStage.show();
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/kotlin/example/KotlinJavafxHello.kt" target="_blank" title="show github file">KotlinJavafxHello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/KotlinJavafxHello.kt</div>
@@ -202,6 +166,42 @@ class KotlinHelloWorldApp : App(HelloWorld::class, HelloWorldStyle::class)
 fun main(args: Array&lt;String&gt;) {
     launch&lt;KotlinHelloWorldApp&gt;()
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/tornadofx-region-error-demo/blob/master/src/main/java/example/JavaHello.java" target="_blank" title="show github file">JavaHello.java</a>
+        </div>
+        <div class="path">src/main/java/example/JavaHello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+
+public class JavaHello extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        FlowPane root = new FlowPane() {{
+            Region region = new Region();
+            region.setPrefSize(Double.MAX_VALUE, 0.0);
+            getChildren().add(region);
+        }};
+        primaryStage.setScene(new Scene(root, 400, 200));
+        primaryStage.show();
+    }
+
+}
+</code></pre>
     </div>
 </div>
 

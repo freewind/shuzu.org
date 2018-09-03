@@ -88,72 +88,6 @@ app.listen(3000, function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;es6-project-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
-    &quot;test&quot;: &quot;jasmine || exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
-    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
-    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
-    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
-    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
-    &quot;webpack&quot;: &quot;^1.13.1&quot;,
-    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
-    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
-    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
-    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
-    &quot;express&quot;: &quot;^4.14.0&quot;,
-    &quot;jquery&quot;: &quot;^3.1.0&quot;,
-    &quot;lodash&quot;: &quot;^4.14.1&quot;,
-    &quot;react&quot;: &quot;^15.3.0&quot;,
-    &quot;react-dom&quot;: &quot;^15.3.0&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/spec/dummy-spec.js" target="_blank" title="show github file">dummy-spec.js</a>
         </div>
         <div class="path">spec/dummy-spec.js</div>
@@ -229,6 +163,72 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ]
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;es6-project-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
+    &quot;test&quot;: &quot;jasmine || exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
+    &quot;webpack&quot;: &quot;^1.13.1&quot;,
+    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
+    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;jquery&quot;: &quot;^3.1.0&quot;,
+    &quot;lodash&quot;: &quot;^4.14.1&quot;,
+    &quot;react&quot;: &quot;^15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^15.3.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

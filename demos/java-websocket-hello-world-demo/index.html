@@ -64,6 +64,32 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank" title="show github file">HelloSpec.java</a>
+        </div>
+        <div class="path">src/test/java/my/HelloSpec.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import org.junit.Test;
+
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class HelloSpec {
+
+    @Test
+    public void shouldSayHello() throws Exception {
+        String greeting = new Hello().hello(&quot;gradle&quot;);
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/main/java/my/Client.java" target="_blank" title="show github file">Client.java</a>
         </div>
         <div class="path">src/main/java/my/Client.java</div>
@@ -205,32 +231,6 @@ public class Server extends WebSocketServer {
     }
 
 }</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-websocket-hello-world-demo/blob/master/src/test/java/my/HelloSpec.java" target="_blank" title="show github file">HelloSpec.java</a>
-        </div>
-        <div class="path">src/test/java/my/HelloSpec.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import org.junit.Test;
-
-import static org.fest.assertions.api.Assertions.assertThat;
-
-public class HelloSpec {
-
-    @Test
-    public void shouldSayHello() throws Exception {
-        String greeting = new Hello().hello(&quot;gradle&quot;);
-        assertThat(greeting).isEqualTo(&quot;Hello, gradle&quot;);
-    }
-
-}
-</code></pre>
     </div>
 </div>
 

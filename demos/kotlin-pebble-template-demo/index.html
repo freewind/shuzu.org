@@ -71,6 +71,29 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-pebble-template-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-pebble-template-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
@@ -132,29 +155,6 @@ class Item(val name: String, val price: String, val keywords: List&lt;String&gt;
 {% endfor %}
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-pebble-template-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
-        </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
-
-}</code></pre>
     </div>
 </div>
 

@@ -87,29 +87,6 @@ module.exports = router;</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var bodyParser = require(&#39;body-parser&#39;);
-
-var app = express();
-app.use(bodyParser.json());
-
-app.use(&#39;/products&#39;, require(&#39;./products-router&#39;));
-app.use(&#39;/about&#39;, require(&#39;./about-router&#39;));
-
-var server = app.listen(3000, function () {
-  var port = server.address().port;
-  console.log(&quot;listen on &quot; + port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/next-id.js" target="_blank" title="show github file">next-id.js</a>
         </div>
         <div class="path">next-id.js</div>
@@ -121,33 +98,6 @@ module.exports = function () {
   id += 1;
   return id;
 };
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;how-to-write-express-app-quickly&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
-    &quot;express&quot;: &quot;^4.14.0&quot;,
-    &quot;lodash&quot;: &quot;^4.13.1&quot;
-  }
-}
 </code></pre>
     </div>
 </div>
@@ -185,6 +135,56 @@ module.exports = {
     });
   }
 };</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var app = express();
+app.use(bodyParser.json());
+
+app.use(&#39;/products&#39;, require(&#39;./products-router&#39;));
+app.use(&#39;/about&#39;, require(&#39;./about-router&#39;));
+
+var server = app.listen(3000, function () {
+  var port = server.address().port;
+  console.log(&quot;listen on &quot; + port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/how-to-write-express-app-quickly/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;how-to-write-express-app-quickly&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;lodash&quot;: &quot;^4.13.1&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

@@ -74,6 +74,49 @@ dependencies {
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
+    ```
+Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from non-modular project
+```
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import kotlin.browser.document
+
+@JsModule(&quot;hello&quot;)
+external fun hello(name: String): String = definedExternally
+
+fun main(args: Array&lt;String&gt;) {
+    document.getElementById(&quot;main&quot;)!!.innerHTML = hello(&quot;JsModule&quot;)
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/resources/hello.js" target="_blank" title="show github file">hello.js</a>
+        </div>
+        <div class="path">src/main/resources/hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">define(&#39;hello&#39;, function() {
+    return function(name) {
+        return &quot;Hello, &quot; + name + &quot;!&quot;;
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    `define`是JavaScript中AMD规范中定义的方法，
+详情可见: &lt;https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)&gt;</div>
+<div class="markdown markdown-body center-in-page">
     关键在于要指定`compileKotlin2Js`时，要使用`amd`规范，这样这个项目才会变成一个 **modular project**，不再报错：
 
 ```
@@ -95,6 +138,26 @@ npx http-server . -o
 ```
 
 可以看到打开的页面中，正常显示`Hello, JsModule!`。</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;kotlin&quot;: &quot;1.2.60&quot;,
+    &quot;requirejs&quot;: &quot;2.3.5&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;0.11.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -128,69 +191,6 @@ npx http-server . -o
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;kotlin&quot;: &quot;1.2.60&quot;,
-    &quot;requirejs&quot;: &quot;2.3.5&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;http-server&quot;: &quot;0.11.1&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import kotlin.browser.document
-
-@JsModule(&quot;hello&quot;)
-external fun hello(name: String): String = definedExternally
-
-fun main(args: Array&lt;String&gt;) {
-    document.getElementById(&quot;main&quot;)!!.innerHTML = hello(&quot;JsModule&quot;)
-}</code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    ```
-Can&#39;t access property &#39;hello&#39; marked with @JsModule annotation from non-modular project
-```
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-access-jsmodule-from-non-modular-project-error-demo/blob/master/src/main/resources/hello.js" target="_blank" title="show github file">hello.js</a>
-        </div>
-        <div class="path">src/main/resources/hello.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">define(&#39;hello&#39;, function() {
-    return function(name) {
-        return &quot;Hello, &quot; + name + &quot;!&quot;;
-    }
-})</code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    `define`是JavaScript中AMD规范中定义的方法，
-详情可见: &lt;https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88)&gt;</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

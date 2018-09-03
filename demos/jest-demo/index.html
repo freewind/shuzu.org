@@ -28,6 +28,28 @@ npm test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jest-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/__tests__/square-sum-spec.js" target="_blank" title="show github file">square-sum-spec.js</a>
         </div>
         <div class="path">__tests__/square-sum-spec.js</div>
@@ -45,6 +67,21 @@ describe(&#39;square-sum&#39;, () =&gt; {
     expect(result).toEqual(30);
   })
 })</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
+        </div>
+        <div class="path">square.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function square(a) {
+  throw new Error(&#39;todo&#39;);
+}
+
+module.exports = square;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -77,28 +114,6 @@ describe(&#39;square-sum&#39;, () =&gt; {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jest-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
-        </div>
-        <div class="path">spec/support/jasmine.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;spec_dir&quot;: &quot;spec&quot;,
-  &quot;spec_files&quot;: [
-    &quot;**/*[sS]pec.js&quot;
-  ],
-  &quot;helpers&quot;: [
-    &quot;helpers/**/*.js&quot;
-  ],
-  &quot;stopSpecOnExpectationFailure&quot;: false,
-  &quot;random&quot;: false
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/square-sum.js" target="_blank" title="show github file">square-sum.js</a>
         </div>
         <div class="path">square-sum.js</div>
@@ -111,21 +126,6 @@ function squareSum(numbers) {
 }
 
 module.exports = squareSum;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jest-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
-        </div>
-        <div class="path">square.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">function square(a) {
-  throw new Error(&#39;todo&#39;);
-}
-
-module.exports = square;</code></pre>
     </div>
 </div>
 

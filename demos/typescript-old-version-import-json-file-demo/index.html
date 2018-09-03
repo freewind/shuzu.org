@@ -41,13 +41,12 @@ So I use `tsc` in this demo.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
+            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/typings.d.ts" target="_blank" title="show github file">typings.d.ts</a>
         </div>
-        <div class="path">data.json</div>
+        <div class="path">typings.d.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;typescript&quot;
+        <pre class="content"><code class="ts">declare module &#39;*.json&#39; {
 }</code></pre>
     </div>
 </div>
@@ -63,6 +62,17 @@ So I use `tsc` in this demo.
 
 console.log(name)
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </div>
+        <div class="path">tsconfig.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{}</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -84,23 +94,13 @@ console.log(name)
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
         </div>
-        <div class="path">tsconfig.json</div>
+        <div class="path">data.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-old-version-import-json-file-demo/blob/master/typings.d.ts" target="_blank" title="show github file">typings.d.ts</a>
-        </div>
-        <div class="path">typings.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">declare module &#39;*.json&#39; {
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;typescript&quot;
 }</code></pre>
     </div>
 </div>

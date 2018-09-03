@@ -57,16 +57,27 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">webpack.config.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;html lang=&quot;en&quot;&gt;
-&lt;body&gt;
-&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+        <pre class="content"><code class="js">module.exports = {
+    entry: &#39;./entry.js&#39;,
+    output: {
+        path: __dirname,
+        filename: &#39;bundle.js&#39;
+    },
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: [
+                {loader: &#39;style-loader&#39;},
+                {loader: &#39;css-loader&#39;}
+            ]
+        }]
+    }
+}</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -99,27 +110,16 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">webpack.config.js</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-    entry: &#39;./entry.js&#39;,
-    output: {
-        path: __dirname,
-        filename: &#39;bundle.js&#39;
-    },
-    module: {
-        rules: [{
-            test: /\.css$/,
-            use: [
-                {loader: &#39;style-loader&#39;},
-                {loader: &#39;css-loader&#39;}
-            ]
-        }]
-    }
-}</code></pre>
+        <pre class="content"><code class="html">&lt;html lang=&quot;en&quot;&gt;
+&lt;body&gt;
+&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

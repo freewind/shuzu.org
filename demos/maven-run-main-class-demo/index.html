@@ -75,28 +75,6 @@ You will see a &quot;Hello world&quot; in the output.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/maven-run-main-class-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Hello.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-public class Hello {
-
-    public static void main(String[] args) {
-        System.out.println(&quot;********************&quot;);
-        System.out.println(&quot;Hello, world!&quot;);
-        System.out.println(&quot;********************&quot;);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/maven-run-main-class-demo/blob/master/src/test/java/demo/HelloTest.java" target="_blank" title="show github file">HelloTest.java</a>
         </div>
         <div class="path">src/test/java/demo/HelloTest.java</div>
@@ -114,6 +92,28 @@ public class HelloTest {
     public void shouldGreetingWithPassingName() throws Exception {
         Hello hello = new Hello();
         assertEquals(hello.greeting(&quot;Freewind&quot;), &quot;Hello, Freewind!&quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-run-main-class-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Hello.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+public class Hello {
+
+    public static void main(String[] args) {
+        System.out.println(&quot;********************&quot;);
+        System.out.println(&quot;Hello, world!&quot;);
+        System.out.println(&quot;********************&quot;);
     }
 
 }

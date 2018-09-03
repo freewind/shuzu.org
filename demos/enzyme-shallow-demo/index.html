@@ -30,71 +30,6 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/enzyme-shallow-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/enzyme-shallow-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;enzyme-shallow-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;webpack-dev-server --no-info --progress --colors || exit 0&quot;,
-    &quot;test&quot;: &quot;jasmine&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;6.13.2&quot;,
-    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
-    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
-    &quot;babel-register&quot;: &quot;6.11.6&quot;,
-    &quot;css-loader&quot;: &quot;0.23.1&quot;,
-    &quot;enzyme&quot;: &quot;2.4.1&quot;,
-    &quot;jasmine-enzyme&quot;: &quot;1.2.0&quot;,
-    &quot;react-addons-test-utils&quot;: &quot;15.3.1&quot;,
-    &quot;react-dom&quot;: &quot;15.3.1&quot;,
-    &quot;sinon&quot;: &quot;1.17.5&quot;,
-    &quot;style-loader&quot;: &quot;0.13.1&quot;,
-    &quot;webpack&quot;: &quot;1.13.1&quot;,
-    &quot;webpack-dev-server&quot;: &quot;1.14.1&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;react&quot;: &quot;15.3.0&quot;,
-    &quot;react-dom&quot;: &quot;15.3.0&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/enzyme-shallow-demo/blob/master/spec/my-component-spec.js" target="_blank" title="show github file">my-component-spec.js</a>
         </div>
         <div class="path">spec/my-component-spec.js</div>
@@ -192,6 +127,71 @@ describe(&#39;&lt;MyComponent /&gt;&#39;, () =&gt; {
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/enzyme-shallow-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;enzyme-shallow-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;webpack-dev-server --no-info --progress --colors || exit 0&quot;,
+    &quot;test&quot;: &quot;jasmine&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
+    &quot;babel-register&quot;: &quot;6.11.6&quot;,
+    &quot;css-loader&quot;: &quot;0.23.1&quot;,
+    &quot;enzyme&quot;: &quot;2.4.1&quot;,
+    &quot;jasmine-enzyme&quot;: &quot;1.2.0&quot;,
+    &quot;react-addons-test-utils&quot;: &quot;15.3.1&quot;,
+    &quot;react-dom&quot;: &quot;15.3.1&quot;,
+    &quot;sinon&quot;: &quot;1.17.5&quot;,
+    &quot;style-loader&quot;: &quot;0.13.1&quot;,
+    &quot;webpack&quot;: &quot;1.13.1&quot;,
+    &quot;webpack-dev-server&quot;: &quot;1.14.1&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;15.3.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/enzyme-shallow-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

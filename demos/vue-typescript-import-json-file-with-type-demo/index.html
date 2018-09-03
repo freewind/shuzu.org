@@ -52,131 +52,6 @@ To make `resolveJsonModule` work, we need:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;scripts&quot;: {
-    &quot;serve&quot;: &quot;vue-cli-service serve&quot;,
-    &quot;build&quot;: &quot;vue-cli-service build&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;vue&quot;: &quot;^2.5.17&quot;,
-    &quot;vue-class-component&quot;: &quot;^6.0.0&quot;,
-    &quot;vue-property-decorator&quot;: &quot;^7.0.0&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;@vue/cli-plugin-typescript&quot;: &quot;^3.0.0-rc.12&quot;,
-    &quot;@vue/cli-service&quot;: &quot;^3.0.0-rc.12&quot;,
-    &quot;typescript&quot;: &quot;^3.0.0&quot;,
-    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
-&lt;!-- built files will be auto injected --&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/data.json" target="_blank" title="show github file">data.json</a>
-        </div>
-        <div class="path">src/data.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">[
-  {
-    &quot;namex&quot;: &quot;vue&quot;
-  },
-  {
-    &quot;namex&quot;: &quot;typescript&quot;
-  },
-  {
-    &quot;namex&quot;: &quot;json&quot;
-  }
-]</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/main.ts" target="_blank" title="show github file">main.ts</a>
-        </div>
-        <div class="path">src/main.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import Vue from &#39;vue&#39;
-import App from &#39;./App.vue&#39;
-
-Vue.config.productionTip = false
-
-new Vue({
-  render: h =&gt; h(App)
-}).$mount(&#39;#app&#39;)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-tsx.d.ts" target="_blank" title="show github file">shims-tsx.d.ts</a>
-        </div>
-        <div class="path">src/shims-tsx.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">import Vue, { VNode } from &#39;vue&#39;
-
-declare global {
-  namespace JSX {
-    // tslint:disable no-empty-interface
-    interface Element extends VNode {}
-    // tslint:disable no-empty-interface
-    interface ElementClass extends Vue {}
-    interface IntrinsicElements {
-      [elem: string]: any
-    }
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-vue.d.ts" target="_blank" title="show github file">shims-vue.d.ts</a>
-        </div>
-        <div class="path">src/shims-vue.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">declare module &#39;*.vue&#39; {
-  import Vue from &#39;vue&#39;
-  export default Vue
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
         </div>
         <div class="path">tsconfig.json</div>
@@ -223,6 +98,131 @@ declare global {
     &quot;node_modules&quot;
   ]
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-tsx.d.ts" target="_blank" title="show github file">shims-tsx.d.ts</a>
+        </div>
+        <div class="path">src/shims-tsx.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import Vue, { VNode } from &#39;vue&#39;
+
+declare global {
+  namespace JSX {
+    // tslint:disable no-empty-interface
+    interface Element extends VNode {}
+    // tslint:disable no-empty-interface
+    interface ElementClass extends Vue {}
+    interface IntrinsicElements {
+      [elem: string]: any
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/shims-vue.d.ts" target="_blank" title="show github file">shims-vue.d.ts</a>
+        </div>
+        <div class="path">src/shims-vue.d.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">declare module &#39;*.vue&#39; {
+  import Vue from &#39;vue&#39;
+  export default Vue
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/main.ts" target="_blank" title="show github file">main.ts</a>
+        </div>
+        <div class="path">src/main.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h =&gt; h(App)
+}).$mount(&#39;#app&#39;)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/src/data.json" target="_blank" title="show github file">data.json</a>
+        </div>
+        <div class="path">src/data.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">[
+  {
+    &quot;namex&quot;: &quot;vue&quot;
+  },
+  {
+    &quot;namex&quot;: &quot;typescript&quot;
+  },
+  {
+    &quot;namex&quot;: &quot;json&quot;
+  }
+]</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;serve&quot;: &quot;vue-cli-service serve&quot;,
+    &quot;build&quot;: &quot;vue-cli-service build&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;vue&quot;: &quot;^2.5.17&quot;,
+    &quot;vue-class-component&quot;: &quot;^6.0.0&quot;,
+    &quot;vue-property-decorator&quot;: &quot;^7.0.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@vue/cli-plugin-typescript&quot;: &quot;^3.0.0-rc.12&quot;,
+    &quot;@vue/cli-service&quot;: &quot;^3.0.0-rc.12&quot;,
+    &quot;typescript&quot;: &quot;^3.0.0&quot;,
+    &quot;vue-template-compiler&quot;: &quot;^2.5.17&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-import-json-file-with-type-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;!-- built files will be auto injected --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>

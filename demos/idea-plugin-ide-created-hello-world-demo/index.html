@@ -54,6 +54,29 @@ Uninstall the plugin from the new created idea instance, then rerun the plugin. 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/idea-plugin-ide-created-hello-world-demo/blob/master/src/actions/HelloAction.java" target="_blank" title="show github file">HelloAction.java</a>
+        </div>
+        <div class="path">src/actions/HelloAction.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package actions;
+
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.ui.Messages;
+
+public class HelloAction extends AnAction {
+    @Override
+    public void actionPerformed(AnActionEvent anActionEvent) {
+        Messages.showInfoMessage(&quot;Hello from my plugin&quot;, &quot;Hello&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/idea-plugin-ide-created-hello-world-demo/blob/master/resources/META-INF/plugin.xml" target="_blank" title="show github file">plugin.xml</a>
         </div>
         <div class="path">resources/META-INF/plugin.xml</div>
@@ -99,29 +122,6 @@ Uninstall the plugin from the new created idea instance, then rerun the plugin. 
     &lt;/actions&gt;
 
 &lt;/idea-plugin&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/idea-plugin-ide-created-hello-world-demo/blob/master/src/actions/HelloAction.java" target="_blank" title="show github file">HelloAction.java</a>
-        </div>
-        <div class="path">src/actions/HelloAction.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package actions;
-
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.ui.Messages;
-
-public class HelloAction extends AnAction {
-    @Override
-    public void actionPerformed(AnActionEvent anActionEvent) {
-        Messages.showInfoMessage(&quot;Hello from my plugin&quot;, &quot;Hello&quot;);
-    }
-}
-</code></pre>
     </div>
 </div>
 

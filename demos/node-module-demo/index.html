@@ -44,6 +44,20 @@ Short version: You can ignore `exports` which is just for typing convenience.   
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m1.js" target="_blank" title="show github file">m1.js</a>
+        </div>
+        <div class="path">m1.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = function() {
+  console.log(&quot;Hello m1&quot;);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/node-module-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
@@ -83,20 +97,6 @@ try {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m1.js" target="_blank" title="show github file">m1.js</a>
-        </div>
-        <div class="path">m1.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = function() {
-  console.log(&quot;Hello m1&quot;);
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m2.js" target="_blank" title="show github file">m2.js</a>
         </div>
         <div class="path">m2.js</div>
@@ -115,22 +115,6 @@ try {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m3.js" target="_blank" title="show github file">m3.js</a>
-        </div>
-        <div class="path">m3.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = &quot;ABC&quot;;
-
-// This doesn&#39;t work
-exports.hello = function() {
-  console.log(&quot;Hello m3&quot;);
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m4.js" target="_blank" title="show github file">m4.js</a>
         </div>
         <div class="path">m4.js</div>
@@ -142,6 +126,22 @@ exports.hello = function() {
 
 exports.hello2 = function() {
   console.log(&quot;Hello2, m4&quot;);	
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-module-demo/blob/master/m3.js" target="_blank" title="show github file">m3.js</a>
+        </div>
+        <div class="path">m3.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = &quot;ABC&quot;;
+
+// This doesn&#39;t work
+exports.hello = function() {
+  console.log(&quot;Hello m3&quot;);
 }</code></pre>
     </div>
 </div>

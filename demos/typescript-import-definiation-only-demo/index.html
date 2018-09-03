@@ -24,6 +24,37 @@ npx ts-node hello.ts
 It will print `Hello, TypeScript!`    </div>
 </div>
 
+<div class="markdown markdown-body center-in-page">
+    ```
+npx ts-node hello-a.ts
+```
+
+有类型提示：
+
+![hello-a](./images/hello-a.jpg)
+
+如果参数类型不对，编译期就会失败。
+
+```
+Hello, typescript (from a)
+```
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts" target="_blank" title="show github file">hello-c.ts</a>
+        </div>
+        <div class="path">hello-c.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {hello} from &quot;./modules/c&quot;;
+
+hello(&quot;typescript&quot;);
+
+
+</code></pre>
+    </div>
+</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -41,23 +72,6 @@ hello(&quot;typescript&quot;);
 </code></pre>
     </div>
 </div>
-<div class="markdown markdown-body center-in-page">
-    ```
-npx ts-node hello-a.ts
-```
-
-有类型提示：
-
-![hello-a](./images/hello-a.jpg)
-
-如果参数类型不对，编译期就会失败。
-
-```
-Hello, typescript (from a)
-```
-</div>
-<div class="markdown markdown-body center-in-page">
-    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -71,6 +85,24 @@ Hello, typescript (from a)
 hello(&quot;typescript&quot;);
 </code></pre>
     </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    </div>
+<div class="markdown markdown-body center-in-page">
+    ```
+npx ts-node hello-c.ts
+```
+
+在编辑器中看起来一切正常，还有类型提示。
+
+![hello-c](./images/hello-c.jpg)
+
+但是运行时，会提示找不到`./modules/c`，因为没有提供真正运行的js文件：
+
+```
+Cannot find module &#39;./modules/c&#39;
+```
+
 </div>
 <div class="markdown markdown-body center-in-page">
     ```
@@ -91,44 +123,17 @@ Hello, typescript (from b)
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts" target="_blank" title="show github file">hello-c.ts</a>
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">hello-c.ts</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">import {hello} from &quot;./modules/c&quot;;
-
-hello(&quot;typescript&quot;);
-
-
-</code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    ```
-npx ts-node hello-c.ts
-```
-
-在编辑器中看起来一切正常，还有类型提示。
-
-![hello-c](./images/hello-c.jpg)
-
-但是运行时，会提示找不到`./modules/c`，因为没有提供真正运行的js文件：
-
-```
-Cannot find module &#39;./modules/c&#39;
-```
-
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
-        </div>
-        <div class="path">modules/a.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">export declare function hello(name: any): void;
+        <pre class="content"><code class="json">{
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;7.0.0&quot;,
+    &quot;typescript&quot;: &quot;3.0.1&quot;
+  }
+}
 </code></pre>
     </div>
 </div>
@@ -152,23 +157,6 @@ exports.hello = hello;
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/b.js" target="_blank" title="show github file">b.js</a>
-        </div>
-        <div class="path">modules/b.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-exports.__esModule = true;
-function hello(name) {
-    console.log(&quot;Hello, &quot; + name + &quot; (from b)&quot;);
-}
-exports.hello = hello;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/c.d.ts" target="_blank" title="show github file">c.d.ts</a>
         </div>
         <div class="path">modules/c.d.ts</div>
@@ -181,17 +169,29 @@ exports.hello = hello;
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">modules/a.d.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;devDependencies&quot;: {
-    &quot;ts-node&quot;: &quot;7.0.0&quot;,
-    &quot;typescript&quot;: &quot;3.0.1&quot;
-  }
+        <pre class="content"><code class="ts">export declare function hello(name: any): void;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/b.js" target="_blank" title="show github file">b.js</a>
+        </div>
+        <div class="path">modules/b.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+exports.__esModule = true;
+function hello(name) {
+    console.log(&quot;Hello, &quot; + name + &quot; (from b)&quot;);
 }
+exports.hello = hello;
 </code></pre>
     </div>
 </div>

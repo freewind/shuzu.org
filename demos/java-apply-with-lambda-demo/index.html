@@ -55,6 +55,38 @@ Run `NormalStyle.java` or `ApplyWithLambdaStyle.java` in your IDE.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/User.java" target="_blank" title="show github file">User.java</a>
+        </div>
+        <div class="path">src/main/java/demo/User.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+class User {
+    String name;
+    String email;
+    String address;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{name=&quot; + name + &quot;, email=&quot; + email + &quot;, address=&quot; + address + &#39;}&#39;;
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    Output:
+
+```
+User{name=Freewind, email=hello@test.com, address=China}
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/ApplyStyle.java" target="_blank" title="show github file">ApplyStyle.java</a>
         </div>
         <div class="path">src/main/java/demo/ApplyStyle.java</div>
@@ -121,38 +153,6 @@ public class NormalStyle {
 
 }
 </code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    Output:
-
-```
-User{name=Freewind, email=hello@test.com, address=China}
-```</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-apply-with-lambda-demo/blob/master/src/main/java/demo/User.java" target="_blank" title="show github file">User.java</a>
-        </div>
-        <div class="path">src/main/java/demo/User.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-class User {
-    String name;
-    String email;
-    String address;
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return &quot;User{name=&quot; + name + &quot;, email=&quot; + email + &quot;, address=&quot; + address + &#39;}&#39;;
-    }
-}</code></pre>
     </div>
 </div>
 

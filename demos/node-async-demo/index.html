@@ -65,6 +65,23 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick.js" target="_blank" title="show github file">next-tick.js</a>
+        </div>
+        <div class="path">next-tick.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&#39;111&#39;);
+
+process.nextTick(function() {
+  console.log(&#39;nextTick: 111&#39;);
+});
+
+console.log(&#39;222&#39;);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/all.js" target="_blank" title="show github file">all.js</a>
         </div>
         <div class="path">all.js</div>
@@ -164,61 +181,28 @@ setTimeout(function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/crazy-set-immediate.js" target="_blank" title="show github file">crazy-set-immediate.js</a>
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-main.js" target="_blank" title="show github file">set-timeout-set-immediate-in-main.js</a>
         </div>
-        <div class="path">crazy-set-immediate.js</div>
+        <div class="path">set-timeout-set-immediate-in-main.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">setImmediate(function () {
-  console.log(&quot;setImmediate: 1&quot;);
-  setImmediate(function () {
-    console.log(&quot;setImmediate: 2&quot;);
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 3&quot;);
-    });
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 4&quot;);
-    });
-  });
+        <pre class="content"><code class="js">setTimeout(function timeout () {
+  console.log(&#39;timeout&#39;);
+},0);
 
-  setImmediate(function () {
-    console.log(&quot;setImmediate: 5&quot;);
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 6&quot;);
-    });
-    setImmediate(function () {
-      console.log(&quot;setImmediate: 7&quot;);
-    });
-  });
+setImmediate(function immediate () {
+  console.log(&#39;immediate&#39;);
 });
 
-setTimeout(function() {
-  console.log(&#39;setTimeout&#39;);
-}, 0);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/inspect-event-queue.js" target="_blank" title="show github file">inspect-event-queue.js</a>
-        </div>
-        <div class="path">inspect-event-queue.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">function showRequests() {
-  // get a list of open handles/file descriptors.
-  console.log(process._getActiveHandles().length); 
-  // get a list of active I/O requests
-  console.log(process._getActiveRequests().length); 
-}
-
-showRequests();
-
-setImmediate(function() {
-  console.log(&#39;hello&#39;);
-});
-
-showRequests();</code></pre>
+/////////////////////////////
+/*
+$ node d.js
+immediate
+timeout
+$ node d.js
+timeout
+immediate
+*/</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -247,93 +231,25 @@ myNextTick();</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/next-tick.js" target="_blank" title="show github file">next-tick.js</a>
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/inspect-event-queue.js" target="_blank" title="show github file">inspect-event-queue.js</a>
         </div>
-        <div class="path">next-tick.js</div>
+        <div class="path">inspect-event-queue.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">console.log(&#39;111&#39;);
-
-process.nextTick(function() {
-  console.log(&#39;nextTick: 111&#39;);
-});
-
-console.log(&#39;222&#39;);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;node-async-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;read-big-file.js&quot;,
-  &quot;dependencies&quot;: {
-    &quot;express&quot;: &quot;^4.14.0&quot;,
-    &quot;sleep&quot;: &quot;^3.0.1&quot;
-  },
-  &quot;devDependencies&quot;: {},
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/read-file-and-sleep.js" target="_blank" title="show github file">read-file-and-sleep.js</a>
-        </div>
-        <div class="path">read-file-and-sleep.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var fs = require(&#39;fs&#39;);
-var sleep = require(&#39;sleep&#39;).sleep;
-
-function showQueue() {
-  console.log(process._getActiveRequests().length);  
+        <pre class="content"><code class="js">function showRequests() {
+  // get a list of open handles/file descriptors.
+  console.log(process._getActiveHandles().length); 
+  // get a list of active I/O requests
+  console.log(process._getActiveRequests().length); 
 }
 
-showQueue();
+showRequests();
 
-var stream = fs.createReadStream(&quot;./package.json&quot;);
-
-showQueue();
-
-// block the code for 3s
-sleep(3);
-
-showQueue();
-
-var i = 0;
-
-stream.on(&#39;open&#39;, function() {
-  console.log(&#39;file is opened&#39;);
+setImmediate(function() {
+  console.log(&#39;hello&#39;);
 });
 
-stream.on(&#39;data&#39;, function(data) {
-  i += 1;
-  showQueue();
-  console.log(&#39;data &#39; + i + &#39;: &#39; + data.length);
-});
-
-
-stream.on(&#39;end&#39;, function() {
-  console.log(&#39;------------ end -----------&#39;);
-  showQueue();
-})
-
-
-</code></pre>
+showRequests();</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -408,6 +324,69 @@ console.log(&quot;222&quot;);</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;node-async-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;read-big-file.js&quot;,
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;sleep&quot;: &quot;^3.0.1&quot;
+  },
+  &quot;devDependencies&quot;: {},
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/crazy-set-immediate.js" target="_blank" title="show github file">crazy-set-immediate.js</a>
+        </div>
+        <div class="path">crazy-set-immediate.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">setImmediate(function () {
+  console.log(&quot;setImmediate: 1&quot;);
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 2&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 3&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 4&quot;);
+    });
+  });
+
+  setImmediate(function () {
+    console.log(&quot;setImmediate: 5&quot;);
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 6&quot;);
+    });
+    setImmediate(function () {
+      console.log(&quot;setImmediate: 7&quot;);
+    });
+  });
+});
+
+setTimeout(function() {
+  console.log(&#39;setTimeout&#39;);
+}, 0);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-a-io-callback.js" target="_blank" title="show github file">set-timeout-set-immediate-in-a-io-callback.js</a>
         </div>
         <div class="path">set-timeout-set-immediate-in-a-io-callback.js</div>
@@ -428,33 +407,6 @@ fs.readFile(__filename, () =&gt; {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate-in-main.js" target="_blank" title="show github file">set-timeout-set-immediate-in-main.js</a>
-        </div>
-        <div class="path">set-timeout-set-immediate-in-main.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">setTimeout(function timeout () {
-  console.log(&#39;timeout&#39;);
-},0);
-
-setImmediate(function immediate () {
-  console.log(&#39;immediate&#39;);
-});
-
-/////////////////////////////
-/*
-$ node d.js
-immediate
-timeout
-$ node d.js
-timeout
-immediate
-*/</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/node-async-demo/blob/master/set-timeout-set-immediate.js" target="_blank" title="show github file">set-timeout-set-immediate.js</a>
         </div>
         <div class="path">set-timeout-set-immediate.js</div>
@@ -467,6 +419,54 @@ immediate
 setImmediate(function() {
   console.log(&#39;setImmediate&#39;)
 });</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/node-async-demo/blob/master/read-file-and-sleep.js" target="_blank" title="show github file">read-file-and-sleep.js</a>
+        </div>
+        <div class="path">read-file-and-sleep.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var fs = require(&#39;fs&#39;);
+var sleep = require(&#39;sleep&#39;).sleep;
+
+function showQueue() {
+  console.log(process._getActiveRequests().length);  
+}
+
+showQueue();
+
+var stream = fs.createReadStream(&quot;./package.json&quot;);
+
+showQueue();
+
+// block the code for 3s
+sleep(3);
+
+showQueue();
+
+var i = 0;
+
+stream.on(&#39;open&#39;, function() {
+  console.log(&#39;file is opened&#39;);
+});
+
+stream.on(&#39;data&#39;, function(data) {
+  i += 1;
+  showQueue();
+  console.log(&#39;data &#39; + i + &#39;: &#39; + data.length);
+});
+
+
+stream.on(&#39;end&#39;, function() {
+  console.log(&#39;------------ end -----------&#39;);
+  showQueue();
+})
+
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

@@ -29,43 +29,6 @@ go test .
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/go-monkey-mock-testing-demo/blob/master/hello.go" target="_blank" title="show github file">hello.go</a>
-        </div>
-        <div class="path">hello.go</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="go">package main
-
-import (
-	&quot;fmt&quot;
-	&quot;time&quot;
-)
-
-type Clock struct {
-	name string
-}
-
-func (clock *Clock) GetNow() time.Time {
-	return time.Now()
-}
-
-func Hello() string {
-	return &quot;Hello!&quot;
-}
-
-func main() {
-	clock := &amp;Clock{
-		name: &quot;my-clock&quot;,
-	}
-	fmt.Println(clock.GetNow())
-	fmt.Println(Hello())
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/go-monkey-mock-testing-demo/blob/master/hello_test.go" target="_blank" title="show github file">hello_test.go</a>
         </div>
         <div class="path">hello_test.go</div>
@@ -98,6 +61,43 @@ func TestMockMethod(t *testing.T) {
 	})
 	defer patches.Unpatch()
 	assert.Equal(t, clock.GetNow().Day(), 11)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-monkey-mock-testing-demo/blob/master/hello.go" target="_blank" title="show github file">hello.go</a>
+        </div>
+        <div class="path">hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+type Clock struct {
+	name string
+}
+
+func (clock *Clock) GetNow() time.Time {
+	return time.Now()
+}
+
+func Hello() string {
+	return &quot;Hello!&quot;
+}
+
+func main() {
+	clock := &amp;Clock{
+		name: &quot;my-clock&quot;,
+	}
+	fmt.Println(clock.GetNow())
+	fmt.Println(Hello())
 }
 </code></pre>
     </div>

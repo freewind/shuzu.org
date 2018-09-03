@@ -42,25 +42,16 @@ Thanks for [Petr Averyanov&#39;s answer](https://stackoverflow.com/a/52114151/34
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-terminal-issue-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-terminal-issue-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-
-app.controller(&#39;MyController&#39;, function ($scope) {
-    $scope.hello = &#39;Hello, AngularJS&#39;
-})
-
-app.directive(&#39;myTerminal&#39;, function () {
-    return {
-        terminal: true,
-        link: function () {
-            console.log(&#39;--- myTerminal&#39;)
-        }
-    }
-})
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
 </code></pre>
     </div>
 </div>
@@ -89,16 +80,25 @@ app.directive(&#39;myTerminal&#39;, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-terminal-issue-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-terminal-issue-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+
+app.controller(&#39;MyController&#39;, function ($scope) {
+    $scope.hello = &#39;Hello, AngularJS&#39;
+})
+
+app.directive(&#39;myTerminal&#39;, function () {
+    return {
+        terminal: true,
+        link: function () {
+            console.log(&#39;--- myTerminal&#39;)
+        }
+    }
+})
 </code></pre>
     </div>
 </div>

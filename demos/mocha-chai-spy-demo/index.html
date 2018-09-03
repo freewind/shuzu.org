@@ -29,6 +29,31 @@ npm test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-spy-demo/blob/master/spec/test.js" target="_blank" title="show github file">test.js</a>
+        </div>
+        <div class="path">spec/test.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import chai from &#39;chai&#39;;
+import spies  from &#39;chai-spies&#39;;
+
+chai.should();
+chai.use(spies);
+
+describe(&#39;chai should&#39;, function() {
+
+  it(&#39;spy&#39;, () =&gt; {
+    const spy = chai.spy();
+    spy(&#39;aaa&#39;);
+    spy.should.have.been.called.with(&#39;aaa&#39;);
+  });
+
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/mocha-chai-spy-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
@@ -55,31 +80,6 @@ npm test
   &quot;dependencies&quot;: {}
 }
 </code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mocha-chai-spy-demo/blob/master/spec/test.js" target="_blank" title="show github file">test.js</a>
-        </div>
-        <div class="path">spec/test.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import chai from &#39;chai&#39;;
-import spies  from &#39;chai-spies&#39;;
-
-chai.should();
-chai.use(spies);
-
-describe(&#39;chai should&#39;, function() {
-
-  it(&#39;spy&#39;, () =&gt; {
-    const spy = chai.spy();
-    spy(&#39;aaa&#39;);
-    spy.should.have.been.called.with(&#39;aaa&#39;);
-  });
-
-});</code></pre>
     </div>
 </div>
 

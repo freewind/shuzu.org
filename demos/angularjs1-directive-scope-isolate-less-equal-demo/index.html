@@ -54,6 +54,47 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-less-equal-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-less-equal-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div ng-controller=&quot;myController&quot; class=&quot;controller&quot;&gt;
+    &lt;div&gt;{{ userInfo }}
+        &lt;button ng-click=&quot;change()&quot;&gt;Change from parent&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;hr&gt;
+    &lt;div class=&quot;directive&quot;&gt;
+        &lt;my-directive user-info=&quot;userInfo&quot;&gt;&lt;/my-directive&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-less-equal-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
         <div class="path">app.js</div>
@@ -92,47 +133,6 @@ app.directive(&#39;myDirective&#39;, function () {
         }
     }
 })</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-less-equal-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;body ng-app=&quot;app&quot;&gt;
-&lt;div ng-controller=&quot;myController&quot; class=&quot;controller&quot;&gt;
-    &lt;div&gt;{{ userInfo }}
-        &lt;button ng-click=&quot;change()&quot;&gt;Change from parent&lt;/button&gt;
-    &lt;/div&gt;
-    &lt;hr&gt;
-    &lt;div class=&quot;directive&quot;&gt;
-        &lt;my-directive user-info=&quot;userInfo&quot;&gt;&lt;/my-directive&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-less-equal-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
     </div>
 </div>
 

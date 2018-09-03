@@ -52,422 +52,32 @@ npm run webpack:watch
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/webpack.config-test.js" target="_blank" title="show github file">webpack.config-test.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">webpack.config-test.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;react-redux-todolist-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;http-server ./public || exit 0&quot;,
-    &quot;webpack&quot;: &quot;webpack&quot;,
-    &quot;webpack:watch&quot;: &quot;webpack -w&quot;,
-    &quot;test&quot;: &quot;mocha-webpack --webpack-config webpack.config-test.js --recursive --require ./spec/test-helper.js \&quot;spec\&quot;&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;6.13.2&quot;,
-    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
-    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
-    &quot;chai&quot;: &quot;3.5.0&quot;,
-    &quot;chai-enzyme&quot;: &quot;0.5.2&quot;,
-    &quot;chai-spies&quot;: &quot;0.7.1&quot;,
-    &quot;classnames&quot;: &quot;2.2.5&quot;,
-    &quot;css-loader&quot;: &quot;0.23.1&quot;,
-    &quot;enzyme&quot;: &quot;2.4.1&quot;,
-    &quot;http-server&quot;: &quot;0.9.0&quot;,
-    &quot;jsdom-global&quot;: &quot;2.1.0&quot;,
-    &quot;less&quot;: &quot;2.7.1&quot;,
-    &quot;less-loader&quot;: &quot;2.2.3&quot;,
-    &quot;mocha&quot;: &quot;3.1.0&quot;,
-    &quot;mocha-webpack&quot;: &quot;0.6.0&quot;,
-    &quot;react-addons-test-utils&quot;: &quot;15.3.2&quot;,
-    &quot;sinon&quot;: &quot;1.17.6&quot;,
-    &quot;sinon-chai&quot;: &quot;2.8.0&quot;,
-    &quot;style-loader&quot;: &quot;0.13.1&quot;,
-    &quot;webpack&quot;: &quot;1.13.1&quot;,
-    &quot;webpack-node-externals&quot;: &quot;1.5.4&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;lodash&quot;: &quot;4.14.1&quot;,
-    &quot;react&quot;: &quot;15.3.0&quot;,
-    &quot;react-dom&quot;: &quot;15.3.0&quot;,
-    &quot;react-redux&quot;: &quot;4.4.5&quot;,
-    &quot;redux&quot;: &quot;3.6.0&quot;,
-    &quot;uuid&quot;: &quot;2.0.3&quot;
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+var nodeExternals = require(&#39;webpack-node-externals&#39;);
+
+module.exports = {
+  target: &#39;node&#39;, // in order to ignore built-in modules like path, fs, etc.
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
   }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;title&gt;Todos&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/clear-complete-button-spec.js" target="_blank" title="show github file">clear-complete-button-spec.js</a>
-        </div>
-        <div class="path">spec/components/clear-complete-button-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import ClearCompleteButton from &quot;../../src/components/clear-complete-button.jsx&quot;;
-import sinon from &#39;sinon&#39;;
-import {mount} from &quot;enzyme&quot;;
-
-describe(&#39;&lt;ClearCompleteButton /&gt;&#39;, () =&gt; {
-
-  let clearCompleteTodos;
-
-  beforeEach(()=&gt; {
-    clearCompleteTodos = sinon.spy();
-  });
-
-  it(&#39;calls clearCompleteTodos when clicked&#39;, () =&gt; {
-    const wrapper = mount(&lt;ClearCompleteButton clearCompleteTodos={clearCompleteTodos}/&gt;);
-    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
-    clearCompleteTodos.should.have.been.called;
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/filter-button-spec.js" target="_blank" title="show github file">filter-button-spec.js</a>
-        </div>
-        <div class="path">spec/components/filter-button-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import FilterButton from &quot;../../src/components/filter-button.jsx&quot;;
-import sinon from &#39;sinon&#39;;
-import {mount} from &quot;enzyme&quot;;
-
-describe(&#39;&lt;FilterButton /&gt;&#39;, () =&gt; {
-
-  let filterTodos;
-
-  beforeEach(()=&gt; {
-    filterTodos = sinon.spy();
-  });
-
-  it(&#39;shows the button name&#39;, () =&gt; {
-    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
-                                        forFilter=&quot;active&quot; globalFilter=&quot;active&quot;
-                                        filterTodos={filterTodos}/&gt;);
-    wrapper.should.contain.text(&#39;ALL&#39;);
-  });
-
-  it(&#39;has the .selected class if filter matched&#39;, ()=&gt; {
-    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
-                                        forFilter=&quot;active&quot; globalFilter=&quot;active&quot;
-                                        filterTodos={filterTodos}/&gt;);
-    wrapper.find(&#39;button&#39;).should.have.className(&#39;selected&#39;);
-  });
-
-  it(&#39;does not have the .selected class if filter is not matched&#39;, ()=&gt; {
-    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
-                                        forFilter=&quot;active&quot; globalFilter=&quot;differentFilter&quot;
-                                        filterTodos={filterTodos}/&gt;);
-    wrapper.find(&#39;button&#39;).should.not.have.className(&#39;selected&#39;);
-  });
-
-  it(&#39;calls filterTodos when the button is clicked&#39;, () =&gt; {
-    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
-                                        forFilter=&quot;active&quot; globalFilter=&quot;completed&quot;
-                                        filterTodos={filterTodos}/&gt;);
-    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
-    filterTodos.should.have.been.calledWith(&#39;active&#39;);
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/footer-spec.js" target="_blank" title="show github file">footer-spec.js</a>
-        </div>
-        <div class="path">spec/components/footer-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import Footer from &quot;../../src/components/footer.jsx&quot;;
-import {mount} from &quot;enzyme&quot;;
-import {Provider} from &quot;react-redux&quot;;
-import sinon from &quot;sinon&quot;;
-
-describe(&#39;&lt;Footer /&gt;&#39;, () =&gt; {
-
-  let mockStore;
-
-  beforeEach(()=&gt; {
-    mockStore = {
-      dispatch: sinon.spy(),
-      getState: ()=&gt;({
-        todos: []
-      }),
-      subscribe: sinon.spy()
-    };
-  });
-
-  it(&#39;shows ClearCompleteButton if there is any complete todos&#39;, () =&gt; {
-    const wrapper = mount(
-      &lt;Provider store={mockStore}&gt;
-        &lt;Footer hasCompleteTodos={true}/&gt;
-      &lt;/Provider&gt;);
-    wrapper.should.contain.text(&quot;Clear completed&quot;);
-  });
-
-  it(&#39;should not show ClearCompleteButton if there no complete todos&#39;, () =&gt; {
-    const wrapper = mount(&lt;Provider store={mockStore}&gt;
-      &lt;Footer hasCompleteTodos={false}/&gt;
-    &lt;/Provider&gt;);
-    wrapper.should.not.contain.text(&quot;Clear completed&quot;);
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
-        </div>
-        <div class="path">spec/components/hello-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &#39;react&#39;;
-import Hello from &#39;../../src/components/Hello.jsx&#39;;
-import sinon from &#39;sinon&#39;;
-import {shallow} from &#39;enzyme&#39;;
-
-describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
-
-  it(&#39;shows fruit names&#39;, () =&gt; {
-    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]}/&gt;);
-    wrapper.contains(&#39;AAA&#39;).should.be.true;
-    wrapper.contains(&#39;BBB&#39;).should.be.true;
-  });
-
-  it(&#39;calls onFruitDelete if deletes a fruit&#39;, () =&gt; {
-    const spy = sinon.spy();
-    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]} onDeleteFruit={spy}/&gt;);
-    wrapper.find(&#39;button[title=&quot;delete&quot;]&#39;).first().simulate(&#39;click&#39;);
-    spy.should.have.been.calledWith(&#39;AAA&#39;);
-  })
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-active-count-spec.js" target="_blank" title="show github file">todo-active-count-spec.js</a>
-        </div>
-        <div class="path">spec/components/todo-active-count-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import TodoActiveCount from &quot;../../src/components/todo-active-count.jsx&quot;;
-import {mount} from &quot;enzyme&quot;;
-
-describe(&#39;&lt;TodoActiveCount /&gt;&#39;, () =&gt; {
-
-  it(&#39;shows the active count&#39;, () =&gt; {
-    const wrapper = mount(&lt;TodoActiveCount activeCount={3}/&gt;);
-    wrapper.should.contain.text(&#39;3 items left&#39;);
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-input-spec.js" target="_blank" title="show github file">todo-input-spec.js</a>
-        </div>
-        <div class="path">spec/components/todo-input-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import TodoInput from &quot;../../src/components/todo-input.jsx&quot;;
-import sinon from &#39;sinon&#39;;
-import {mount} from &quot;enzyme&quot;;
-
-describe(&#39;&lt;TodoInput /&gt;&#39;, () =&gt; {
-
-  let onNewTodo, wrapper, input;
-
-  beforeEach(()=&gt; {
-    onNewTodo = sinon.spy();
-    wrapper = mount(&lt;TodoInput onNewTodo={onNewTodo}/&gt;);
-    input = wrapper.find(&#39;#todo-input&#39;);
-  });
-
-  it(&#39;adds a todo when presses enter&#39;, () =&gt; {
-    input.get(0).value = &quot;eat&quot;;
-    input.simulate(&#39;keypress&#39;, {charCode: 13});
-    onNewTodo.should.have.been.calledWith(&#39;eat&#39;);
-  });
-
-  it(&#39;does not add todo if value is empty when presses enter&#39;, () =&gt; {
-    input.get(0).value = &quot;&quot;;
-    input.simulate(&#39;keypress&#39;, {charCode: 13});
-    onNewTodo.should.not.have.been.called;
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-list-spec.js" target="_blank" title="show github file">todo-list-spec.js</a>
-        </div>
-        <div class="path">spec/components/todo-list-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import TodoList from &quot;../../src/components/todo-list.jsx&quot;;
-import {mount} from &quot;enzyme&quot;;
-import sinon from &#39;sinon&#39;;
-import {Provider} from &quot;react-redux&quot;;
-
-describe(&#39;&lt;TodoList /&gt;&#39;, () =&gt; {
-
-  it(&#39;shows todos&#39;, () =&gt; {
-    const todos = [
-      {id: &#39;uuid1&#39;, content: &#39;run1&#39;, active: true},
-      {id: &#39;uuid2&#39;, content: &#39;run2&#39;, active: true}
-    ];
-
-    const mockStore = {
-      dispatch: sinon.spy(),
-      getState: sinon.spy(),
-      subscribe: sinon.spy()
-    };
-    const wrapper = mount(
-      &lt;Provider store={mockStore}&gt;
-        &lt;TodoList todos={todos}/&gt;
-      &lt;/Provider&gt;);
-    wrapper.should.contain.text(&#39;run1&#39;);
-    wrapper.should.contain.text(&#39;run2&#39;);
-  });
-
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-spec.js" target="_blank" title="show github file">todo-spec.js</a>
-        </div>
-        <div class="path">spec/components/todo-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-
-import React from &quot;react&quot;;
-import Todo from &quot;../../src/components/todo.jsx&quot;;
-import sinon from &#39;sinon&#39;;
-import {mount} from &quot;enzyme&quot;;
-
-describe(&#39;&lt;Todo /&gt;&#39;, () =&gt; {
-
-  let onEditTodo, onToggleTodo, onDeleteTodo, wrapper, input;
-
-  beforeEach(()=&gt; {
-    onEditTodo = sinon.spy();
-    onToggleTodo = sinon.spy();
-    onDeleteTodo = sinon.spy();
-    const todo = {id: &#39;uuid1&#39;, content: &#39;test-todo&#39;, active: true};
-    wrapper = mount(&lt;Todo onEditTodo={onEditTodo}
-                          onToggleTodo={onToggleTodo}
-                          onDeleteTodo={onDeleteTodo}
-                          todo={todo}/&gt;);
-  });
-
-  it(&#39;shows todo content&#39;, () =&gt; {
-    wrapper.find(&quot;.content&quot;).should.contain.text(&#39;test-todo&#39;);
-    wrapper.find(&quot;input.edit&quot;).should.not.present();
-  });
-
-  it(&#39;turns to text input if double-click on the todo content&#39;, ()=&gt; {
-    wrapper.find(&quot;.content&quot;).simulate(&#39;doubleClick&#39;);
-    wrapper.find(&quot;.content&quot;).should.not.present();
-    wrapper.find(&quot;input.edit&quot;).should.present();
-    wrapper.find(&quot;input.edit&quot;).should.have.value(&#39;test-todo&#39;);
-  });
-
-  it(&#39;calls onEditTodo when press enter on the text input&#39;, ()=&gt; {
-    wrapper.find(&quot;.content&quot;).simulate(&#39;doubleClick&#39;);
-    var input = wrapper.find(&quot;input.edit&quot;);
-    input.get(0).value = &quot;test-todo-2&quot;;
-    input.simulate(&#39;keypress&#39;, {charCode: 13});
-    onEditTodo.should.have.been.calledWith(&#39;uuid1&#39;, &#39;test-todo-2&#39;);
-  });
-
-  it(&#39;calls onToggleTodo when checkbox state changes&#39;, () =&gt; {
-    wrapper.find(&#39;.todo-state&#39;).simulate(&#39;change&#39;, {target: {value: true}});
-    onToggleTodo.should.have.been.calledWith(&#39;uuid1&#39;);
-  });
-
-  it(&#39;calls onDeleteTodo when click on the delete button&#39;, () =&gt; {
-    wrapper.find(&#39;button.todo-delete&#39;).simulate(&#39;click&#39;);
-    onDeleteTodo.should.have.been.calledWith(&#39;uuid1&#39;);
-  })
-
-});
+};
 </code></pre>
     </div>
 </div>
@@ -554,6 +164,384 @@ chai.use(chaiEnzyme());
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/footer-spec.js" target="_blank" title="show github file">footer-spec.js</a>
+        </div>
+        <div class="path">spec/components/footer-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import Footer from &quot;../../src/components/footer.jsx&quot;;
+import {mount} from &quot;enzyme&quot;;
+import {Provider} from &quot;react-redux&quot;;
+import sinon from &quot;sinon&quot;;
+
+describe(&#39;&lt;Footer /&gt;&#39;, () =&gt; {
+
+  let mockStore;
+
+  beforeEach(()=&gt; {
+    mockStore = {
+      dispatch: sinon.spy(),
+      getState: ()=&gt;({
+        todos: []
+      }),
+      subscribe: sinon.spy()
+    };
+  });
+
+  it(&#39;shows ClearCompleteButton if there is any complete todos&#39;, () =&gt; {
+    const wrapper = mount(
+      &lt;Provider store={mockStore}&gt;
+        &lt;Footer hasCompleteTodos={true}/&gt;
+      &lt;/Provider&gt;);
+    wrapper.should.contain.text(&quot;Clear completed&quot;);
+  });
+
+  it(&#39;should not show ClearCompleteButton if there no complete todos&#39;, () =&gt; {
+    const wrapper = mount(&lt;Provider store={mockStore}&gt;
+      &lt;Footer hasCompleteTodos={false}/&gt;
+    &lt;/Provider&gt;);
+    wrapper.should.not.contain.text(&quot;Clear completed&quot;);
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/clear-complete-button-spec.js" target="_blank" title="show github file">clear-complete-button-spec.js</a>
+        </div>
+        <div class="path">spec/components/clear-complete-button-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import ClearCompleteButton from &quot;../../src/components/clear-complete-button.jsx&quot;;
+import sinon from &#39;sinon&#39;;
+import {mount} from &quot;enzyme&quot;;
+
+describe(&#39;&lt;ClearCompleteButton /&gt;&#39;, () =&gt; {
+
+  let clearCompleteTodos;
+
+  beforeEach(()=&gt; {
+    clearCompleteTodos = sinon.spy();
+  });
+
+  it(&#39;calls clearCompleteTodos when clicked&#39;, () =&gt; {
+    const wrapper = mount(&lt;ClearCompleteButton clearCompleteTodos={clearCompleteTodos}/&gt;);
+    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
+    clearCompleteTodos.should.have.been.called;
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-list-spec.js" target="_blank" title="show github file">todo-list-spec.js</a>
+        </div>
+        <div class="path">spec/components/todo-list-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import TodoList from &quot;../../src/components/todo-list.jsx&quot;;
+import {mount} from &quot;enzyme&quot;;
+import sinon from &#39;sinon&#39;;
+import {Provider} from &quot;react-redux&quot;;
+
+describe(&#39;&lt;TodoList /&gt;&#39;, () =&gt; {
+
+  it(&#39;shows todos&#39;, () =&gt; {
+    const todos = [
+      {id: &#39;uuid1&#39;, content: &#39;run1&#39;, active: true},
+      {id: &#39;uuid2&#39;, content: &#39;run2&#39;, active: true}
+    ];
+
+    const mockStore = {
+      dispatch: sinon.spy(),
+      getState: sinon.spy(),
+      subscribe: sinon.spy()
+    };
+    const wrapper = mount(
+      &lt;Provider store={mockStore}&gt;
+        &lt;TodoList todos={todos}/&gt;
+      &lt;/Provider&gt;);
+    wrapper.should.contain.text(&#39;run1&#39;);
+    wrapper.should.contain.text(&#39;run2&#39;);
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
+        </div>
+        <div class="path">spec/components/hello-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &#39;react&#39;;
+import Hello from &#39;../../src/components/Hello.jsx&#39;;
+import sinon from &#39;sinon&#39;;
+import {shallow} from &#39;enzyme&#39;;
+
+describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
+
+  it(&#39;shows fruit names&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]}/&gt;);
+    wrapper.contains(&#39;AAA&#39;).should.be.true;
+    wrapper.contains(&#39;BBB&#39;).should.be.true;
+  });
+
+  it(&#39;calls onFruitDelete if deletes a fruit&#39;, () =&gt; {
+    const spy = sinon.spy();
+    const wrapper = shallow(&lt;Hello fruit={[&#39;AAA&#39;, &#39;BBB&#39;]} onDeleteFruit={spy}/&gt;);
+    wrapper.find(&#39;button[title=&quot;delete&quot;]&#39;).first().simulate(&#39;click&#39;);
+    spy.should.have.been.calledWith(&#39;AAA&#39;);
+  })
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-spec.js" target="_blank" title="show github file">todo-spec.js</a>
+        </div>
+        <div class="path">spec/components/todo-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import Todo from &quot;../../src/components/todo.jsx&quot;;
+import sinon from &#39;sinon&#39;;
+import {mount} from &quot;enzyme&quot;;
+
+describe(&#39;&lt;Todo /&gt;&#39;, () =&gt; {
+
+  let onEditTodo, onToggleTodo, onDeleteTodo, wrapper, input;
+
+  beforeEach(()=&gt; {
+    onEditTodo = sinon.spy();
+    onToggleTodo = sinon.spy();
+    onDeleteTodo = sinon.spy();
+    const todo = {id: &#39;uuid1&#39;, content: &#39;test-todo&#39;, active: true};
+    wrapper = mount(&lt;Todo onEditTodo={onEditTodo}
+                          onToggleTodo={onToggleTodo}
+                          onDeleteTodo={onDeleteTodo}
+                          todo={todo}/&gt;);
+  });
+
+  it(&#39;shows todo content&#39;, () =&gt; {
+    wrapper.find(&quot;.content&quot;).should.contain.text(&#39;test-todo&#39;);
+    wrapper.find(&quot;input.edit&quot;).should.not.present();
+  });
+
+  it(&#39;turns to text input if double-click on the todo content&#39;, ()=&gt; {
+    wrapper.find(&quot;.content&quot;).simulate(&#39;doubleClick&#39;);
+    wrapper.find(&quot;.content&quot;).should.not.present();
+    wrapper.find(&quot;input.edit&quot;).should.present();
+    wrapper.find(&quot;input.edit&quot;).should.have.value(&#39;test-todo&#39;);
+  });
+
+  it(&#39;calls onEditTodo when press enter on the text input&#39;, ()=&gt; {
+    wrapper.find(&quot;.content&quot;).simulate(&#39;doubleClick&#39;);
+    var input = wrapper.find(&quot;input.edit&quot;);
+    input.get(0).value = &quot;test-todo-2&quot;;
+    input.simulate(&#39;keypress&#39;, {charCode: 13});
+    onEditTodo.should.have.been.calledWith(&#39;uuid1&#39;, &#39;test-todo-2&#39;);
+  });
+
+  it(&#39;calls onToggleTodo when checkbox state changes&#39;, () =&gt; {
+    wrapper.find(&#39;.todo-state&#39;).simulate(&#39;change&#39;, {target: {value: true}});
+    onToggleTodo.should.have.been.calledWith(&#39;uuid1&#39;);
+  });
+
+  it(&#39;calls onDeleteTodo when click on the delete button&#39;, () =&gt; {
+    wrapper.find(&#39;button.todo-delete&#39;).simulate(&#39;click&#39;);
+    onDeleteTodo.should.have.been.calledWith(&#39;uuid1&#39;);
+  })
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-input-spec.js" target="_blank" title="show github file">todo-input-spec.js</a>
+        </div>
+        <div class="path">spec/components/todo-input-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import TodoInput from &quot;../../src/components/todo-input.jsx&quot;;
+import sinon from &#39;sinon&#39;;
+import {mount} from &quot;enzyme&quot;;
+
+describe(&#39;&lt;TodoInput /&gt;&#39;, () =&gt; {
+
+  let onNewTodo, wrapper, input;
+
+  beforeEach(()=&gt; {
+    onNewTodo = sinon.spy();
+    wrapper = mount(&lt;TodoInput onNewTodo={onNewTodo}/&gt;);
+    input = wrapper.find(&#39;#todo-input&#39;);
+  });
+
+  it(&#39;adds a todo when presses enter&#39;, () =&gt; {
+    input.get(0).value = &quot;eat&quot;;
+    input.simulate(&#39;keypress&#39;, {charCode: 13});
+    onNewTodo.should.have.been.calledWith(&#39;eat&#39;);
+  });
+
+  it(&#39;does not add todo if value is empty when presses enter&#39;, () =&gt; {
+    input.get(0).value = &quot;&quot;;
+    input.simulate(&#39;keypress&#39;, {charCode: 13});
+    onNewTodo.should.not.have.been.called;
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/todo-active-count-spec.js" target="_blank" title="show github file">todo-active-count-spec.js</a>
+        </div>
+        <div class="path">spec/components/todo-active-count-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import TodoActiveCount from &quot;../../src/components/todo-active-count.jsx&quot;;
+import {mount} from &quot;enzyme&quot;;
+
+describe(&#39;&lt;TodoActiveCount /&gt;&#39;, () =&gt; {
+
+  it(&#39;shows the active count&#39;, () =&gt; {
+    const wrapper = mount(&lt;TodoActiveCount activeCount={3}/&gt;);
+    wrapper.should.contain.text(&#39;3 items left&#39;);
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/spec/components/filter-button-spec.js" target="_blank" title="show github file">filter-button-spec.js</a>
+        </div>
+        <div class="path">spec/components/filter-button-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+
+import React from &quot;react&quot;;
+import FilterButton from &quot;../../src/components/filter-button.jsx&quot;;
+import sinon from &#39;sinon&#39;;
+import {mount} from &quot;enzyme&quot;;
+
+describe(&#39;&lt;FilterButton /&gt;&#39;, () =&gt; {
+
+  let filterTodos;
+
+  beforeEach(()=&gt; {
+    filterTodos = sinon.spy();
+  });
+
+  it(&#39;shows the button name&#39;, () =&gt; {
+    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
+                                        forFilter=&quot;active&quot; globalFilter=&quot;active&quot;
+                                        filterTodos={filterTodos}/&gt;);
+    wrapper.should.contain.text(&#39;ALL&#39;);
+  });
+
+  it(&#39;has the .selected class if filter matched&#39;, ()=&gt; {
+    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
+                                        forFilter=&quot;active&quot; globalFilter=&quot;active&quot;
+                                        filterTodos={filterTodos}/&gt;);
+    wrapper.find(&#39;button&#39;).should.have.className(&#39;selected&#39;);
+  });
+
+  it(&#39;does not have the .selected class if filter is not matched&#39;, ()=&gt; {
+    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
+                                        forFilter=&quot;active&quot; globalFilter=&quot;differentFilter&quot;
+                                        filterTodos={filterTodos}/&gt;);
+    wrapper.find(&#39;button&#39;).should.not.have.className(&#39;selected&#39;);
+  });
+
+  it(&#39;calls filterTodos when the button is clicked&#39;, () =&gt; {
+    const wrapper = mount(&lt;FilterButton name=&quot;ALL&quot;
+                                        forFilter=&quot;active&quot; globalFilter=&quot;completed&quot;
+                                        filterTodos={filterTodos}/&gt;);
+    wrapper.find(&#39;button&#39;).simulate(&#39;click&#39;);
+    filterTodos.should.have.been.calledWith(&#39;active&#39;);
+  });
+
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  entry: [
+    &#39;./src/entry.jsx&#39;
+  ],
+  output: {
+    path: __dirname + &#39;/public/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }, {
+      test: /\.less$/,
+      exclude: /node_modules/,
+      loader: &quot;style!css!less&quot;
+    }]
+  }
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/actions/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">src/actions/index.js</div>
@@ -610,53 +598,6 @@ export function clearCompleteTodos() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/filter-buttons.less" target="_blank" title="show github file">filter-buttons.less</a>
-        </div>
-        <div class="path">src/components/filter-buttons.less</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="less">.filter-buttons {
-
-  button {
-    border: 0;
-    background-color: white;
-    margin: 0 3px;
-    cursor: pointer;
-  }
-
-  .selected {
-    background-color: #DDDDDD;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo.less" target="_blank" title="show github file">todo.less</a>
-        </div>
-        <div class="path">src/components/todo.less</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="less">.completed {
-  text-decoration: line-through;
-}
-
-.todo-content {
-  .todo-delete {
-    display: none;
-  }
-  &amp;:hover .todo-delete {
-    display: inline;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/constants/action-types.js" target="_blank" title="show github file">action-types.js</a>
         </div>
         <div class="path">src/constants/action-types.js</div>
@@ -683,206 +624,6 @@ export const CLEAR_COMPLETE_TODOS = &#39;CLEAR_COMPLETE_TODOS&#39;;
         <pre class="content"><code class="js">export const ALL = &#39;ALL&#39;;
 export const ACTIVE = &#39;ACTIVE&#39;;
 export const COMPLETED = &#39;COMPLETED&#39;;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/clear-complete-button-container.js" target="_blank" title="show github file">clear-complete-button-container.js</a>
-        </div>
-        <div class="path">src/containers/clear-complete-button-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
-import * as actions from &#39;../actions/index&#39;;
-import ClearCompleteButton from &#39;../components/clear-complete-button.jsx&#39;;
-
-function mapDispatchToProps(dispatch) {
-  return {
-    clearCompleteTodos: () =&gt; dispatch(actions.clearCompleteTodos())
-  }
-}
-
-export default connect(state=&gt;state, mapDispatchToProps)(ClearCompleteButton);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/filter-button-container.js" target="_blank" title="show github file">filter-button-container.js</a>
-        </div>
-        <div class="path">src/containers/filter-button-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
-import * as actions from &#39;../actions/index&#39;;
-import FilterButton from &#39;../components/filter-button.jsx&#39;;
-
-function mapStateToProps(state) {
-  return {
-    globalFilter: state.filter
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    filterTodos: (filter) =&gt; dispatch(actions.filterTodos(filter))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/footer-container.js" target="_blank" title="show github file">footer-container.js</a>
-        </div>
-        <div class="path">src/containers/footer-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import {connect} from &quot;react-redux&quot;;
-import Footer from &quot;../components/footer.jsx&quot;;
-
-function mapStateToProps(state) {
-  return {
-    hasCompleteTodos: state.todos.some(todo =&gt; !todo.active)
-  }
-}
-
-export default connect(mapStateToProps)(Footer);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/hello-container.js" target="_blank" title="show github file">hello-container.js</a>
-        </div>
-        <div class="path">src/containers/hello-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-import Hello from &#39;../components/hello.jsx&#39;;
-import {connect} from &#39;react-redux&#39;;
-import * as actions from &#39;../actions&#39;;
-
-function mapStateToProps(state) {
-  return {
-    fruit: state.fruit
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onDeleteFruit: (name) =&gt; dispatch(actions.deleteFruit(name))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Hello);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-active-count-container.js" target="_blank" title="show github file">todo-active-count-container.js</a>
-        </div>
-        <div class="path">src/containers/todo-active-count-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-import {connect} from &#39;react-redux&#39;;
-import TodoActiveCount from &#39;../components/todo-active-count.jsx&#39;;
-
-function mapStateToProps(state) {
-  return {
-    activeCount: state.todos.filter(todo =&gt; todo.active).length
-  };
-}
-
-export default connect(mapStateToProps)(TodoActiveCount);
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-container.js" target="_blank" title="show github file">todo-container.js</a>
-        </div>
-        <div class="path">src/containers/todo-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-import {connect} from &#39;react-redux&#39;;
-import Todo from &#39;../components/todo.jsx&#39;;
-import * as actions from &#39;../actions/index&#39;;
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onEditTodo: (id, newContent) =&gt; dispatch(actions.editTodo(id, newContent)),
-    onToggleTodo: (id) =&gt; dispatch(actions.toggleTodo(id)),
-    onDeleteTodo: (id) =&gt; dispatch(actions.deleteTodo(id))
-  }
-}
-
-export default connect(state =&gt; state, mapDispatchToProps)(Todo);
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-input-container.js" target="_blank" title="show github file">todo-input-container.js</a>
-        </div>
-        <div class="path">src/containers/todo-input-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
-import * as actions from &#39;../actions/index&#39;;
-import TodoInput from &#39;../components/todo-input.jsx&#39;;
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onNewTodo: (newTodo) =&gt; dispatch(actions.newTodo(newTodo))
-  }
-}
-
-export default connect(state =&gt; state, mapDispatchToProps)(TodoInput);
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-list-container.js" target="_blank" title="show github file">todo-list-container.js</a>
-        </div>
-        <div class="path">src/containers/todo-list-container.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&quot;use strict&quot;;
-import {connect} from &#39;react-redux&#39;;
-import TodoList from &#39;../components/todo-list.jsx&#39;;
-import * as actions from &#39;../actions/index&#39;;
-import * as filterTypes from &#39;../constants/filter-types&#39;;
-
-function mapStateToProps(state) {
-  let filteredTodos = state.todos;
-  if (state.filter !== filterTypes.ALL) {
-    const active = state.filter === filterTypes.ACTIVE;
-    filteredTodos = state.todos.filter(todo =&gt; todo.active === active);
-  }
-  return {todos: filteredTodos};
-}
-
-export default connect(mapStateToProps)(TodoList);
-
 </code></pre>
     </div>
 </div>
@@ -1013,68 +754,327 @@ export default function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/webpack.config-test.js" target="_blank" title="show github file">webpack.config-test.js</a>
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/footer-container.js" target="_blank" title="show github file">footer-container.js</a>
         </div>
-        <div class="path">webpack.config-test.js</div>
+        <div class="path">src/containers/footer-container.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
-var nodeExternals = require(&#39;webpack-node-externals&#39;);
+        <pre class="content"><code class="js">import {connect} from &quot;react-redux&quot;;
+import Footer from &quot;../components/footer.jsx&quot;;
 
-module.exports = {
-  target: &#39;node&#39;, // in order to ignore built-in modules like path, fs, etc.
-  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
-  module: {
-    loaders: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: &#39;babel&#39;,
-      query: {
-        presets: [&#39;es2015&#39;, &#39;react&#39;]
-      }
-    }, {
-      test: /\.less$/,
-      exclude: /node_modules/,
-      loader: &quot;style!css!less&quot;
-    }]
+function mapStateToProps(state) {
+  return {
+    hasCompleteTodos: state.todos.some(todo =&gt; !todo.active)
   }
-};
+}
+
+export default connect(mapStateToProps)(Footer);
 </code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/clear-complete-button-container.js" target="_blank" title="show github file">clear-complete-button-container.js</a>
         </div>
-        <div class="path">webpack.config.js</div>
+        <div class="path">src/containers/clear-complete-button-container.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const webpack = require(&#39;webpack&#39;);
+        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
+import * as actions from &#39;../actions/index&#39;;
+import ClearCompleteButton from &#39;../components/clear-complete-button.jsx&#39;;
 
-module.exports = {
-  entry: [
-    &#39;./src/entry.jsx&#39;
-  ],
-  output: {
-    path: __dirname + &#39;/public/assets/&#39;,
-    filename: &#39;bundle.js&#39;
-  },
-  module: {
-    loaders: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: &#39;babel&#39;,
-      query: {
-        presets: [&#39;es2015&#39;, &#39;react&#39;]
-      }
-    }, {
-      test: /\.less$/,
-      exclude: /node_modules/,
-      loader: &quot;style!css!less&quot;
-    }]
+function mapDispatchToProps(dispatch) {
+  return {
+    clearCompleteTodos: () =&gt; dispatch(actions.clearCompleteTodos())
   }
-};
+}
+
+export default connect(state=&gt;state, mapDispatchToProps)(ClearCompleteButton);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-active-count-container.js" target="_blank" title="show github file">todo-active-count-container.js</a>
+        </div>
+        <div class="path">src/containers/todo-active-count-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+import {connect} from &#39;react-redux&#39;;
+import TodoActiveCount from &#39;../components/todo-active-count.jsx&#39;;
+
+function mapStateToProps(state) {
+  return {
+    activeCount: state.todos.filter(todo =&gt; todo.active).length
+  };
+}
+
+export default connect(mapStateToProps)(TodoActiveCount);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-input-container.js" target="_blank" title="show github file">todo-input-container.js</a>
+        </div>
+        <div class="path">src/containers/todo-input-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
+import * as actions from &#39;../actions/index&#39;;
+import TodoInput from &#39;../components/todo-input.jsx&#39;;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onNewTodo: (newTodo) =&gt; dispatch(actions.newTodo(newTodo))
+  }
+}
+
+export default connect(state =&gt; state, mapDispatchToProps)(TodoInput);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-container.js" target="_blank" title="show github file">todo-container.js</a>
+        </div>
+        <div class="path">src/containers/todo-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+import {connect} from &#39;react-redux&#39;;
+import Todo from &#39;../components/todo.jsx&#39;;
+import * as actions from &#39;../actions/index&#39;;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onEditTodo: (id, newContent) =&gt; dispatch(actions.editTodo(id, newContent)),
+    onToggleTodo: (id) =&gt; dispatch(actions.toggleTodo(id)),
+    onDeleteTodo: (id) =&gt; dispatch(actions.deleteTodo(id))
+  }
+}
+
+export default connect(state =&gt; state, mapDispatchToProps)(Todo);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/todo-list-container.js" target="_blank" title="show github file">todo-list-container.js</a>
+        </div>
+        <div class="path">src/containers/todo-list-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&quot;use strict&quot;;
+import {connect} from &#39;react-redux&#39;;
+import TodoList from &#39;../components/todo-list.jsx&#39;;
+import * as actions from &#39;../actions/index&#39;;
+import * as filterTypes from &#39;../constants/filter-types&#39;;
+
+function mapStateToProps(state) {
+  let filteredTodos = state.todos;
+  if (state.filter !== filterTypes.ALL) {
+    const active = state.filter === filterTypes.ACTIVE;
+    filteredTodos = state.todos.filter(todo =&gt; todo.active === active);
+  }
+  return {todos: filteredTodos};
+}
+
+export default connect(mapStateToProps)(TodoList);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/hello-container.js" target="_blank" title="show github file">hello-container.js</a>
+        </div>
+        <div class="path">src/containers/hello-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+import Hello from &#39;../components/hello.jsx&#39;;
+import {connect} from &#39;react-redux&#39;;
+import * as actions from &#39;../actions&#39;;
+
+function mapStateToProps(state) {
+  return {
+    fruit: state.fruit
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onDeleteFruit: (name) =&gt; dispatch(actions.deleteFruit(name))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hello);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/filter-button-container.js" target="_blank" title="show github file">filter-button-container.js</a>
+        </div>
+        <div class="path">src/containers/filter-button-container.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {connect} from &#39;react-redux&#39;;
+import * as actions from &#39;../actions/index&#39;;
+import FilterButton from &#39;../components/filter-button.jsx&#39;;
+
+function mapStateToProps(state) {
+  return {
+    globalFilter: state.filter
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    filterTodos: (filter) =&gt; dispatch(actions.filterTodos(filter))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo.less" target="_blank" title="show github file">todo.less</a>
+        </div>
+        <div class="path">src/components/todo.less</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="less">.completed {
+  text-decoration: line-through;
+}
+
+.todo-content {
+  .todo-delete {
+    display: none;
+  }
+  &amp;:hover .todo-delete {
+    display: inline;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/filter-buttons.less" target="_blank" title="show github file">filter-buttons.less</a>
+        </div>
+        <div class="path">src/components/filter-buttons.less</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="less">.filter-buttons {
+
+  button {
+    border: 0;
+    background-color: white;
+    margin: 0 3px;
+    cursor: pointer;
+  }
+
+  .selected {
+    background-color: #DDDDDD;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;react-redux-todolist-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;http-server ./public || exit 0&quot;,
+    &quot;webpack&quot;: &quot;webpack&quot;,
+    &quot;webpack:watch&quot;: &quot;webpack -w&quot;,
+    &quot;test&quot;: &quot;mocha-webpack --webpack-config webpack.config-test.js --recursive --require ./spec/test-helper.js \&quot;spec\&quot;&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
+    &quot;chai&quot;: &quot;3.5.0&quot;,
+    &quot;chai-enzyme&quot;: &quot;0.5.2&quot;,
+    &quot;chai-spies&quot;: &quot;0.7.1&quot;,
+    &quot;classnames&quot;: &quot;2.2.5&quot;,
+    &quot;css-loader&quot;: &quot;0.23.1&quot;,
+    &quot;enzyme&quot;: &quot;2.4.1&quot;,
+    &quot;http-server&quot;: &quot;0.9.0&quot;,
+    &quot;jsdom-global&quot;: &quot;2.1.0&quot;,
+    &quot;less&quot;: &quot;2.7.1&quot;,
+    &quot;less-loader&quot;: &quot;2.2.3&quot;,
+    &quot;mocha&quot;: &quot;3.1.0&quot;,
+    &quot;mocha-webpack&quot;: &quot;0.6.0&quot;,
+    &quot;react-addons-test-utils&quot;: &quot;15.3.2&quot;,
+    &quot;sinon&quot;: &quot;1.17.6&quot;,
+    &quot;sinon-chai&quot;: &quot;2.8.0&quot;,
+    &quot;style-loader&quot;: &quot;0.13.1&quot;,
+    &quot;webpack&quot;: &quot;1.13.1&quot;,
+    &quot;webpack-node-externals&quot;: &quot;1.5.4&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;4.14.1&quot;,
+    &quot;react&quot;: &quot;15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;15.3.0&quot;,
+    &quot;react-redux&quot;: &quot;4.4.5&quot;,
+    &quot;redux&quot;: &quot;3.6.0&quot;,
+    &quot;uuid&quot;: &quot;2.0.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Todos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>

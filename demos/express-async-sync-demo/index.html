@@ -46,153 +46,6 @@ http http://localhost:3000/async/users
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/db.js" target="_blank" title="show github file">db.js</a>
-        </div>
-        <div class="path">app/async/db.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-const makeErrorRandomly = require(&#39;../make-error-randomly&#39;);
-
-const users = [];
-
-function findAll(callback) {
-  setTimeout(() =&gt; {
-    const error = makeErrorRandomly();
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, users);
-    }
-  }, 1000);
-}
-
-function save(user, callback) {
-  setTimeout(() =&gt; {
-    const error = makeErrorRandomly();
-    if (error) {
-      return callback(error);
-    }
-    users.push(user);
-    callback(null, null);
-  }, 1000);
-}
-
-module.exports = {findAll, save};</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/handlers.js" target="_blank" title="show github file">handlers.js</a>
-        </div>
-        <div class="path">app/async/handlers.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const userService = require(&#39;./service&#39;);
-const User = require(&#39;../user-model&#39;);
-
-function getAllUsers(req, res, next) {
-  userService.getAllUsers(function (err, users) {
-    if (err) return next(err);
-    res.json(users);
-  })
-}
-
-function saveUser(req, res, next) {
-  const {username, password} = req.body;
-  userService.saveUser(new User({username, password}), function (err, saved) {
-    if (err) return next(err);
-    res.sendStatus(201);
-  });
-}
-
-module.exports = {
-  getAllUsers, saveUser
-};</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/service.js" target="_blank" title="show github file">service.js</a>
-        </div>
-        <div class="path">app/async/service.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const db = require(&#39;./db&#39;);
-
-function getAllUsers(callback) {
-  return db.findAll(callback);
-}
-
-function saveUser(user, callback) {
-  return db.save(user, callback);
-}
-
-module.exports = {
-  getAllUsers, saveUser
-};</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">app/index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-const express = require(&#39;express&#39;);
-const bodyParser = require(&#39;body-parser&#39;);
-const syncHandlers = require(&#39;./sync/handlers&#39;);
-const asyncHandlers = require(&#39;./async/handlers&#39;);
-const app = express();
-
-app.use(bodyParser.json());
-
-app.get(&#39;/sync/users&#39;, syncHandlers.getAllUsers);
-app.post(&#39;/sync/users&#39;, syncHandlers.saveUser);
-
-app.get(&#39;/async/users&#39;, asyncHandlers.getAllUsers);
-app.post(&#39;/async/users&#39;, asyncHandlers.saveUser);
-
-app.use(function (err, req, res, next) {
-  res.status(500).send(err.message);
-});
-
-app.listen(3000, function () {
-  console.log(&#39;Listening on 3000&#39;);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/make-error-randomly.js" target="_blank" title="show github file">make-error-randomly.js</a>
-        </div>
-        <div class="path">app/make-error-randomly.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-function shouldMakeError() {
-  const millis = new Date().getMilliseconds()
-  return millis % 3 === 0;
-}
-
-module.exports = function () {
-  if (shouldMakeError()) {
-    return new Error(&#39;my-error&#39;);
-  }
-  return null;
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/sync/db.js" target="_blank" title="show github file">db.js</a>
         </div>
         <div class="path">app/sync/db.js</div>
@@ -284,6 +137,38 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">app/index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const express = require(&#39;express&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+const syncHandlers = require(&#39;./sync/handlers&#39;);
+const asyncHandlers = require(&#39;./async/handlers&#39;);
+const app = express();
+
+app.use(bodyParser.json());
+
+app.get(&#39;/sync/users&#39;, syncHandlers.getAllUsers);
+app.post(&#39;/sync/users&#39;, syncHandlers.saveUser);
+
+app.get(&#39;/async/users&#39;, asyncHandlers.getAllUsers);
+app.post(&#39;/async/users&#39;, asyncHandlers.saveUser);
+
+app.use(function (err, req, res, next) {
+  res.status(500).send(err.message);
+});
+
+app.listen(3000, function () {
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/user-model.js" target="_blank" title="show github file">user-model.js</a>
         </div>
         <div class="path">app/user-model.js</div>
@@ -297,6 +182,121 @@ module.exports = {
 }
 
 module.exports = User;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/make-error-randomly.js" target="_blank" title="show github file">make-error-randomly.js</a>
+        </div>
+        <div class="path">app/make-error-randomly.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+function shouldMakeError() {
+  const millis = new Date().getMilliseconds()
+  return millis % 3 === 0;
+}
+
+module.exports = function () {
+  if (shouldMakeError()) {
+    return new Error(&#39;my-error&#39;);
+  }
+  return null;
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/db.js" target="_blank" title="show github file">db.js</a>
+        </div>
+        <div class="path">app/async/db.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const makeErrorRandomly = require(&#39;../make-error-randomly&#39;);
+
+const users = [];
+
+function findAll(callback) {
+  setTimeout(() =&gt; {
+    const error = makeErrorRandomly();
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, users);
+    }
+  }, 1000);
+}
+
+function save(user, callback) {
+  setTimeout(() =&gt; {
+    const error = makeErrorRandomly();
+    if (error) {
+      return callback(error);
+    }
+    users.push(user);
+    callback(null, null);
+  }, 1000);
+}
+
+module.exports = {findAll, save};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/handlers.js" target="_blank" title="show github file">handlers.js</a>
+        </div>
+        <div class="path">app/async/handlers.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const userService = require(&#39;./service&#39;);
+const User = require(&#39;../user-model&#39;);
+
+function getAllUsers(req, res, next) {
+  userService.getAllUsers(function (err, users) {
+    if (err) return next(err);
+    res.json(users);
+  })
+}
+
+function saveUser(req, res, next) {
+  const {username, password} = req.body;
+  userService.saveUser(new User({username, password}), function (err, saved) {
+    if (err) return next(err);
+    res.sendStatus(201);
+  });
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/service.js" target="_blank" title="show github file">service.js</a>
+        </div>
+        <div class="path">app/async/service.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const db = require(&#39;./db&#39;);
+
+function getAllUsers(callback) {
+  return db.findAll(callback);
+}
+
+function saveUser(user, callback) {
+  return db.save(user, callback);
+}
+
+module.exports = {
+  getAllUsers, saveUser
+};</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

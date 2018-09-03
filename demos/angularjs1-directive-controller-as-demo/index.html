@@ -34,6 +34,43 @@ Resources
 - $element api: https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite    </div>
 </div>
 
+<div class="markdown markdown-body center-in-page">
+    `$scope` is not used, instead, we use the controller itself as the &quot;scope&quot;.</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-controller-as-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-controller-as-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div hello-to=&quot;AngularJS&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -60,43 +97,6 @@ app.directive(&#39;helloTo&#39;, [&#39;$window&#39;, function ($window) {
         controllerAs: &#39;vm&#39;
     }
 }])</code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    `$scope` is not used, instead, we use the controller itself as the &quot;scope&quot;.</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-controller-as-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-&lt;/head&gt;
-&lt;body ng-app=&quot;app&quot;&gt;
-&lt;div hello-to=&quot;AngularJS&quot;&gt;&lt;/div&gt;
-&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-controller-as-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
     </div>
 </div>
 

@@ -197,6 +197,81 @@ afterEvaluate {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/test/kotlin/test/com/example/TestUtil.kt" target="_blank" title="show github file">TestUtil.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/test/com/example/TestUtil.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package test.com.example
+
+import pl.treksoft.jquery.jQuery
+import kotlin.browser.document
+
+interface TestSpec {
+    fun beforeTest()
+
+    fun afterTest()
+
+    fun run(code: () -&gt; Unit) {
+        beforeTest()
+        code()
+        afterTest()
+    }
+}
+
+interface DomSpec : TestSpec {
+
+    override fun beforeTest() {
+        val fixture = &quot;&lt;div style=\&quot;display: none\&quot; id=\&quot;pretest\&quot;&gt;&quot; +
+                &quot;&lt;div id=\&quot;helloworld\&quot;&gt;&lt;/div&gt;&lt;/div&gt;&quot;
+        document.body?.insertAdjacentHTML(&quot;afterbegin&quot;, fixture)
+    }
+
+    override fun afterTest() {
+        val div = document.getElementById(&quot;pretest&quot;)
+        div?.remove()
+        jQuery(`object` = &quot;.modal-backdrop&quot;).remove()
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/test/kotlin/test/com/example/HelloworldSpec.kt" target="_blank" title="show github file">HelloworldSpec.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/test/com/example/HelloworldSpec.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package test.com.example
+
+import com.example.Helloworld
+import kotlin.browser.document
+import kotlin.test.Test
+import kotlin.test.assertTrue
+
+class HelloworldSpec : DomSpec {
+
+    @Test
+    fun render() {
+        run {
+            Helloworld().start(mapOf())
+            val element = document.getElementById(&quot;helloworld&quot;)
+            assertTrue(
+                element?.innerHTML?.contains(&quot;Hello world!&quot;) ?: false,
+                &quot;Application should render Hello world! text&quot;
+            )
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/main/kotlin/com/example/Helloworld.kt" target="_blank" title="show github file">Helloworld.kt</a>
         </div>
         <div class="path">src/main/kotlin/com/example/Helloworld.kt</div>
@@ -288,17 +363,6 @@ fun start(state: dynamic): ApplicationBase? {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/main/resources/css/helloworld.css" target="_blank" title="show github file">helloworld.css</a>
-        </div>
-        <div class="path">src/main/resources/css/helloworld.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css"></code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/main/web/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">src/main/web/index.html</div>
@@ -329,76 +393,41 @@ fun start(state: dynamic): ApplicationBase? {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/test/kotlin/test/com/example/HelloworldSpec.kt" target="_blank" title="show github file">HelloworldSpec.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/main/resources/css/helloworld.css" target="_blank" title="show github file">helloworld.css</a>
         </div>
-        <div class="path">src/test/kotlin/test/com/example/HelloworldSpec.kt</div>
+        <div class="path">src/main/resources/css/helloworld.css</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package test.com.example
+        <pre class="content"><code class="css"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/css.js" target="_blank" title="show github file">css.js</a>
+        </div>
+        <div class="path">webpack.config.d/css.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">config.module.rules.push({ test: /\.css$/, loader: &quot;style-loader!css-loader&quot; });
 
-import com.example.Helloworld
-import kotlin.browser.document
-import kotlin.test.Test
-import kotlin.test.assertTrue
-
-class HelloworldSpec : DomSpec {
-
-    @Test
-    fun render() {
-        run {
-            Helloworld().start(mapOf())
-            val element = document.getElementById(&quot;helloworld&quot;)
-            assertTrue(
-                element?.innerHTML?.contains(&quot;Hello world!&quot;) ?: false,
-                &quot;Application should render Hello world! text&quot;
-            )
-        }
-    }
-}
 </code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/src/test/kotlin/test/com/example/TestUtil.kt" target="_blank" title="show github file">TestUtil.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/handlebars.js" target="_blank" title="show github file">handlebars.js</a>
         </div>
-        <div class="path">src/test/kotlin/test/com/example/TestUtil.kt</div>
+        <div class="path">webpack.config.d/handlebars.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package test.com.example
-
-import pl.treksoft.jquery.jQuery
-import kotlin.browser.document
-
-interface TestSpec {
-    fun beforeTest()
-
-    fun afterTest()
-
-    fun run(code: () -&gt; Unit) {
-        beforeTest()
-        code()
-        afterTest()
+        <pre class="content"><code class="js">config.module.rules.push(
+    {
+        test: /\.hbs$/i,
+        loader: &#39;handlebars-loader&#39;
     }
-}
-
-interface DomSpec : TestSpec {
-
-    override fun beforeTest() {
-        val fixture = &quot;&lt;div style=\&quot;display: none\&quot; id=\&quot;pretest\&quot;&gt;&quot; +
-                &quot;&lt;div id=\&quot;helloworld\&quot;&gt;&lt;/div&gt;&lt;/div&gt;&quot;
-        document.body?.insertAdjacentHTML(&quot;afterbegin&quot;, fixture)
-    }
-
-    override fun afterTest() {
-        val div = document.getElementById(&quot;pretest&quot;)
-        div?.remove()
-        jQuery(`object` = &quot;.modal-backdrop&quot;).remove()
-    }
-
-}
-</code></pre>
+);</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -419,25 +448,27 @@ config.module.rules.push({test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: &#39;url-l
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/css.js" target="_blank" title="show github file">css.js</a>
-        </div>
-        <div class="path">webpack.config.d/css.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">config.module.rules.push({ test: /\.css$/, loader: &quot;style-loader!css-loader&quot; });
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/dce.js" target="_blank" title="show github file">dce.js</a>
         </div>
         <div class="path">webpack.config.d/dce.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">config.output.publicPath=&quot;&quot;;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/minify.js" target="_blank" title="show github file">minify.js</a>
+        </div>
+        <div class="path">webpack.config.d/minify.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">if (defined.PRODUCTION) {
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    }));
+}
 </code></pre>
     </div>
 </div>
@@ -460,22 +491,6 @@ config.module.rules.push({test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: &#39;url-l
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/handlebars.js" target="_blank" title="show github file">handlebars.js</a>
-        </div>
-        <div class="path">webpack.config.d/handlebars.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">config.module.rules.push(
-    {
-        test: /\.hbs$/i,
-        loader: &#39;handlebars-loader&#39;
-    }
-);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/jquery.js" target="_blank" title="show github file">jquery.js</a>
         </div>
         <div class="path">webpack.config.d/jquery.js</div>
@@ -485,21 +500,6 @@ config.module.rules.push({test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: &#39;url-l
     $: &quot;jquery&quot;,
     jQuery: &quot;jquery&quot;
 }));
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-kvision-hello-world-demo/blob/master/webpack.config.d/minify.js" target="_blank" title="show github file">minify.js</a>
-        </div>
-        <div class="path">webpack.config.d/minify.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">if (defined.PRODUCTION) {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    }));
-}
 </code></pre>
     </div>
 </div>

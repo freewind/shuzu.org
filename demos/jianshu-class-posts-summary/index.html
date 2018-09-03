@@ -25,6 +25,454 @@ brew install sbt
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/ArticlePages.scala" target="_blank" title="show github file">ArticlePages.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/ArticlePages.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+import java.text.SimpleDateFormat
+
+import net.ruippeixotog.scalascraper.browser.JsoupBrowser
+import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
+import net.ruippeixotog.scalascraper.dsl.DSL._
+import net.ruippeixotog.scalascraper.model.{Document, Element}
+import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
+import org.apache.commons.lang3.StringUtils
+import net.ruippeixotog.scalascraper.dsl.DSL._
+import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
+import net.ruippeixotog.scalascraper.dsl.DSL.Parse._
+
+object ArticlePages {
+
+  def getAllArticles(userId: String): List[Article] = {
+    val pages = Stream.from(1).map(page =&gt; ArticlePages.findArticlesOnPage(userId, page))
+      .takeWhile(articlesOnPage =&gt; articlesOnPage.nonEmpty)
+    pages.map(_.getOrElse(List.empty)).toList.flatten
+  }
+
+  private def getArticleId(href: String): Option[String] = {
+    &quot;&quot;&quot;/p/(.*)&quot;&quot;&quot;.r.findFirstMatchIn(href).map(_.group(1))
+  }
+
+  private def getCount(meta: Element, keyClass: String): Option[Int] = {
+    meta.children
+      .find(child =&gt; (child &gt;?&gt; element(s&quot;i.$keyClass&quot;)).isDefined)
+      .map(_.text.trim.toInt)
+  }
+
+  def isArticleTabActive(doc: Document): Boolean = {
+    (doc &gt;&gt; element(&quot;.trigger-menu .active&quot;))
+      .exists(li =&gt; (li &gt;?&gt; element(&quot;.ic-articles&quot;)).isDefined)
+  }
+
+  def findArticlesOnPage(userId: String, page: Int): Option[List[Article]] = {
+    val browser = JsoupBrowser()
+    val url = s&quot;http://www.jianshu.com/u/$userId?page=$page&quot;
+    val doc = browser.get(url)
+    if (isArticleTabActive(doc)) {
+      val listContainer = doc &gt;&gt; element(&quot;#list-container&quot;)
+      val articleElements = listContainer &gt;&gt; elementList(&quot;.note-list li&quot;)
+      val articles = articleElements.map { article =&gt;
+        val articleTitleLink = article &gt;&gt; element(&quot;a.title&quot;)
+        val title = articleTitleLink.text
+        val idOpt = getArticleId(articleTitleLink.attr(&quot;href&quot;))
+        val footer = article &gt;&gt; element(&quot;.meta&quot;)
+        val reads = getCount(footer, &quot;ic-list-read&quot;).getOrElse(0)
+        val comments = getCount(footer, &quot;ic-list-comments&quot;).getOrElse(0)
+        val likes = getCount(footer, &quot;ic-list-like&quot;).getOrElse(0)
+        val sharedAtTime = (article &gt;&gt; element(&quot;.time&quot;)).attr(&quot;data-shared-at&quot;)
+        val sharedDate = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(StringUtils.substringBefore(sharedAtTime, &quot;T&quot;))
+        Article(id = idOpt.get, title = title, reads = reads, comments = comments, likes = likes, sharedDate = sharedDate)
+      }
+      println(s&quot;Found ${articleElements.size} articles on page: ${url}&quot;)
+      Some(articles)
+    } else None
+  }
+}
+
+object Main extends App {
+  ArticlePages.getAllArticles(&quot;6d96978eeefb&quot;)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/XiyouApp.scala" target="_blank" title="show github file">XiyouApp.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/XiyouApp.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+
+import in.freewind.jianshu.reports.{RecentArticleReport, SummaryReport}
+import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
+
+object XiyouApp extends App {
+
+  val users = List(
+    User(&quot;豆清&quot;, &quot;f38e29b52911&quot;, &quot;韩亦乐&quot;, Nil),
+    User(&quot;杨慧莉&quot;, &quot;f21e72979655&quot;, &quot;韩亦乐&quot;, Nil),
+    User(&quot;张甜&quot;, &quot;5bc106cbc4c2&quot;, &quot;杨战美&quot;, Nil),
+    User(&quot;焦齐齐&quot;, &quot;619d2f2d1eff&quot;, &quot;杨战美&quot;, Nil),
+    User(&quot;朱悦萱&quot;, &quot;ecbc46d12bea&quot;, &quot;赵彤&quot;, Nil),
+    User(&quot;鱼娟&quot;, &quot;d655df650fab&quot;, &quot;杨战美&quot;, Nil),
+    User(&quot;李佩赏&quot;, &quot;b585df8b02c3&quot;, &quot;自己&quot;, Nil),
+    User(&quot;刘祎琳&quot;, &quot;16b071109758&quot;, &quot;赵彤&quot;, Nil),
+    User(&quot;周婕&quot;, &quot;5db20fc9f635&quot;, &quot;李妍&quot;, Nil),
+    User(&quot;白颖&quot;, &quot;0f382636485d&quot;, &quot;赵彤&quot;, Nil),
+    User(&quot;黄丽珍&quot;, &quot;07120665a058&quot;, &quot;李佩赏&quot;, Nil),
+    User(&quot;韩亦乐&quot;, &quot;ecbf49bf207b&quot;, &quot;自己&quot;, Nil),
+    User(&quot;胡婷婷&quot;, &quot;5e21d37865b7&quot;, &quot;李妍&quot;, Nil),
+    User(&quot;李玫颖&quot;, &quot;4744b69eff3c&quot;, &quot;姚怡&quot;, Nil),
+    User(&quot;李杨帆&quot;, &quot;0583448c0477&quot;, &quot;姚怡&quot;, Nil),
+    User(&quot;赵彤&quot;, &quot;034ddfc875c4&quot;, &quot;自己&quot;, Nil),
+    User(&quot;杨战美&quot;, &quot;596e1b114d62&quot;, &quot;自己&quot;, Nil),
+    User(&quot;李妍&quot;, &quot;6bff0dd3cde1&quot;, &quot;自己&quot;, Nil),
+    User(&quot;余帆&quot;, &quot;bbeb712a0d8b&quot;, &quot;李佩赏&quot;, Nil),
+    User(&quot;姚怡&quot;, &quot;37b5a58937c6&quot;, &quot;自己&quot;, Nil),
+    User(&quot;王雨萱&quot;, &quot;bb657db58c5e&quot;, &quot;韩亦乐&quot;, Nil),
+    User(&quot;刘洋&quot;, &quot;65e145f23779&quot;, &quot;李妍&quot;, Nil),
+    User(&quot;李婷婷&quot;, &quot;ea4d8d62c629&quot;, &quot;李佩赏&quot;, Nil),
+    User(&quot;陈颖&quot;, &quot;508d15da87d7&quot;, &quot;姚怡&quot;, Nil)
+  ).map(user =&gt; {
+    user.copy(articles = ArticlePages.getAllArticles(user.jianshuId))
+  })
+
+  def parseDate(dateStr: String): Date = {
+    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(dateStr)
+  }
+
+  SummaryReport.render(users.sortBy(u =&gt; -u.articles.size), &quot;Team Lead&quot;, new File(&quot;./reports/xiyou-summary.html&quot;))
+  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = true, buddyTitle = &quot;Team Lead&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/xiyou-recent-articles0.html&quot;))
+  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = false, buddyTitle = &quot;Team Lead&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/xiyou-recent-articles.html&quot;))
+}
+
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/utils.scala" target="_blank" title="show github file">utils.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/reports/utils.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
+
+import java.io.File
+
+import org.apache.commons.io.FileUtils
+import org.apache.commons.lang3.StringUtils
+
+object utils {
+  def applyTemplate(content: String, targetFile: File): Unit = {
+    val finalContent = StringUtils.replace(readTemplate(), &quot;{{{table}}}&quot;, content)
+    writeToFile(finalContent, targetFile)
+    println(&quot;Wrote to file: &quot; + targetFile)
+  }
+
+  private def readTemplate(): String = {
+    val templateFile = new File(&quot;./src/main/resources/report-template.html&quot;)
+    FileUtils.readFileToString(templateFile, &quot;UTF-8&quot;)
+  }
+
+  private def writeToFile(content: String, targetFile: File) {
+    FileUtils.writeStringToFile(targetFile, content, &quot;UTF-8&quot;)
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala" target="_blank" title="show github file">SummaryReport.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
+
+import java.io.File
+
+import in.freewind.jianshu.User
+
+object SummaryReport {
+
+  def render(users: List[User], buddyTitle: String, targetFile: File) {
+    val content = generateReport(users, buddyTitle)
+    utils.applyTemplate(content, targetFile)
+  }
+
+  def generateReport(users: List[User], buddyTitle: String) = {
+    val table = &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;序号&lt;/th&gt;
+          &lt;th&gt;姓名&lt;/th&gt;
+          &lt;th&gt;文章数&lt;/th&gt;
+          &lt;th&gt;阅读量&lt;/th&gt;
+          &lt;th&gt;收到评论&lt;/th&gt;
+          &lt;th&gt;收到喜欢&lt;/th&gt;
+          &lt;th&gt;{buddyTitle}姓名&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        {users.zipWithIndex.map { case (user, index) =&gt;
+        &lt;tr&gt;
+          &lt;td&gt;{index + 1}&lt;/td&gt;
+          &lt;td&gt;&lt;a href={user.jianshuUrl}&gt;{user.name}&lt;/a&gt;&lt;/td&gt;
+          &lt;td&gt;{user.articles.size}&lt;/td&gt;
+          &lt;td&gt;{user.articles.map(_.reads).sum}&lt;/td&gt;
+          &lt;td&gt;{user.articles.map(_.comments).sum}&lt;/td&gt;
+          &lt;td&gt;{user.articles.map(_.likes).sum}&lt;/td&gt;
+          &lt;td&gt;{user.buddyName}&lt;/td&gt;
+        &lt;/tr&gt;
+      }}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    xml.Utility.trim(table).toString
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala" target="_blank" title="show github file">RecentArticleReport.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
+
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+
+import in.freewind.jianshu.User
+
+object RecentArticleReport {
+
+  def render(users: List[User], showEmptyUsers: Boolean, buddyTitle: String, fromDate: Date, targetFile: File) {
+    val filteredUsers = users
+      .map(user =&gt; user.copy(articles = user.articles.filter(_.sharedDate.after(fromDate))))
+      .filter(user =&gt; user.articles.nonEmpty || (user.articles.isEmpty &amp;&amp; showEmptyUsers))
+      .sortBy(_.buddyName)
+    println(&quot;Total posts: &quot; + filteredUsers.flatMap(_.articles).size)
+    val content = generateReport(filteredUsers, buddyTitle, fromDate)
+    utils.applyTemplate(content, targetFile)
+  }
+
+  def generateReport(users: List[User], buddyTitle: String, fromDate: Date): String = {
+    val html = &lt;div&gt;
+      &lt;h1&gt;从{formatDate(fromDate)}到今天{formatDate(new Date())}所发布的文章&lt;/h1&gt;
+      &lt;div&gt;
+        &lt;ul&gt;{
+        users.zipWithIndex.map { case (user, index) =&gt;
+          &lt;li&gt;
+            &lt;div&gt;
+              &lt;span&gt;&lt;a href={user.jianshuUrl}&gt;{user.name}&lt;/a&gt;&lt;/span&gt;
+              &lt;span&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;/span&gt;
+              &lt;span&gt; ({buddyTitle}: {user.buddyName})&lt;/span&gt;&lt;/div&gt;
+              &lt;ol&gt;
+                {user.articles match {
+                case articles if articles.isEmpty =&gt; &lt;li&gt;无&lt;/li&gt;
+                case articles =&gt; articles.map(article =&gt; {
+                  &lt;li&gt;
+                    &lt;a href={article.url}&gt;{article.title}&lt;/a&gt;
+                    &lt;span&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;
+                    &lt;span&gt;{formatDate(article.sharedDate)}&lt;/span&gt;
+                  &lt;/li&gt;
+                })
+              }}
+              &lt;/ol&gt;
+          &lt;/li&gt;
+        }
+        }&lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    xml.Utility.trim(html).toString
+  }
+
+  def formatDate(date: Date) = {
+    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(date)
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala" target="_blank" title="show github file">DaJiangTangApp.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+
+import in.freewind.jianshu.reports.{RecentArticleReport, SummaryReport}
+import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
+
+object DaJiangTangApp extends App {
+
+  val users = List(
+    User(&quot;谭艺冰&quot;, &quot;a6b3075161bd&quot;, &quot;李彤欣&quot;, Nil),
+    User(&quot;吴立宁&quot;, &quot;45e7b3524cf0&quot;, &quot;曹宇鹏&quot;, Nil),
+    User(&quot;李天&quot;, &quot;2823d35ef6d5&quot;, &quot;王运&quot;, Nil),
+    User(&quot;郭茹&quot;, &quot;54aa25d86396&quot;, &quot;朱榕&quot;, Nil),
+    User(&quot;安洋&quot;, &quot;b2d6a8f9b5a7&quot;, &quot;曹宇鹏&quot;, Nil),
+    User(&quot;谭雅翔&quot;, &quot;72970fc87336&quot;, &quot;孙进&quot;, Nil),
+    User(&quot;王丹娜&quot;, &quot;4c0a06c8a1f9&quot;, &quot;朱榕&quot;, Nil),
+    User(&quot;游茹玉&quot;, &quot;f9058daafe41&quot;, &quot;孙进&quot;, Nil),
+    User(&quot;张培&quot;, &quot;46a98ec591f2&quot;, &quot;李燕子&quot;, Nil),
+    User(&quot;王张军&quot;, &quot;71022f2e6c77&quot;, &quot;周婧&quot;, Nil),
+    User(&quot;王渊博&quot;, &quot;52927c3889fd&quot;, &quot;赵文博&quot;, Nil),
+    User(&quot;付红&quot;, &quot;aa813305d667&quot;, &quot;张羽辰&quot;, Nil),
+    User(&quot;赵琪琪&quot;, &quot;2db65e841261&quot;, &quot;李燕子&quot;, Nil),
+    User(&quot;马红&quot;, &quot;9a316c32b7f1&quot;, &quot;陈洋&quot;, Nil),
+    User(&quot;骆承秀&quot;, &quot;f5de73654f02/&quot;, &quot;周婧&quot;, Nil),
+    User(&quot;刘涛&quot;, &quot;276446dd8c0a&quot;, &quot;陈洋&quot;, Nil),
+    User(&quot;祁燕子&quot;, &quot;57e9a7f46b24&quot;, &quot;周婧&quot;, Nil),
+    User(&quot;宁润婷&quot;, &quot;ad065eec8811&quot;, &quot;阎昱&quot;, Nil),
+    User(&quot;程雨柔&quot;, &quot;38cc9391d17d&quot;, &quot;陈洋&quot;, Nil),
+    User(&quot;冯雯&quot;, &quot;6f0e582882ba&quot;, &quot;孙进&quot;, Nil),
+    User(&quot;邱敏敏&quot;, &quot;b49e2048bab0&quot;, &quot;薛倩&quot;, Nil),
+    User(&quot;李爽祺&quot;, &quot;ea4648bc3d08&quot;, &quot;玛莉&quot;, Nil),
+    User(&quot;秦臻&quot;, &quot;a5757b7c55fe&quot;, &quot;赵文博&quot;, Nil),
+    User(&quot;汪之涛&quot;, &quot;c5ccc9f40501&quot;, &quot;玛莉&quot;, Nil),
+    User(&quot;张从飞&quot;, &quot;9ce3426fdb1c&quot;, &quot;袁慎建&quot;, Nil),
+    User(&quot;李玥&quot;, &quot;389f478c92c8&quot;, &quot;玛莉&quot;, Nil),
+    User(&quot;张颖嘉&quot;, &quot;b2cf132f508d&quot;, &quot;张志慧&quot;, Nil),
+    User(&quot;王柏元&quot;, &quot;ef49e6b7ec1e&quot;, &quot;张晓飞&quot;, Nil),
+    User(&quot;李英健&quot;, &quot;3c682ea44ee2&quot;, &quot;屈鉴铭&quot;, Nil),
+    User(&quot;王亚鑫&quot;, &quot;048f932015bc&quot;, &quot;屈鉴铭&quot;, Nil),
+    User(&quot;党森&quot;, &quot;edc9e5b7ce20&quot;, &quot;李彤欣&quot;, Nil),
+    User(&quot;邵娜娜&quot;, &quot;17f27b3e3233&quot;, &quot;王运&quot;, Nil),
+    User(&quot;王普&quot;, &quot;b26a523e3d60&quot;, &quot;张羽辰&quot;, Nil),
+    User(&quot;陈娟娟&quot;, &quot;0bd3779cf676&quot;, &quot;薛倩&quot;, Nil),
+    User(&quot;贾祎恺&quot;, &quot;ff02b6e2b83f&quot;, &quot;朱榕&quot;, Nil),
+    User(&quot;何疆乐&quot;, &quot;ab3e5acc3f2c&quot;, &quot;严嘉阳&quot;, Nil),
+    User(&quot;刘俊男&quot;, &quot;585fc558d5bc&quot;, &quot;李燕子&quot;, Nil),
+    User(&quot;燕春翔&quot;, &quot;6fc9411d1f1f&quot;, &quot;张志慧&quot;, Nil),
+    User(&quot;黄炎&quot;, &quot;4ce7460cc2f4&quot;, &quot;申彤&quot;, Nil),
+    User(&quot;张哲雯&quot;, &quot;8f4a554c29e8&quot;, &quot;张翔&quot;, Nil),
+    User(&quot;刘本庆&quot;, &quot;5a2675fba15e&quot;, &quot;曹宇鹏&quot;, Nil),
+    User(&quot;张琮&quot;, &quot;28f9a2e97e4d&quot;, &quot;薛倩&quot;, Nil),
+    User(&quot;李优优&quot;, &quot;ca35fbe16b4f&quot;, &quot;申彤&quot;, Nil),
+    User(&quot;耿团团&quot;, &quot;d4b0a0f96fe8&quot;, &quot;张翔&quot;, Nil),
+    User(&quot;杨琛璐&quot;, &quot;4f36a8b0a33a&quot;, &quot;张羽辰&quot;, Nil),
+    User(&quot;王平升&quot;, &quot;610f62fc5cf1&quot;, &quot;屈鉴铭&quot;, Nil),
+    User(&quot;薛妮&quot;, &quot;061cb0850ee2&quot;, &quot;申彤&quot;, Nil),
+    User(&quot;梁法成&quot;, &quot;7d8bb76cfe4f&quot;, &quot;阎昱&quot;, Nil),
+    User(&quot;谷楠楠&quot;, &quot;f111ef01770a&quot;, &quot;阎昱&quot;, Nil),
+    User(&quot;张苗&quot;, &quot;b14cbd37028f&quot;, &quot;张晓飞&quot;, Nil)
+  ).map(user =&gt; {
+    user.copy(articles = ArticlePages.getAllArticles(user.jianshuId))
+  })
+
+  def parseDate(dateStr: String): Date = {
+    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(dateStr)
+  }
+
+  SummaryReport.render(users.sortBy(u =&gt; -u.articles.size), &quot;小buddy&quot;, new File(&quot;./reports/dajiantang-summary.html&quot;))
+  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = true, buddyTitle = &quot;小buddy&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/dajiantang-recent-articles0.html&quot;))
+  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = false, buddyTitle = &quot;小buddy&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/dajiantang-recent-articles.html&quot;))
+
+}
+
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/MyTest.scala" target="_blank" title="show github file">MyTest.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/MyTest.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+import java.text.SimpleDateFormat
+
+object MyTest extends App {
+
+  //  val s = 1 #:: 2 #:: Stream.empty
+
+  val s = Stream.from(1).map(x =&gt; x * x).takeWhile(p =&gt; p &lt; 100)
+  println(s.toList)
+
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/models.scala" target="_blank" title="show github file">models.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/models.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+import java.util.Date
+
+case class User(name: String, jianshuId: String, buddyName: String, articles: List[Article]) {
+  val jianshuUrl = s&quot;http://jianshu.com/users/$jianshuId&quot;
+}
+
+case class Article(id: String, title: String, reads: Int, comments: Int, likes: Int, sharedDate: Date) {
+  val url = s&quot;http://jianshu.com/p/$id&quot;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/Config.scala" target="_blank" title="show github file">Config.scala</a>
+        </div>
+        <div class="path">src/main/scala/in/freewind/jianshu/Config.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package in.freewind.jianshu
+
+object Config {
+
+  val afterDate = &quot;2016-12-10&quot;
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/resources/report-template.html" target="_blank" title="show github file">report-template.html</a>
         </div>
         <div class="path">src/main/resources/report-template.html</div>
@@ -559,454 +1007,6 @@ header, .context-menu, .megamenu-content, footer{
 &lt;div id=&#39;write&#39; class=&#39;is-mac&#39;&gt;{{{table}}}&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/ArticlePages.scala" target="_blank" title="show github file">ArticlePages.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/ArticlePages.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-import java.text.SimpleDateFormat
-
-import net.ruippeixotog.scalascraper.browser.JsoupBrowser
-import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
-import net.ruippeixotog.scalascraper.dsl.DSL._
-import net.ruippeixotog.scalascraper.model.{Document, Element}
-import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
-import org.apache.commons.lang3.StringUtils
-import net.ruippeixotog.scalascraper.dsl.DSL._
-import net.ruippeixotog.scalascraper.dsl.DSL.Extract._
-import net.ruippeixotog.scalascraper.dsl.DSL.Parse._
-
-object ArticlePages {
-
-  def getAllArticles(userId: String): List[Article] = {
-    val pages = Stream.from(1).map(page =&gt; ArticlePages.findArticlesOnPage(userId, page))
-      .takeWhile(articlesOnPage =&gt; articlesOnPage.nonEmpty)
-    pages.map(_.getOrElse(List.empty)).toList.flatten
-  }
-
-  private def getArticleId(href: String): Option[String] = {
-    &quot;&quot;&quot;/p/(.*)&quot;&quot;&quot;.r.findFirstMatchIn(href).map(_.group(1))
-  }
-
-  private def getCount(meta: Element, keyClass: String): Option[Int] = {
-    meta.children
-      .find(child =&gt; (child &gt;?&gt; element(s&quot;i.$keyClass&quot;)).isDefined)
-      .map(_.text.trim.toInt)
-  }
-
-  def isArticleTabActive(doc: Document): Boolean = {
-    (doc &gt;&gt; element(&quot;.trigger-menu .active&quot;))
-      .exists(li =&gt; (li &gt;?&gt; element(&quot;.ic-articles&quot;)).isDefined)
-  }
-
-  def findArticlesOnPage(userId: String, page: Int): Option[List[Article]] = {
-    val browser = JsoupBrowser()
-    val url = s&quot;http://www.jianshu.com/u/$userId?page=$page&quot;
-    val doc = browser.get(url)
-    if (isArticleTabActive(doc)) {
-      val listContainer = doc &gt;&gt; element(&quot;#list-container&quot;)
-      val articleElements = listContainer &gt;&gt; elementList(&quot;.note-list li&quot;)
-      val articles = articleElements.map { article =&gt;
-        val articleTitleLink = article &gt;&gt; element(&quot;a.title&quot;)
-        val title = articleTitleLink.text
-        val idOpt = getArticleId(articleTitleLink.attr(&quot;href&quot;))
-        val footer = article &gt;&gt; element(&quot;.meta&quot;)
-        val reads = getCount(footer, &quot;ic-list-read&quot;).getOrElse(0)
-        val comments = getCount(footer, &quot;ic-list-comments&quot;).getOrElse(0)
-        val likes = getCount(footer, &quot;ic-list-like&quot;).getOrElse(0)
-        val sharedAtTime = (article &gt;&gt; element(&quot;.time&quot;)).attr(&quot;data-shared-at&quot;)
-        val sharedDate = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(StringUtils.substringBefore(sharedAtTime, &quot;T&quot;))
-        Article(id = idOpt.get, title = title, reads = reads, comments = comments, likes = likes, sharedDate = sharedDate)
-      }
-      println(s&quot;Found ${articleElements.size} articles on page: ${url}&quot;)
-      Some(articles)
-    } else None
-  }
-}
-
-object Main extends App {
-  ArticlePages.getAllArticles(&quot;6d96978eeefb&quot;)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/Config.scala" target="_blank" title="show github file">Config.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/Config.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-object Config {
-
-  val afterDate = &quot;2016-12-10&quot;
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala" target="_blank" title="show github file">DaJiangTangApp.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-
-import in.freewind.jianshu.reports.{RecentArticleReport, SummaryReport}
-import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
-
-object DaJiangTangApp extends App {
-
-  val users = List(
-    User(&quot;谭艺冰&quot;, &quot;a6b3075161bd&quot;, &quot;李彤欣&quot;, Nil),
-    User(&quot;吴立宁&quot;, &quot;45e7b3524cf0&quot;, &quot;曹宇鹏&quot;, Nil),
-    User(&quot;李天&quot;, &quot;2823d35ef6d5&quot;, &quot;王运&quot;, Nil),
-    User(&quot;郭茹&quot;, &quot;54aa25d86396&quot;, &quot;朱榕&quot;, Nil),
-    User(&quot;安洋&quot;, &quot;b2d6a8f9b5a7&quot;, &quot;曹宇鹏&quot;, Nil),
-    User(&quot;谭雅翔&quot;, &quot;72970fc87336&quot;, &quot;孙进&quot;, Nil),
-    User(&quot;王丹娜&quot;, &quot;4c0a06c8a1f9&quot;, &quot;朱榕&quot;, Nil),
-    User(&quot;游茹玉&quot;, &quot;f9058daafe41&quot;, &quot;孙进&quot;, Nil),
-    User(&quot;张培&quot;, &quot;46a98ec591f2&quot;, &quot;李燕子&quot;, Nil),
-    User(&quot;王张军&quot;, &quot;71022f2e6c77&quot;, &quot;周婧&quot;, Nil),
-    User(&quot;王渊博&quot;, &quot;52927c3889fd&quot;, &quot;赵文博&quot;, Nil),
-    User(&quot;付红&quot;, &quot;aa813305d667&quot;, &quot;张羽辰&quot;, Nil),
-    User(&quot;赵琪琪&quot;, &quot;2db65e841261&quot;, &quot;李燕子&quot;, Nil),
-    User(&quot;马红&quot;, &quot;9a316c32b7f1&quot;, &quot;陈洋&quot;, Nil),
-    User(&quot;骆承秀&quot;, &quot;f5de73654f02/&quot;, &quot;周婧&quot;, Nil),
-    User(&quot;刘涛&quot;, &quot;276446dd8c0a&quot;, &quot;陈洋&quot;, Nil),
-    User(&quot;祁燕子&quot;, &quot;57e9a7f46b24&quot;, &quot;周婧&quot;, Nil),
-    User(&quot;宁润婷&quot;, &quot;ad065eec8811&quot;, &quot;阎昱&quot;, Nil),
-    User(&quot;程雨柔&quot;, &quot;38cc9391d17d&quot;, &quot;陈洋&quot;, Nil),
-    User(&quot;冯雯&quot;, &quot;6f0e582882ba&quot;, &quot;孙进&quot;, Nil),
-    User(&quot;邱敏敏&quot;, &quot;b49e2048bab0&quot;, &quot;薛倩&quot;, Nil),
-    User(&quot;李爽祺&quot;, &quot;ea4648bc3d08&quot;, &quot;玛莉&quot;, Nil),
-    User(&quot;秦臻&quot;, &quot;a5757b7c55fe&quot;, &quot;赵文博&quot;, Nil),
-    User(&quot;汪之涛&quot;, &quot;c5ccc9f40501&quot;, &quot;玛莉&quot;, Nil),
-    User(&quot;张从飞&quot;, &quot;9ce3426fdb1c&quot;, &quot;袁慎建&quot;, Nil),
-    User(&quot;李玥&quot;, &quot;389f478c92c8&quot;, &quot;玛莉&quot;, Nil),
-    User(&quot;张颖嘉&quot;, &quot;b2cf132f508d&quot;, &quot;张志慧&quot;, Nil),
-    User(&quot;王柏元&quot;, &quot;ef49e6b7ec1e&quot;, &quot;张晓飞&quot;, Nil),
-    User(&quot;李英健&quot;, &quot;3c682ea44ee2&quot;, &quot;屈鉴铭&quot;, Nil),
-    User(&quot;王亚鑫&quot;, &quot;048f932015bc&quot;, &quot;屈鉴铭&quot;, Nil),
-    User(&quot;党森&quot;, &quot;edc9e5b7ce20&quot;, &quot;李彤欣&quot;, Nil),
-    User(&quot;邵娜娜&quot;, &quot;17f27b3e3233&quot;, &quot;王运&quot;, Nil),
-    User(&quot;王普&quot;, &quot;b26a523e3d60&quot;, &quot;张羽辰&quot;, Nil),
-    User(&quot;陈娟娟&quot;, &quot;0bd3779cf676&quot;, &quot;薛倩&quot;, Nil),
-    User(&quot;贾祎恺&quot;, &quot;ff02b6e2b83f&quot;, &quot;朱榕&quot;, Nil),
-    User(&quot;何疆乐&quot;, &quot;ab3e5acc3f2c&quot;, &quot;严嘉阳&quot;, Nil),
-    User(&quot;刘俊男&quot;, &quot;585fc558d5bc&quot;, &quot;李燕子&quot;, Nil),
-    User(&quot;燕春翔&quot;, &quot;6fc9411d1f1f&quot;, &quot;张志慧&quot;, Nil),
-    User(&quot;黄炎&quot;, &quot;4ce7460cc2f4&quot;, &quot;申彤&quot;, Nil),
-    User(&quot;张哲雯&quot;, &quot;8f4a554c29e8&quot;, &quot;张翔&quot;, Nil),
-    User(&quot;刘本庆&quot;, &quot;5a2675fba15e&quot;, &quot;曹宇鹏&quot;, Nil),
-    User(&quot;张琮&quot;, &quot;28f9a2e97e4d&quot;, &quot;薛倩&quot;, Nil),
-    User(&quot;李优优&quot;, &quot;ca35fbe16b4f&quot;, &quot;申彤&quot;, Nil),
-    User(&quot;耿团团&quot;, &quot;d4b0a0f96fe8&quot;, &quot;张翔&quot;, Nil),
-    User(&quot;杨琛璐&quot;, &quot;4f36a8b0a33a&quot;, &quot;张羽辰&quot;, Nil),
-    User(&quot;王平升&quot;, &quot;610f62fc5cf1&quot;, &quot;屈鉴铭&quot;, Nil),
-    User(&quot;薛妮&quot;, &quot;061cb0850ee2&quot;, &quot;申彤&quot;, Nil),
-    User(&quot;梁法成&quot;, &quot;7d8bb76cfe4f&quot;, &quot;阎昱&quot;, Nil),
-    User(&quot;谷楠楠&quot;, &quot;f111ef01770a&quot;, &quot;阎昱&quot;, Nil),
-    User(&quot;张苗&quot;, &quot;b14cbd37028f&quot;, &quot;张晓飞&quot;, Nil)
-  ).map(user =&gt; {
-    user.copy(articles = ArticlePages.getAllArticles(user.jianshuId))
-  })
-
-  def parseDate(dateStr: String): Date = {
-    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(dateStr)
-  }
-
-  SummaryReport.render(users.sortBy(u =&gt; -u.articles.size), &quot;小buddy&quot;, new File(&quot;./reports/dajiantang-summary.html&quot;))
-  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = true, buddyTitle = &quot;小buddy&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/dajiantang-recent-articles0.html&quot;))
-  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = false, buddyTitle = &quot;小buddy&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/dajiantang-recent-articles.html&quot;))
-
-}
-
-
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/models.scala" target="_blank" title="show github file">models.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/models.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-import java.util.Date
-
-case class User(name: String, jianshuId: String, buddyName: String, articles: List[Article]) {
-  val jianshuUrl = s&quot;http://jianshu.com/users/$jianshuId&quot;
-}
-
-case class Article(id: String, title: String, reads: Int, comments: Int, likes: Int, sharedDate: Date) {
-  val url = s&quot;http://jianshu.com/p/$id&quot;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/MyTest.scala" target="_blank" title="show github file">MyTest.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/MyTest.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-import java.text.SimpleDateFormat
-
-object MyTest extends App {
-
-  //  val s = 1 #:: 2 #:: Stream.empty
-
-  val s = Stream.from(1).map(x =&gt; x * x).takeWhile(p =&gt; p &lt; 100)
-  println(s.toList)
-
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala" target="_blank" title="show github file">RecentArticleReport.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
-
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-
-import in.freewind.jianshu.User
-
-object RecentArticleReport {
-
-  def render(users: List[User], showEmptyUsers: Boolean, buddyTitle: String, fromDate: Date, targetFile: File) {
-    val filteredUsers = users
-      .map(user =&gt; user.copy(articles = user.articles.filter(_.sharedDate.after(fromDate))))
-      .filter(user =&gt; user.articles.nonEmpty || (user.articles.isEmpty &amp;&amp; showEmptyUsers))
-      .sortBy(_.buddyName)
-    println(&quot;Total posts: &quot; + filteredUsers.flatMap(_.articles).size)
-    val content = generateReport(filteredUsers, buddyTitle, fromDate)
-    utils.applyTemplate(content, targetFile)
-  }
-
-  def generateReport(users: List[User], buddyTitle: String, fromDate: Date): String = {
-    val html = &lt;div&gt;
-      &lt;h1&gt;从{formatDate(fromDate)}到今天{formatDate(new Date())}所发布的文章&lt;/h1&gt;
-      &lt;div&gt;
-        &lt;ul&gt;{
-        users.zipWithIndex.map { case (user, index) =&gt;
-          &lt;li&gt;
-            &lt;div&gt;
-              &lt;span&gt;&lt;a href={user.jianshuUrl}&gt;{user.name}&lt;/a&gt;&lt;/span&gt;
-              &lt;span&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;/span&gt;
-              &lt;span&gt; ({buddyTitle}: {user.buddyName})&lt;/span&gt;&lt;/div&gt;
-              &lt;ol&gt;
-                {user.articles match {
-                case articles if articles.isEmpty =&gt; &lt;li&gt;无&lt;/li&gt;
-                case articles =&gt; articles.map(article =&gt; {
-                  &lt;li&gt;
-                    &lt;a href={article.url}&gt;{article.title}&lt;/a&gt;
-                    &lt;span&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;
-                    &lt;span&gt;{formatDate(article.sharedDate)}&lt;/span&gt;
-                  &lt;/li&gt;
-                })
-              }}
-              &lt;/ol&gt;
-          &lt;/li&gt;
-        }
-        }&lt;/ul&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    xml.Utility.trim(html).toString
-  }
-
-  def formatDate(date: Date) = {
-    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(date)
-  }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala" target="_blank" title="show github file">SummaryReport.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
-
-import java.io.File
-
-import in.freewind.jianshu.User
-
-object SummaryReport {
-
-  def render(users: List[User], buddyTitle: String, targetFile: File) {
-    val content = generateReport(users, buddyTitle)
-    utils.applyTemplate(content, targetFile)
-  }
-
-  def generateReport(users: List[User], buddyTitle: String) = {
-    val table = &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;序号&lt;/th&gt;
-          &lt;th&gt;姓名&lt;/th&gt;
-          &lt;th&gt;文章数&lt;/th&gt;
-          &lt;th&gt;阅读量&lt;/th&gt;
-          &lt;th&gt;收到评论&lt;/th&gt;
-          &lt;th&gt;收到喜欢&lt;/th&gt;
-          &lt;th&gt;{buddyTitle}姓名&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        {users.zipWithIndex.map { case (user, index) =&gt;
-        &lt;tr&gt;
-          &lt;td&gt;{index + 1}&lt;/td&gt;
-          &lt;td&gt;&lt;a href={user.jianshuUrl}&gt;{user.name}&lt;/a&gt;&lt;/td&gt;
-          &lt;td&gt;{user.articles.size}&lt;/td&gt;
-          &lt;td&gt;{user.articles.map(_.reads).sum}&lt;/td&gt;
-          &lt;td&gt;{user.articles.map(_.comments).sum}&lt;/td&gt;
-          &lt;td&gt;{user.articles.map(_.likes).sum}&lt;/td&gt;
-          &lt;td&gt;{user.buddyName}&lt;/td&gt;
-        &lt;/tr&gt;
-      }}
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-    xml.Utility.trim(table).toString
-  }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/utils.scala" target="_blank" title="show github file">utils.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/utils.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu.reports
-
-import java.io.File
-
-import org.apache.commons.io.FileUtils
-import org.apache.commons.lang3.StringUtils
-
-object utils {
-  def applyTemplate(content: String, targetFile: File): Unit = {
-    val finalContent = StringUtils.replace(readTemplate(), &quot;{{{table}}}&quot;, content)
-    writeToFile(finalContent, targetFile)
-    println(&quot;Wrote to file: &quot; + targetFile)
-  }
-
-  private def readTemplate(): String = {
-    val templateFile = new File(&quot;./src/main/resources/report-template.html&quot;)
-    FileUtils.readFileToString(templateFile, &quot;UTF-8&quot;)
-  }
-
-  private def writeToFile(content: String, targetFile: File) {
-    FileUtils.writeStringToFile(targetFile, content, &quot;UTF-8&quot;)
-  }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/XiyouApp.scala" target="_blank" title="show github file">XiyouApp.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/XiyouApp.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package in.freewind.jianshu
-
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-
-import in.freewind.jianshu.reports.{RecentArticleReport, SummaryReport}
-import net.ruippeixotog.scalascraper.scraper.ContentExtractors.{element =&gt; _, elementList =&gt; _}
-
-object XiyouApp extends App {
-
-  val users = List(
-    User(&quot;豆清&quot;, &quot;f38e29b52911&quot;, &quot;韩亦乐&quot;, Nil),
-    User(&quot;杨慧莉&quot;, &quot;f21e72979655&quot;, &quot;韩亦乐&quot;, Nil),
-    User(&quot;张甜&quot;, &quot;5bc106cbc4c2&quot;, &quot;杨战美&quot;, Nil),
-    User(&quot;焦齐齐&quot;, &quot;619d2f2d1eff&quot;, &quot;杨战美&quot;, Nil),
-    User(&quot;朱悦萱&quot;, &quot;ecbc46d12bea&quot;, &quot;赵彤&quot;, Nil),
-    User(&quot;鱼娟&quot;, &quot;d655df650fab&quot;, &quot;杨战美&quot;, Nil),
-    User(&quot;李佩赏&quot;, &quot;b585df8b02c3&quot;, &quot;自己&quot;, Nil),
-    User(&quot;刘祎琳&quot;, &quot;16b071109758&quot;, &quot;赵彤&quot;, Nil),
-    User(&quot;周婕&quot;, &quot;5db20fc9f635&quot;, &quot;李妍&quot;, Nil),
-    User(&quot;白颖&quot;, &quot;0f382636485d&quot;, &quot;赵彤&quot;, Nil),
-    User(&quot;黄丽珍&quot;, &quot;07120665a058&quot;, &quot;李佩赏&quot;, Nil),
-    User(&quot;韩亦乐&quot;, &quot;ecbf49bf207b&quot;, &quot;自己&quot;, Nil),
-    User(&quot;胡婷婷&quot;, &quot;5e21d37865b7&quot;, &quot;李妍&quot;, Nil),
-    User(&quot;李玫颖&quot;, &quot;4744b69eff3c&quot;, &quot;姚怡&quot;, Nil),
-    User(&quot;李杨帆&quot;, &quot;0583448c0477&quot;, &quot;姚怡&quot;, Nil),
-    User(&quot;赵彤&quot;, &quot;034ddfc875c4&quot;, &quot;自己&quot;, Nil),
-    User(&quot;杨战美&quot;, &quot;596e1b114d62&quot;, &quot;自己&quot;, Nil),
-    User(&quot;李妍&quot;, &quot;6bff0dd3cde1&quot;, &quot;自己&quot;, Nil),
-    User(&quot;余帆&quot;, &quot;bbeb712a0d8b&quot;, &quot;李佩赏&quot;, Nil),
-    User(&quot;姚怡&quot;, &quot;37b5a58937c6&quot;, &quot;自己&quot;, Nil),
-    User(&quot;王雨萱&quot;, &quot;bb657db58c5e&quot;, &quot;韩亦乐&quot;, Nil),
-    User(&quot;刘洋&quot;, &quot;65e145f23779&quot;, &quot;李妍&quot;, Nil),
-    User(&quot;李婷婷&quot;, &quot;ea4d8d62c629&quot;, &quot;李佩赏&quot;, Nil),
-    User(&quot;陈颖&quot;, &quot;508d15da87d7&quot;, &quot;姚怡&quot;, Nil)
-  ).map(user =&gt; {
-    user.copy(articles = ArticlePages.getAllArticles(user.jianshuId))
-  })
-
-  def parseDate(dateStr: String): Date = {
-    new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).parse(dateStr)
-  }
-
-  SummaryReport.render(users.sortBy(u =&gt; -u.articles.size), &quot;Team Lead&quot;, new File(&quot;./reports/xiyou-summary.html&quot;))
-  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = true, buddyTitle = &quot;Team Lead&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/xiyou-recent-articles0.html&quot;))
-  RecentArticleReport.render(users.sortBy(u =&gt; u.articles.map(_.comments).sum), showEmptyUsers = false, buddyTitle = &quot;Team Lead&quot;, fromDate = parseDate(Config.afterDate), targetFile = new File(&quot;./reports/xiyou-recent-articles.html&quot;))
-}
-
-
-
 </code></pre>
     </div>
 </div>

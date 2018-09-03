@@ -95,88 +95,6 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/hello.html" target="_blank" title="show github file">hello.html</a>
-        </div>
-        <div class="path">extension/hello.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!doctype html&gt;
-&lt;!--
- This page is shown when the extension button is clicked, because the
- &quot;browser_action&quot; field in manifest.json contains the &quot;default_popup&quot; key with
- value &quot;popup.html&quot;.
- --&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Show current Url&lt;/title&gt;
-    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/chrome-ts2kt/chrome-ts2kt.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./generated/hello.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
-        </div>
-        <div class="path">extension/manifest.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;manifest_version&quot;: 2,
-
-  &quot;name&quot;: &quot;chrome-extension-get-or-open-url-in-tab-demo&quot;,
-  &quot;description&quot;: &quot;chrome-extension-get-or-open-url-in-tab-demo&quot;,
-  &quot;version&quot;: &quot;1.0&quot;,
-
-  &quot;browser_action&quot;: {
-    &quot;default_icon&quot;: &quot;icon.png&quot;,
-    &quot;default_popup&quot;: &quot;hello.html&quot;
-  },
-  &quot;permissions&quot;: [
-    &quot;tabs&quot;
-  ]
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">extension/package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;extension&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;chrome-ts2kt&quot;: &quot;^0.1.1&quot;,
-    &quot;kotlin&quot;: &quot;^1.2.51&quot;,
-    &quot;kotlin-js-commons&quot;: &quot;^0.1.0&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
@@ -38105,6 +38023,88 @@ private fun openNewTab() {
 }));
 
 //# sourceMappingURL=kotlin.js.map
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/hello.html" target="_blank" title="show github file">hello.html</a>
+        </div>
+        <div class="path">extension/hello.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;!--
+ This page is shown when the extension button is clicked, because the
+ &quot;browser_action&quot; field in manifest.json contains the &quot;default_popup&quot; key with
+ value &quot;popup.html&quot;.
+ --&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Show current Url&lt;/title&gt;
+    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/kotlin-js-commons/kotlin-js-commons.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/chrome-ts2kt/chrome-ts2kt.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./generated/hello.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
+        </div>
+        <div class="path">extension/manifest.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;manifest_version&quot;: 2,
+
+  &quot;name&quot;: &quot;chrome-extension-get-or-open-url-in-tab-demo&quot;,
+  &quot;description&quot;: &quot;chrome-extension-get-or-open-url-in-tab-demo&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+
+  &quot;browser_action&quot;: {
+    &quot;default_icon&quot;: &quot;icon.png&quot;,
+    &quot;default_popup&quot;: &quot;hello.html&quot;
+  },
+  &quot;permissions&quot;: [
+    &quot;tabs&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-or-open-url-in-tab-demo/blob/master/extension/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">extension/package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;extension&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;chrome-ts2kt&quot;: &quot;^0.1.1&quot;,
+    &quot;kotlin&quot;: &quot;^1.2.51&quot;,
+    &quot;kotlin-js-commons&quot;: &quot;^0.1.0&quot;
+  }
+}
 </code></pre>
     </div>
 </div>

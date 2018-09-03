@@ -77,6 +77,37 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-coroutines-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    Output
+
+```
+Start: 2018-08-02 22:40:33
+Hello: 2018-08-02 22:40:34
+Stop: 2018-08-02 22:40:35
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-coroutines-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
@@ -103,37 +134,6 @@ fun main(args: Array&lt;String&gt;) {
 
 private fun now(): String {
     return SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;).format(Date())
-}</code></pre>
-    </div>
-</div>
-<div class="markdown markdown-body center-in-page">
-    Output
-
-```
-Start: 2018-08-02 22:40:33
-Hello: 2018-08-02 22:40:34
-Stop: 2018-08-02 22:40:35
-```</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-coroutines-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
-        </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
-
 }</code></pre>
     </div>
 </div>

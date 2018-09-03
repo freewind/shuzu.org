@@ -73,121 +73,6 @@ which means everything is OK.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">apply plugin: &#39;groovy&#39;
-apply plugin: &#39;maven&#39;
-
-repositories {
-    mavenLocal()
-    jcenter()
-}
-
-group &#39;freewind.github.com&#39;
-version &#39;0.1.0&#39;
-
-dependencies {
-    compile gradleApi()
-    compile localGroovy()
-    testCompile &#39;junit:junit:4.11&#39;
-    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
-        </div>
-        <div class="path">src/test/resources/kotlin.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">this[&#39;kotlin&#39;] = function (_, Kotlin) {
-  &#39;use strict&#39;;
-  function main(args) {
-    console.log(&#39;Hello, plain_demo&#39;);
-  }
-  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
-  package$plain_demo.main_kand9s$ = main;
-  main([]);
-  Kotlin.defineModule(&#39;kotlin&#39;, _);
-  return _;
-}(typeof this[&#39;kotlin&#39;] === &#39;undefined&#39; ? {} : this[&#39;kotlin&#39;], kotlin);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/my-module1.js" target="_blank" title="show github file">my-module1.js</a>
-        </div>
-        <div class="path">src/test/resources/my-module1.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
-  throw new Error(&quot;Error loading module &#39;my-module1&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;my-module1&#39;.&quot;);
-}
-this[&#39;my-module1&#39;] = function (_, Kotlin) {
-  &#39;use strict&#39;;
-  function main(args) {
-    console.log(&#39;Hello, plain_demo&#39;);
-  }
-  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
-  package$plain_demo.main_kand9s$ = main;
-  main([]);
-  Kotlin.defineModule(&#39;my-module1&#39;, _);
-  return _;
-}(typeof this[&#39;my-module1&#39;] === &#39;undefined&#39; ? {} : this[&#39;my-module1&#39;], kotlin);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/my-module2.js" target="_blank" title="show github file">my-module2.js</a>
-        </div>
-        <div class="path">src/test/resources/my-module2.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
-  throw new Error(&quot;Error loading module &#39;my-module2&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;my-module2&#39;.&quot;);
-}
-if (typeof this[&#39;my-module1&#39;] === &#39;undefined&#39;) {
-  throw new Error(&quot;Error loading module &#39;my-module2&#39;. Its dependency &#39;my-module1&#39; was not found. Please, check whether &#39;my-module1&#39; is loaded prior to &#39;my-module2&#39;.&quot;);
-}
-this[&#39;my-module2&#39;] = function (_, Kotlin, $module$my_lib1) {
-  &#39;use strict&#39;;
-  function main(args) {
-    console.log(&#39;Hello, plain_demo&#39;);
-  }
-  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
-  package$plain_demo.main_kand9s$ = main;
-  main([]);
-  Kotlin.defineModule(&#39;my-module2&#39;, _);
-  return _;
-}(typeof this[&#39;my-module2&#39;] === &#39;undefined&#39; ? {} : this[&#39;my-module2&#39;], kotlin, this[&#39;my-module1&#39;]);
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/non-kotlin-module.js" target="_blank" title="show github file">non-kotlin-module.js</a>
-        </div>
-        <div class="path">src/test/resources/non-kotlin-module.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">console.log(&quot;I&#39;m not kotlin js module&quot;);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/testing-project/build.gradle" target="_blank" title="show github file">build.gradle</a>
         </div>
         <div class="path">testing-project/build.gradle</div>
@@ -253,14 +138,30 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/testing-project/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/testing-project/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">testing-project/index.html</div>
+        <div class="path">testing-project/src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/html&gt;</code></pre>
+        <pre class="content"><code class="kt">package example
+
+import kotlinjs.common.jsonAs
+import kotlin.browser.window
+
+fun main(args: Array&lt;String&gt;) {
+    val user = jsonAs&lt;User&gt;().apply {
+        this.name = &quot;Freewind&quot;
+    }
+    window.alert(JSON.stringify(user))
+    myHello()
+}
+
+interface User {
+    var name: String
+}
+
+@JsName(&quot;myHello&quot;)
+external fun myHello()</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -300,30 +201,129 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/testing-project/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/testing-project/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">testing-project/src/main/kotlin/example/Hello.kt</div>
+        <div class="path">testing-project/index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">apply plugin: &#39;groovy&#39;
+apply plugin: &#39;maven&#39;
 
-import kotlinjs.common.jsonAs
-import kotlin.browser.window
-
-fun main(args: Array&lt;String&gt;) {
-    val user = jsonAs&lt;User&gt;().apply {
-        this.name = &quot;Freewind&quot;
-    }
-    window.alert(JSON.stringify(user))
-    myHello()
+repositories {
+    mavenLocal()
+    jcenter()
 }
 
-interface User {
-    var name: String
+group &#39;freewind.github.com&#39;
+version &#39;0.1.0&#39;
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    testCompile &#39;junit:junit:4.11&#39;
+    testCompile &#39;org.easytesting:fest-assert-core:2.0M10&#39;
 }
 
-@JsName(&quot;myHello&quot;)
-external fun myHello()</code></pre>
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/my-module1.js" target="_blank" title="show github file">my-module1.js</a>
+        </div>
+        <div class="path">src/test/resources/my-module1.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
+  throw new Error(&quot;Error loading module &#39;my-module1&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;my-module1&#39;.&quot;);
+}
+this[&#39;my-module1&#39;] = function (_, Kotlin) {
+  &#39;use strict&#39;;
+  function main(args) {
+    console.log(&#39;Hello, plain_demo&#39;);
+  }
+  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
+  package$plain_demo.main_kand9s$ = main;
+  main([]);
+  Kotlin.defineModule(&#39;my-module1&#39;, _);
+  return _;
+}(typeof this[&#39;my-module1&#39;] === &#39;undefined&#39; ? {} : this[&#39;my-module1&#39;], kotlin);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
+        </div>
+        <div class="path">src/test/resources/kotlin.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">this[&#39;kotlin&#39;] = function (_, Kotlin) {
+  &#39;use strict&#39;;
+  function main(args) {
+    console.log(&#39;Hello, plain_demo&#39;);
+  }
+  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
+  package$plain_demo.main_kand9s$ = main;
+  main([]);
+  Kotlin.defineModule(&#39;kotlin&#39;, _);
+  return _;
+}(typeof this[&#39;kotlin&#39;] === &#39;undefined&#39; ? {} : this[&#39;kotlin&#39;], kotlin);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/non-kotlin-module.js" target="_blank" title="show github file">non-kotlin-module.js</a>
+        </div>
+        <div class="path">src/test/resources/non-kotlin-module.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&quot;I&#39;m not kotlin js module&quot;);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-kotlin-js-bundler-plugin/blob/master/src/test/resources/my-module2.js" target="_blank" title="show github file">my-module2.js</a>
+        </div>
+        <div class="path">src/test/resources/my-module2.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
+  throw new Error(&quot;Error loading module &#39;my-module2&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;my-module2&#39;.&quot;);
+}
+if (typeof this[&#39;my-module1&#39;] === &#39;undefined&#39;) {
+  throw new Error(&quot;Error loading module &#39;my-module2&#39;. Its dependency &#39;my-module1&#39; was not found. Please, check whether &#39;my-module1&#39; is loaded prior to &#39;my-module2&#39;.&quot;);
+}
+this[&#39;my-module2&#39;] = function (_, Kotlin, $module$my_lib1) {
+  &#39;use strict&#39;;
+  function main(args) {
+    console.log(&#39;Hello, plain_demo&#39;);
+  }
+  var package$plain_demo = _.plain_demo || (_.plain_demo = {});
+  package$plain_demo.main_kand9s$ = main;
+  main([]);
+  Kotlin.defineModule(&#39;my-module2&#39;, _);
+  return _;
+}(typeof this[&#39;my-module2&#39;] === &#39;undefined&#39; ? {} : this[&#39;my-module2&#39;], kotlin, this[&#39;my-module1&#39;]);
+</code></pre>
     </div>
 </div>
 

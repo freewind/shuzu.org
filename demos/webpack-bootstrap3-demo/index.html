@@ -88,22 +88,39 @@ document.write(&#39;it works!&#39;);</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">webpack.config.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;This is Bootstrap Button&lt;/button&gt;
-	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./entry.js&#39;,
+  output: {
+    path: __dirname,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: &#39;style!css&#39; // note style is before css
+    }, {
+      test: /\.(woff|woff2)$/,
+      loader: &quot;url-loader?limit=10000&amp;mimetype=application/font-woff&quot;
+    }, {
+      test: /\.ttf$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.eot$/,
+      loader: &quot;file-loader&quot;
+    }, {
+      test: /\.svg$/,
+      loader: &quot;file-loader&quot;
+    }, { 
+      test: require.resolve(&quot;jquery&quot;), 
+      loader: &quot;expose?$!expose?jQuery&quot; 
+    }]
+  }
+}</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -149,39 +166,22 @@ document.write(&#39;it works!&#39;);</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/webpack-bootstrap3-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">webpack.config.js</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./entry.js&#39;,
-  output: {
-    path: __dirname,
-    filename: &#39;bundle.js&#39;
-  },
-  module: {
-    loaders: [{
-      test: /\.css$/,
-      loader: &#39;style!css&#39; // note style is before css
-    }, {
-      test: /\.(woff|woff2)$/,
-      loader: &quot;url-loader?limit=10000&amp;mimetype=application/font-woff&quot;
-    }, {
-      test: /\.ttf$/,
-      loader: &quot;file-loader&quot;
-    }, {
-      test: /\.eot$/,
-      loader: &quot;file-loader&quot;
-    }, {
-      test: /\.svg$/,
-      loader: &quot;file-loader&quot;
-    }, { 
-      test: require.resolve(&quot;jquery&quot;), 
-      loader: &quot;expose?$!expose?jQuery&quot; 
-    }]
-  }
-}</code></pre>
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;This is Bootstrap Button&lt;/button&gt;
+	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

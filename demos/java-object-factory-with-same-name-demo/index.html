@@ -88,6 +88,28 @@ user2
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-object-factory-with-same-name-demo/blob/master/src/main/java/demo/User.java" target="_blank" title="show github file">User.java</a>
+        </div>
+        <div class="path">src/main/java/demo/User.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+public class User {
+    public String name;
+    public User(String name) {
+        this.name = name;
+    }
+    public static User User(String name) {
+        return new User(name);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-object-factory-with-same-name-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
         </div>
         <div class="path">src/main/java/demo/Hello.java</div>
@@ -107,28 +129,6 @@ public class Hello {
         System.out.println(user2.name);
     }
 
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-object-factory-with-same-name-demo/blob/master/src/main/java/demo/User.java" target="_blank" title="show github file">User.java</a>
-        </div>
-        <div class="path">src/main/java/demo/User.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-public class User {
-    public String name;
-    public User(String name) {
-        this.name = name;
-    }
-    public static User User(String name) {
-        return new User(name);
-    }
 }
 </code></pre>
     </div>

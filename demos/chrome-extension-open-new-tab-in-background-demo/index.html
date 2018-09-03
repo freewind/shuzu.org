@@ -91,6 +91,30 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import chrome.tabs.CreateProperties
+import kotlinjs.common.jsonAs
+
+fun main(args: Array&lt;String&gt;) {
+    chrome.tabs.create(jsonAs&lt;CreateProperties&gt;().apply {
+        url = &quot;http://github.com&quot;
+        active = false
+    }) { tab -&gt;
+        console.log(&quot;Opened tab in background: ${tab.id}&quot;)
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/extension/bundle.js" target="_blank" title="show github file">bundle.js</a>
         </div>
         <div class="path">extension/bundle.js</div>
@@ -38207,30 +38231,6 @@ this[&#39;chrome-extension-open-new-tab-in-background-demo&#39;] = function (_, 
     &quot;activeTab&quot;
   ]
 }</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-open-new-tab-in-background-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import chrome.tabs.CreateProperties
-import kotlinjs.common.jsonAs
-
-fun main(args: Array&lt;String&gt;) {
-    chrome.tabs.create(jsonAs&lt;CreateProperties&gt;().apply {
-        url = &quot;http://github.com&quot;
-        active = false
-    }) { tab -&gt;
-        console.log(&quot;Opened tab in background: ${tab.id}&quot;)
-    }
-}
-</code></pre>
     </div>
 </div>
 

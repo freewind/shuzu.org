@@ -31,13 +31,20 @@ open index.html
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-module-publish-to-npm-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-module-publish-to-npm-demo/blob/master/red-panel-module.js" target="_blank" title="show github file">red-panel-module.js</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">red-panel-module.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [&#39;RedPanel&#39;])
-</code></pre>
+        <pre class="content"><code class="js">const redPanelModule = angular.module(&#39;RedPanel&#39;, [])
+
+redPanelModule.directive(&#39;redPanel&#39;, function () {
+    return {
+        link: function ($scope, $element) {
+            $element.css(&#39;border&#39;, &#39;1px solid red&#39;).css(&#39;padding&#39;, &#39;10px&#39;)
+        }
+    }
+})</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -69,25 +76,6 @@ open index.html
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-module-publish-to-npm-demo/blob/master/red-panel-module.js" target="_blank" title="show github file">red-panel-module.js</a>
-        </div>
-        <div class="path">red-panel-module.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const redPanelModule = angular.module(&#39;RedPanel&#39;, [])
-
-redPanelModule.directive(&#39;redPanel&#39;, function () {
-    return {
-        link: function ($scope, $element) {
-            $element.css(&#39;border&#39;, &#39;1px solid red&#39;).css(&#39;padding&#39;, &#39;10px&#39;)
-        }
-    }
-})</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-module-publish-to-npm-demo/blob/master/testing.html" target="_blank" title="show github file">testing.html</a>
         </div>
         <div class="path">testing.html</div>
@@ -107,6 +95,18 @@ redPanelModule.directive(&#39;redPanel&#39;, function () {
 &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-module-publish-to-npm-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [&#39;RedPanel&#39;])
+</code></pre>
     </div>
 </div>
 

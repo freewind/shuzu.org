@@ -34,63 +34,6 @@ Then visit &lt;http://localhost:3000&gt;, and upload images. You will see upload
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
-        </div>
-        <div class="path">app/server.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import webpack from &#39;webpack&#39;;
-import webpackConfig from &#39;../webpack.config&#39;;
-import webpackDevMiddleware from &#39;webpack-dev-middleware&#39;;
-import webpackHotMiddleware from &#39;webpack-hot-middleware&#39;;
-import express from &#39;express&#39;;
-import fileUpload from &#39;express-fileupload&#39;;
-import path from &#39;path&#39;;
-
-const app = express();
-app.use(fileUpload());
-const compiler = webpack(webpackConfig);
-
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  lazy: false,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true
-  },
-  publicPath: webpackConfig.output.publicPath
-}));
-
-app.use(webpackHotMiddleware(compiler, {
-  log: console.log
-}));
-
-app.use(express.static(&#39;./public&#39;));
-
-app.post(&#39;/api/uploaded-images&#39;, function(req, res) {
-  const imageFile = req.files.image;
-  const targetName = generateTargetName(imageFile.name);
-  imageFile.mv(&#39;./public/uploaded-images/&#39; + targetName, function(err) {
-    if (err) return res.status(500).send(&#39;Error happens when uploading&#39;);
-    res.status(201).send(&#39;/uploaded-images/&#39; + targetName);
-  })
-});
-
-function generateTargetName(fileName) {
-  const extName = path.extname(fileName);
-  const prefixName = path.basename(fileName, extName);
-  const timestamp = Date.now();
-  return prefixName + &#39;-&#39; + timestamp + extName;
-}
-
-app.listen(3000, function() {
-  console.log(&#39;Listening on 3000&#39;);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/bundle.js" target="_blank" title="show github file">bundle.js</a>
         </div>
         <div class="path">bundle.js</div>
@@ -34978,69 +34921,58 @@ app.listen(3000, function() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app/server.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;express-react-upload-images-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
-    &quot;test&quot;: &quot;jasmine || exit 1&quot;
+        <pre class="content"><code class="js">import webpack from &#39;webpack&#39;;
+import webpackConfig from &#39;../webpack.config&#39;;
+import webpackDevMiddleware from &#39;webpack-dev-middleware&#39;;
+import webpackHotMiddleware from &#39;webpack-hot-middleware&#39;;
+import express from &#39;express&#39;;
+import fileUpload from &#39;express-fileupload&#39;;
+import path from &#39;path&#39;;
+
+const app = express();
+app.use(fileUpload());
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  lazy: false,
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: true
   },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
-    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
-    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
-    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
-    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
-    &quot;webpack&quot;: &quot;^1.13.1&quot;,
-    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
-    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
-    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
-    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
-    &quot;express&quot;: &quot;^4.14.0&quot;,
-    &quot;express-fileupload&quot;: &quot;0.0.5&quot;,
-    &quot;jquery&quot;: &quot;^3.1.0&quot;,
-    &quot;lodash&quot;: &quot;^4.14.1&quot;,
-    &quot;react&quot;: &quot;^15.3.0&quot;,
-    &quot;react-dom&quot;: &quot;^15.3.0&quot;,
-    &quot;superagent&quot;: &quot;^2.2.0&quot;
-  }
+  publicPath: webpackConfig.output.publicPath
+}));
+
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log
+}));
+
+app.use(express.static(&#39;./public&#39;));
+
+app.post(&#39;/api/uploaded-images&#39;, function(req, res) {
+  const imageFile = req.files.image;
+  const targetName = generateTargetName(imageFile.name);
+  imageFile.mv(&#39;./public/uploaded-images/&#39; + targetName, function(err) {
+    if (err) return res.status(500).send(&#39;Error happens when uploading&#39;);
+    res.status(201).send(&#39;/uploaded-images/&#39; + targetName);
+  })
+});
+
+function generateTargetName(fileName) {
+  const extName = path.extname(fileName);
+  const prefixName = path.basename(fileName, extName);
+  const timestamp = Date.now();
+  return prefixName + &#39;-&#39; + timestamp + extName;
 }
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">public/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+
+app.listen(3000, function() {
+  console.log(&#39;Listening on 3000&#39;);
+});</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -35121,6 +35053,74 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ]
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;express-react-upload-images-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;babel-node app/server.js --ignore &#39;node_modules/&#39; || exit 0&quot;,
+    &quot;test&quot;: &quot;jasmine || exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;^6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;jasmine&quot;: &quot;^2.4.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
+    &quot;webpack&quot;: &quot;^1.13.1&quot;,
+    &quot;webpack-dev-middleware&quot;: &quot;^1.6.1&quot;,
+    &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;^6.11.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;,
+    &quot;express-fileupload&quot;: &quot;0.0.5&quot;,
+    &quot;jquery&quot;: &quot;^3.1.0&quot;,
+    &quot;lodash&quot;: &quot;^4.14.1&quot;,
+    &quot;react&quot;: &quot;^15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^15.3.0&quot;,
+    &quot;superagent&quot;: &quot;^2.2.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">public/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

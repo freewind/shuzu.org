@@ -49,56 +49,6 @@ Reference
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/client.js" target="_blank" title="show github file">client.js</a>
-        </div>
-        <div class="path">client.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">#!/usr/bin/env node
-var WebSocketClient = require(&#39;websocket&#39;).client;
-
-var client = new WebSocketClient();
-
-client.on(&#39;connectFailed&#39;, function(error) {
-    console.log(&#39;Connect Error: &#39; + error.toString());
-});
-
-client.on(&#39;connect&#39;, function(connection) {
-    console.log(&#39;WebSocket Client Connected&#39;);
-    connection.on(&#39;error&#39;, function(error) {
-        console.log(&quot;Connection Error: &quot; + error.toString());
-    });
-    connection.on(&#39;close&#39;, function() {
-        console.log(&#39;Connection Closed&#39;);
-    });
-    connection.on(&#39;message&#39;, function(message) {
-        if (message.type === &#39;utf8&#39;) {
-            console.log(&quot;Received: &#39;&quot; + message.utf8Data + &quot;&#39;&quot;);
-        }
-    });
-    
-    function sendNumber() {
-        if (connection.connected) {
-            var number = Math.round(Math.random() * 0xFFFFFF);
-            // send string
-            connection.sendUTF(number.toString());
-            // have to stringify object to string
-            connection.sendUTF(JSON.stringify({
-                a: 111,
-                b: 222
-            }));
-            setTimeout(sendNumber, 1000);
-        }
-    }
-    sendNumber();
-});
-
-client.connect(&#39;ws://localhost:8080/&#39;);</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
@@ -159,6 +109,56 @@ wsServer.on(&#39;connect&#39;, function(connection) {
         console.log((new Date()) + &#39; Peer &#39; + connection.remoteAddress + &#39; disconnected.&#39;);
     });
 });</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/websocket-lib-demo/blob/master/client.js" target="_blank" title="show github file">client.js</a>
+        </div>
+        <div class="path">client.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">#!/usr/bin/env node
+var WebSocketClient = require(&#39;websocket&#39;).client;
+
+var client = new WebSocketClient();
+
+client.on(&#39;connectFailed&#39;, function(error) {
+    console.log(&#39;Connect Error: &#39; + error.toString());
+});
+
+client.on(&#39;connect&#39;, function(connection) {
+    console.log(&#39;WebSocket Client Connected&#39;);
+    connection.on(&#39;error&#39;, function(error) {
+        console.log(&quot;Connection Error: &quot; + error.toString());
+    });
+    connection.on(&#39;close&#39;, function() {
+        console.log(&#39;Connection Closed&#39;);
+    });
+    connection.on(&#39;message&#39;, function(message) {
+        if (message.type === &#39;utf8&#39;) {
+            console.log(&quot;Received: &#39;&quot; + message.utf8Data + &quot;&#39;&quot;);
+        }
+    });
+    
+    function sendNumber() {
+        if (connection.connected) {
+            var number = Math.round(Math.random() * 0xFFFFFF);
+            // send string
+            connection.sendUTF(number.toString());
+            // have to stringify object to string
+            connection.sendUTF(JSON.stringify({
+                a: 111,
+                b: 222
+            }));
+            setTimeout(sendNumber, 1000);
+        }
+    }
+    sendNumber();
+});
+
+client.connect(&#39;ws://localhost:8080/&#39;);</code></pre>
     </div>
 </div>
 

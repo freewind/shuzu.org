@@ -70,32 +70,16 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-send-html-file-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-ktor-send-html-file-demo/blob/master/static/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">static/index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import io.ktor.application.call
-import io.ktor.response.respondFile
-import io.ktor.routing.get
-import io.ktor.routing.routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import java.io.File
-
-fun main(args: Array&lt;String&gt;) {
-    val server = embeddedServer(Netty, port = 8080) {
-        routing {
-            get(&quot;/&quot;) {
-                call.respondFile(File(&quot;./static/index.html&quot;))
-            }
-        }
-    }
-    server.start(wait = true)
-}
-</code></pre>
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Static Html File&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -124,16 +108,32 @@ class HelloTest {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-send-html-file-demo/blob/master/static/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/kotlin-ktor-send-html-file-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">static/index.html</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;body&gt;
-&lt;h1&gt;Static Html File&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+        <pre class="content"><code class="kt">package example
+
+import io.ktor.application.call
+import io.ktor.response.respondFile
+import io.ktor.routing.get
+import io.ktor.routing.routing
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import java.io.File
+
+fun main(args: Array&lt;String&gt;) {
+    val server = embeddedServer(Netty, port = 8080) {
+        routing {
+            get(&quot;/&quot;) {
+                call.respondFile(File(&quot;./static/index.html&quot;))
+            }
+        }
+    }
+    server.start(wait = true)
+}
+</code></pre>
     </div>
 </div>
 

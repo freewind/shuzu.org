@@ -40,21 +40,16 @@ Resources
     </div>
 </div>
 
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
-        </div>
-        <div class="path">a.d.ts</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="ts">declare module &#39;a&#39; {
-    export function hello(name: string) : void;
-}
+<div class="markdown markdown-body center-in-page">
+    如果没有声明类型文件，则编译不会报错。参数会最终传到JavaScript那里执行。
 
-</code></pre>
-    </div>
-</div>
+```
+npx ts-node hello2.ts
+```
+
+```
+Hello, 1 (from a)
+```</div>
 <div class="markdown markdown-body center-in-page">
     之前的定义是由ts文件生成的(`tsc --declaration a.ts`)，内容如下：
 
@@ -68,15 +63,31 @@ export declare function hello(name: any): void;
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello1.ts" target="_blank" title="show github file">hello1.ts</a>
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/a.js" target="_blank" title="show github file">a.js</a>
         </div>
-        <div class="path">hello1.ts</div>
+        <div class="path">my-module/a.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">/// &lt;reference path=&quot;./a.d.ts&quot; /&gt;
-import {hello} from &quot;a&quot;;
-
-hello(1);</code></pre>
+        <pre class="content"><code class="js">module.exports.hello = function (name) {
+    console.log(&quot;Hello, &quot; + name + &quot; (from a)&quot;);
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">my-module/package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;a&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;a.js&quot;
+}
+</code></pre>
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
@@ -110,44 +121,33 @@ hello(1);
 </code></pre>
     </div>
 </div>
-<div class="markdown markdown-body center-in-page">
-    如果没有声明类型文件，则编译不会报错。参数会最终传到JavaScript那里执行。
-
-```
-npx ts-node hello2.ts
-```
-
-```
-Hello, 1 (from a)
-```</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/a.js" target="_blank" title="show github file">a.js</a>
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
         </div>
-        <div class="path">my-module/a.js</div>
+        <div class="path">a.d.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">module.exports.hello = function (name) {
-    console.log(&quot;Hello, &quot; + name + &quot; (from a)&quot;);
-};
+        <pre class="content"><code class="ts">declare module &#39;a&#39; {
+    export function hello(name: string) : void;
+}
+
 </code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello1.ts" target="_blank" title="show github file">hello1.ts</a>
         </div>
-        <div class="path">my-module/package.json</div>
+        <div class="path">hello1.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;a&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;main&quot;: &quot;a.js&quot;
-}
-</code></pre>
+        <pre class="content"><code class="ts">/// &lt;reference path=&quot;./a.d.ts&quot; /&gt;
+import {hello} from &quot;a&quot;;
+
+hello(1);</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

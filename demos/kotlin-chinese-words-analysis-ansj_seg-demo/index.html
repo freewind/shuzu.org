@@ -69,27 +69,6 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-chinese-words-analysis-ansj_seg-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import org.ansj.splitWord.analysis.ToAnalysis
-
-fun main(args: Array&lt;String&gt;) {
-    val str = &quot;欢迎使用ansj_seg,(ansj中文分词)在这里如果你遇到什么问题都可以联系我.我一定尽我所能.帮助大家.ansj_seg更快,更准,更自由!&quot;
-    val results = ToAnalysis.parse(str)
-    println(results)
-    println(results.map { it.name })
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-chinese-words-analysis-ansj_seg-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
         <div class="path">src/test/kotlin/example/HelloTest.kt</div>
@@ -108,6 +87,27 @@ class HelloTest {
     }
 
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-chinese-words-analysis-ansj_seg-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.ansj.splitWord.analysis.ToAnalysis
+
+fun main(args: Array&lt;String&gt;) {
+    val str = &quot;欢迎使用ansj_seg,(ansj中文分词)在这里如果你遇到什么问题都可以联系我.我一定尽我所能.帮助大家.ansj_seg更快,更准,更自由!&quot;
+    val results = ToAnalysis.parse(str)
+    println(results)
+    println(results.map { it.name })
+}
+</code></pre>
     </div>
 </div>
 

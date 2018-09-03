@@ -66,6 +66,52 @@ Show a table with data.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Person.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+
+import static javafx.collections.FXCollections.observableArrayList;
+
+public class Person {
+    private final SimpleStringProperty name;
+    private final SimpleIntegerProperty number;
+    private final SimpleListProperty&lt;String&gt; fruits;
+
+    Person(String name, Integer number, List&lt;String&gt; fruits) {
+        this.name = new SimpleStringProperty(name);
+        this.number = new SimpleIntegerProperty(number);
+        this.fruits = new SimpleListProperty&lt;&gt;(observableArrayList(fruits));
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public int getNumber() {
+        return number.get();
+    }
+
+    public String getFruits() {
+        return StringUtils.join(fruits.get(), &quot;, &quot;);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
         </div>
         <div class="path">src/main/java/demo/Hello.java</div>
@@ -132,52 +178,6 @@ public class Hello extends Application {
             setItems(data);
         }};
     }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-javafx-table-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Person.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
-
-import static javafx.collections.FXCollections.observableArrayList;
-
-public class Person {
-    private final SimpleStringProperty name;
-    private final SimpleIntegerProperty number;
-    private final SimpleListProperty&lt;String&gt; fruits;
-
-    Person(String name, Integer number, List&lt;String&gt; fruits) {
-        this.name = new SimpleStringProperty(name);
-        this.number = new SimpleIntegerProperty(number);
-        this.fruits = new SimpleListProperty&lt;&gt;(observableArrayList(fruits));
-    }
-
-    public String getName() {
-        return this.name.get();
-    }
-
-    public int getNumber() {
-        return number.get();
-    }
-
-    public String getFruits() {
-        return StringUtils.join(fruits.get(), &quot;, &quot;);
-    }
-
 }
 </code></pre>
     </div>

@@ -62,34 +62,6 @@ Explained and resolved here: &lt;https://stackoverflow.com/questions/17933234/ch
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/add-button.js" target="_blank" title="show github file">add-button.js</a>
-        </div>
-        <div class="path">add-button.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var button = document.createElement(&quot;button&quot;)
-
-button.innerText = &quot;This is the inserted button, click on me!&quot;
-button[&#39;id&#39;] = &#39;inserted&#39;
-button[&#39;data-name&#39;] = &#39;name1&#39;
-button.onclick = function() {
-    alert(&#39;clicked!&#39;)
-}
-button.fun = function() {
-    alert(&#39;fun!&#39;)
-}
-
-document.body.appendChild(button)
-
-alert(&#39;Button inserted to page bottom, please scroll down the page, find and click on it.&#39;)
-
-// scroll down the page
-window.scrollTo(0, document.body.scrollHeight)</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/manifest.json" target="_blank" title="show github file">manifest.json</a>
         </div>
         <div class="path">manifest.json</div>
@@ -144,6 +116,34 @@ chrome.tabs.executeScript({
 }, function() {
     console.log(&quot;add-button.js injected&quot;)
 })</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-tabs-executescript-add-button-demo/blob/master/add-button.js" target="_blank" title="show github file">add-button.js</a>
+        </div>
+        <div class="path">add-button.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var button = document.createElement(&quot;button&quot;)
+
+button.innerText = &quot;This is the inserted button, click on me!&quot;
+button[&#39;id&#39;] = &#39;inserted&#39;
+button[&#39;data-name&#39;] = &#39;name1&#39;
+button.onclick = function() {
+    alert(&#39;clicked!&#39;)
+}
+button.fun = function() {
+    alert(&#39;fun!&#39;)
+}
+
+document.body.appendChild(button)
+
+alert(&#39;Button inserted to page bottom, please scroll down the page, find and click on it.&#39;)
+
+// scroll down the page
+window.scrollTo(0, document.body.scrollHeight)</code></pre>
     </div>
 </div>
 

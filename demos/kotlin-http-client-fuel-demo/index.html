@@ -69,27 +69,24 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-http-client-fuel-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-http-client-fuel-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import com.github.kittinunf.fuel.Fuel
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-fun main(args: Array&lt;String&gt;) {
-    val result = Fuel.get(&quot;http://httpbin.org/get&quot;).responseString()
-    println(&quot;------------- request ---------------&quot;)
-    println(result.first)
+class HelloTest {
 
-    println(&quot;--------------- response -----------------&quot;)
-    println(result.second)
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
 
-    println(&quot;--------------- third ------------------&quot;)
-    println(result.third)
-}
-</code></pre>
+}</code></pre>
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
@@ -148,24 +145,27 @@ Content-Type : [application/json]
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-http-client-fuel-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-http-client-fuel-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
+import com.github.kittinunf.fuel.Fuel
 
-class HelloTest {
+fun main(args: Array&lt;String&gt;) {
+    val result = Fuel.get(&quot;http://httpbin.org/get&quot;).responseString()
+    println(&quot;------------- request ---------------&quot;)
+    println(result.first)
 
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
+    println(&quot;--------------- response -----------------&quot;)
+    println(result.second)
 
-}</code></pre>
+    println(&quot;--------------- third ------------------&quot;)
+    println(result.third)
+}
+</code></pre>
     </div>
 </div>
 

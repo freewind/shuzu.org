@@ -25,20 +25,6 @@ sbt test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/src/main/scala/my/Person.scala" target="_blank" title="show github file">Person.scala</a>
-        </div>
-        <div class="path">src/main/scala/my/Person.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package my
-
-case class Person(name: String, age: Int, address: Option[String], phones: List[String] /* don&#39;t use Array! */)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/src/test/scala/my/PersonSpec.scala" target="_blank" title="show github file">PersonSpec.scala</a>
         </div>
         <div class="path">src/test/scala/my/PersonSpec.scala</div>
@@ -68,6 +54,20 @@ class PersonSpec extends FunSuite with Matchers {
     person shouldBe Person(&quot;Freewind&quot;, 100, Some(&quot;China&quot;), List(&quot;111&quot;, &quot;222&quot;))
   }
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/src/main/scala/my/Person.scala" target="_blank" title="show github file">Person.scala</a>
+        </div>
+        <div class="path">src/main/scala/my/Person.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package my
+
+case class Person(name: String, age: Int, address: Option[String], phones: List[String] /* don&#39;t use Array! */)
 </code></pre>
     </div>
 </div>

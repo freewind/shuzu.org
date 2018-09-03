@@ -36,6 +36,44 @@ sourceSets {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
+        </div>
+        <div class="path">build.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">buildscript {
+
+    ext.kotlin_version = &#39;1.2.60&#39;
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
+        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/build.gradle" target="_blank" title="show github file">build.gradle</a>
         </div>
         <div class="path">app/build.gradle</div>
@@ -72,60 +110,6 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank" title="show github file">AndroidManifest.xml</a>
-        </div>
-        <div class="path">app/src/main/AndroidManifest.xml</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-          package=&quot;demos&quot;&gt;
-
-    &lt;application
-            android:allowBackup=&quot;true&quot;
-            android:icon=&quot;@mipmap/ic_launcher&quot;
-            android:label=&quot;android-button-demo&quot;
-            android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
-            android:supportsRtl=&quot;true&quot;
-            android:theme=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
-        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
-                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
-    &lt;/application&gt;
-
-&lt;/manifest&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/java/demos/MainActivity.kt" target="_blank" title="show github file">MainActivity.kt</a>
-        </div>
-        <div class="path">app/src/main/java/demos/MainActivity.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package demos
-
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank" title="show github file">activity_main.xml</a>
         </div>
         <div class="path">app/src/main/res/layout/activity_main.xml</div>
@@ -155,39 +139,55 @@ class MainActivity : AppCompatActivity() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/java/demos/MainActivity.kt" target="_blank" title="show github file">MainActivity.kt</a>
         </div>
-        <div class="path">build.gradle</div>
+        <div class="path">app/src/main/java/demos/MainActivity.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="gradle">buildscript {
+        <pre class="content"><code class="kt">package demos
 
-    ext.kotlin_version = &#39;1.2.60&#39;
-    
-    repositories {
-        google()
-        jcenter()
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
     }
-    dependencies {
-        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;
-        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/android-button-demo/blob/master/app/src/main/AndroidManifest.xml" target="_blank" title="show github file">AndroidManifest.xml</a>
+        </div>
+        <div class="path">app/src/main/AndroidManifest.xml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+          package=&quot;demos&quot;&gt;
+
+    &lt;application
+            android:allowBackup=&quot;true&quot;
+            android:icon=&quot;@mipmap/ic_launcher&quot;
+            android:label=&quot;android-button-demo&quot;
+            android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;
+            android:supportsRtl=&quot;true&quot;
+            android:theme=&quot;@style/Theme.AppCompat.Light.DarkActionBar&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

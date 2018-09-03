@@ -54,25 +54,6 @@ Notice
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
-        </div>
-        <div class="path">data.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">[
-  {
-    &quot;myName&quot;: &quot;typescript&quot;
-  },
-  {
-    &quot;myName&quot;: &quot;json&quot;
-  }
-]
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/hello.ts" target="_blank" title="show github file">hello.ts</a>
         </div>
         <div class="path">hello.ts</div>
@@ -81,6 +62,25 @@ Notice
         <pre class="content"><code class="ts">import data from &#39;./data.json&#39;
 
 console.log(data.map(x =&gt; x.myName))
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </div>
+        <div class="path">tsconfig.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;resolveJsonModule&quot;: true
+  }
+}
 </code></pre>
     </div>
 </div>
@@ -104,19 +104,19 @@ console.log(data.map(x =&gt; x.myName))
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+            <a href="https://github.com/freewind-demos/typescript-import-json-file-with-type-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
         </div>
-        <div class="path">tsconfig.json</div>
+        <div class="path">data.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;compilerOptions&quot;: {
-    &quot;module&quot;: &quot;commonjs&quot;,
-    &quot;strict&quot;: true,
-    &quot;esModuleInterop&quot;: true,
-    &quot;resolveJsonModule&quot;: true
+        <pre class="content"><code class="json">[
+  {
+    &quot;myName&quot;: &quot;typescript&quot;
+  },
+  {
+    &quot;myName&quot;: &quot;json&quot;
   }
-}
+]
 </code></pre>
     </div>
 </div>

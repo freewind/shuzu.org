@@ -67,6 +67,29 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
         <div class="path">src/main/kotlin/example/Hello.kt</div>
@@ -108,29 +131,6 @@ data class Child(val name: String) : Super()
 
 
 </code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-klaxon-super-class-field-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
-        </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(Hello.hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
-
-}</code></pre>
     </div>
 </div>
 

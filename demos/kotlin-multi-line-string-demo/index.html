@@ -61,29 +61,6 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-multi-line-string-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-// a long string contains `${`
-// have to split it to two strings
-private val str = &quot;&quot;&quot;
-$&quot;&quot;&quot; + &quot;&quot;&quot;{
-&quot;&quot;&quot;.trim()
-
-fun main(args: Array&lt;String&gt;) {
-    println(str)
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-multi-line-string-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
         <div class="path">src/test/kotlin/example/HelloTest.kt</div>
@@ -102,6 +79,29 @@ class HelloTest {
     }
 
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-multi-line-string-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+// a long string contains `${`
+// have to split it to two strings
+private val str = &quot;&quot;&quot;
+$&quot;&quot;&quot; + &quot;&quot;&quot;{
+&quot;&quot;&quot;.trim()
+
+fun main(args: Array&lt;String&gt;) {
+    println(str)
+}
+
+</code></pre>
     </div>
 </div>
 

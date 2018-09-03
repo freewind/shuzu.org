@@ -128,6 +128,24 @@ public class Hello {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/home.html" target="_blank" title="show github file">home.html</a>
+        </div>
+        <div class="path">src/main/resources/home.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">{% extends &quot;base.html&quot; %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+&lt;h1&gt; Home &lt;/h1&gt;
+&lt;p&gt; Welcome to my home page. My name is {{ name }}.&lt;/p&gt;
+{% endblock %}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/base.html" target="_blank" title="show github file">base.html</a>
         </div>
         <div class="path">src/main/resources/base.html</div>
@@ -148,24 +166,6 @@ public class Hello {
 &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/java-pebble-template-layout-inheritance-demo/blob/master/src/main/resources/home.html" target="_blank" title="show github file">home.html</a>
-        </div>
-        <div class="path">src/main/resources/home.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">{% extends &quot;base.html&quot; %}
-
-{% block title %} Home {% endblock %}
-
-{% block content %}
-&lt;h1&gt; Home &lt;/h1&gt;
-&lt;p&gt; Welcome to my home page. My name is {{ name }}.&lt;/p&gt;
-{% endblock %}</code></pre>
     </div>
 </div>
 

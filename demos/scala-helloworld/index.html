@@ -15,26 +15,6 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/scala-helloworld/blob/master/src/main/scala/example/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
-        </div>
-        <div class="path">src/main/scala/example/Hello.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package example
-
-object Hello extends App {
-
-  def hello(name: String) = s&quot;Hello, $name!&quot;
-
-  println(hello(&quot;Scala&quot;))
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/scala-helloworld/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
         </div>
         <div class="path">src/test/scala/example/HelloSpec.scala</div>
@@ -49,6 +29,26 @@ class HelloSpec extends FunSuite with Matchers {
   test(&quot;The Hello object should say hello&quot;) {
     Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
   }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-helloworld/blob/master/src/main/scala/example/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
+        </div>
+        <div class="path">src/main/scala/example/Hello.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+object Hello extends App {
+
+  def hello(name: String) = s&quot;Hello, $name!&quot;
+
+  println(hello(&quot;Scala&quot;))
 
 }
 </code></pre>

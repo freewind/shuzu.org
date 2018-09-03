@@ -81,38 +81,6 @@ Note: open the console of the browser to see where is wrong.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/jsonp-jquery.html" target="_blank" title="show github file">jsonp-jquery.html</a>
-        </div>
-        <div class="path">jsonp-jquery.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-        function loadData() {
-            $.get({
-                url: &#39;http://localhost:3001/jsonp-data&#39;,
-                dataType: &#39;jsonp&#39;,
-                success: function (data) {
-                    $(&quot;#data&quot;).text(JSON.stringify(data));
-                }
-            });
-        }
-    &lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div&gt;
-    &lt;button onclick=&quot;loadData()&quot;&gt;Client to fetch data by AJAX&lt;/button&gt;
-&lt;/div&gt;
-&lt;div id=&quot;data&quot;&gt;&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/jsonp-script-tag.html" target="_blank" title="show github file">jsonp-script-tag.html</a>
         </div>
         <div class="path">jsonp-script-tag.html</div>
@@ -130,6 +98,66 @@ Note: open the console of the browser to see where is wrong.
             script.type = &#39;text/javascript&#39;;
             script.src = &#39;http://localhost:3001/jsonp-data?callback=showData&#39;;
             document.getElementsByTagName(&#39;head&#39;)[0].appendChild(script);
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;
+    &lt;button onclick=&quot;loadData()&quot;&gt;Client to fetch data by AJAX&lt;/button&gt;
+&lt;/div&gt;
+&lt;div id=&quot;data&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/server2.js" target="_blank" title="show github file">server2.js</a>
+        </div>
+        <div class="path">server2.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+
+var app = express();
+
+app.get(&#39;/json-data&#39;, function (req, res) {
+  res.json({name: &#39;Freewind&#39;});
+});
+
+app.get(&#39;/jsonp-data&#39;, function (req, res) {
+  res.jsonp({name: &#39;Freewind&#39;});
+});
+
+var server = app.listen(3001, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/jsonp-jquery.html" target="_blank" title="show github file">jsonp-jquery.html</a>
+        </div>
+        <div class="path">jsonp-jquery.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        function loadData() {
+            $.get({
+                url: &#39;http://localhost:3001/jsonp-data&#39;,
+                dataType: &#39;jsonp&#39;,
+                success: function (data) {
+                    $(&quot;#data&quot;).text(JSON.stringify(data));
+                }
+            });
         }
     &lt;/script&gt;
 &lt;/head&gt;
@@ -185,34 +213,6 @@ var app = express();
 app.use(express.static(&#39;./&#39;));
 
 var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jsonp-demo/blob/master/server2.js" target="_blank" title="show github file">server2.js</a>
-        </div>
-        <div class="path">server2.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-app.get(&#39;/json-data&#39;, function (req, res) {
-  res.json({name: &#39;Freewind&#39;});
-});
-
-app.get(&#39;/jsonp-data&#39;, function (req, res) {
-  res.jsonp({name: &#39;Freewind&#39;});
-});
-
-var server = app.listen(3001, function () {
   var host = server.address().address;
   var port = server.address().port;
 

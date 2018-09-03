@@ -29,35 +29,6 @@ npm start
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-markmap-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;./node_modules/markmap/view.mindmap.css&quot;&gt;
-    &lt;style&gt;
-        svg#mindmap {
-            width: 600px;
-            height: 400px;
-            border: 1px solid red;
-        }
-    &lt;/style&gt;
-    &lt;script src=&quot;./node_modules/d3/d3.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/markmap/d3-flextree.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./node_modules/markmap/view.mindmap.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;svg id=&quot;mindmap&quot;&gt;&lt;/svg&gt;
-&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/javascript-markmap-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
@@ -70,6 +41,28 @@ npm start
         linkShape: &#39;diagonal&#39; // or bracket
     })
 })</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-markmap-demo/blob/master/parse.js" target="_blank" title="show github file">parse.js</a>
+        </div>
+        <div class="path">parse.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const fs = require(&#39;fs&#39;)
+const parse = require(&#39;markmap/parse.markdown&#39;)
+const transform = require(&#39;markmap/transform.headings&#39;)
+
+const text = fs.readFileSync(&#39;javascript.md&#39;, &#39;utf-8&#39;)
+
+const headings = parse(text)
+const root = transform(headings)
+
+console.log(root)
+
+fs.writeFileSync(&#39;javascript.json&#39;, JSON.stringify(root))</code></pre>
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
@@ -117,23 +110,30 @@ DataTypes
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-markmap-demo/blob/master/parse.js" target="_blank" title="show github file">parse.js</a>
+            <a href="https://github.com/freewind-demos/javascript-markmap-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">parse.js</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const fs = require(&#39;fs&#39;)
-const parse = require(&#39;markmap/parse.markdown&#39;)
-const transform = require(&#39;markmap/transform.headings&#39;)
-
-const text = fs.readFileSync(&#39;javascript.md&#39;, &#39;utf-8&#39;)
-
-const headings = parse(text)
-const root = transform(headings)
-
-console.log(root)
-
-fs.writeFileSync(&#39;javascript.json&#39;, JSON.stringify(root))</code></pre>
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;./node_modules/markmap/view.mindmap.css&quot;&gt;
+    &lt;style&gt;
+        svg#mindmap {
+            width: 600px;
+            height: 400px;
+            border: 1px solid red;
+        }
+    &lt;/style&gt;
+    &lt;script src=&quot;./node_modules/d3/d3.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/markmap/d3-flextree.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./node_modules/markmap/view.mindmap.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;svg id=&quot;mindmap&quot;&gt;&lt;/svg&gt;
+&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

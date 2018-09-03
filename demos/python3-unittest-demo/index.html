@@ -69,46 +69,6 @@ open htmlcov/index.html
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/__init__.py" target="_blank" title="show github file">__init__.py</a>
-        </div>
-        <div class="path">hello/__init__.py</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="py"></code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/hello.py" target="_blank" title="show github file">hello.py</a>
-        </div>
-        <div class="path">hello/hello.py</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
-
-
-def hello(name):
-    &quot;&quot;&quot;Say hello&quot;&quot;&quot;
-    return &quot;Hello, &quot; + name
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/requirements.txt" target="_blank" title="show github file">requirements.txt</a>
-        </div>
-        <div class="path">requirements.txt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="txt">html-testRunner
-coverage</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/setup.py" target="_blank" title="show github file">setup.py</a>
         </div>
         <div class="path">setup.py</div>
@@ -132,9 +92,21 @@ setup(
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/__init__.py" target="_blank" title="show github file">__init__.py</a>
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/requirements.txt" target="_blank" title="show github file">requirements.txt</a>
         </div>
-        <div class="path">tests/__init__.py</div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">html-testRunner
+coverage</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/__init__.py" target="_blank" title="show github file">__init__.py</a>
+        </div>
+        <div class="path">hello/__init__.py</div>
     </div>
     <div class="body">
         <pre class="content"><code class="py"></code></pre>
@@ -143,19 +115,18 @@ setup(
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/context.py" target="_blank" title="show github file">context.py</a>
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/hello/hello.py" target="_blank" title="show github file">hello.py</a>
         </div>
-        <div class="path">tests/context.py</div>
+        <div class="path">hello/hello.py</div>
     </div>
     <div class="body">
         <pre class="content"><code class="py"># -*- coding: utf-8 -*-
 
-import sys
-import os
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
-
-from hello import hello</code></pre>
+def hello(name):
+    &quot;&quot;&quot;Say hello&quot;&quot;&quot;
+    return &quot;Hello, &quot; + name
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -197,6 +168,35 @@ class BasicTestSuite(unittest.TestCase):
 if __name__ == &#39;__main__&#39;:
     unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=&#39;example_dir&#39;))
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/__init__.py" target="_blank" title="show github file">__init__.py</a>
+        </div>
+        <div class="path">tests/__init__.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"></code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-unittest-demo/blob/master/tests/context.py" target="_blank" title="show github file">context.py</a>
+        </div>
+        <div class="path">tests/context.py</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), &#39;..&#39;)))
+
+from hello import hello</code></pre>
     </div>
 </div>
 

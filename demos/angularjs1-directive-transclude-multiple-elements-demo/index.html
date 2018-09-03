@@ -36,26 +36,17 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-app.directive(&#39;hello&#39;, function () {
-    return {
-        restrict: &#39;E&#39;,
-        transclude: {
-            &#39;name1&#39;: &#39;name1&#39;,
-            &#39;name2&#39;: &#39;name2&#39;
-        },
-        template: &#39;&lt;div&gt;Hello, &#39; +
-            &#39;&lt;span ng-transclude=&quot;name1&quot; class=&quot;bg-yellow&quot;&gt;&lt;/span&gt;&#39; +
-            &#39; and &#39; +
-            &#39;&lt;span ng-transclude=&quot;name2&quot; class=&quot;bg-green&quot;&gt;&lt;/span&gt;&#39; +
-            &#39;!&lt;/div&gt;&#39;
-    }
-})</code></pre>
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -90,17 +81,26 @@ app.directive(&#39;hello&#39;, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-transclude-multiple-elements-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.directive(&#39;hello&#39;, function () {
+    return {
+        restrict: &#39;E&#39;,
+        transclude: {
+            &#39;name1&#39;: &#39;name1&#39;,
+            &#39;name2&#39;: &#39;name2&#39;
+        },
+        template: &#39;&lt;div&gt;Hello, &#39; +
+            &#39;&lt;span ng-transclude=&quot;name1&quot; class=&quot;bg-yellow&quot;&gt;&lt;/span&gt;&#39; +
+            &#39; and &#39; +
+            &#39;&lt;span ng-transclude=&quot;name2&quot; class=&quot;bg-green&quot;&gt;&lt;/span&gt;&#39; +
+            &#39;!&lt;/div&gt;&#39;
+    }
+})</code></pre>
     </div>
 </div>
 

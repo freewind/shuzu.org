@@ -36,29 +36,19 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-wrap-jquery-plugin-as-directive-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-wrap-jquery-plugin-as-directive-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-app.factory(&#39;jQuery&#39;, function ($window) {
-    return $window.jQuery
-})
-app.factory(&#39;jQueryTips&#39;, function (jQuery) {
-    return jQuery.tips
-})
-
-app.directive(&#39;tips&#39;, function (jQuery, jQueryTips) {
-    return {
-        restrict: &#39;A&#39;,
-        link: function ($scope, $element, $attrs) {
-            jQueryTips({
-                element: jQuery($element[0])
-            })
-        }
-    }
-})</code></pre>
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;,
+    &quot;jquery&quot;: &quot;^3.3.1&quot;,
+    &quot;tips.js&quot;: &quot;^1.2.0&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -84,19 +74,29 @@ app.directive(&#39;tips&#39;, function (jQuery, jQueryTips) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-wrap-jquery-plugin-as-directive-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-wrap-jquery-plugin-as-directive-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;,
-    &quot;jquery&quot;: &quot;^3.3.1&quot;,
-    &quot;tips.js&quot;: &quot;^1.2.0&quot;
-  }
-}
-</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.factory(&#39;jQuery&#39;, function ($window) {
+    return $window.jQuery
+})
+app.factory(&#39;jQueryTips&#39;, function (jQuery) {
+    return jQuery.tips
+})
+
+app.directive(&#39;tips&#39;, function (jQuery, jQueryTips) {
+    return {
+        restrict: &#39;A&#39;,
+        link: function ($scope, $element, $attrs) {
+            jQueryTips({
+                element: jQuery($element[0])
+            })
+        }
+    }
+})</code></pre>
     </div>
 </div>
 

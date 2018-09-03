@@ -51,77 +51,6 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/go/awesome.go" target="_blank" title="show github file">awesome.go</a>
-        </div>
-        <div class="path">go/awesome.go</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="go">package main
-
-//// formatter: off
-import &quot;C&quot;
-import (
-	&quot;fmt&quot;
-	&quot;sync&quot;
-	&quot;unsafe&quot;
-)
-
-var mtx sync.Mutex
-
-//// formatter: on
-
-//export Multiply
-func Multiply(x int64, y int64) int64 {
-	return x * y
-}
-
-//export ReturnString
-func ReturnString(s *C.char) *C.char {
-	mtx.Lock()
-	defer mtx.Unlock()
-	goS := C.GoString(s)
-	fmt.Println(&quot;Hello, &quot; + goS)
-	return C.CString(&quot;Returned &quot; + goS)
-}
-
-//export TwoStrings
-func TwoStrings() (first, second *C.char) {
-	return C.CString(&quot;aa&quot;), C.CString(&quot;bb&quot;)
-}
-
-//export ReturnByteArray
-func ReturnByteArray() unsafe.Pointer {
-	return C.CBytes([]byte{1, 2, 3})
-}
-
-//export GenKeys
-func GenKeys() (publicKey, privateKey unsafe.Pointer, err *C.char) {
-	publicKey = C.CBytes([]byte{1, 2, 3})
-	privateKey = C.CBytes([]byte{4, 5, 6})
-	err = C.CString(&quot;this is my error&quot;)
-	return
-}
-
-//export SumOf
-func SumOf(input unsafe.Pointer) (sum int) {
-	var data []byte
-	data = C.GoBytes(input, 3)
-	sum = 0
-	for _, item := range data {
-		fmt.Println(item)
-		sum += int(item)
-	}
-	return
-}
-
-// required, but not used
-func main() {}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>
@@ -262,101 +191,6 @@ public class Hello {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/MathLib.java" target="_blank" title="show github file">MathLib.java</a>
-        </div>
-        <div class="path">src/main/java/demo/MathLib.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import com.sun.jna.Library;
-import com.sun.jna.Pointer;
-import demo.types.GenKeysResult;
-import demo.types.GoSlice;
-import demo.types.TwoStringsResult;
-
-public interface MathLib extends Library {
-
-    long Multiply(long x, long y);
-
-    String ReturnString(String s);
-
-    TwoStringsResult TwoStrings();
-
-    Pointer ReturnByteArray();
-
-    GenKeysResult GenKeys();
-
-    int SumOf(Pointer input);
-
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/GenKeysResult.java" target="_blank" title="show github file">GenKeysResult.java</a>
-        </div>
-        <div class="path">src/main/java/demo/types/GenKeysResult.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.types;
-
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
-import java.util.Arrays;
-import java.util.List;
-
-// struct genKeys_return {
-//	GoSlice r0; /* publicKey */
-//	GoSlice r1; /* privateKey */
-//	GoInterface r2; /* err */
-// };
-
-public class GenKeysResult extends Structure implements Structure.ByValue {
-    public Pointer r0;
-    public Pointer r1;
-    public String r2;
-
-    protected List&lt;String&gt; getFieldOrder() {
-        return Arrays.asList(&quot;r0&quot;, &quot;r1&quot;, &quot;r2&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/GoInterface.java" target="_blank" title="show github file">GoInterface.java</a>
-        </div>
-        <div class="path">src/main/java/demo/types/GoInterface.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.types;
-
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
-
-import java.util.Arrays;
-import java.util.List;
-
-// typedef struct { void *t; void *v; } GoInterface;
-public class GoInterface extends Structure implements Structure.ByValue {
-    public Pointer t;
-    public Pointer v;
-
-    protected List&lt;String&gt; getFieldOrder() {
-        return Arrays.asList(&quot;t&quot;, &quot;v&quot;);
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/GoSlice.java" target="_blank" title="show github file">GoSlice.java</a>
         </div>
         <div class="path">src/main/java/demo/types/GoSlice.java</div>
@@ -425,6 +259,40 @@ public class GoString extends Structure implements Structure.ByValue {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/GenKeysResult.java" target="_blank" title="show github file">GenKeysResult.java</a>
+        </div>
+        <div class="path">src/main/java/demo/types/GenKeysResult.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.types;
+
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
+
+import java.util.Arrays;
+import java.util.List;
+
+// struct genKeys_return {
+//	GoSlice r0; /* publicKey */
+//	GoSlice r1; /* privateKey */
+//	GoInterface r2; /* err */
+// };
+
+public class GenKeysResult extends Structure implements Structure.ByValue {
+    public Pointer r0;
+    public Pointer r1;
+    public String r2;
+
+    protected List&lt;String&gt; getFieldOrder() {
+        return Arrays.asList(&quot;r0&quot;, &quot;r1&quot;, &quot;r2&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/TwoStringsResult.java" target="_blank" title="show github file">TwoStringsResult.java</a>
         </div>
         <div class="path">src/main/java/demo/types/TwoStringsResult.java</div>
@@ -445,6 +313,138 @@ public class TwoStringsResult extends Structure implements Structure.ByValue {
         return Arrays.asList(&quot;r0&quot;, &quot;r1&quot;);
     }
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/types/GoInterface.java" target="_blank" title="show github file">GoInterface.java</a>
+        </div>
+        <div class="path">src/main/java/demo/types/GoInterface.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.types;
+
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
+
+import java.util.Arrays;
+import java.util.List;
+
+// typedef struct { void *t; void *v; } GoInterface;
+public class GoInterface extends Structure implements Structure.ByValue {
+    public Pointer t;
+    public Pointer v;
+
+    protected List&lt;String&gt; getFieldOrder() {
+        return Arrays.asList(&quot;t&quot;, &quot;v&quot;);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/src/main/java/demo/MathLib.java" target="_blank" title="show github file">MathLib.java</a>
+        </div>
+        <div class="path">src/main/java/demo/MathLib.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import com.sun.jna.Library;
+import com.sun.jna.Pointer;
+import demo.types.GenKeysResult;
+import demo.types.GoSlice;
+import demo.types.TwoStringsResult;
+
+public interface MathLib extends Library {
+
+    long Multiply(long x, long y);
+
+    String ReturnString(String s);
+
+    TwoStringsResult TwoStrings();
+
+    Pointer ReturnByteArray();
+
+    GenKeysResult GenKeys();
+
+    int SumOf(Pointer input);
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/call-go-function-from-java-demo/blob/master/go/awesome.go" target="_blank" title="show github file">awesome.go</a>
+        </div>
+        <div class="path">go/awesome.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+//// formatter: off
+import &quot;C&quot;
+import (
+	&quot;fmt&quot;
+	&quot;sync&quot;
+	&quot;unsafe&quot;
+)
+
+var mtx sync.Mutex
+
+//// formatter: on
+
+//export Multiply
+func Multiply(x int64, y int64) int64 {
+	return x * y
+}
+
+//export ReturnString
+func ReturnString(s *C.char) *C.char {
+	mtx.Lock()
+	defer mtx.Unlock()
+	goS := C.GoString(s)
+	fmt.Println(&quot;Hello, &quot; + goS)
+	return C.CString(&quot;Returned &quot; + goS)
+}
+
+//export TwoStrings
+func TwoStrings() (first, second *C.char) {
+	return C.CString(&quot;aa&quot;), C.CString(&quot;bb&quot;)
+}
+
+//export ReturnByteArray
+func ReturnByteArray() unsafe.Pointer {
+	return C.CBytes([]byte{1, 2, 3})
+}
+
+//export GenKeys
+func GenKeys() (publicKey, privateKey unsafe.Pointer, err *C.char) {
+	publicKey = C.CBytes([]byte{1, 2, 3})
+	privateKey = C.CBytes([]byte{4, 5, 6})
+	err = C.CString(&quot;this is my error&quot;)
+	return
+}
+
+//export SumOf
+func SumOf(input unsafe.Pointer) (sum int) {
+	var data []byte
+	data = C.GoBytes(input, 3)
+	sum = 0
+	for _, item := range data {
+		fmt.Println(item)
+		sum += int(item)
+	}
+	return
+}
+
+// required, but not used
+func main() {}
 </code></pre>
     </div>
 </div>

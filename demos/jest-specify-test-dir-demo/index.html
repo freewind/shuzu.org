@@ -30,6 +30,43 @@ Notice `jest` configuration in `package.json`    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/spec/square-sum-spec.js" target="_blank" title="show github file">square-sum-spec.js</a>
+        </div>
+        <div class="path">spec/square-sum-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">jest.unmock(&#39;../square-sum&#39;);
+
+describe(&#39;square-sum&#39;, () =&gt; {
+  it(&#39;[1,2,5]&#39;, () =&gt; {
+    jest.mock(&#39;../square&#39;, () =&gt; {
+      return jest.fn((n) =&gt; n * n);
+    });
+    const squareSum = require(&#39;../square-sum&#39;);
+    const result = squareSum([1, 2, 5]);
+    expect(result).toEqual(30);
+  })
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
+        </div>
+        <div class="path">square.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function square(a) {
+  throw new Error(&#39;todo&#39;);
+}
+
+module.exports = square;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
@@ -60,28 +97,6 @@ Notice `jest` configuration in `package.json`    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/spec/square-sum-spec.js" target="_blank" title="show github file">square-sum-spec.js</a>
-        </div>
-        <div class="path">spec/square-sum-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">jest.unmock(&#39;../square-sum&#39;);
-
-describe(&#39;square-sum&#39;, () =&gt; {
-  it(&#39;[1,2,5]&#39;, () =&gt; {
-    jest.mock(&#39;../square&#39;, () =&gt; {
-      return jest.fn((n) =&gt; n * n);
-    });
-    const squareSum = require(&#39;../square-sum&#39;);
-    const result = squareSum([1, 2, 5]);
-    expect(result).toEqual(30);
-  })
-})</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square-sum.js" target="_blank" title="show github file">square-sum.js</a>
         </div>
         <div class="path">square-sum.js</div>
@@ -94,21 +109,6 @@ function squareSum(numbers) {
 }
 
 module.exports = squareSum;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jest-specify-test-dir-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
-        </div>
-        <div class="path">square.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">function square(a) {
-  throw new Error(&#39;todo&#39;);
-}
-
-module.exports = square;</code></pre>
     </div>
 </div>
 

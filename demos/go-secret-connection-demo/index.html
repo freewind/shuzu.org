@@ -108,6 +108,34 @@ func main() {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/go-secret-connection-demo/blob/master/server.go" target="_blank" title="show github file">server.go</a>
+        </div>
+        <div class="path">server.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package main
+
+import (
+	&quot;net&quot;
+	&quot;github.com/golang-demos/go-secret-connection-demo/secret&quot;
+)
+
+func main() {
+	privateKey, publicKey := secret.GenerateMyKeys()
+
+	listener, _ := net.Listen(&quot;tcp&quot;, &quot;localhost:9999&quot;)
+	defer listener.Close()
+
+	conn, _ := listener.Accept()
+
+	secret.SecretTransfer(conn, privateKey, publicKey)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/go-secret-connection-demo/blob/master/secret/secret.go" target="_blank" title="show github file">secret.go</a>
         </div>
         <div class="path">secret/secret.go</div>
@@ -312,34 +340,6 @@ func hash24(input []byte) (res *[24]byte) {
 	res = new([24]byte)
 	copy(res[:], resSlice)
 	return
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/go-secret-connection-demo/blob/master/server.go" target="_blank" title="show github file">server.go</a>
-        </div>
-        <div class="path">server.go</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="go">package main
-
-import (
-	&quot;net&quot;
-	&quot;github.com/golang-demos/go-secret-connection-demo/secret&quot;
-)
-
-func main() {
-	privateKey, publicKey := secret.GenerateMyKeys()
-
-	listener, _ := net.Listen(&quot;tcp&quot;, &quot;localhost:9999&quot;)
-	defer listener.Close()
-
-	conn, _ := listener.Accept()
-
-	secret.SecretTransfer(conn, privateKey, publicKey)
 }
 </code></pre>
     </div>

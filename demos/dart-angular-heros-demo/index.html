@@ -178,87 +178,33 @@ h4 {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.css" target="_blank" title="show github file">hero_detail_component.css</a>
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.html" target="_blank" title="show github file">heroes_component.html</a>
         </div>
-        <div class="path">lib/src/hero_detail_component.css</div>
+        <div class="path">lib/src/heroes_component.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="css">label {
-  display: inline-block;
-  width: 3em;
-  margin: .5em 0;
-  color: #607D8B;
-  font-weight: bold;
-}
-input {
-  height: 2em;
-  font-size: 1em;
-  padding-left: .4em;
-}
-button {
-  margin-top: 20px;
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer; cursor: hand;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button:disabled {
-  background-color: #eee;
-  color: #ccc;
-  cursor: auto;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.html" target="_blank" title="show github file">hero_detail_component.html</a>
-        </div>
-        <div class="path">lib/src/hero_detail_component.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;div *ngIf=&quot;hero != null&quot;&gt;
-  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
-  &lt;div&gt;
-    &lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
-  &lt;div&gt;
-    &lt;label&gt;name: &lt;/label&gt;
-    &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot; /&gt;
-  &lt;/div&gt;
-  &lt;button (click)=&quot;goBack()&quot;&gt;Back&lt;/button&gt;
-  &lt;button (click)=&quot;save()&quot;&gt;Save&lt;/button&gt;
+        <pre class="content"><code class="html">&lt;h2&gt;My Heroes&lt;/h2&gt;
+&lt;div&gt;
+  &lt;label&gt;Hero name:&lt;/label&gt; &lt;input #heroName /&gt;
+  &lt;button (click)=&quot;add(heroName.value); heroName.value=&#39;&#39;&quot;&gt;
+    Add
+  &lt;/button&gt;
 &lt;/div&gt;
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.css" target="_blank" title="show github file">hero_search_component.css</a>
-        </div>
-        <div class="path">lib/src/hero_search_component.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css">.search-result {
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  width:195px;
-  height: 20px;
-  padding: 5px;
-  background-color: white;
-  cursor: pointer;
-}
-#search-box {
-  width: 200px;
-  height: 20px;
-}
+&lt;ul class=&quot;heroes&quot;&gt;
+  &lt;li *ngFor=&quot;let hero of heroes&quot; (click)=&quot;onSelect(hero)&quot;
+      [class.selected]=&quot;hero === selectedHero&quot;&gt;
+    &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt;
+    &lt;span&gt;{{hero.name}}&lt;/span&gt;
+    &lt;button class=&quot;delete&quot;
+      (click)=&quot;delete(hero); $event.stopPropagation()&quot;&gt;x&lt;/button&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div *ngIf=&quot;selectedHero != null&quot;&gt;
+  &lt;h2&gt;
+    {{selectedHero.name | uppercase}} is my hero
+  &lt;/h2&gt;
+  &lt;button (click)=&quot;gotoDetail()&quot;&gt;View Details&lt;/button&gt;
+&lt;/div&gt;
 </code></pre>
     </div>
 </div>
@@ -365,33 +311,87 @@ button.delete {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.html" target="_blank" title="show github file">heroes_component.html</a>
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.html" target="_blank" title="show github file">hero_detail_component.html</a>
         </div>
-        <div class="path">lib/src/heroes_component.html</div>
+        <div class="path">lib/src/hero_detail_component.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;h2&gt;My Heroes&lt;/h2&gt;
-&lt;div&gt;
-  &lt;label&gt;Hero name:&lt;/label&gt; &lt;input #heroName /&gt;
-  &lt;button (click)=&quot;add(heroName.value); heroName.value=&#39;&#39;&quot;&gt;
-    Add
-  &lt;/button&gt;
+        <pre class="content"><code class="html">&lt;div *ngIf=&quot;hero != null&quot;&gt;
+  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;name: &lt;/label&gt;
+    &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot; /&gt;
+  &lt;/div&gt;
+  &lt;button (click)=&quot;goBack()&quot;&gt;Back&lt;/button&gt;
+  &lt;button (click)=&quot;save()&quot;&gt;Save&lt;/button&gt;
 &lt;/div&gt;
-&lt;ul class=&quot;heroes&quot;&gt;
-  &lt;li *ngFor=&quot;let hero of heroes&quot; (click)=&quot;onSelect(hero)&quot;
-      [class.selected]=&quot;hero === selectedHero&quot;&gt;
-    &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt;
-    &lt;span&gt;{{hero.name}}&lt;/span&gt;
-    &lt;button class=&quot;delete&quot;
-      (click)=&quot;delete(hero); $event.stopPropagation()&quot;&gt;x&lt;/button&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;div *ngIf=&quot;selectedHero != null&quot;&gt;
-  &lt;h2&gt;
-    {{selectedHero.name | uppercase}} is my hero
-  &lt;/h2&gt;
-  &lt;button (click)=&quot;gotoDetail()&quot;&gt;View Details&lt;/button&gt;
-&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.css" target="_blank" title="show github file">hero_detail_component.css</a>
+        </div>
+        <div class="path">lib/src/hero_detail_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+input {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+}
+button {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.css" target="_blank" title="show github file">hero_search_component.css</a>
+        </div>
+        <div class="path">lib/src/hero_search_component.css</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">.search-result {
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  width:195px;
+  height: 20px;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+#search-box {
+  width: 200px;
+  height: 20px;
+}
 </code></pre>
     </div>
 </div>
@@ -403,42 +403,6 @@ button.delete {
 - Test waiting for element update before proceeding.
 - Test interaction with (mock) db backend.
 - Use `@WithVisibleText()` PO field annotation.</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">web/index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;script&gt;
-      // WARNING: DO NOT set the &lt;base href&gt; like this in production!
-      // Details: https://webdev.dartlang.org/angular/guide/router
-      (function () {
-        var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
-        document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
-      }());
-    &lt;/script&gt;
-
-    &lt;title&gt;Angular Tour of Heroes&lt;/title&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
-    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
-
-    &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
-    &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;my-app&gt;Loading...&lt;/my-app&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-    </div>
-</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -562,6 +526,42 @@ nav a.active {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">web/index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script&gt;
+      // WARNING: DO NOT set the &lt;base href&gt; like this in production!
+      // Details: https://webdev.dartlang.org/angular/guide/router
+      (function () {
+        var m = document.location.pathname.match(/^(\/[-\w]+)+\/web($|\/)/);
+        document.write(&#39;&lt;base href=&quot;&#39; + (m ? m[0] : &#39;/&#39;) + &#39;&quot; /&gt;&#39;);
+      }());
+    &lt;/script&gt;
+
+    &lt;title&gt;Angular Tour of Heroes&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;styles.css&quot;&gt;
+    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;&gt;
+
+    &lt;script defer src=&quot;main.dart&quot; type=&quot;application/dart&quot;&gt;&lt;/script&gt;
+    &lt;script defer src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;my-app&gt;Loading...&lt;/my-app&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>

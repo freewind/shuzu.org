@@ -115,214 +115,6 @@ public class Hello extends Application {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javafx-observable-value-binding-property-demo/blob/master/src/main/java/demo/simulator/binding.java" target="_blank" title="show github file">binding.java</a>
-        </div>
-        <div class="path">src/main/java/demo/simulator/binding.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.simulator;
-
-import com.sun.javafx.binding.Logging;
-import com.sun.javafx.collections.ImmutableObservableList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-import java.lang.ref.WeakReference;
-import java.util.concurrent.Callable;
-
-interface Binding&lt;T&gt; extends ObservableValue&lt;T&gt; {
-
-    boolean isValid();
-
-    void invalidate();
-
-    ObservableList&lt;?&gt; getDependencies();
-
-    void dispose();
-
-}
-
-class BindingHelperObserver implements InvalidationListener {
-
-    private final WeakReference&lt;Binding&lt;?&gt;&gt; ref;
-
-    public BindingHelperObserver(Binding&lt;?&gt; binding) {
-        if (binding == null) {
-            throw new NullPointerException(&quot;Binding has to be specified.&quot;);
-        }
-        ref = new WeakReference&lt;&gt;(binding);
-    }
-
-    @Override
-    public void invalidated(Observable observable) {
-        final Binding&lt;?&gt; binding = ref.get();
-        if (binding == null) {
-            observable.removeListener(this);
-        } else {
-            binding.invalidate();
-        }
-    }
-
-}
-
-abstract class StringBinding extends StringExpression implements Binding&lt;String&gt; {
-
-    // 用于持有经过`computeValue`计算后的值，而它往往是根据自己绑定的几个dependencies来计算
-    private String value;
-
-    // 防止在计算过程中多次调用invalidate通知下游，使用它来确定状态
-    private boolean valid = false;
-
-    // 其实就是自己，只是为了防止memory leak，再使用WeakReference包装一下
-    private BindingHelperObserver observer;
-
-    @Override
-    public void addListener(InvalidationListener listener) {
-        // helper = ExpressionHelper.addListener(helper, this, listener);
-    }
-
-    @Override
-    public void removeListener(InvalidationListener listener) {
-        // helper = ExpressionHelper.removeListener(helper, listener);
-    }
-
-    @Override
-    public void addListener(ChangeListener&lt;? super String&gt; listener) {
-        // helper = ExpressionHelper.addListener(helper, this, listener);
-    }
-
-    @Override
-    public void removeListener(ChangeListener&lt;? super String&gt; listener) {
-        // helper = ExpressionHelper.removeListener(helper, listener);
-    }
-
-    protected final void bind(Observable... dependencies) {
-        if ((dependencies != null) &amp;&amp; (dependencies.length &gt; 0)) {
-            if (observer == null) {
-                observer = new BindingHelperObserver(this);
-            }
-            for (final Observable dep : dependencies) {
-                dep.addListener(observer);
-            }
-        }
-    }
-
-    protected final void unbind(Observable... dependencies) {
-        if (observer != null) {
-            for (final Observable dep : dependencies) {
-                dep.removeListener(observer);
-            }
-            observer = null;
-        }
-    }
-
-    @Override
-    public void dispose() {
-    }
-
-    @Override
-    public ObservableList&lt;?&gt; getDependencies() {
-        return FXCollections.emptyObservableList();
-    }
-
-    @Override
-    public final String get() {
-        if (!valid) {
-            value = computeValue();
-            valid = true;
-        }
-        return value;
-    }
-
-    protected void onInvalidating() {
-    }
-
-    @Override
-    public final void invalidate() {
-        if (valid) {
-            valid = false;
-            onInvalidating();
-            fireValueChangedEvent();
-        }
-    }
-
-    private void fireValueChangedEvent() {
-        // ExpressionHelper.fireValueChangedEvent
-    }
-
-    @Override
-    public final boolean isValid() {
-        return valid;
-    }
-
-    protected abstract String computeValue();
-
-    @Override
-    public String toString() {
-        return valid ? &quot;StringBinding [value: &quot; + get() + &quot;]&quot;
-                : &quot;StringBinding [invalid]&quot;;
-    }
-
-}
-
-class Bindings {
-
-    public static StringBinding createStringBinding(final Callable&lt;String&gt; func, final Observable... dependencies) {
-        return new StringBinding() {
-            {
-                bind(dependencies);
-            }
-
-            @Override
-            protected String computeValue() {
-                try {
-                    return func.call();
-                } catch (Exception e) {
-                    Logging.getLogger().warning(&quot;Exception while evaluating binding&quot;, e);
-                    return &quot;&quot;;
-                }
-            }
-
-            @Override
-            public void dispose() {
-                super.unbind(dependencies);
-            }
-
-            @Override
-            public ObservableList&lt;?&gt; getDependencies() {
-                return ((dependencies == null) || (dependencies.length == 0)) ?
-                        FXCollections.emptyObservableList()
-                        : (dependencies.length == 1) ?
-                        FXCollections.singletonObservableList(dependencies[0])
-                        : new ImmutableObservableList&lt;&gt;(dependencies);
-            }
-        };
-    }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/javafx-observable-value-binding-property-demo/blob/master/src/main/java/demo/simulator/Helpers.java" target="_blank" title="show github file">Helpers.java</a>
-        </div>
-        <div class="path">src/main/java/demo/simulator/Helpers.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo.simulator;
-
-public class Helpers {
-
-    public static RuntimeException ___ = new RuntimeException(&quot;Ignore the code details here&quot;);
-
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/javafx-observable-value-binding-property-demo/blob/master/src/main/java/demo/simulator/observable.java" target="_blank" title="show github file">observable.java</a>
         </div>
         <div class="path">src/main/java/demo/simulator/observable.java</div>
@@ -349,6 +141,25 @@ interface ObservableValue&lt;T&gt; extends Observable {
 interface ChangeListener&lt;T&gt; {
     void changed(ObservableValue&lt;? extends T&gt; observable, T oldValue, T newValue);
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-observable-value-binding-property-demo/blob/master/src/main/java/demo/simulator/Helpers.java" target="_blank" title="show github file">Helpers.java</a>
+        </div>
+        <div class="path">src/main/java/demo/simulator/Helpers.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.simulator;
+
+public class Helpers {
+
+    public static RuntimeException ___ = new RuntimeException(&quot;Ignore the code details here&quot;);
+
+}
+
 </code></pre>
     </div>
 </div>
@@ -773,6 +584,195 @@ class SimpleStringProperty extends StringPropertyBase {
         super(initialValue);
         this.bean = bean;
         this.name = (name == null) ? DEFAULT_NAME : name;
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-observable-value-binding-property-demo/blob/master/src/main/java/demo/simulator/binding.java" target="_blank" title="show github file">binding.java</a>
+        </div>
+        <div class="path">src/main/java/demo/simulator/binding.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo.simulator;
+
+import com.sun.javafx.binding.Logging;
+import com.sun.javafx.collections.ImmutableObservableList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.lang.ref.WeakReference;
+import java.util.concurrent.Callable;
+
+interface Binding&lt;T&gt; extends ObservableValue&lt;T&gt; {
+
+    boolean isValid();
+
+    void invalidate();
+
+    ObservableList&lt;?&gt; getDependencies();
+
+    void dispose();
+
+}
+
+class BindingHelperObserver implements InvalidationListener {
+
+    private final WeakReference&lt;Binding&lt;?&gt;&gt; ref;
+
+    public BindingHelperObserver(Binding&lt;?&gt; binding) {
+        if (binding == null) {
+            throw new NullPointerException(&quot;Binding has to be specified.&quot;);
+        }
+        ref = new WeakReference&lt;&gt;(binding);
+    }
+
+    @Override
+    public void invalidated(Observable observable) {
+        final Binding&lt;?&gt; binding = ref.get();
+        if (binding == null) {
+            observable.removeListener(this);
+        } else {
+            binding.invalidate();
+        }
+    }
+
+}
+
+abstract class StringBinding extends StringExpression implements Binding&lt;String&gt; {
+
+    // 用于持有经过`computeValue`计算后的值，而它往往是根据自己绑定的几个dependencies来计算
+    private String value;
+
+    // 防止在计算过程中多次调用invalidate通知下游，使用它来确定状态
+    private boolean valid = false;
+
+    // 其实就是自己，只是为了防止memory leak，再使用WeakReference包装一下
+    private BindingHelperObserver observer;
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        // helper = ExpressionHelper.addListener(helper, this, listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        // helper = ExpressionHelper.removeListener(helper, listener);
+    }
+
+    @Override
+    public void addListener(ChangeListener&lt;? super String&gt; listener) {
+        // helper = ExpressionHelper.addListener(helper, this, listener);
+    }
+
+    @Override
+    public void removeListener(ChangeListener&lt;? super String&gt; listener) {
+        // helper = ExpressionHelper.removeListener(helper, listener);
+    }
+
+    protected final void bind(Observable... dependencies) {
+        if ((dependencies != null) &amp;&amp; (dependencies.length &gt; 0)) {
+            if (observer == null) {
+                observer = new BindingHelperObserver(this);
+            }
+            for (final Observable dep : dependencies) {
+                dep.addListener(observer);
+            }
+        }
+    }
+
+    protected final void unbind(Observable... dependencies) {
+        if (observer != null) {
+            for (final Observable dep : dependencies) {
+                dep.removeListener(observer);
+            }
+            observer = null;
+        }
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public ObservableList&lt;?&gt; getDependencies() {
+        return FXCollections.emptyObservableList();
+    }
+
+    @Override
+    public final String get() {
+        if (!valid) {
+            value = computeValue();
+            valid = true;
+        }
+        return value;
+    }
+
+    protected void onInvalidating() {
+    }
+
+    @Override
+    public final void invalidate() {
+        if (valid) {
+            valid = false;
+            onInvalidating();
+            fireValueChangedEvent();
+        }
+    }
+
+    private void fireValueChangedEvent() {
+        // ExpressionHelper.fireValueChangedEvent
+    }
+
+    @Override
+    public final boolean isValid() {
+        return valid;
+    }
+
+    protected abstract String computeValue();
+
+    @Override
+    public String toString() {
+        return valid ? &quot;StringBinding [value: &quot; + get() + &quot;]&quot;
+                : &quot;StringBinding [invalid]&quot;;
+    }
+
+}
+
+class Bindings {
+
+    public static StringBinding createStringBinding(final Callable&lt;String&gt; func, final Observable... dependencies) {
+        return new StringBinding() {
+            {
+                bind(dependencies);
+            }
+
+            @Override
+            protected String computeValue() {
+                try {
+                    return func.call();
+                } catch (Exception e) {
+                    Logging.getLogger().warning(&quot;Exception while evaluating binding&quot;, e);
+                    return &quot;&quot;;
+                }
+            }
+
+            @Override
+            public void dispose() {
+                super.unbind(dependencies);
+            }
+
+            @Override
+            public ObservableList&lt;?&gt; getDependencies() {
+                return ((dependencies == null) || (dependencies.length == 0)) ?
+                        FXCollections.emptyObservableList()
+                        : (dependencies.length == 1) ?
+                        FXCollections.singletonObservableList(dependencies[0])
+                        : new ImmutableObservableList&lt;&gt;(dependencies);
+            }
+        };
     }
 }</code></pre>
     </div>

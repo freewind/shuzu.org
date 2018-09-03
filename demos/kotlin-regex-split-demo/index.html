@@ -72,29 +72,6 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-regex-split-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-object Hello {
-    @JvmStatic
-    fun main(args: Array&lt;String&gt;) {
-        val tagName = &quot;form#my-id.name1.na-me2&quot;
-        val parts = tagName.split(&quot;&quot;&quot;\b(?=#|[.])&quot;&quot;&quot;.toRegex())
-        println(parts)
-    }
-
-}
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-regex-split-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
         <div class="path">src/test/kotlin/example/HelloTest.kt</div>
@@ -113,6 +90,29 @@ class HelloTest {
     }
 
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-regex-split-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+object Hello {
+    @JvmStatic
+    fun main(args: Array&lt;String&gt;) {
+        val tagName = &quot;form#my-id.name1.na-me2&quot;
+        val parts = tagName.split(&quot;&quot;&quot;\b(?=#|[.])&quot;&quot;&quot;.toRegex())
+        println(parts)
+    }
+
+}
+
+</code></pre>
     </div>
 </div>
 

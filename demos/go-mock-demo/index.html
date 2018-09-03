@@ -52,80 +52,6 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/go-mock-demo/blob/master/hello/hello.go" target="_blank" title="show github file">hello.go</a>
-        </div>
-        <div class="path">hello/hello.go</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="go">package hello
-
-import &quot;fmt&quot;
-
-type Talker interface {
-	SayHello(word string) (response string)
-}
-
-type Company struct {
-	Usher Talker
-}
-
-type Person struct {
-	name string
-}
-
-func NewPerson(name string) *Person {
-	return &amp;Person{
-		name: &quot;Freewind&quot;,
-	}
-}
-
-func (p *Person) SayHello(name string) (word string) {
-	return fmt.Sprintf(&quot;Hello, %s, welcome to our company, my name is %s&quot;, name, p.name)
-}
-
-func NewCompany(talker Talker) *Company {
-	return &amp;Company{
-		Usher: talker,
-	}
-}
-
-func (c *Company) Meeting(guestName string) string {
-	return c.Usher.SayHello(guestName)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/go-mock-demo/blob/master/hello/hello_test.go" target="_blank" title="show github file">hello_test.go</a>
-        </div>
-        <div class="path">hello/hello_test.go</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="go">package hello
-
-import (
-	&quot;github.com/golang/mock/gomock&quot;
-	&quot;github.com/golang-demos/go-mock-demo/mock/mock_hello&quot;
-	&quot;testing&quot;
-	&quot;github.com/magiconair/properties/assert&quot;
-)
-
-func TestCompany_Meeting(t *testing.T) {
-	ctl := gomock.NewController(t)
-	mock_talker := mock_hello.NewMockTalker(ctl)
-	mock_talker.EXPECT().SayHello(gomock.Eq(&quot;王尼玛&quot;)).Return(&quot;欢迎你&quot;)
-
-	company := NewCompany(mock_talker)
-	assert.Equal(t, company.Meeting(&quot;王尼玛&quot;), &quot;欢迎你&quot;)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/go-mock-demo/blob/master/mock/mock_hello/mock_Talker.go" target="_blank" title="show github file">mock_Talker.go</a>
         </div>
         <div class="path">mock/mock_hello/mock_Talker.go</div>
@@ -175,6 +101,80 @@ func (m *MockTalker) SayHello(word string) string {
 // SayHello indicates an expected call of SayHello
 func (mr *MockTalkerMockRecorder) SayHello(word interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, &quot;SayHello&quot;, reflect.TypeOf((*MockTalker)(nil).SayHello), word)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-mock-demo/blob/master/hello/hello_test.go" target="_blank" title="show github file">hello_test.go</a>
+        </div>
+        <div class="path">hello/hello_test.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package hello
+
+import (
+	&quot;github.com/golang/mock/gomock&quot;
+	&quot;github.com/golang-demos/go-mock-demo/mock/mock_hello&quot;
+	&quot;testing&quot;
+	&quot;github.com/magiconair/properties/assert&quot;
+)
+
+func TestCompany_Meeting(t *testing.T) {
+	ctl := gomock.NewController(t)
+	mock_talker := mock_hello.NewMockTalker(ctl)
+	mock_talker.EXPECT().SayHello(gomock.Eq(&quot;王尼玛&quot;)).Return(&quot;欢迎你&quot;)
+
+	company := NewCompany(mock_talker)
+	assert.Equal(t, company.Meeting(&quot;王尼玛&quot;), &quot;欢迎你&quot;)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/go-mock-demo/blob/master/hello/hello.go" target="_blank" title="show github file">hello.go</a>
+        </div>
+        <div class="path">hello/hello.go</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="go">package hello
+
+import &quot;fmt&quot;
+
+type Talker interface {
+	SayHello(word string) (response string)
+}
+
+type Company struct {
+	Usher Talker
+}
+
+type Person struct {
+	name string
+}
+
+func NewPerson(name string) *Person {
+	return &amp;Person{
+		name: &quot;Freewind&quot;,
+	}
+}
+
+func (p *Person) SayHello(name string) (word string) {
+	return fmt.Sprintf(&quot;Hello, %s, welcome to our company, my name is %s&quot;, name, p.name)
+}
+
+func NewCompany(talker Talker) *Company {
+	return &amp;Company{
+		Usher: talker,
+	}
+}
+
+func (c *Company) Meeting(guestName string) string {
+	return c.Usher.SayHello(guestName)
 }
 </code></pre>
     </div>

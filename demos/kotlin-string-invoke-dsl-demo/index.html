@@ -72,27 +72,6 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-fun main(args: Array&lt;String&gt;) {
-    &quot;abc&quot; {
-        println(this)
-    }
-}
-
-operator fun String.invoke(fn: String.() -&gt; Unit) {
-    fn(this)
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
         <div class="path">src/test/kotlin/example/HelloTest.kt</div>
@@ -110,6 +89,27 @@ class HelloTest {
         assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
     }
 
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-string-invoke-dsl-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+fun main(args: Array&lt;String&gt;) {
+    &quot;abc&quot; {
+        println(this)
+    }
+}
+
+operator fun String.invoke(fn: String.() -&gt; Unit) {
+    fn(this)
 }</code></pre>
     </div>
 </div>

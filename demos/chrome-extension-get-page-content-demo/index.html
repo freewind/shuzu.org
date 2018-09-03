@@ -94,549 +94,74 @@ task wrapper(type: Wrapper) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/k-chrome-api.js" target="_blank" title="show github file">k-chrome-api.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/settings.gradle" target="_blank" title="show github file">settings.gradle</a>
         </div>
-        <div class="path">extension/k-chrome-api.js</div>
+        <div class="path">settings.gradle</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
-  throw new Error(&quot;Error loading module &#39;k-chrome-api&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;k-chrome-api&#39;.&quot;);
-}
-this[&#39;k-chrome-api&#39;] = function (_, Kotlin) {
-  &#39;use strict&#39;;
-  var Kind_CLASS = Kotlin.Kind.CLASS;
-  ScriptDetails$Code.prototype = Object.create(ScriptDetails.prototype);
-  ScriptDetails$Code.prototype.constructor = ScriptDetails$Code;
-  ScriptDetails$File.prototype = Object.create(ScriptDetails.prototype);
-  ScriptDetails$File.prototype.constructor = ScriptDetails$File;
-  function RuntimeError(message) {
-    this.message = message;
-  }
-  RuntimeError.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;RuntimeError&#39;,
-    interfaces: []
-  };
-  RuntimeError.prototype.component1 = function () {
-    return this.message;
-  };
-  RuntimeError.prototype.copy_61zpoe$ = function (message) {
-    return new RuntimeError(message === void 0 ? this.message : message);
-  };
-  RuntimeError.prototype.toString = function () {
-    return &#39;RuntimeError(message=&#39; + Kotlin.toString(this.message) + &#39;)&#39;;
-  };
-  RuntimeError.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.message) | 0;
-    return result;
-  };
-  RuntimeError.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.message, other.message))));
-  };
-  function RuntimeMessage(action, source) {
-    this.action = action;
-    this.source = source;
-  }
-  RuntimeMessage.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;RuntimeMessage&#39;,
-    interfaces: []
-  };
-  RuntimeMessage.prototype.component1 = function () {
-    return this.action;
-  };
-  RuntimeMessage.prototype.component2 = function () {
-    return this.source;
-  };
-  RuntimeMessage.prototype.copy_bm4g0d$ = function (action, source) {
-    return new RuntimeMessage(action === void 0 ? this.action : action, source === void 0 ? this.source : source);
-  };
-  RuntimeMessage.prototype.toString = function () {
-    return &#39;RuntimeMessage(action=&#39; + Kotlin.toString(this.action) + (&#39;, source=&#39; + Kotlin.toString(this.source)) + &#39;)&#39;;
-  };
-  RuntimeMessage.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.action) | 0;
-    result = result * 31 + Kotlin.hashCode(this.source) | 0;
-    return result;
-  };
-  RuntimeMessage.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.action, other.action) &amp;&amp; Kotlin.equals(this.source, other.source)))));
-  };
-  function ScriptDetails() {
-  }
-  function ScriptDetails$Code(code) {
-    ScriptDetails.call(this);
-    this.code = code;
-  }
-  ScriptDetails$Code.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;Code&#39;,
-    interfaces: [ScriptDetails]
-  };
-  ScriptDetails$Code.prototype.component1 = function () {
-    return this.code;
-  };
-  ScriptDetails$Code.prototype.copy_61zpoe$ = function (code) {
-    return new ScriptDetails$Code(code === void 0 ? this.code : code);
-  };
-  ScriptDetails$Code.prototype.toString = function () {
-    return &#39;Code(code=&#39; + Kotlin.toString(this.code) + &#39;)&#39;;
-  };
-  ScriptDetails$Code.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.code) | 0;
-    return result;
-  };
-  ScriptDetails$Code.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.code, other.code))));
-  };
-  function ScriptDetails$File(file) {
-    ScriptDetails.call(this);
-    this.file = file;
-  }
-  ScriptDetails$File.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;File&#39;,
-    interfaces: [ScriptDetails]
-  };
-  ScriptDetails$File.prototype.component1 = function () {
-    return this.file;
-  };
-  ScriptDetails$File.prototype.copy_61zpoe$ = function (file) {
-    return new ScriptDetails$File(file === void 0 ? this.file : file);
-  };
-  ScriptDetails$File.prototype.toString = function () {
-    return &#39;File(file=&#39; + Kotlin.toString(this.file) + &#39;)&#39;;
-  };
-  ScriptDetails$File.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.file) | 0;
-    return result;
-  };
-  ScriptDetails$File.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.file, other.file))));
-  };
-  ScriptDetails.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;ScriptDetails&#39;,
-    interfaces: []
-  };
-  function ZoomSettings() {
-  }
-  ZoomSettings.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;ZoomSettings&#39;,
-    interfaces: []
-  };
-  function TabSample(id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
-    if (id === void 0)
-      id = null;
-    if (index === void 0)
-      index = null;
-    if (windowId === void 0)
-      windowId = null;
-    if (openerTabId === void 0)
-      openerTabId = null;
-    if (url === void 0)
-      url = null;
-    if (active === void 0)
-      active = null;
-    if (currentWindow === void 0)
-      currentWindow = null;
-    if (highlighted === void 0)
-      highlighted = null;
-    if (pinned === void 0)
-      pinned = null;
-    if (audible === void 0)
-      audible = null;
-    if (discarded === void 0)
-      discarded = null;
-    if (autoDiscardable === void 0)
-      autoDiscardable = null;
-    if (mutedInfo === void 0)
-      mutedInfo = null;
-    if (title === void 0)
-      title = null;
-    if (favIconUrl === void 0)
-      favIconUrl = null;
-    if (status === void 0)
-      status = null;
-    if (incognito === void 0)
-      incognito = null;
-    if (width === void 0)
-      width = null;
-    if (height === void 0)
-      height = null;
-    if (sessionId === void 0)
-      sessionId = null;
-    this.id = id;
-    this.index = index;
-    this.windowId = windowId;
-    this.openerTabId = openerTabId;
-    this.url = url;
-    this.active = active;
-    this.currentWindow = currentWindow;
-    this.highlighted = highlighted;
-    this.pinned = pinned;
-    this.audible = audible;
-    this.discarded = discarded;
-    this.autoDiscardable = autoDiscardable;
-    this.mutedInfo = mutedInfo;
-    this.title = title;
-    this.favIconUrl = favIconUrl;
-    this.status = status;
-    this.incognito = incognito;
-    this.width = width;
-    this.height = height;
-    this.sessionId = sessionId;
-  }
-  TabSample.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;TabSample&#39;,
-    interfaces: []
-  };
-  TabSample.prototype.component1 = function () {
-    return this.id;
-  };
-  TabSample.prototype.component2 = function () {
-    return this.index;
-  };
-  TabSample.prototype.component3 = function () {
-    return this.windowId;
-  };
-  TabSample.prototype.component4 = function () {
-    return this.openerTabId;
-  };
-  TabSample.prototype.component5 = function () {
-    return this.url;
-  };
-  TabSample.prototype.component6 = function () {
-    return this.active;
-  };
-  TabSample.prototype.component7 = function () {
-    return this.currentWindow;
-  };
-  TabSample.prototype.component8 = function () {
-    return this.highlighted;
-  };
-  TabSample.prototype.component9 = function () {
-    return this.pinned;
-  };
-  TabSample.prototype.component10 = function () {
-    return this.audible;
-  };
-  TabSample.prototype.component11 = function () {
-    return this.discarded;
-  };
-  TabSample.prototype.component12 = function () {
-    return this.autoDiscardable;
-  };
-  TabSample.prototype.component13 = function () {
-    return this.mutedInfo;
-  };
-  TabSample.prototype.component14 = function () {
-    return this.title;
-  };
-  TabSample.prototype.component15 = function () {
-    return this.favIconUrl;
-  };
-  TabSample.prototype.component16 = function () {
-    return this.status;
-  };
-  TabSample.prototype.component17 = function () {
-    return this.incognito;
-  };
-  TabSample.prototype.component18 = function () {
-    return this.width;
-  };
-  TabSample.prototype.component19 = function () {
-    return this.height;
-  };
-  TabSample.prototype.component20 = function () {
-    return this.sessionId;
-  };
-  TabSample.prototype.copy_20kwfg$ = function (id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
-    return new TabSample(id === void 0 ? this.id : id, index === void 0 ? this.index : index, windowId === void 0 ? this.windowId : windowId, openerTabId === void 0 ? this.openerTabId : openerTabId, url === void 0 ? this.url : url, active === void 0 ? this.active : active, currentWindow === void 0 ? this.currentWindow : currentWindow, highlighted === void 0 ? this.highlighted : highlighted, pinned === void 0 ? this.pinned : pinned, audible === void 0 ? this.audible : audible, discarded === void 0 ? this.discarded : discarded, autoDiscardable === void 0 ? this.autoDiscardable : autoDiscardable, mutedInfo === void 0 ? this.mutedInfo : mutedInfo, title === void 0 ? this.title : title, favIconUrl === void 0 ? this.favIconUrl : favIconUrl, status === void 0 ? this.status : status, incognito === void 0 ? this.incognito : incognito, width === void 0 ? this.width : width, height === void 0 ? this.height : height, sessionId === void 0 ? this.sessionId : sessionId);
-  };
-  TabSample.prototype.toString = function () {
-    return &#39;TabSample(id=&#39; + Kotlin.toString(this.id) + (&#39;, index=&#39; + Kotlin.toString(this.index)) + (&#39;, windowId=&#39; + Kotlin.toString(this.windowId)) + (&#39;, openerTabId=&#39; + Kotlin.toString(this.openerTabId)) + (&#39;, url=&#39; + Kotlin.toString(this.url)) + (&#39;, active=&#39; + Kotlin.toString(this.active)) + (&#39;, currentWindow=&#39; + Kotlin.toString(this.currentWindow)) + (&#39;, highlighted=&#39; + Kotlin.toString(this.highlighted)) + (&#39;, pinned=&#39; + Kotlin.toString(this.pinned)) + (&#39;, audible=&#39; + Kotlin.toString(this.audible)) + (&#39;, discarded=&#39; + Kotlin.toString(this.discarded)) + (&#39;, autoDiscardable=&#39; + Kotlin.toString(this.autoDiscardable)) + (&#39;, mutedInfo=&#39; + Kotlin.toString(this.mutedInfo)) + (&#39;, title=&#39; + Kotlin.toString(this.title)) + (&#39;, favIconUrl=&#39; + Kotlin.toString(this.favIconUrl)) + (&#39;, status=&#39; + Kotlin.toString(this.status)) + (&#39;, incognito=&#39; + Kotlin.toString(this.incognito)) + (&#39;, width=&#39; + Kotlin.toString(this.width)) + (&#39;, height=&#39; + Kotlin.toString(this.height)) + (&#39;, sessionId=&#39; + Kotlin.toString(this.sessionId)) + &#39;)&#39;;
-  };
-  TabSample.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.id) | 0;
-    result = result * 31 + Kotlin.hashCode(this.index) | 0;
-    result = result * 31 + Kotlin.hashCode(this.windowId) | 0;
-    result = result * 31 + Kotlin.hashCode(this.openerTabId) | 0;
-    result = result * 31 + Kotlin.hashCode(this.url) | 0;
-    result = result * 31 + Kotlin.hashCode(this.active) | 0;
-    result = result * 31 + Kotlin.hashCode(this.currentWindow) | 0;
-    result = result * 31 + Kotlin.hashCode(this.highlighted) | 0;
-    result = result * 31 + Kotlin.hashCode(this.pinned) | 0;
-    result = result * 31 + Kotlin.hashCode(this.audible) | 0;
-    result = result * 31 + Kotlin.hashCode(this.discarded) | 0;
-    result = result * 31 + Kotlin.hashCode(this.autoDiscardable) | 0;
-    result = result * 31 + Kotlin.hashCode(this.mutedInfo) | 0;
-    result = result * 31 + Kotlin.hashCode(this.title) | 0;
-    result = result * 31 + Kotlin.hashCode(this.favIconUrl) | 0;
-    result = result * 31 + Kotlin.hashCode(this.status) | 0;
-    result = result * 31 + Kotlin.hashCode(this.incognito) | 0;
-    result = result * 31 + Kotlin.hashCode(this.width) | 0;
-    result = result * 31 + Kotlin.hashCode(this.height) | 0;
-    result = result * 31 + Kotlin.hashCode(this.sessionId) | 0;
-    return result;
-  };
-  TabSample.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.id, other.id) &amp;&amp; Kotlin.equals(this.index, other.index) &amp;&amp; Kotlin.equals(this.windowId, other.windowId) &amp;&amp; Kotlin.equals(this.openerTabId, other.openerTabId) &amp;&amp; Kotlin.equals(this.url, other.url) &amp;&amp; Kotlin.equals(this.active, other.active) &amp;&amp; Kotlin.equals(this.currentWindow, other.currentWindow) &amp;&amp; Kotlin.equals(this.highlighted, other.highlighted) &amp;&amp; Kotlin.equals(this.pinned, other.pinned) &amp;&amp; Kotlin.equals(this.audible, other.audible) &amp;&amp; Kotlin.equals(this.discarded, other.discarded) &amp;&amp; Kotlin.equals(this.autoDiscardable, other.autoDiscardable) &amp;&amp; Kotlin.equals(this.mutedInfo, other.mutedInfo) &amp;&amp; Kotlin.equals(this.title, other.title) &amp;&amp; Kotlin.equals(this.favIconUrl, other.favIconUrl) &amp;&amp; Kotlin.equals(this.status, other.status) &amp;&amp; Kotlin.equals(this.incognito, other.incognito) &amp;&amp; Kotlin.equals(this.width, other.width) &amp;&amp; Kotlin.equals(this.height, other.height) &amp;&amp; Kotlin.equals(this.sessionId, other.sessionId)))));
-  };
-  function Tab(id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
-    this.id = id;
-    this.index = index;
-    this.windowId = windowId;
-    this.openerTabId = openerTabId;
-    this.url = url;
-    this.active = active;
-    this.currentWindow = currentWindow;
-    this.highlighted = highlighted;
-    this.pinned = pinned;
-    this.audible = audible;
-    this.discarded = discarded;
-    this.autoDiscardable = autoDiscardable;
-    this.mutedInfo = mutedInfo;
-    this.title = title;
-    this.favIconUrl = favIconUrl;
-    this.status = status;
-    this.incognito = incognito;
-    this.width = width;
-    this.height = height;
-    this.sessionId = sessionId;
-  }
-  Tab.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;Tab&#39;,
-    interfaces: []
-  };
-  Tab.prototype.component1 = function () {
-    return this.id;
-  };
-  Tab.prototype.component2 = function () {
-    return this.index;
-  };
-  Tab.prototype.component3 = function () {
-    return this.windowId;
-  };
-  Tab.prototype.component4 = function () {
-    return this.openerTabId;
-  };
-  Tab.prototype.component5 = function () {
-    return this.url;
-  };
-  Tab.prototype.component6 = function () {
-    return this.active;
-  };
-  Tab.prototype.component7 = function () {
-    return this.currentWindow;
-  };
-  Tab.prototype.component8 = function () {
-    return this.highlighted;
-  };
-  Tab.prototype.component9 = function () {
-    return this.pinned;
-  };
-  Tab.prototype.component10 = function () {
-    return this.audible;
-  };
-  Tab.prototype.component11 = function () {
-    return this.discarded;
-  };
-  Tab.prototype.component12 = function () {
-    return this.autoDiscardable;
-  };
-  Tab.prototype.component13 = function () {
-    return this.mutedInfo;
-  };
-  Tab.prototype.component14 = function () {
-    return this.title;
-  };
-  Tab.prototype.component15 = function () {
-    return this.favIconUrl;
-  };
-  Tab.prototype.component16 = function () {
-    return this.status;
-  };
-  Tab.prototype.component17 = function () {
-    return this.incognito;
-  };
-  Tab.prototype.component18 = function () {
-    return this.width;
-  };
-  Tab.prototype.component19 = function () {
-    return this.height;
-  };
-  Tab.prototype.component20 = function () {
-    return this.sessionId;
-  };
-  Tab.prototype.copy_89o2rn$ = function (id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
-    return new Tab(id === void 0 ? this.id : id, index === void 0 ? this.index : index, windowId === void 0 ? this.windowId : windowId, openerTabId === void 0 ? this.openerTabId : openerTabId, url === void 0 ? this.url : url, active === void 0 ? this.active : active, currentWindow === void 0 ? this.currentWindow : currentWindow, highlighted === void 0 ? this.highlighted : highlighted, pinned === void 0 ? this.pinned : pinned, audible === void 0 ? this.audible : audible, discarded === void 0 ? this.discarded : discarded, autoDiscardable === void 0 ? this.autoDiscardable : autoDiscardable, mutedInfo === void 0 ? this.mutedInfo : mutedInfo, title === void 0 ? this.title : title, favIconUrl === void 0 ? this.favIconUrl : favIconUrl, status === void 0 ? this.status : status, incognito === void 0 ? this.incognito : incognito, width === void 0 ? this.width : width, height === void 0 ? this.height : height, sessionId === void 0 ? this.sessionId : sessionId);
-  };
-  Tab.prototype.toString = function () {
-    return &#39;Tab(id=&#39; + Kotlin.toString(this.id) + (&#39;, index=&#39; + Kotlin.toString(this.index)) + (&#39;, windowId=&#39; + Kotlin.toString(this.windowId)) + (&#39;, openerTabId=&#39; + Kotlin.toString(this.openerTabId)) + (&#39;, url=&#39; + Kotlin.toString(this.url)) + (&#39;, active=&#39; + Kotlin.toString(this.active)) + (&#39;, currentWindow=&#39; + Kotlin.toString(this.currentWindow)) + (&#39;, highlighted=&#39; + Kotlin.toString(this.highlighted)) + (&#39;, pinned=&#39; + Kotlin.toString(this.pinned)) + (&#39;, audible=&#39; + Kotlin.toString(this.audible)) + (&#39;, discarded=&#39; + Kotlin.toString(this.discarded)) + (&#39;, autoDiscardable=&#39; + Kotlin.toString(this.autoDiscardable)) + (&#39;, mutedInfo=&#39; + Kotlin.toString(this.mutedInfo)) + (&#39;, title=&#39; + Kotlin.toString(this.title)) + (&#39;, favIconUrl=&#39; + Kotlin.toString(this.favIconUrl)) + (&#39;, status=&#39; + Kotlin.toString(this.status)) + (&#39;, incognito=&#39; + Kotlin.toString(this.incognito)) + (&#39;, width=&#39; + Kotlin.toString(this.width)) + (&#39;, height=&#39; + Kotlin.toString(this.height)) + (&#39;, sessionId=&#39; + Kotlin.toString(this.sessionId)) + &#39;)&#39;;
-  };
-  Tab.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.id) | 0;
-    result = result * 31 + Kotlin.hashCode(this.index) | 0;
-    result = result * 31 + Kotlin.hashCode(this.windowId) | 0;
-    result = result * 31 + Kotlin.hashCode(this.openerTabId) | 0;
-    result = result * 31 + Kotlin.hashCode(this.url) | 0;
-    result = result * 31 + Kotlin.hashCode(this.active) | 0;
-    result = result * 31 + Kotlin.hashCode(this.currentWindow) | 0;
-    result = result * 31 + Kotlin.hashCode(this.highlighted) | 0;
-    result = result * 31 + Kotlin.hashCode(this.pinned) | 0;
-    result = result * 31 + Kotlin.hashCode(this.audible) | 0;
-    result = result * 31 + Kotlin.hashCode(this.discarded) | 0;
-    result = result * 31 + Kotlin.hashCode(this.autoDiscardable) | 0;
-    result = result * 31 + Kotlin.hashCode(this.mutedInfo) | 0;
-    result = result * 31 + Kotlin.hashCode(this.title) | 0;
-    result = result * 31 + Kotlin.hashCode(this.favIconUrl) | 0;
-    result = result * 31 + Kotlin.hashCode(this.status) | 0;
-    result = result * 31 + Kotlin.hashCode(this.incognito) | 0;
-    result = result * 31 + Kotlin.hashCode(this.width) | 0;
-    result = result * 31 + Kotlin.hashCode(this.height) | 0;
-    result = result * 31 + Kotlin.hashCode(this.sessionId) | 0;
-    return result;
-  };
-  Tab.prototype.equals = function (other) {
-    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.id, other.id) &amp;&amp; Kotlin.equals(this.index, other.index) &amp;&amp; Kotlin.equals(this.windowId, other.windowId) &amp;&amp; Kotlin.equals(this.openerTabId, other.openerTabId) &amp;&amp; Kotlin.equals(this.url, other.url) &amp;&amp; Kotlin.equals(this.active, other.active) &amp;&amp; Kotlin.equals(this.currentWindow, other.currentWindow) &amp;&amp; Kotlin.equals(this.highlighted, other.highlighted) &amp;&amp; Kotlin.equals(this.pinned, other.pinned) &amp;&amp; Kotlin.equals(this.audible, other.audible) &amp;&amp; Kotlin.equals(this.discarded, other.discarded) &amp;&amp; Kotlin.equals(this.autoDiscardable, other.autoDiscardable) &amp;&amp; Kotlin.equals(this.mutedInfo, other.mutedInfo) &amp;&amp; Kotlin.equals(this.title, other.title) &amp;&amp; Kotlin.equals(this.favIconUrl, other.favIconUrl) &amp;&amp; Kotlin.equals(this.status, other.status) &amp;&amp; Kotlin.equals(this.incognito, other.incognito) &amp;&amp; Kotlin.equals(this.width, other.width) &amp;&amp; Kotlin.equals(this.height, other.height) &amp;&amp; Kotlin.equals(this.sessionId, other.sessionId)))));
-  };
-  function MutedInfo() {
-  }
-  MutedInfo.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: &#39;MutedInfo&#39;,
-    interfaces: []
-  };
-  var package$k_chrome_api = _.k_chrome_api || (_.k_chrome_api = {});
-  package$k_chrome_api.RuntimeError = RuntimeError;
-  package$k_chrome_api.RuntimeMessage = RuntimeMessage;
-  ScriptDetails.Code = ScriptDetails$Code;
-  ScriptDetails.File = ScriptDetails$File;
-  package$k_chrome_api.ScriptDetails = ScriptDetails;
-  package$k_chrome_api.ZoomSettings = ZoomSettings;
-  package$k_chrome_api.TabSample = TabSample;
-  package$k_chrome_api.Tab = Tab;
-  package$k_chrome_api.MutedInfo = MutedInfo;
-  Kotlin.defineModule(&#39;k-chrome-api&#39;, _);
-  return _;
-}(typeof this[&#39;k-chrome-api&#39;] === &#39;undefined&#39; ? {} : this[&#39;k-chrome-api&#39;], kotlin);
-</code></pre>
+        <pre class="content"><code class="gradle">include &#39;run-in-tab-project&#39;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">extension/manifest.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;manifest_version&quot;: 2,
-
-  &quot;name&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
-  &quot;description&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
-  &quot;version&quot;: &quot;1.0&quot;,
-
-  &quot;browser_action&quot;: {
-    &quot;default_icon&quot;: &quot;icon.png&quot;,
-    &quot;default_popup&quot;: &quot;plugin.html&quot;
-  },
-  &quot;permissions&quot;: [
-    &quot;activeTab&quot;,
-    &quot;&lt;all_urls&gt;&quot;
-  ]
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">extension/package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;extension&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;kotlin&quot;: &quot;^1.2.51&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/plugin.html" target="_blank" title="show github file">plugin.html</a>
-        </div>
-        <div class="path">extension/plugin.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Show current Url&lt;/title&gt;
-    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./k-chrome-api.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./generated/root/plugin.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./generated/run-in-tab/plugin.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">run-in-tab-project/src/main/kotlin/example/Hello.kt</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package example
 
-import k_chrome_api.RuntimeMessage
+import k_chrome_api.ScriptDetails
 import k_chrome_api.chrome
-import kotlin.browser.document
+import kotlin.browser.window
 
 fun main(args: Array&lt;String&gt;) {
-    chrome.runtime.sendMessage(RuntimeMessage(
-            action = &quot;GET_DOM&quot;,
-            source = document.body?.outerHTML
-    ))
-}</code></pre>
+    chrome.runtime.onMessage.addListener { request, _ -&gt;
+        if (request.action == &quot;GET_DOM&quot;) {
+            @Suppress(&quot;UnsafeCastFromDynamic&quot;)
+            val doc: String = request.source
+            window.alert(doc)
+        }
+    }
+    requestDom()
+}
+
+private fun requestDom() {
+    chrome.tabs.getSelected(null) { tab -&gt;
+        tab.id?.let { tabId -&gt;
+            chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./node_modules/kotlin/kotlin.js&quot;)) { _ -&gt;
+                if (!checkLastError()) {
+                    chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./k-chrome-api.js&quot;)) { _ -&gt;
+                        if (!checkLastError()) {
+                            chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./generated/run-in-tab/plugin.js&quot;)) { _ -&gt;
+                                checkLastError()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun checkLastError(): Boolean {
+    val error = chrome.runtime.lastError
+    if (error != null) {
+        window.alert(error.message)
+        return true
+    }
+    return false
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
         </div>
-        <div class="path">run-in-tab-project/src/main/resources/lib/kotlin.js</div>
+        <div class="path">src/main/resources/lib/kotlin.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">(function (root, factory) {
@@ -38529,64 +38054,517 @@ fun main(args: Array&lt;String&gt;) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/settings.gradle" target="_blank" title="show github file">settings.gradle</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/k-chrome-api.js" target="_blank" title="show github file">k-chrome-api.js</a>
         </div>
-        <div class="path">settings.gradle</div>
+        <div class="path">extension/k-chrome-api.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="gradle">include &#39;run-in-tab-project&#39;</code></pre>
+        <pre class="content"><code class="js">if (typeof kotlin === &#39;undefined&#39;) {
+  throw new Error(&quot;Error loading module &#39;k-chrome-api&#39;. Its dependency &#39;kotlin&#39; was not found. Please, check whether &#39;kotlin&#39; is loaded prior to &#39;k-chrome-api&#39;.&quot;);
+}
+this[&#39;k-chrome-api&#39;] = function (_, Kotlin) {
+  &#39;use strict&#39;;
+  var Kind_CLASS = Kotlin.Kind.CLASS;
+  ScriptDetails$Code.prototype = Object.create(ScriptDetails.prototype);
+  ScriptDetails$Code.prototype.constructor = ScriptDetails$Code;
+  ScriptDetails$File.prototype = Object.create(ScriptDetails.prototype);
+  ScriptDetails$File.prototype.constructor = ScriptDetails$File;
+  function RuntimeError(message) {
+    this.message = message;
+  }
+  RuntimeError.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;RuntimeError&#39;,
+    interfaces: []
+  };
+  RuntimeError.prototype.component1 = function () {
+    return this.message;
+  };
+  RuntimeError.prototype.copy_61zpoe$ = function (message) {
+    return new RuntimeError(message === void 0 ? this.message : message);
+  };
+  RuntimeError.prototype.toString = function () {
+    return &#39;RuntimeError(message=&#39; + Kotlin.toString(this.message) + &#39;)&#39;;
+  };
+  RuntimeError.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.message) | 0;
+    return result;
+  };
+  RuntimeError.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.message, other.message))));
+  };
+  function RuntimeMessage(action, source) {
+    this.action = action;
+    this.source = source;
+  }
+  RuntimeMessage.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;RuntimeMessage&#39;,
+    interfaces: []
+  };
+  RuntimeMessage.prototype.component1 = function () {
+    return this.action;
+  };
+  RuntimeMessage.prototype.component2 = function () {
+    return this.source;
+  };
+  RuntimeMessage.prototype.copy_bm4g0d$ = function (action, source) {
+    return new RuntimeMessage(action === void 0 ? this.action : action, source === void 0 ? this.source : source);
+  };
+  RuntimeMessage.prototype.toString = function () {
+    return &#39;RuntimeMessage(action=&#39; + Kotlin.toString(this.action) + (&#39;, source=&#39; + Kotlin.toString(this.source)) + &#39;)&#39;;
+  };
+  RuntimeMessage.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.action) | 0;
+    result = result * 31 + Kotlin.hashCode(this.source) | 0;
+    return result;
+  };
+  RuntimeMessage.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.action, other.action) &amp;&amp; Kotlin.equals(this.source, other.source)))));
+  };
+  function ScriptDetails() {
+  }
+  function ScriptDetails$Code(code) {
+    ScriptDetails.call(this);
+    this.code = code;
+  }
+  ScriptDetails$Code.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;Code&#39;,
+    interfaces: [ScriptDetails]
+  };
+  ScriptDetails$Code.prototype.component1 = function () {
+    return this.code;
+  };
+  ScriptDetails$Code.prototype.copy_61zpoe$ = function (code) {
+    return new ScriptDetails$Code(code === void 0 ? this.code : code);
+  };
+  ScriptDetails$Code.prototype.toString = function () {
+    return &#39;Code(code=&#39; + Kotlin.toString(this.code) + &#39;)&#39;;
+  };
+  ScriptDetails$Code.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.code) | 0;
+    return result;
+  };
+  ScriptDetails$Code.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.code, other.code))));
+  };
+  function ScriptDetails$File(file) {
+    ScriptDetails.call(this);
+    this.file = file;
+  }
+  ScriptDetails$File.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;File&#39;,
+    interfaces: [ScriptDetails]
+  };
+  ScriptDetails$File.prototype.component1 = function () {
+    return this.file;
+  };
+  ScriptDetails$File.prototype.copy_61zpoe$ = function (file) {
+    return new ScriptDetails$File(file === void 0 ? this.file : file);
+  };
+  ScriptDetails$File.prototype.toString = function () {
+    return &#39;File(file=&#39; + Kotlin.toString(this.file) + &#39;)&#39;;
+  };
+  ScriptDetails$File.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.file) | 0;
+    return result;
+  };
+  ScriptDetails$File.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; Kotlin.equals(this.file, other.file))));
+  };
+  ScriptDetails.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;ScriptDetails&#39;,
+    interfaces: []
+  };
+  function ZoomSettings() {
+  }
+  ZoomSettings.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;ZoomSettings&#39;,
+    interfaces: []
+  };
+  function TabSample(id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
+    if (id === void 0)
+      id = null;
+    if (index === void 0)
+      index = null;
+    if (windowId === void 0)
+      windowId = null;
+    if (openerTabId === void 0)
+      openerTabId = null;
+    if (url === void 0)
+      url = null;
+    if (active === void 0)
+      active = null;
+    if (currentWindow === void 0)
+      currentWindow = null;
+    if (highlighted === void 0)
+      highlighted = null;
+    if (pinned === void 0)
+      pinned = null;
+    if (audible === void 0)
+      audible = null;
+    if (discarded === void 0)
+      discarded = null;
+    if (autoDiscardable === void 0)
+      autoDiscardable = null;
+    if (mutedInfo === void 0)
+      mutedInfo = null;
+    if (title === void 0)
+      title = null;
+    if (favIconUrl === void 0)
+      favIconUrl = null;
+    if (status === void 0)
+      status = null;
+    if (incognito === void 0)
+      incognito = null;
+    if (width === void 0)
+      width = null;
+    if (height === void 0)
+      height = null;
+    if (sessionId === void 0)
+      sessionId = null;
+    this.id = id;
+    this.index = index;
+    this.windowId = windowId;
+    this.openerTabId = openerTabId;
+    this.url = url;
+    this.active = active;
+    this.currentWindow = currentWindow;
+    this.highlighted = highlighted;
+    this.pinned = pinned;
+    this.audible = audible;
+    this.discarded = discarded;
+    this.autoDiscardable = autoDiscardable;
+    this.mutedInfo = mutedInfo;
+    this.title = title;
+    this.favIconUrl = favIconUrl;
+    this.status = status;
+    this.incognito = incognito;
+    this.width = width;
+    this.height = height;
+    this.sessionId = sessionId;
+  }
+  TabSample.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;TabSample&#39;,
+    interfaces: []
+  };
+  TabSample.prototype.component1 = function () {
+    return this.id;
+  };
+  TabSample.prototype.component2 = function () {
+    return this.index;
+  };
+  TabSample.prototype.component3 = function () {
+    return this.windowId;
+  };
+  TabSample.prototype.component4 = function () {
+    return this.openerTabId;
+  };
+  TabSample.prototype.component5 = function () {
+    return this.url;
+  };
+  TabSample.prototype.component6 = function () {
+    return this.active;
+  };
+  TabSample.prototype.component7 = function () {
+    return this.currentWindow;
+  };
+  TabSample.prototype.component8 = function () {
+    return this.highlighted;
+  };
+  TabSample.prototype.component9 = function () {
+    return this.pinned;
+  };
+  TabSample.prototype.component10 = function () {
+    return this.audible;
+  };
+  TabSample.prototype.component11 = function () {
+    return this.discarded;
+  };
+  TabSample.prototype.component12 = function () {
+    return this.autoDiscardable;
+  };
+  TabSample.prototype.component13 = function () {
+    return this.mutedInfo;
+  };
+  TabSample.prototype.component14 = function () {
+    return this.title;
+  };
+  TabSample.prototype.component15 = function () {
+    return this.favIconUrl;
+  };
+  TabSample.prototype.component16 = function () {
+    return this.status;
+  };
+  TabSample.prototype.component17 = function () {
+    return this.incognito;
+  };
+  TabSample.prototype.component18 = function () {
+    return this.width;
+  };
+  TabSample.prototype.component19 = function () {
+    return this.height;
+  };
+  TabSample.prototype.component20 = function () {
+    return this.sessionId;
+  };
+  TabSample.prototype.copy_20kwfg$ = function (id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
+    return new TabSample(id === void 0 ? this.id : id, index === void 0 ? this.index : index, windowId === void 0 ? this.windowId : windowId, openerTabId === void 0 ? this.openerTabId : openerTabId, url === void 0 ? this.url : url, active === void 0 ? this.active : active, currentWindow === void 0 ? this.currentWindow : currentWindow, highlighted === void 0 ? this.highlighted : highlighted, pinned === void 0 ? this.pinned : pinned, audible === void 0 ? this.audible : audible, discarded === void 0 ? this.discarded : discarded, autoDiscardable === void 0 ? this.autoDiscardable : autoDiscardable, mutedInfo === void 0 ? this.mutedInfo : mutedInfo, title === void 0 ? this.title : title, favIconUrl === void 0 ? this.favIconUrl : favIconUrl, status === void 0 ? this.status : status, incognito === void 0 ? this.incognito : incognito, width === void 0 ? this.width : width, height === void 0 ? this.height : height, sessionId === void 0 ? this.sessionId : sessionId);
+  };
+  TabSample.prototype.toString = function () {
+    return &#39;TabSample(id=&#39; + Kotlin.toString(this.id) + (&#39;, index=&#39; + Kotlin.toString(this.index)) + (&#39;, windowId=&#39; + Kotlin.toString(this.windowId)) + (&#39;, openerTabId=&#39; + Kotlin.toString(this.openerTabId)) + (&#39;, url=&#39; + Kotlin.toString(this.url)) + (&#39;, active=&#39; + Kotlin.toString(this.active)) + (&#39;, currentWindow=&#39; + Kotlin.toString(this.currentWindow)) + (&#39;, highlighted=&#39; + Kotlin.toString(this.highlighted)) + (&#39;, pinned=&#39; + Kotlin.toString(this.pinned)) + (&#39;, audible=&#39; + Kotlin.toString(this.audible)) + (&#39;, discarded=&#39; + Kotlin.toString(this.discarded)) + (&#39;, autoDiscardable=&#39; + Kotlin.toString(this.autoDiscardable)) + (&#39;, mutedInfo=&#39; + Kotlin.toString(this.mutedInfo)) + (&#39;, title=&#39; + Kotlin.toString(this.title)) + (&#39;, favIconUrl=&#39; + Kotlin.toString(this.favIconUrl)) + (&#39;, status=&#39; + Kotlin.toString(this.status)) + (&#39;, incognito=&#39; + Kotlin.toString(this.incognito)) + (&#39;, width=&#39; + Kotlin.toString(this.width)) + (&#39;, height=&#39; + Kotlin.toString(this.height)) + (&#39;, sessionId=&#39; + Kotlin.toString(this.sessionId)) + &#39;)&#39;;
+  };
+  TabSample.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.id) | 0;
+    result = result * 31 + Kotlin.hashCode(this.index) | 0;
+    result = result * 31 + Kotlin.hashCode(this.windowId) | 0;
+    result = result * 31 + Kotlin.hashCode(this.openerTabId) | 0;
+    result = result * 31 + Kotlin.hashCode(this.url) | 0;
+    result = result * 31 + Kotlin.hashCode(this.active) | 0;
+    result = result * 31 + Kotlin.hashCode(this.currentWindow) | 0;
+    result = result * 31 + Kotlin.hashCode(this.highlighted) | 0;
+    result = result * 31 + Kotlin.hashCode(this.pinned) | 0;
+    result = result * 31 + Kotlin.hashCode(this.audible) | 0;
+    result = result * 31 + Kotlin.hashCode(this.discarded) | 0;
+    result = result * 31 + Kotlin.hashCode(this.autoDiscardable) | 0;
+    result = result * 31 + Kotlin.hashCode(this.mutedInfo) | 0;
+    result = result * 31 + Kotlin.hashCode(this.title) | 0;
+    result = result * 31 + Kotlin.hashCode(this.favIconUrl) | 0;
+    result = result * 31 + Kotlin.hashCode(this.status) | 0;
+    result = result * 31 + Kotlin.hashCode(this.incognito) | 0;
+    result = result * 31 + Kotlin.hashCode(this.width) | 0;
+    result = result * 31 + Kotlin.hashCode(this.height) | 0;
+    result = result * 31 + Kotlin.hashCode(this.sessionId) | 0;
+    return result;
+  };
+  TabSample.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.id, other.id) &amp;&amp; Kotlin.equals(this.index, other.index) &amp;&amp; Kotlin.equals(this.windowId, other.windowId) &amp;&amp; Kotlin.equals(this.openerTabId, other.openerTabId) &amp;&amp; Kotlin.equals(this.url, other.url) &amp;&amp; Kotlin.equals(this.active, other.active) &amp;&amp; Kotlin.equals(this.currentWindow, other.currentWindow) &amp;&amp; Kotlin.equals(this.highlighted, other.highlighted) &amp;&amp; Kotlin.equals(this.pinned, other.pinned) &amp;&amp; Kotlin.equals(this.audible, other.audible) &amp;&amp; Kotlin.equals(this.discarded, other.discarded) &amp;&amp; Kotlin.equals(this.autoDiscardable, other.autoDiscardable) &amp;&amp; Kotlin.equals(this.mutedInfo, other.mutedInfo) &amp;&amp; Kotlin.equals(this.title, other.title) &amp;&amp; Kotlin.equals(this.favIconUrl, other.favIconUrl) &amp;&amp; Kotlin.equals(this.status, other.status) &amp;&amp; Kotlin.equals(this.incognito, other.incognito) &amp;&amp; Kotlin.equals(this.width, other.width) &amp;&amp; Kotlin.equals(this.height, other.height) &amp;&amp; Kotlin.equals(this.sessionId, other.sessionId)))));
+  };
+  function Tab(id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
+    this.id = id;
+    this.index = index;
+    this.windowId = windowId;
+    this.openerTabId = openerTabId;
+    this.url = url;
+    this.active = active;
+    this.currentWindow = currentWindow;
+    this.highlighted = highlighted;
+    this.pinned = pinned;
+    this.audible = audible;
+    this.discarded = discarded;
+    this.autoDiscardable = autoDiscardable;
+    this.mutedInfo = mutedInfo;
+    this.title = title;
+    this.favIconUrl = favIconUrl;
+    this.status = status;
+    this.incognito = incognito;
+    this.width = width;
+    this.height = height;
+    this.sessionId = sessionId;
+  }
+  Tab.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;Tab&#39;,
+    interfaces: []
+  };
+  Tab.prototype.component1 = function () {
+    return this.id;
+  };
+  Tab.prototype.component2 = function () {
+    return this.index;
+  };
+  Tab.prototype.component3 = function () {
+    return this.windowId;
+  };
+  Tab.prototype.component4 = function () {
+    return this.openerTabId;
+  };
+  Tab.prototype.component5 = function () {
+    return this.url;
+  };
+  Tab.prototype.component6 = function () {
+    return this.active;
+  };
+  Tab.prototype.component7 = function () {
+    return this.currentWindow;
+  };
+  Tab.prototype.component8 = function () {
+    return this.highlighted;
+  };
+  Tab.prototype.component9 = function () {
+    return this.pinned;
+  };
+  Tab.prototype.component10 = function () {
+    return this.audible;
+  };
+  Tab.prototype.component11 = function () {
+    return this.discarded;
+  };
+  Tab.prototype.component12 = function () {
+    return this.autoDiscardable;
+  };
+  Tab.prototype.component13 = function () {
+    return this.mutedInfo;
+  };
+  Tab.prototype.component14 = function () {
+    return this.title;
+  };
+  Tab.prototype.component15 = function () {
+    return this.favIconUrl;
+  };
+  Tab.prototype.component16 = function () {
+    return this.status;
+  };
+  Tab.prototype.component17 = function () {
+    return this.incognito;
+  };
+  Tab.prototype.component18 = function () {
+    return this.width;
+  };
+  Tab.prototype.component19 = function () {
+    return this.height;
+  };
+  Tab.prototype.component20 = function () {
+    return this.sessionId;
+  };
+  Tab.prototype.copy_89o2rn$ = function (id, index, windowId, openerTabId, url, active, currentWindow, highlighted, pinned, audible, discarded, autoDiscardable, mutedInfo, title, favIconUrl, status, incognito, width, height, sessionId) {
+    return new Tab(id === void 0 ? this.id : id, index === void 0 ? this.index : index, windowId === void 0 ? this.windowId : windowId, openerTabId === void 0 ? this.openerTabId : openerTabId, url === void 0 ? this.url : url, active === void 0 ? this.active : active, currentWindow === void 0 ? this.currentWindow : currentWindow, highlighted === void 0 ? this.highlighted : highlighted, pinned === void 0 ? this.pinned : pinned, audible === void 0 ? this.audible : audible, discarded === void 0 ? this.discarded : discarded, autoDiscardable === void 0 ? this.autoDiscardable : autoDiscardable, mutedInfo === void 0 ? this.mutedInfo : mutedInfo, title === void 0 ? this.title : title, favIconUrl === void 0 ? this.favIconUrl : favIconUrl, status === void 0 ? this.status : status, incognito === void 0 ? this.incognito : incognito, width === void 0 ? this.width : width, height === void 0 ? this.height : height, sessionId === void 0 ? this.sessionId : sessionId);
+  };
+  Tab.prototype.toString = function () {
+    return &#39;Tab(id=&#39; + Kotlin.toString(this.id) + (&#39;, index=&#39; + Kotlin.toString(this.index)) + (&#39;, windowId=&#39; + Kotlin.toString(this.windowId)) + (&#39;, openerTabId=&#39; + Kotlin.toString(this.openerTabId)) + (&#39;, url=&#39; + Kotlin.toString(this.url)) + (&#39;, active=&#39; + Kotlin.toString(this.active)) + (&#39;, currentWindow=&#39; + Kotlin.toString(this.currentWindow)) + (&#39;, highlighted=&#39; + Kotlin.toString(this.highlighted)) + (&#39;, pinned=&#39; + Kotlin.toString(this.pinned)) + (&#39;, audible=&#39; + Kotlin.toString(this.audible)) + (&#39;, discarded=&#39; + Kotlin.toString(this.discarded)) + (&#39;, autoDiscardable=&#39; + Kotlin.toString(this.autoDiscardable)) + (&#39;, mutedInfo=&#39; + Kotlin.toString(this.mutedInfo)) + (&#39;, title=&#39; + Kotlin.toString(this.title)) + (&#39;, favIconUrl=&#39; + Kotlin.toString(this.favIconUrl)) + (&#39;, status=&#39; + Kotlin.toString(this.status)) + (&#39;, incognito=&#39; + Kotlin.toString(this.incognito)) + (&#39;, width=&#39; + Kotlin.toString(this.width)) + (&#39;, height=&#39; + Kotlin.toString(this.height)) + (&#39;, sessionId=&#39; + Kotlin.toString(this.sessionId)) + &#39;)&#39;;
+  };
+  Tab.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.id) | 0;
+    result = result * 31 + Kotlin.hashCode(this.index) | 0;
+    result = result * 31 + Kotlin.hashCode(this.windowId) | 0;
+    result = result * 31 + Kotlin.hashCode(this.openerTabId) | 0;
+    result = result * 31 + Kotlin.hashCode(this.url) | 0;
+    result = result * 31 + Kotlin.hashCode(this.active) | 0;
+    result = result * 31 + Kotlin.hashCode(this.currentWindow) | 0;
+    result = result * 31 + Kotlin.hashCode(this.highlighted) | 0;
+    result = result * 31 + Kotlin.hashCode(this.pinned) | 0;
+    result = result * 31 + Kotlin.hashCode(this.audible) | 0;
+    result = result * 31 + Kotlin.hashCode(this.discarded) | 0;
+    result = result * 31 + Kotlin.hashCode(this.autoDiscardable) | 0;
+    result = result * 31 + Kotlin.hashCode(this.mutedInfo) | 0;
+    result = result * 31 + Kotlin.hashCode(this.title) | 0;
+    result = result * 31 + Kotlin.hashCode(this.favIconUrl) | 0;
+    result = result * 31 + Kotlin.hashCode(this.status) | 0;
+    result = result * 31 + Kotlin.hashCode(this.incognito) | 0;
+    result = result * 31 + Kotlin.hashCode(this.width) | 0;
+    result = result * 31 + Kotlin.hashCode(this.height) | 0;
+    result = result * 31 + Kotlin.hashCode(this.sessionId) | 0;
+    return result;
+  };
+  Tab.prototype.equals = function (other) {
+    return this === other || (other !== null &amp;&amp; (typeof other === &#39;object&#39; &amp;&amp; (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) &amp;&amp; (Kotlin.equals(this.id, other.id) &amp;&amp; Kotlin.equals(this.index, other.index) &amp;&amp; Kotlin.equals(this.windowId, other.windowId) &amp;&amp; Kotlin.equals(this.openerTabId, other.openerTabId) &amp;&amp; Kotlin.equals(this.url, other.url) &amp;&amp; Kotlin.equals(this.active, other.active) &amp;&amp; Kotlin.equals(this.currentWindow, other.currentWindow) &amp;&amp; Kotlin.equals(this.highlighted, other.highlighted) &amp;&amp; Kotlin.equals(this.pinned, other.pinned) &amp;&amp; Kotlin.equals(this.audible, other.audible) &amp;&amp; Kotlin.equals(this.discarded, other.discarded) &amp;&amp; Kotlin.equals(this.autoDiscardable, other.autoDiscardable) &amp;&amp; Kotlin.equals(this.mutedInfo, other.mutedInfo) &amp;&amp; Kotlin.equals(this.title, other.title) &amp;&amp; Kotlin.equals(this.favIconUrl, other.favIconUrl) &amp;&amp; Kotlin.equals(this.status, other.status) &amp;&amp; Kotlin.equals(this.incognito, other.incognito) &amp;&amp; Kotlin.equals(this.width, other.width) &amp;&amp; Kotlin.equals(this.height, other.height) &amp;&amp; Kotlin.equals(this.sessionId, other.sessionId)))));
+  };
+  function MutedInfo() {
+  }
+  MutedInfo.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: &#39;MutedInfo&#39;,
+    interfaces: []
+  };
+  var package$k_chrome_api = _.k_chrome_api || (_.k_chrome_api = {});
+  package$k_chrome_api.RuntimeError = RuntimeError;
+  package$k_chrome_api.RuntimeMessage = RuntimeMessage;
+  ScriptDetails.Code = ScriptDetails$Code;
+  ScriptDetails.File = ScriptDetails$File;
+  package$k_chrome_api.ScriptDetails = ScriptDetails;
+  package$k_chrome_api.ZoomSettings = ZoomSettings;
+  package$k_chrome_api.TabSample = TabSample;
+  package$k_chrome_api.Tab = Tab;
+  package$k_chrome_api.MutedInfo = MutedInfo;
+  Kotlin.defineModule(&#39;k-chrome-api&#39;, _);
+  return _;
+}(typeof this[&#39;k-chrome-api&#39;] === &#39;undefined&#39; ? {} : this[&#39;k-chrome-api&#39;], kotlin);
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/manifest.json" target="_blank" title="show github file">manifest.json</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">extension/manifest.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
+        <pre class="content"><code class="json">{
+  &quot;manifest_version&quot;: 2,
 
-import k_chrome_api.ScriptDetails
-import k_chrome_api.chrome
-import kotlin.browser.window
+  &quot;name&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
+  &quot;description&quot;: &quot;chrome-extension-get-page-content-demo&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
 
-fun main(args: Array&lt;String&gt;) {
-    chrome.runtime.onMessage.addListener { request, _ -&gt;
-        if (request.action == &quot;GET_DOM&quot;) {
-            @Suppress(&quot;UnsafeCastFromDynamic&quot;)
-            val doc: String = request.source
-            window.alert(doc)
-        }
-    }
-    requestDom()
-}
+  &quot;browser_action&quot;: {
+    &quot;default_icon&quot;: &quot;icon.png&quot;,
+    &quot;default_popup&quot;: &quot;plugin.html&quot;
+  },
+  &quot;permissions&quot;: [
+    &quot;activeTab&quot;,
+    &quot;&lt;all_urls&gt;&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/plugin.html" target="_blank" title="show github file">plugin.html</a>
+        </div>
+        <div class="path">extension/plugin.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Show current Url&lt;/title&gt;
+    &lt;script src=&quot;./node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./k-chrome-api.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./generated/root/plugin.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./generated/run-in-tab/plugin.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 
-private fun requestDom() {
-    chrome.tabs.getSelected(null) { tab -&gt;
-        tab.id?.let { tabId -&gt;
-            chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./node_modules/kotlin/kotlin.js&quot;)) { _ -&gt;
-                if (!checkLastError()) {
-                    chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./k-chrome-api.js&quot;)) { _ -&gt;
-                        if (!checkLastError()) {
-                            chrome.tabs.executeScript(tabId, ScriptDetails.File(&quot;./generated/run-in-tab/plugin.js&quot;)) { _ -&gt;
-                                checkLastError()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-private fun checkLastError(): Boolean {
-    val error = chrome.runtime.lastError
-    if (error != null) {
-        window.alert(error.message)
-        return true
-    }
-    return false
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/extension/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">extension/package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;extension&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;kotlin&quot;: &quot;^1.2.51&quot;
+  }
 }
 </code></pre>
     </div>
@@ -38594,9 +38572,31 @@ private fun checkLastError(): Boolean {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">src/main/resources/lib/kotlin.js</div>
+        <div class="path">run-in-tab-project/src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import k_chrome_api.RuntimeMessage
+import k_chrome_api.chrome
+import kotlin.browser.document
+
+fun main(args: Array&lt;String&gt;) {
+    chrome.runtime.sendMessage(RuntimeMessage(
+            action = &quot;GET_DOM&quot;,
+            source = document.body?.outerHTML
+    ))
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-get-page-content-demo/blob/master/run-in-tab-project/src/main/resources/lib/kotlin.js" target="_blank" title="show github file">kotlin.js</a>
+        </div>
+        <div class="path">run-in-tab-project/src/main/resources/lib/kotlin.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">(function (root, factory) {

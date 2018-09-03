@@ -35,25 +35,17 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-factory-singleton-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-factory-singleton-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-
-app.factory(&#39;RandomNumber&#39;, function () {
-    console.log(&#39;------- factory: RandomNumber&#39;)
-    return Math.random()
-})
-
-app.controller(&#39;MyController1&#39;, function ($scope, RandomNumber) {
-    $scope.message = &#39;random number: &#39; + RandomNumber
-})
-
-app.controller(&#39;MyController2&#39;, function ($scope, RandomNumber) {
-    $scope.message = &#39;random number: &#39; + RandomNumber
-})</code></pre>
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -79,17 +71,25 @@ app.controller(&#39;MyController2&#39;, function ($scope, RandomNumber) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-factory-singleton-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-factory-singleton-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+
+app.factory(&#39;RandomNumber&#39;, function () {
+    console.log(&#39;------- factory: RandomNumber&#39;)
+    return Math.random()
+})
+
+app.controller(&#39;MyController1&#39;, function ($scope, RandomNumber) {
+    $scope.message = &#39;random number: &#39; + RandomNumber
+})
+
+app.controller(&#39;MyController2&#39;, function ($scope, RandomNumber) {
+    $scope.message = &#39;random number: &#39; + RandomNumber
+})</code></pre>
     </div>
 </div>
 

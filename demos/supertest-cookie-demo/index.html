@@ -35,6 +35,70 @@ npm test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/app-spec.js" target="_blank" title="show github file">app-spec.js</a>
+        </div>
+        <div class="path">spec/app-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">&#39;use strict&#39;;
+const request = require(&#39;supertest&#39;);
+const async = require(&#39;async&#39;);
+const app = require(&#39;../index&#39;);
+
+function finish(done) {
+  return (err) =&gt; {
+    if (err) done.fail(err);
+    else done();
+  }
+}
+
+describe(&#39;express application&#39;, () =&gt; {
+
+  it(&#39;/&#39;, (done) =&gt; {
+    request(app)
+      .get(&#39;/&#39;)
+      .expect(200, &#39;Hello, world!&#39;, finish(done));
+  });
+
+  it(&#39;send cookie to server&#39;, (done) =&gt; {
+    request(app)
+      .get(&#39;/set-cookie&#39;)
+      .set(&#39;Cookie&#39;, &#39;token1=111111;token2=222222&#39;)
+      .expect(200, {
+        token1: &#39;111111&#39;,
+        token2: &#39;222222&#39;
+      }, finish(done));
+  });
+
+
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+        </div>
+        <div class="path">spec/support/jasmine.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;spec_dir&quot;: &quot;spec&quot;,
+  &quot;spec_files&quot;: [
+    &quot;**/*[sS]pec.js&quot;
+  ],
+  &quot;helpers&quot;: [
+    &quot;helpers/**/*.js&quot;
+  ],
+  &quot;stopSpecOnExpectationFailure&quot;: false,
+  &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>
@@ -93,70 +157,6 @@ module.exports = app;</code></pre>
   &quot;devDependencies&quot;: {
     &quot;supertest&quot;: &quot;^2.0.0&quot;
   }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/app-spec.js" target="_blank" title="show github file">app-spec.js</a>
-        </div>
-        <div class="path">spec/app-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">&#39;use strict&#39;;
-const request = require(&#39;supertest&#39;);
-const async = require(&#39;async&#39;);
-const app = require(&#39;../index&#39;);
-
-function finish(done) {
-  return (err) =&gt; {
-    if (err) done.fail(err);
-    else done();
-  }
-}
-
-describe(&#39;express application&#39;, () =&gt; {
-
-  it(&#39;/&#39;, (done) =&gt; {
-    request(app)
-      .get(&#39;/&#39;)
-      .expect(200, &#39;Hello, world!&#39;, finish(done));
-  });
-
-  it(&#39;send cookie to server&#39;, (done) =&gt; {
-    request(app)
-      .get(&#39;/set-cookie&#39;)
-      .set(&#39;Cookie&#39;, &#39;token1=111111;token2=222222&#39;)
-      .expect(200, {
-        token1: &#39;111111&#39;,
-        token2: &#39;222222&#39;
-      }, finish(done));
-  });
-
-
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-cookie-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
-        </div>
-        <div class="path">spec/support/jasmine.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;spec_dir&quot;: &quot;spec&quot;,
-  &quot;spec_files&quot;: [
-    &quot;**/*[sS]pec.js&quot;
-  ],
-  &quot;helpers&quot;: [
-    &quot;helpers/**/*.js&quot;
-  ],
-  &quot;stopSpecOnExpectationFailure&quot;: false,
-  &quot;random&quot;: false
 }
 </code></pre>
     </div>

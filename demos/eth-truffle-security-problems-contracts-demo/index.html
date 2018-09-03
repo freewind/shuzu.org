@@ -40,24 +40,6 @@ Steps in summary
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/migrations/1_initial_migration.js" target="_blank" title="show github file">1_initial_migration.js</a>
-        </div>
-        <div class="path">migrations/1_initial_migration.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var Migrations = artifacts.require(&quot;./Migrations.sol&quot;);
-const Hello = artifacts.require(&quot;./Hello.sol&quot;);
-
-module.exports = function(deployer) {
-  deployer.deploy(Migrations);
-  deployer.deploy(Hello);
-};
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/test/hello.js" target="_blank" title="show github file">hello.js</a>
         </div>
         <div class="path">test/hello.js</div>
@@ -83,9 +65,9 @@ contract(&#39;Hello.getMessage&#39;, function(accounts) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle-config.js" target="_blank" title="show github file">truffle-config.js</a>
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle.js" target="_blank" title="show github file">truffle.js</a>
         </div>
-        <div class="path">truffle-config.js</div>
+        <div class="path">truffle.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">module.exports = {
@@ -98,9 +80,27 @@ contract(&#39;Hello.getMessage&#39;, function(accounts) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle.js" target="_blank" title="show github file">truffle.js</a>
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/migrations/1_initial_migration.js" target="_blank" title="show github file">1_initial_migration.js</a>
         </div>
-        <div class="path">truffle.js</div>
+        <div class="path">migrations/1_initial_migration.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var Migrations = artifacts.require(&quot;./Migrations.sol&quot;);
+const Hello = artifacts.require(&quot;./Hello.sol&quot;);
+
+module.exports = function(deployer) {
+  deployer.deploy(Migrations);
+  deployer.deploy(Hello);
+};
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/truffle-config.js" target="_blank" title="show github file">truffle-config.js</a>
+        </div>
+        <div class="path">truffle-config.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">module.exports = {

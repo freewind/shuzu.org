@@ -29,25 +29,6 @@ Open a page, and click the icon of this extension on toolbar, you will a hello a
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-context-menu-selection-text-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
-        </div>
-        <div class="path">hello.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">function alertSelection(info, tab) {
-    alert(info.selectionText);
-}
-
-chrome.contextMenus.create({
-    title: &quot;Alert selection!&quot;,
-    contexts: [&quot;selection&quot;],
-    onclick: alertSelection
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-context-menu-selection-text-demo/blob/master/manifest.json" target="_blank" title="show github file">manifest.json</a>
         </div>
         <div class="path">manifest.json</div>
@@ -65,6 +46,25 @@ chrome.contextMenus.create({
     &quot;contextMenus&quot;
   ]
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-context-menu-selection-text-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </div>
+        <div class="path">hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function alertSelection(info, tab) {
+    alert(info.selectionText);
+}
+
+chrome.contextMenus.create({
+    title: &quot;Alert selection!&quot;,
+    contexts: [&quot;selection&quot;],
+    onclick: alertSelection
+});</code></pre>
     </div>
 </div>
 

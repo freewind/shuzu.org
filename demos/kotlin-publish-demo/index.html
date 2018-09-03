@@ -84,91 +84,6 @@ npm install --save kotlin-js-publish-demo
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/bintray.gradle" target="_blank" title="show github file">bintray.gradle</a>
-        </div>
-        <div class="path">bintray.gradle</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="gradle">group = publishedGroupId
-version = libraryVersion
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging &#39;aar&#39;
-            groupId publishedGroupId
-            artifactId artifact
-
-            name libraryName
-            description libraryName
-            url siteUrl
-
-            licenses {
-                license {
-                    name licenseName
-                    url licenseUrl
-                }
-            }
-            developers {
-                developer {
-                    id developerId
-                    name developerName
-                    email developerEmail
-                }
-            }
-            scm {
-                connection gitUrl
-                developerConnection gitUrl
-                url siteUrl
-            }
-        }
-    }
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = &#39;sources&#39;
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = &#39;javadoc&#39;
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file(&#39;local.properties&#39;).newDataInputStream())
-
-bintray {
-    user = properties.getProperty(&quot;bintray.user&quot;)
-    key = properties.getProperty(&quot;bintray.apikey&quot;)
-
-    configurations = [&#39;archives&#39;]
-    pkg {
-        repo = repoName
-        name = artifact
-        desc = libraryName
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        dryRun = false
-        publish = true
-        override = false
-        publicDownloadNumbers = true
-        version {
-            desc = libraryName
-        }
-    }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
         </div>
         <div class="path">build.gradle</div>
@@ -319,24 +234,19 @@ var hello = function (_, Kotlin) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
         </div>
-        <div class="path">index.html</div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
+        <pre class="content"><code class="kt">package example
 
-&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
+fun main(args: Array&lt;String&gt;) {
+    console.log(hello(&quot;Kotlin JS&quot;))
+}
 
-&lt;/body&gt;
-&lt;/html&gt;
+fun hello(name:String) = &quot;Hello, $name!&quot;
+
 </code></pre>
     </div>
 </div>
@@ -377,20 +287,110 @@ var hello = function (_, Kotlin) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
+        <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="kt">package example
+        <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Kotlin JS Hello World Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-fun main(args: Array&lt;String&gt;) {
-    console.log(hello(&quot;Kotlin JS&quot;))
+&lt;script type=&quot;text/javascript&quot; src=&quot;node_modules/kotlin/kotlin.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;generated/hello.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-publish-demo/blob/master/bintray.gradle" target="_blank" title="show github file">bintray.gradle</a>
+        </div>
+        <div class="path">bintray.gradle</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gradle">group = publishedGroupId
+version = libraryVersion
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            packaging &#39;aar&#39;
+            groupId publishedGroupId
+            artifactId artifact
+
+            name libraryName
+            description libraryName
+            url siteUrl
+
+            licenses {
+                license {
+                    name licenseName
+                    url licenseUrl
+                }
+            }
+            developers {
+                developer {
+                    id developerId
+                    name developerName
+                    email developerEmail
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
+            }
+        }
+    }
 }
 
-fun hello(name:String) = &quot;Hello, $name!&quot;
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = &#39;sources&#39;
+    from sourceSets.main.allSource
+}
 
-</code></pre>
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = &#39;javadoc&#39;
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file(&#39;local.properties&#39;).newDataInputStream())
+
+bintray {
+    user = properties.getProperty(&quot;bintray.user&quot;)
+    key = properties.getProperty(&quot;bintray.apikey&quot;)
+
+    configurations = [&#39;archives&#39;]
+    pkg {
+        repo = repoName
+        name = artifact
+        desc = libraryName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        dryRun = false
+        publish = true
+        override = false
+        publicDownloadNumbers = true
+        version {
+            desc = libraryName
+        }
+    }
+}</code></pre>
     </div>
 </div>
 

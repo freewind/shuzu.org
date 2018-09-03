@@ -67,30 +67,30 @@ Open &lt;http://localhost:8080&gt;, write some Chinese characters in the field, 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/java/demo/SendServlet.java" target="_blank" title="show github file">SendServlet.java</a>
+            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
         </div>
-        <div class="path">src/main/java/demo/SendServlet.java</div>
+        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="java">package demo;
+        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+    &lt;display-name&gt;Web Application&lt;/display-name&gt;
 
-public class SendServlet extends HttpServlet {
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;demo.SendServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding(&quot;UTF-8&quot;);
-        String name = request.getParameter(&quot;name&quot;);
-        System.out.println(&quot;Name: &quot; + name);
-        response.setCharacterEncoding(&quot;UTF-8&quot;);
-        response.getWriter().append(&quot;Your name: &quot; + name);
-    }
-}
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/send&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
 </code></pre>
     </div>
 </div>
@@ -126,30 +126,30 @@ public class SendServlet extends HttpServlet {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
+            <a href="https://github.com/freewind-demos/maven-form-to-servlet-demo/blob/master/src/main/java/demo/SendServlet.java" target="_blank" title="show github file">SendServlet.java</a>
         </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+        <div class="path">src/main/java/demo/SendServlet.java</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app version=&quot;2.4&quot; xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee
-         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
+        <pre class="content"><code class="java">package demo;
 
-    &lt;display-name&gt;Web Application&lt;/display-name&gt;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;demo.SendServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
+public class SendServlet extends HttpServlet {
 
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;SendServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/send&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-
-&lt;/web-app&gt;
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding(&quot;UTF-8&quot;);
+        String name = request.getParameter(&quot;name&quot;);
+        System.out.println(&quot;Name: &quot; + name);
+        response.setCharacterEncoding(&quot;UTF-8&quot;);
+        response.getWriter().append(&quot;Your name: &quot; + name);
+    }
+}
 </code></pre>
     </div>
 </div>

@@ -29,6 +29,72 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-props-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./entry.jsx&#39;,
+  output: {
+    path: __dirname,
+    publicPath: &#39;/assets/&#39;,
+    filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader: &#39;babel&#39;,
+      query: {
+        presets: [&#39;es2015&#39;, &#39;react&#39;]
+      }
+    }]
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-props-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;react-es6-webpack-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;webpack-dev-server --no-info --progress --colors || exit 0&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;babel-core&quot;: &quot;6.13.2&quot;,
+    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
+    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
+    &quot;css-loader&quot;: &quot;0.23.1&quot;,
+    &quot;style-loader&quot;: &quot;0.13.1&quot;,
+    &quot;webpack&quot;: &quot;1.13.1&quot;,
+    &quot;webpack-dev-server&quot;: &quot;1.14.1&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;react&quot;: &quot;15.3.0&quot;,
+    &quot;react-dom&quot;: &quot;15.3.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-props-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
@@ -2731,72 +2797,6 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
   }
 }
 </code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-props-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;react-es6-webpack-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;webpack-dev-server --no-info --progress --colors || exit 0&quot;,
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;6.13.2&quot;,
-    &quot;babel-loader&quot;: &quot;6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
-    &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
-    &quot;css-loader&quot;: &quot;0.23.1&quot;,
-    &quot;style-loader&quot;: &quot;0.13.1&quot;,
-    &quot;webpack&quot;: &quot;1.13.1&quot;,
-    &quot;webpack-dev-server&quot;: &quot;1.14.1&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;react&quot;: &quot;15.3.0&quot;,
-    &quot;react-dom&quot;: &quot;15.3.0&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-props-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./entry.jsx&#39;,
-  output: {
-    path: __dirname,
-    publicPath: &#39;/assets/&#39;,
-    filename: &#39;bundle.js&#39;
-  },
-  module: {
-    loaders: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: &#39;babel&#39;,
-      query: {
-        presets: [&#39;es2015&#39;, &#39;react&#39;]
-      }
-    }]
-  }
-}</code></pre>
     </div>
 </div>
 

@@ -82,6 +82,38 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import chrome.tabs.QueryInfo
+import kotlinjs.common.jsonAs
+import kotlin.browser.window
+
+fun main(args: Array&lt;String&gt;) {
+    getCurrentTabUrl { url -&gt;
+        window.alert(&quot;current url is: $url&quot;)
+    }
+}
+
+private fun getCurrentTabUrl(callback: (String) -&gt; Unit) {
+    chrome.tabs.query(jsonAs&lt;QueryInfo&gt;().apply {
+        active = true
+        currentWindow = true
+    }) { tabs -&gt;
+        tabs.firstOrNull()?.url?.run(callback)
+    }
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/extension/bundle.js" target="_blank" title="show github file">bundle.js</a>
         </div>
         <div class="path">extension/bundle.js</div>
@@ -38180,38 +38212,6 @@ this[&#39;chrome-extension-kotlinjs-demo&#39;] = function (_, Kotlin, $module$ko
     &quot;activeTab&quot;
   ]
 }</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/chrome-extension-kotlinjs-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import chrome.tabs.QueryInfo
-import kotlinjs.common.jsonAs
-import kotlin.browser.window
-
-fun main(args: Array&lt;String&gt;) {
-    getCurrentTabUrl { url -&gt;
-        window.alert(&quot;current url is: $url&quot;)
-    }
-}
-
-private fun getCurrentTabUrl(callback: (String) -&gt; Unit) {
-    chrome.tabs.query(jsonAs&lt;QueryInfo&gt;().apply {
-        active = true
-        currentWindow = true
-    }) { tabs -&gt;
-        tabs.firstOrNull()?.url?.run(callback)
-    }
-}
-
-</code></pre>
     </div>
 </div>
 

@@ -51,12 +51,35 @@ make run
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/hello/__init__.py" target="_blank" title="show github file">__init__.py</a>
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/setup.py" target="_blank" title="show github file">setup.py</a>
         </div>
-        <div class="path">hello/__init__.py</div>
+        <div class="path">setup.py</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="py">from .core import hmm</code></pre>
+        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
+
+from setuptools import setup
+
+setup(
+    name=&#39;hello&#39;,
+    version=&#39;1.0&#39;,
+    description=&#39;Hello&#39;,
+    author=&#39;Freewind&#39;,
+    author_email=&#39;nowindlee@gmail.com&#39;,
+    packages=[&#39;hello&#39;],
+    install_requires=[]
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/requirements.txt" target="_blank" title="show github file">requirements.txt</a>
+        </div>
+        <div class="path">requirements.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">ethereum&gt;=2.0.4</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -82,35 +105,12 @@ if __name__ == &#39;__main__&#39;:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/requirements.txt" target="_blank" title="show github file">requirements.txt</a>
+            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/hello/__init__.py" target="_blank" title="show github file">__init__.py</a>
         </div>
-        <div class="path">requirements.txt</div>
+        <div class="path">hello/__init__.py</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="txt">ethereum&gt;=2.0.4</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/python3-ethereum-demo/blob/master/setup.py" target="_blank" title="show github file">setup.py</a>
-        </div>
-        <div class="path">setup.py</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="py"># -*- coding: utf-8 -*-
-
-from setuptools import setup
-
-setup(
-    name=&#39;hello&#39;,
-    version=&#39;1.0&#39;,
-    description=&#39;Hello&#39;,
-    author=&#39;Freewind&#39;,
-    author_email=&#39;nowindlee@gmail.com&#39;,
-    packages=[&#39;hello&#39;],
-    install_requires=[]
-)</code></pre>
+        <pre class="content"><code class="py">from .core import hmm</code></pre>
     </div>
 </div>
 

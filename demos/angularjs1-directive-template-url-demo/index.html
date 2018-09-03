@@ -33,21 +33,23 @@ Resources
 - $element api: &lt;https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite&gt;    </div>
 </div>
 
+<div class="markdown markdown-body center-in-page">
+    Notice:
+
+```
+&lt;div my-directive&gt;...&lt;/div&gt;
+```
+
+Must use `my-directive`, not `myDirective`.</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/my-directive.html" target="_blank" title="show github file">my-directive.html</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">my-directive.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
-app.directive(&#39;myDirective&#39;, function () {
-    return {
-        templateUrl: &#39;./my-directive.html&#39;,
-        restrict: &#39;A&#39;
-    }
-})</code></pre>
+        <pre class="content"><code class="html">&lt;div class=&quot;bg-yellow&quot;&gt;Good! Template from directive&lt;/div&gt;</code></pre>
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
@@ -58,6 +60,25 @@ app.directive(&#39;myDirective&#39;, function () { ... });
 ```
 
 Must use `myDirective`, not `my-directive`</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
@@ -85,42 +106,21 @@ Must use `myDirective`, not `my-directive`</div>
 &lt;/html&gt;</code></pre>
     </div>
 </div>
-<div class="markdown markdown-body center-in-page">
-    Notice:
-
-```
-&lt;div my-directive&gt;...&lt;/div&gt;
-```
-
-Must use `my-directive`, not `myDirective`.</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/my-directive.html" target="_blank" title="show github file">my-directive.html</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">my-directive.html</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;div class=&quot;bg-yellow&quot;&gt;Good! Template from directive&lt;/div&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;http-server&quot;: &quot;^0.11.1&quot;
-  }
-}
-</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.directive(&#39;myDirective&#39;, function () {
+    return {
+        templateUrl: &#39;./my-directive.html&#39;,
+        restrict: &#39;A&#39;
+    }
+})</code></pre>
     </div>
 </div>
 

@@ -67,41 +67,6 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jersey-demo/blob/master/src/main/java/example/HelloWorldService.java" target="_blank" title="show github file">HelloWorldService.java</a>
-        </div>
-        <div class="path">src/main/java/example/HelloWorldService.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package example;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-@Path(&quot;/hello&quot;)
-public class HelloWorldService {
-
-    @GET
-    @Path(&quot;/{param}&quot;)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMsg(@PathParam(&quot;param&quot;) String msg) {
-
-        String output = &quot;{\&quot;Jersey say\&quot;: \&quot;&quot; + msg + &quot;\&quot;}&quot;;
-
-        return Response.status(200).entity(output).build();
-
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jersey-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
         </div>
         <div class="path">src/main/webapp/WEB-INF/web.xml</div>
@@ -132,6 +97,41 @@ public class HelloWorldService {
     &lt;/servlet-mapping&gt;
 
 &lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jersey-demo/blob/master/src/main/java/example/HelloWorldService.java" target="_blank" title="show github file">HelloWorldService.java</a>
+        </div>
+        <div class="path">src/main/java/example/HelloWorldService.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+@Path(&quot;/hello&quot;)
+public class HelloWorldService {
+
+    @GET
+    @Path(&quot;/{param}&quot;)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMsg(@PathParam(&quot;param&quot;) String msg) {
+
+        String output = &quot;{\&quot;Jersey say\&quot;: \&quot;&quot; + msg + &quot;\&quot;}&quot;;
+
+        return Response.status(200).entity(output).build();
+
+    }
+
+}
 </code></pre>
     </div>
 </div>

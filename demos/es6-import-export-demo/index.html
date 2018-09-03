@@ -45,23 +45,42 @@ Important:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/01-export-a-name.js" target="_blank" title="show github file">01-export-a-name.js</a>
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/23-export-multiple.js" target="_blank" title="show github file">23-export-multiple.js</a>
         </div>
-        <div class="path">01-export-a-name.js</div>
+        <div class="path">23-export-multiple.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">export const name = &#39;myname&#39;;</code></pre>
+        <pre class="content"><code class="js">const name = &#39;myname&#39;;
+function hello() {
+  console.log(&#39;hello!&#39;);
+}
+export {name as default, hello};</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/01-run.js" target="_blank" title="show github file">01-run.js</a>
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/24-export-multiple.js" target="_blank" title="show github file">24-export-multiple.js</a>
         </div>
-        <div class="path">01-run.js</div>
+        <div class="path">24-export-multiple.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">import {name} from &#39;./01-export-a-name&#39;;
+        <pre class="content"><code class="js">const name = &#39;myname&#39;;
+export default name;
+export function hello() {
+  console.log(&#39;hello!&#39;);
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/03-run.js" target="_blank" title="show github file">03-run.js</a>
+        </div>
+        <div class="path">03-run.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import name from &#39;./03-export-a-default-name&#39;;
 
 console.log(name);</code></pre>
     </div>
@@ -69,13 +88,28 @@ console.log(name);</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/02-export-a-name.js" target="_blank" title="show github file">02-export-a-name.js</a>
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/11-run.js" target="_blank" title="show github file">11-run.js</a>
         </div>
-        <div class="path">02-export-a-name.js</div>
+        <div class="path">11-run.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const name = &#39;myname&#39;;
-export {name};</code></pre>
+        <pre class="content"><code class="js">import Hello from &#39;./11-export-a-class&#39;;
+
+new Hello(&#39;Freewind&#39;).hello();</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/23-run.js" target="_blank" title="show github file">23-run.js</a>
+        </div>
+        <div class="path">23-run.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import name, {hello} from &#39;./23-export-multiple&#39;;
+
+console.log(name);
+hello();</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -94,26 +128,15 @@ console.log(name);</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/03-export-a-default-name.js" target="_blank" title="show github file">03-export-a-default-name.js</a>
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/24-run.js" target="_blank" title="show github file">24-run.js</a>
         </div>
-        <div class="path">03-export-a-default-name.js</div>
+        <div class="path">24-run.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const name = &#39;myname&#39;;
-export default name;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/03-run.js" target="_blank" title="show github file">03-run.js</a>
-        </div>
-        <div class="path">03-run.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import name from &#39;./03-export-a-default-name&#39;;
+        <pre class="content"><code class="js">import name, {hello} from &#39;./24-export-multiple&#39;;
 
-console.log(name);</code></pre>
+console.log(name);
+hello();</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -142,19 +165,6 @@ export default Hello;
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/11-run.js" target="_blank" title="show github file">11-run.js</a>
-        </div>
-        <div class="path">11-run.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import Hello from &#39;./11-export-a-class&#39;;
-
-new Hello(&#39;Freewind&#39;).hello();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/21-export-multiple.js" target="_blank" title="show github file">21-export-multiple.js</a>
         </div>
         <div class="path">21-export-multiple.js</div>
@@ -164,35 +174,6 @@ new Hello(&#39;Freewind&#39;).hello();</code></pre>
 export function hello() {
   console.log(&#39;hello!&#39;);
 }</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/21-run.js" target="_blank" title="show github file">21-run.js</a>
-        </div>
-        <div class="path">21-run.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import {name, hello} from &#39;./21-export-multiple&#39;;
-
-console.log(name);
-hello();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/22-export-multiple.js" target="_blank" title="show github file">22-export-multiple.js</a>
-        </div>
-        <div class="path">22-export-multiple.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const name = &#39;myname&#39;;
-function hello() {
-  console.log(&#39;hello!&#39;);
-}
-export {name, hello};</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -212,59 +193,13 @@ hello();</code></pre>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/23-export-multiple.js" target="_blank" title="show github file">23-export-multiple.js</a>
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/03-export-a-default-name.js" target="_blank" title="show github file">03-export-a-default-name.js</a>
         </div>
-        <div class="path">23-export-multiple.js</div>
+        <div class="path">03-export-a-default-name.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const name = &#39;myname&#39;;
-function hello() {
-  console.log(&#39;hello!&#39;);
-}
-export {name as default, hello};</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/23-run.js" target="_blank" title="show github file">23-run.js</a>
-        </div>
-        <div class="path">23-run.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import name, {hello} from &#39;./23-export-multiple&#39;;
-
-console.log(name);
-hello();</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/24-export-multiple.js" target="_blank" title="show github file">24-export-multiple.js</a>
-        </div>
-        <div class="path">24-export-multiple.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const name = &#39;myname&#39;;
-export default name;
-export function hello() {
-  console.log(&#39;hello!&#39;);
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/24-run.js" target="_blank" title="show github file">24-run.js</a>
-        </div>
-        <div class="path">24-run.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import name, {hello} from &#39;./24-export-multiple&#39;;
-
-console.log(name);
-hello();</code></pre>
+export default name;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -298,6 +233,71 @@ hello();</code></pre>
   }
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/22-export-multiple.js" target="_blank" title="show github file">22-export-multiple.js</a>
+        </div>
+        <div class="path">22-export-multiple.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const name = &#39;myname&#39;;
+function hello() {
+  console.log(&#39;hello!&#39;);
+}
+export {name, hello};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/02-export-a-name.js" target="_blank" title="show github file">02-export-a-name.js</a>
+        </div>
+        <div class="path">02-export-a-name.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const name = &#39;myname&#39;;
+export {name};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/21-run.js" target="_blank" title="show github file">21-run.js</a>
+        </div>
+        <div class="path">21-run.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {name, hello} from &#39;./21-export-multiple&#39;;
+
+console.log(name);
+hello();</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/01-run.js" target="_blank" title="show github file">01-run.js</a>
+        </div>
+        <div class="path">01-run.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {name} from &#39;./01-export-a-name&#39;;
+
+console.log(name);</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-import-export-demo/blob/master/01-export-a-name.js" target="_blank" title="show github file">01-export-a-name.js</a>
+        </div>
+        <div class="path">01-export-a-name.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export const name = &#39;myname&#39;;</code></pre>
     </div>
 </div>
 

@@ -45,6 +45,23 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+  entry: &#39;./public/entry.js&#39;,
+  output: {
+    path: __dirname,
+    filename: &#39;bundle.js&#39;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
@@ -154,23 +171,6 @@ app.use(express.static(&#39;./public&#39;));
 app.listen(3000, function() {
   console.log(&#39;Listening on 3000&#39;);
 });</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-middleware-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./public/entry.js&#39;,
-  output: {
-    path: __dirname,
-    filename: &#39;bundle.js&#39;
-  }
-}</code></pre>
     </div>
 </div>
 

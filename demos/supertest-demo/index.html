@@ -35,83 +35,6 @@ npm test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">index.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
-const bodyParser = require(&#39;body-parser&#39;);
-
-const app = express();
-app.use(bodyParser.json());
-
-app.get(&#39;/&#39;, function (req, res) {
-  res.send(&#39;Hello, world!&#39;);
-});
-
-app.get(&#39;/hello/:name&#39;, function (req, res) {
-  res.send(&#39;Hello, &#39; + req.params.name);
-});
-
-let savedData = [];
-
-app.post(&#39;/save&#39;, function (req, res) {
-  const data = req.body;
-  savedData.push(data);
-  res.status(201).json(data);
-});
-
-app.get(&#39;/saved&#39;, function (req, res) {
-  res.json(savedData);
-});
-
-app.delete(&#39;/saved&#39;, function (req, res) {
-  savedData = [];
-  res.sendStatus(204);
-});
-
-app.listen(3000, function () {
-  console.log(&#39;Server listening at http://localhost:3000&#39;);
-});
-
-module.exports = app;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;supertest-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;jasmine&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;async&quot;: &quot;^2.0.1&quot;,
-    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
-    &quot;express&quot;: &quot;^4.14.0&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;supertest&quot;: &quot;^2.0.0&quot;
-  }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/supertest-demo/blob/master/spec/app-spec.js" target="_blank" title="show github file">app-spec.js</a>
         </div>
         <div class="path">spec/app-spec.js</div>
@@ -186,6 +109,83 @@ describe(&#39;express application&#39;, () =&gt; {
   ],
   &quot;stopSpecOnExpectationFailure&quot;: false,
   &quot;random&quot;: false
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const express = require(&#39;express&#39;);
+const bodyParser = require(&#39;body-parser&#39;);
+
+const app = express();
+app.use(bodyParser.json());
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.send(&#39;Hello, world!&#39;);
+});
+
+app.get(&#39;/hello/:name&#39;, function (req, res) {
+  res.send(&#39;Hello, &#39; + req.params.name);
+});
+
+let savedData = [];
+
+app.post(&#39;/save&#39;, function (req, res) {
+  const data = req.body;
+  savedData.push(data);
+  res.status(201).json(data);
+});
+
+app.get(&#39;/saved&#39;, function (req, res) {
+  res.json(savedData);
+});
+
+app.delete(&#39;/saved&#39;, function (req, res) {
+  savedData = [];
+  res.sendStatus(204);
+});
+
+app.listen(3000, function () {
+  console.log(&#39;Server listening at http://localhost:3000&#39;);
+});
+
+module.exports = app;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/supertest-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;supertest-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jasmine&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;async&quot;: &quot;^2.0.1&quot;,
+    &quot;body-parser&quot;: &quot;^1.15.2&quot;,
+    &quot;express&quot;: &quot;^4.14.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;supertest&quot;: &quot;^2.0.0&quot;
+  }
 }
 </code></pre>
     </div>

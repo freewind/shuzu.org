@@ -75,61 +75,6 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-non-exist-static-dir-issue-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/example/Hello.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import io.ktor.content.default
-import io.ktor.content.static
-import io.ktor.content.staticRootFolder
-import io.ktor.routing.routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import java.io.File
-
-fun main(args: Array&lt;String&gt;) {
-    val server = embeddedServer(Netty, port = 8080) {
-        routing {
-            static(&quot;/&quot;) {
-                staticRootFolder = File(&quot;./non-existent-static&quot;)
-                default(&quot;index.html&quot;)
-            }
-        }
-    }
-    server.start(wait = true)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-ktor-non-exist-static-dir-issue-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
-        </div>
-        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package example
-
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-
-class HelloTest {
-
-    @Test
-    fun `hello returns greeting words`() {
-        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
-    }
-
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-ktor-non-exist-static-dir-issue-demo/blob/master/static/css/index.css" target="_blank" title="show github file">index.css</a>
         </div>
         <div class="path">static/css/index.css</div>
@@ -158,6 +103,61 @@ class HelloTest {
 &lt;div class=&quot;hello&quot;&gt;Hello, Ktor&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-ktor-non-exist-static-dir-issue-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
+        </div>
+        <div class="path">src/test/kotlin/example/HelloTest.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+
+class HelloTest {
+
+    @Test
+    fun `hello returns greeting words`() {
+        assertThat(hello(&quot;you&quot;)).isEqualTo(&quot;Hello, you!&quot;)
+    }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-ktor-non-exist-static-dir-issue-demo/blob/master/src/main/kotlin/example/Hello.kt" target="_blank" title="show github file">Hello.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/example/Hello.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package example
+
+import io.ktor.content.default
+import io.ktor.content.static
+import io.ktor.content.staticRootFolder
+import io.ktor.routing.routing
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import java.io.File
+
+fun main(args: Array&lt;String&gt;) {
+    val server = embeddedServer(Netty, port = 8080) {
+        routing {
+            static(&quot;/&quot;) {
+                staticRootFolder = File(&quot;./non-existent-static&quot;)
+                default(&quot;index.html&quot;)
+            }
+        }
+    }
+    server.start(wait = true)
+}
+</code></pre>
     </div>
 </div>
 

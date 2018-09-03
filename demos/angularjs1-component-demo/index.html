@@ -40,6 +40,51 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-component-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-component-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div ng-app=&quot;app&quot;&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;h3&gt;Component Counter&lt;/h3&gt;
+        &lt;component-counter count=&quot;count&quot;&gt;&lt;/component-counter&gt;
+    &lt;/div&gt;
+    &lt;hr/&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;h3&gt;Directive Counter&lt;/h3&gt;
+        &lt;directive-counter count=&quot;count&quot;&gt;&lt;/directive-counter&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/angularjs1-component-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
         <div class="path">app.js</div>
@@ -97,51 +142,6 @@ app.directive(&#39;directiveCounter&#39;, function () {
         controllerAs: &#39;$ctrl&#39;
     }
 })</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-component-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div ng-app=&quot;app&quot;&gt;
-    &lt;div ng-controller=&quot;MyController&quot;&gt;
-        &lt;h3&gt;Component Counter&lt;/h3&gt;
-        &lt;component-counter count=&quot;count&quot;&gt;&lt;/component-counter&gt;
-    &lt;/div&gt;
-    &lt;hr/&gt;
-    &lt;div ng-controller=&quot;MyController&quot;&gt;
-        &lt;h3&gt;Directive Counter&lt;/h3&gt;
-        &lt;directive-counter count=&quot;count&quot;&gt;&lt;/directive-counter&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-component-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
     </div>
 </div>
 

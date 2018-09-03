@@ -15,6 +15,28 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/future-either-dsl-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
+        </div>
+        <div class="path">src/test/scala/example/HelloSpec.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+//  test(&quot;The Hello object should say hello&quot;) {
+//    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+//  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/future-either-dsl-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
         </div>
         <div class="path">src/main/scala/example/Hello.scala</div>
@@ -66,28 +88,6 @@ object Hello extends App {
   }
 
   Await.result(result.value, 10.seconds)
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/future-either-dsl-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
-        </div>
-        <div class="path">src/test/scala/example/HelloSpec.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package example
-
-import org.scalatest._
-
-class HelloSpec extends FunSuite with Matchers {
-
-//  test(&quot;The Hello object should say hello&quot;) {
-//    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
-//  }
-
 }
 </code></pre>
     </div>

@@ -41,16 +41,15 @@ Reference
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/build/Build.kt" target="_blank" title="show github file">Build.kt</a>
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobalt/src/Build.kt" target="_blank" title="show github file">Build.kt</a>
         </div>
-        <div class="path">.kobalt/build/Build.kt</div>
+        <div class="path">kobalt/src/Build.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">import com.beust.kobalt.*
+import com.beust.kobalt.plugin.packaging.*
 import com.beust.kobalt.plugin.application.*
 import com.beust.kobalt.plugin.kotlin.*
-import com.beust.kobalt.plugin.packaging.*
-// /Users/freewind/workspace/kotlin-build-tool-kobalt-demo/kobalt/src/Build.kt
 
 val p = project {
     name = &quot;kotlin-build-tool-kobalt-demo&quot;
@@ -76,7 +75,19 @@ val p = project {
     application {
         mainClass = &quot;com.example.MainKt&quot;
     }
-}</code></pre>
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/wrapperVersion.txt" target="_blank" title="show github file">wrapperVersion.txt</a>
+        </div>
+        <div class="path">.kobalt/wrapperVersion.txt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">1.0.114</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -121,26 +132,16 @@ val p = project {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/wrapperVersion.txt" target="_blank" title="show github file">wrapperVersion.txt</a>
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/build/Build.kt" target="_blank" title="show github file">Build.kt</a>
         </div>
-        <div class="path">.kobalt/wrapperVersion.txt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="txt">1.0.114</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobalt/src/Build.kt" target="_blank" title="show github file">Build.kt</a>
-        </div>
-        <div class="path">kobalt/src/Build.kt</div>
+        <div class="path">.kobalt/build/Build.kt</div>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">import com.beust.kobalt.*
-import com.beust.kobalt.plugin.packaging.*
 import com.beust.kobalt.plugin.application.*
 import com.beust.kobalt.plugin.kotlin.*
+import com.beust.kobalt.plugin.packaging.*
+// /Users/freewind/workspace/kotlin-build-tool-kobalt-demo/kobalt/src/Build.kt
 
 val p = project {
     name = &quot;kotlin-build-tool-kobalt-demo&quot;
@@ -166,21 +167,7 @@ val p = project {
     application {
         mainClass = &quot;com.example.MainKt&quot;
     }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/src/main/kotlin/com/example/Main.kt" target="_blank" title="show github file">Main.kt</a>
-        </div>
-        <div class="path">src/main/kotlin/com/example/Main.kt</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="kt">package com.example
-
-fun main(args: Array&lt;String&gt;) = println(&quot;\n\nHello Kotlin world from Kobalt\n\n&quot;)</code></pre>
+}</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -199,6 +186,19 @@ class ExampleTest {
     @Test
     fun f() = println(&quot;Running test&quot;)
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/src/main/kotlin/com/example/Main.kt" target="_blank" title="show github file">Main.kt</a>
+        </div>
+        <div class="path">src/main/kotlin/com/example/Main.kt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kt">package com.example
+
+fun main(args: Array&lt;String&gt;) = println(&quot;\n\nHello Kotlin world from Kobalt\n\n&quot;)</code></pre>
     </div>
 </div>
 

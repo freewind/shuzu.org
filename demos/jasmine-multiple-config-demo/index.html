@@ -44,46 +44,6 @@ npm run test-all
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;jasmine-multiple-config-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;jasmine&quot;,
-    &quot;test-all&quot;: &quot;JASMINE_CONFIG_PATH=spec/support/jasmine-all.json jasmine || exit 0&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/intergration-specs/my-spec.js" target="_blank" title="show github file">my-spec.js</a>
-        </div>
-        <div class="path">spec/intergration-specs/my-spec.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">describe(&quot;intergration test&quot;, function() {
-  it(&#39;is an failed test&#39;, () =&gt; {
-    expect(1+1).toEqual(3);
-  })
-});
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/support/jasmine-all.json" target="_blank" title="show github file">jasmine-all.json</a>
         </div>
         <div class="path">spec/support/jasmine-all.json</div>
@@ -138,6 +98,46 @@ npm run test-all
     expect(1+1).toEqual(2);
   })
 });
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/spec/intergration-specs/my-spec.js" target="_blank" title="show github file">my-spec.js</a>
+        </div>
+        <div class="path">spec/intergration-specs/my-spec.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">describe(&quot;intergration test&quot;, function() {
+  it(&#39;is an failed test&#39;, () =&gt; {
+    expect(1+1).toEqual(3);
+  })
+});
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jasmine-multiple-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;jasmine-multiple-config-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;jasmine&quot;,
+    &quot;test-all&quot;: &quot;JASMINE_CONFIG_PATH=spec/support/jasmine-all.json jasmine || exit 0&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;
+}
 </code></pre>
     </div>
 </div>

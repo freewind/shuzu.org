@@ -61,23 +61,36 @@ dependencies {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/BillingModule.java" target="_blank" title="show github file">BillingModule.java</a>
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/impl/PaypalCreditCardProcessor.java" target="_blank" title="show github file">PaypalCreditCardProcessor.java</a>
         </div>
-        <div class="path">src/main/java/example/BillingModule.java</div>
+        <div class="path">src/main/java/example/impl/PaypalCreditCardProcessor.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example.impl;
+
+import example.CreditCardProcessor;
+
+public class PaypalCreditCardProcessor implements CreditCardProcessor {
+    @Override
+    public String process(String user) {
+        return &quot;Paypal-CC-&quot; + user;
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/CreditCardProcessor.java" target="_blank" title="show github file">CreditCardProcessor.java</a>
+        </div>
+        <div class="path">src/main/java/example/CreditCardProcessor.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package example;
 
-import com.google.inject.AbstractModule;
-import example.impl.PaypalCreditCardProcessor;
-
-public class BillingModule extends AbstractModule {
-
-    @Override
-    protected void configure() {
-        bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
-    }
-
+public interface CreditCardProcessor {
+    String process(String user);
 }
 </code></pre>
     </div>
@@ -115,43 +128,6 @@ public class BillingService {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/CreditCardProcessor.java" target="_blank" title="show github file">CreditCardProcessor.java</a>
-        </div>
-        <div class="path">src/main/java/example/CreditCardProcessor.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package example;
-
-public interface CreditCardProcessor {
-    String process(String user);
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/impl/PaypalCreditCardProcessor.java" target="_blank" title="show github file">PaypalCreditCardProcessor.java</a>
-        </div>
-        <div class="path">src/main/java/example/impl/PaypalCreditCardProcessor.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package example.impl;
-
-import example.CreditCardProcessor;
-
-public class PaypalCreditCardProcessor implements CreditCardProcessor {
-    @Override
-    public String process(String user) {
-        return &quot;Paypal-CC-&quot; + user;
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/Main.java" target="_blank" title="show github file">Main.java</a>
         </div>
         <div class="path">src/main/java/example/Main.java</div>
@@ -170,6 +146,30 @@ public class Main {
         String bill = billingService.bill(&quot;Freewind&quot;);
         System.out.println(bill);
     }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/guice-demo/blob/master/src/main/java/example/BillingModule.java" target="_blank" title="show github file">BillingModule.java</a>
+        </div>
+        <div class="path">src/main/java/example/BillingModule.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package example;
+
+import com.google.inject.AbstractModule;
+import example.impl.PaypalCreditCardProcessor;
+
+public class BillingModule extends AbstractModule {
+
+    @Override
+    protected void configure() {
+        bind(CreditCardProcessor.class).to(PaypalCreditCardProcessor.class);
+    }
+
 }
 </code></pre>
     </div>

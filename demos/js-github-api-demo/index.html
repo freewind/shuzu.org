@@ -64,31 +64,25 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/stars.js" target="_blank" title="show github file">stars.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">src/stars.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;github-api-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;dependencies&quot;: {
-    &quot;babel-cli&quot;: &quot;^6.26.0&quot;,
-    &quot;babel-preset-node6&quot;: &quot;^11.0.0&quot;,
-    &quot;github-api&quot;: &quot;^3.0.0&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;
-  }
-}
+        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
+import Github from &#39;github-api&#39;;
+
+const gh = new Github({
+    token: token
+});
+
+const user = gh.getUser(&#39;freewind&#39;);
+
+user.listStarredRepos()
+    .then(function ({data: reposJson}) {
+        console.log(&#39;--- StarredRepos ---&#39;);
+        console.log(reposJson);
+    });
 </code></pre>
     </div>
 </div>
@@ -113,6 +107,31 @@ user.listGists()
     .then(function ({data: gists}) {
         console.log(&#39;--- gists ---&#39;);
         console.log(gists);
+    });
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/repos.js" target="_blank" title="show github file">repos.js</a>
+        </div>
+        <div class="path">src/repos.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
+import Github from &#39;github-api&#39;;
+
+const gh = new Github({
+    token: token
+});
+
+const user = gh.getUser(&#39;freewind&#39;);
+
+user.listRepos()
+    .then(function ({data: repos}) {
+        console.log(&#39;--- repos ---&#39;);
+        console.log(repos);
     });
 </code></pre>
     </div>
@@ -146,50 +165,31 @@ user.listOrgs()
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/repos.js" target="_blank" title="show github file">repos.js</a>
+            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">src/repos.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
-import Github from &#39;github-api&#39;;
-
-const gh = new Github({
-    token: token
-});
-
-const user = gh.getUser(&#39;freewind&#39;);
-
-user.listRepos()
-    .then(function ({data: repos}) {
-        console.log(&#39;--- repos ---&#39;);
-        console.log(repos);
-    });
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/js-github-api-demo/blob/master/src/stars.js" target="_blank" title="show github file">stars.js</a>
-        </div>
-        <div class="path">src/stars.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">import token from &#39;../github-token.js&#39;
-import Github from &#39;github-api&#39;;
-
-const gh = new Github({
-    token: token
-});
-
-const user = gh.getUser(&#39;freewind&#39;);
-
-user.listStarredRepos()
-    .then(function ({data: reposJson}) {
-        console.log(&#39;--- StarredRepos ---&#39;);
-        console.log(reposJson);
-    });
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;github-api-demo&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;babel-cli&quot;: &quot;^6.26.0&quot;,
+    &quot;babel-preset-node6&quot;: &quot;^11.0.0&quot;,
+    &quot;github-api&quot;: &quot;^3.0.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;
+  }
+}
 </code></pre>
     </div>
 </div>

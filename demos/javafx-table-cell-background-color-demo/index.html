@@ -66,6 +66,41 @@ How to set table cell background color by condition.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-table-cell-background-color-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Person.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.paint.Color;
+
+public class Person {
+    private final SimpleStringProperty name;
+    private final SimpleObjectProperty&lt;Color&gt; color;
+
+    Person(String name, Color color) {
+        this.name = new SimpleStringProperty(name);
+        this.color = new SimpleObjectProperty&lt;&gt;(color);
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public Color getColor() {
+        return color.get();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/javafx-table-cell-background-color-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
         </div>
         <div class="path">src/main/java/demo/Hello.java</div>
@@ -132,41 +167,6 @@ public class Hello extends Application {
             setItems(data);
         }};
     }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/javafx-table-cell-background-color-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Person.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.paint.Color;
-
-public class Person {
-    private final SimpleStringProperty name;
-    private final SimpleObjectProperty&lt;Color&gt; color;
-
-    Person(String name, Color color) {
-        this.name = new SimpleStringProperty(name);
-        this.color = new SimpleObjectProperty&lt;&gt;(color);
-    }
-
-    public String getName() {
-        return this.name.get();
-    }
-
-    public Color getColor() {
-        return color.get();
-    }
-
 }
 </code></pre>
     </div>

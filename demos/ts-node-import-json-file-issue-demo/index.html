@@ -56,13 +56,14 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
+            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/typings.d.ts" target="_blank" title="show github file">typings.d.ts</a>
         </div>
-        <div class="path">data.json</div>
+        <div class="path">typings.d.ts</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;ts-node&quot;
+        <pre class="content"><code class="ts">declare module &#39;*.json&#39; {
+    const value: any
+    export default value
 }</code></pre>
     </div>
 </div>
@@ -77,23 +78,6 @@ Resources
         <pre class="content"><code class="ts">import * as name from &#39;./data.json&#39;
 
 console.log(name)
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;devDependencies&quot;: {
-    &quot;ts-node&quot;: &quot;7.0.1&quot;,
-    &quot;typescript&quot;: &quot;2.8&quot;
-  }
-}
 </code></pre>
     </div>
 </div>
@@ -126,14 +110,30 @@ console.log(name)
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/typings.d.ts" target="_blank" title="show github file">typings.d.ts</a>
+            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">typings.d.ts</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="ts">declare module &#39;*.json&#39; {
-    const value: any
-    export default value
+        <pre class="content"><code class="json">{
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;7.0.1&quot;,
+    &quot;typescript&quot;: &quot;2.8&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/ts-node-import-json-file-issue-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
+        </div>
+        <div class="path">data.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;ts-node&quot;
 }</code></pre>
     </div>
 </div>

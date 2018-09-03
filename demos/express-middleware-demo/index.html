@@ -95,37 +95,46 @@ curl -X POST -d &#39;{&quot;name&quot;:&quot;bbb&quot;,&quot;email&quot;:&quot;b
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/3rd-party-middleware.js" target="_blank" title="show github file">3rd-party-middleware.js</a>
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/router-level-middleware.js" target="_blank" title="show github file">router-level-middleware.js</a>
         </div>
-        <div class="path">3rd-party-middleware.js</div>
+        <div class="path">router-level-middleware.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-var cookieParser = require(&#39;cookie-parser&#39;);
-var bodyParser = require(&#39;body-parser&#39;);
+
+var router = express.Router();
+
+// a middleware
+router.use(function(req, res, next) {
+  console.log(&quot;req: &quot; + req.path);
+  next();
+});
+
+// a middleware bind to a path
+router.get(&#39;/&#39;, function(req, res, next) {
+  console.log(&quot;Hello&quot;);
+  next();
+}, function(req, res) {
+  res.send(&quot;World!&quot;);
+});
+
+// a middleware bind to a path
+router.get(&#39;/next-route&#39;, function(req, res, next) {
+  res.send(&quot;World!&quot;);
+  next(&#39;route&#39;); // will skip next handler
+}, function(req, res) {
+  console.log(&quot;Should not get here !!&quot;);
+});
 
 var app = express();
-
-// load 3rd party middlewares
-app.use(cookieParser());
-app.use(bodyParser.json());
-
-app.get(&#39;/cookie&#39;, function (req, res) {
-  res.send(&#39;Cookies &#39; + JSON.stringify(req.cookies));
-});
-
-app.post(&#39;/json&#39;, function (req, res) {
-  res.send(&#39;Post data: &#39; + JSON.stringify(req.body));
-});
+app.use(&#39;/sub&#39;, router);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});
-
-</code></pre>
+});</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -195,36 +204,6 @@ app.use(express.static(&#39;public&#39;, {
     res.set(&#39;x-timestamp&#39;, Date.now());
   }
 }));
-
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
-});</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/error-level-middleware.js" target="_blank" title="show github file">error-level-middleware.js</a>
-        </div>
-        <div class="path">error-level-middleware.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
-
-var app = express();
-
-// a middleware
-app.use(function(err, req, res, next) {
-  console.log(&quot;we have an error: &quot; + err);
-});
-
-// a middleware bind to a path
-app.get(&#39;/&#39;, function(req, res, next) {
-  next(&#39;my-error&#39;);
-});
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
@@ -310,39 +289,60 @@ var server = app.listen(3000, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/router-level-middleware.js" target="_blank" title="show github file">router-level-middleware.js</a>
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/3rd-party-middleware.js" target="_blank" title="show github file">3rd-party-middleware.js</a>
         </div>
-        <div class="path">router-level-middleware.js</div>
+        <div class="path">3rd-party-middleware.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">var express = require(&#39;express&#39;);
+var cookieParser = require(&#39;cookie-parser&#39;);
+var bodyParser = require(&#39;body-parser&#39;);
+
+var app = express();
+
+// load 3rd party middlewares
+app.use(cookieParser());
+app.use(bodyParser.json());
+
+app.get(&#39;/cookie&#39;, function (req, res) {
+  res.send(&#39;Cookies &#39; + JSON.stringify(req.cookies));
+});
+
+app.post(&#39;/json&#39;, function (req, res) {
+  res.send(&#39;Post data: &#39; + JSON.stringify(req.body));
+});
+
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log(&#39;Example app listening at http://%s:%s&#39;, host, port);
+});
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-middleware-demo/blob/master/error-level-middleware.js" target="_blank" title="show github file">error-level-middleware.js</a>
+        </div>
+        <div class="path">error-level-middleware.js</div>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var express = require(&#39;express&#39;);
 
-var router = express.Router();
+var app = express();
 
 // a middleware
-router.use(function(req, res, next) {
-  console.log(&quot;req: &quot; + req.path);
-  next();
+app.use(function(err, req, res, next) {
+  console.log(&quot;we have an error: &quot; + err);
 });
 
 // a middleware bind to a path
-router.get(&#39;/&#39;, function(req, res, next) {
-  console.log(&quot;Hello&quot;);
-  next();
-}, function(req, res) {
-  res.send(&quot;World!&quot;);
+app.get(&#39;/&#39;, function(req, res, next) {
+  next(&#39;my-error&#39;);
 });
-
-// a middleware bind to a path
-router.get(&#39;/next-route&#39;, function(req, res, next) {
-  res.send(&quot;World!&quot;);
-  next(&#39;route&#39;); // will skip next handler
-}, function(req, res) {
-  console.log(&quot;Should not get here !!&quot;);
-});
-
-var app = express();
-app.use(&#39;/sub&#39;, router);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

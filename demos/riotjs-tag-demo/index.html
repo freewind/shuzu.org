@@ -15,49 +15,6 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="html">&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Hello Riot.&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;!-- place the custom tag anywhere inside the body --&gt;
-
-&lt;sample1&gt;&lt;/sample1&gt;
-
-&lt;sample2&gt;
-    &lt;h3&gt;{ message }&lt;/h3&gt;
-    &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt;
-    &lt;button onclick=&quot;{click}&quot;&gt;Click&lt;/button&gt;
-&lt;/sample2&gt;
-
-&lt;sample3 message=&quot;ddd&quot;&gt;&lt;/sample3&gt;
-
-&lt;!-- include riot.js --&gt;
-&lt;script src=&quot;https://unpkg.com/riot@3.9.1/riot+compiler.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- include the tag --&gt;
-&lt;script src=&quot;./sample-tag1.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./sample-tag2.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;./sample-tag3.js&quot;&gt;&lt;/script&gt;
-
-&lt;!-- mount the tag --&gt;
-&lt;script&gt;
-    riot.mount(&#39;sample1&#39;);
-    riot.mount(&#39;sample2&#39;);
-    new SampleTag3(document.getElementsByTagName(&quot;sample3&quot;)[0])
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/sample-tag1.js" target="_blank" title="show github file">sample-tag1.js</a>
         </div>
         <div class="path">sample-tag1.js</div>
@@ -137,6 +94,49 @@
 }
 
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/riotjs-tag-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Hello Riot.&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!-- place the custom tag anywhere inside the body --&gt;
+
+&lt;sample1&gt;&lt;/sample1&gt;
+
+&lt;sample2&gt;
+    &lt;h3&gt;{ message }&lt;/h3&gt;
+    &lt;ul&gt; &lt;li each=&quot;{ techs }&quot;&gt;{ name }&lt;/li&gt; &lt;/ul&gt;
+    &lt;button onclick=&quot;{click}&quot;&gt;Click&lt;/button&gt;
+&lt;/sample2&gt;
+
+&lt;sample3 message=&quot;ddd&quot;&gt;&lt;/sample3&gt;
+
+&lt;!-- include riot.js --&gt;
+&lt;script src=&quot;https://unpkg.com/riot@3.9.1/riot+compiler.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- include the tag --&gt;
+&lt;script src=&quot;./sample-tag1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag2.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./sample-tag3.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- mount the tag --&gt;
+&lt;script&gt;
+    riot.mount(&#39;sample1&#39;);
+    riot.mount(&#39;sample2&#39;);
+    new SampleTag3(document.getElementsByTagName(&quot;sample3&quot;)[0])
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

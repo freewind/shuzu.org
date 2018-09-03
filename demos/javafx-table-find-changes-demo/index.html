@@ -66,6 +66,47 @@ How to edit the cells of a table in-place.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/javafx-table-find-changes-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
+        </div>
+        <div class="path">src/main/java/demo/Person.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+public class Person {
+    private final SimpleStringProperty name;
+    private final SimpleIntegerProperty number;
+
+    Person(String name, Integer number) {
+        this.name = new SimpleStringProperty(name);
+        this.number = new SimpleIntegerProperty(number);
+    }
+
+    public String getName() {
+        return this.name.get();
+    }
+
+    public int getNumber() {
+        return number.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setNumber(int number) {
+        this.number.set(number);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/javafx-table-find-changes-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
         </div>
         <div class="path">src/main/java/demo/Hello.java</div>
@@ -139,47 +180,6 @@ public class Hello extends Application {
 
     private &lt;T&gt; Person getPerson(TableColumn.CellEditEvent&lt;Person, T&gt; event) {
         return event.getTableView().getItems().get(event.getTablePosition().getRow());
-    }
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/javafx-table-find-changes-demo/blob/master/src/main/java/demo/Person.java" target="_blank" title="show github file">Person.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Person.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package demo;
-
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
-public class Person {
-    private final SimpleStringProperty name;
-    private final SimpleIntegerProperty number;
-
-    Person(String name, Integer number) {
-        this.name = new SimpleStringProperty(name);
-        this.number = new SimpleIntegerProperty(number);
-    }
-
-    public String getName() {
-        return this.name.get();
-    }
-
-    public int getNumber() {
-        return number.get();
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
-    public void setNumber(int number) {
-        this.number.set(number);
     }
 }
 </code></pre>

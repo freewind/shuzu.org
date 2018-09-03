@@ -45,6 +45,28 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/scala-csv-demo/blob/master/demo/test/src/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
+        </div>
+        <div class="path">demo/test/src/example/HelloSpec.scala</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="scala">package example
+
+import org.scalatest._
+
+class HelloSpec extends FunSuite with Matchers {
+
+  test(&quot;The Hello object should say hello&quot;) {
+    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/scala-csv-demo/blob/master/demo/src/example/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
         </div>
         <div class="path">demo/src/example/Hello.scala</div>
@@ -62,28 +84,6 @@ object Hello extends App {
   val all = reader.all()
 
   all.foreach(println)
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/scala-csv-demo/blob/master/demo/test/src/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
-        </div>
-        <div class="path">demo/test/src/example/HelloSpec.scala</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="scala">package example
-
-import org.scalatest._
-
-class HelloSpec extends FunSuite with Matchers {
-
-  test(&quot;The Hello object should say hello&quot;) {
-    Hello.hello(&quot;Scala&quot;) shouldEqual &quot;Hello, Scala!&quot;
-  }
 
 }
 </code></pre>

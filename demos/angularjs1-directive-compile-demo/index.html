@@ -42,23 +42,17 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-compile-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-compile-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
-        <div class="path">app.js</div>
+        <div class="path">package.json</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
-app.directive(&#39;bgColor&#39;, function () {
-    return {
-        restrict: &#39;A&#39;,
-        compile: function (tElement, tAttributes) {
-            console.log(&quot;-------------- compile --------------&quot;);
-            console.dir(tElement);
-            console.dir(tAttributes);
-            tElement.css(&quot;background-color&quot;, &quot;red&quot;)
-        }
-    }
-});</code></pre>
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -83,17 +77,23 @@ app.directive(&#39;bgColor&#39;, function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/angularjs1-directive-compile-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/angularjs1-directive-compile-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
         </div>
-        <div class="path">package.json</div>
+        <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="json">{
-  &quot;dependencies&quot;: {
-    &quot;angular&quot;: &quot;^1.7.3&quot;
-  }
-}
-</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
+app.directive(&#39;bgColor&#39;, function () {
+    return {
+        restrict: &#39;A&#39;,
+        compile: function (tElement, tAttributes) {
+            console.log(&quot;-------------- compile --------------&quot;);
+            console.dir(tElement);
+            console.dir(tAttributes);
+            tElement.css(&quot;background-color&quot;, &quot;red&quot;)
+        }
+    }
+});</code></pre>
     </div>
 </div>
 

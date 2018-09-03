@@ -173,41 +173,35 @@ UNLOCK TABLES;
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/DB.java" target="_blank" title="show github file">DB.java</a>
+            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcQuery.java" target="_blank" title="show github file">JdbcQuery.java</a>
         </div>
-        <div class="path">src/main/java/my/DB.java</div>
+        <div class="path">src/main/java/my/JdbcQuery.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package my;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DB {
+public class JdbcQuery {
 
-    public static final String PASSWORD = &quot;demo&quot;;
-    public static final String USERNAME = &quot;demo&quot;;
-    public static final String URL = &quot;jdbc:mysql://localhost:3306/mysql-demo?autoReconnect=true&amp;useSSL=false&quot;;
-
-    public static void createTable() throws SQLException {
-        System.out.println(&quot;------- creating table ------&quot;);
-        Connection conn = getConnection();
-        Statement stmt = conn.createStatement();
-        stmt.execute(&quot;DROP TABLE IF EXISTS `books`&quot;);
-        stmt.execute(&quot;CREATE TABLE `books` (\n&quot; +
-                &quot;  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n&quot; +
-                &quot;  `title` varchar(40) DEFAULT NULL,\n&quot; +
-                &quot;  `description` text,\n&quot; +
-                &quot;  PRIMARY KEY (`id`)\n&quot; +
-                &quot;) ENGINE=InnoDB DEFAULT CHARSET=utf8;&quot;);
+    public static void queryById(Long bookId) throws SQLException {
+        System.out.println(&quot;------- query by id ------&quot;);
+        Connection conn = DB.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(&quot;select * from books where id=?&quot;);
+        stmt.setLong(1, bookId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Long id = rs.getLong(&quot;id&quot;);
+            String title = rs.getString(&quot;title&quot;);
+            String description = rs.getString(&quot;description&quot;);
+            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
+        }
         stmt.close();
         conn.close();
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB.URL, USERNAME, PASSWORD);
+    public static void main(String[] args) throws SQLException {
+        queryById(1L);
     }
 
 }
@@ -251,42 +245,33 @@ public class JdbcDelete {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcInsert.java" target="_blank" title="show github file">JdbcInsert.java</a>
+            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcUpdate.java" target="_blank" title="show github file">JdbcUpdate.java</a>
         </div>
-        <div class="path">src/main/java/my/JdbcInsert.java</div>
+        <div class="path">src/main/java/my/JdbcUpdate.java</div>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package my;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 
-public class JdbcInsert {
+public class JdbcUpdate {
 
-    public static void insert() throws SQLException {
-        System.out.println(&quot;------- inserting ------&quot;);
+
+    public static void update(Long bookId) throws SQLException {
+        System.out.println(&quot;------- update by id ------&quot;);
         Connection conn = DB.getConnection();
-        Map&lt;String, String&gt; books = new HashMap&lt;String, String&gt;();
-        books.put(&quot;Java&quot;, &quot;一本好书&quot;);
-        books.put(&quot;JavaScript&quot;, &quot;另一本好书&quot;);
-        for (String title : books.keySet()) {
-            String description = books.get(title);
-            PreparedStatement stmt = conn.prepareStatement(&quot;insert into books(title, description) values(?, ?)&quot;, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, title);
-            stmt.setString(2, description);
-            stmt.executeUpdate();
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            generatedKeys.next();
-            System.out.println(&quot;id created by database is: &quot; + generatedKeys.getLong(1));
-            generatedKeys.close();
-            stmt.close();
-        }
+        PreparedStatement stmt = conn.prepareStatement(&quot;update books set title=?, description=? where id=?&quot;);
+        stmt.setString(1, &quot;new-title&quot;);
+        stmt.setString(2, &quot;new-description&quot;);
+        stmt.setLong(3, bookId);
+        int updatedCount = stmt.executeUpdate();
+        stmt.close();
         conn.close();
+        System.out.println(&quot;Updated &quot; + updatedCount + &quot; rows&quot;);
     }
 
     public static void main(String[] args) throws SQLException {
-        insert();
+        update(1L);
     }
 
 }
@@ -334,80 +319,6 @@ public class JdbcLoad {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcQuery.java" target="_blank" title="show github file">JdbcQuery.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcQuery.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcQuery {
-
-    public static void queryById(Long bookId) throws SQLException {
-        System.out.println(&quot;------- query by id ------&quot;);
-        Connection conn = DB.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(&quot;select * from books where id=?&quot;);
-        stmt.setLong(1, bookId);
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Long id = rs.getLong(&quot;id&quot;);
-            String title = rs.getString(&quot;title&quot;);
-            String description = rs.getString(&quot;description&quot;);
-            System.out.println(&quot;Book #&quot; + id + &quot;, title=&quot; + title + &quot;, description=&quot; + description);
-        }
-        stmt.close();
-        conn.close();
-    }
-
-    public static void main(String[] args) throws SQLException {
-        queryById(1L);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcUpdate.java" target="_blank" title="show github file">JdbcUpdate.java</a>
-        </div>
-        <div class="path">src/main/java/my/JdbcUpdate.java</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="java">package my;
-
-import java.sql.*;
-
-public class JdbcUpdate {
-
-
-    public static void update(Long bookId) throws SQLException {
-        System.out.println(&quot;------- update by id ------&quot;);
-        Connection conn = DB.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(&quot;update books set title=?, description=? where id=?&quot;);
-        stmt.setString(1, &quot;new-title&quot;);
-        stmt.setString(2, &quot;new-description&quot;);
-        stmt.setLong(3, bookId);
-        int updatedCount = stmt.executeUpdate();
-        stmt.close();
-        conn.close();
-        System.out.println(&quot;Updated &quot; + updatedCount + &quot; rows&quot;);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        update(1L);
-    }
-
-}
-</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
             <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/Main.java" target="_blank" title="show github file">Main.java</a>
         </div>
         <div class="path">src/main/java/my/Main.java</div>
@@ -433,6 +344,95 @@ public class Main {
         JdbcDelete.deleteById(1L);
         JdbcLoad.loadAll();
     }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/DB.java" target="_blank" title="show github file">DB.java</a>
+        </div>
+        <div class="path">src/main/java/my/DB.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DB {
+
+    public static final String PASSWORD = &quot;demo&quot;;
+    public static final String USERNAME = &quot;demo&quot;;
+    public static final String URL = &quot;jdbc:mysql://localhost:3306/mysql-demo?autoReconnect=true&amp;useSSL=false&quot;;
+
+    public static void createTable() throws SQLException {
+        System.out.println(&quot;------- creating table ------&quot;);
+        Connection conn = getConnection();
+        Statement stmt = conn.createStatement();
+        stmt.execute(&quot;DROP TABLE IF EXISTS `books`&quot;);
+        stmt.execute(&quot;CREATE TABLE `books` (\n&quot; +
+                &quot;  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n&quot; +
+                &quot;  `title` varchar(40) DEFAULT NULL,\n&quot; +
+                &quot;  `description` text,\n&quot; +
+                &quot;  PRIMARY KEY (`id`)\n&quot; +
+                &quot;) ENGINE=InnoDB DEFAULT CHARSET=utf8;&quot;);
+        stmt.close();
+        conn.close();
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB.URL, USERNAME, PASSWORD);
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mysql-demo/blob/master/src/main/java/my/JdbcInsert.java" target="_blank" title="show github file">JdbcInsert.java</a>
+        </div>
+        <div class="path">src/main/java/my/JdbcInsert.java</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package my;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class JdbcInsert {
+
+    public static void insert() throws SQLException {
+        System.out.println(&quot;------- inserting ------&quot;);
+        Connection conn = DB.getConnection();
+        Map&lt;String, String&gt; books = new HashMap&lt;String, String&gt;();
+        books.put(&quot;Java&quot;, &quot;一本好书&quot;);
+        books.put(&quot;JavaScript&quot;, &quot;另一本好书&quot;);
+        for (String title : books.keySet()) {
+            String description = books.get(title);
+            PreparedStatement stmt = conn.prepareStatement(&quot;insert into books(title, description) values(?, ?)&quot;, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, title);
+            stmt.setString(2, description);
+            stmt.executeUpdate();
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            generatedKeys.next();
+            System.out.println(&quot;id created by database is: &quot; + generatedKeys.getLong(1));
+            generatedKeys.close();
+            stmt.close();
+        }
+        conn.close();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        insert();
+    }
+
 }
 </code></pre>
     </div>
