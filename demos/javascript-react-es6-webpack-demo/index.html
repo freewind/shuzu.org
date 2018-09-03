@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>react-webpack-less-scope-demo - 数组网</title>
+    <title>javascript-react-es6-webpack-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,56 +8,30 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">react-webpack-less-scope-demo</div>
+    <div class="site-slogan">javascript-react-es6-webpack-demo</div>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        React Webpack Less Scope Demo
-=============================
-
-Test if the css imported from different less file will conflict.
-
-Seems like they are conflict :(
+        React Es6 Webpack Demo
+======================
 
 ```
 npm install
 npm start
 ```
 
-Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
+Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;, you will see `Hello world` on the page.
+
+If you modify `public/hello.jsx` to change the text, you will see the changes are applied to page instantly.
+
+    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/blob/master/hello1.less" target="_blank" title="show github file">hello1.less</a>
-        </div>
-        <div class="path">hello1.less</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="less">.hello {
-  border: 3px solid red;
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/blob/master/hello2.less" target="_blank" title="show github file">hello2.less</a>
-        </div>
-        <div class="path">hello2.less</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="less">.hello {
-  border: 3px solid blue;
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
     </div>
@@ -65,7 +39,7 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
         <pre class="content"><code class="js">module.exports = {
   entry: &#39;./entry.jsx&#39;,
   output: {
-    path: __dirname + &#39;/assets/&#39;,
+    path: __dirname,
     publicPath: &#39;/assets/&#39;,
     filename: &#39;bundle.js&#39;
   },
@@ -77,10 +51,6 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
       query: {
         presets: [&#39;es2015&#39;, &#39;react&#39;]
       }
-    }, {
-      test: /\.less$/,
-      exclude: /node_modules/,
-      loader: &quot;style!css!less&quot;
     }]
   }
 }</code></pre>
@@ -89,13 +59,13 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;react-webpack-less-scope-demo&quot;,
+  &quot;name&quot;: &quot;react-es6-webpack-demo&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
   &quot;description&quot;: &quot;&quot;,
   &quot;main&quot;: &quot;index.js&quot;,
@@ -107,13 +77,11 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
   &quot;author&quot;: &quot;&quot;,
   &quot;license&quot;: &quot;ISC&quot;,
   &quot;devDependencies&quot;: {
-    &quot;babel-core&quot;: &quot;6.10.4&quot;,
+    &quot;babel-core&quot;: &quot;6.13.2&quot;,
     &quot;babel-loader&quot;: &quot;6.2.4&quot;,
-    &quot;babel-preset-es2015&quot;: &quot;6.9.0&quot;,
+    &quot;babel-preset-es2015&quot;: &quot;6.13.2&quot;,
     &quot;babel-preset-react&quot;: &quot;6.11.1&quot;,
     &quot;css-loader&quot;: &quot;0.23.1&quot;,
-    &quot;less&quot;: &quot;2.7.1&quot;,
-    &quot;less-loader&quot;: &quot;2.2.3&quot;,
     &quot;style-loader&quot;: &quot;0.13.1&quot;,
     &quot;webpack&quot;: &quot;1.13.1&quot;,
     &quot;webpack-dev-server&quot;: &quot;1.14.1&quot;
@@ -129,7 +97,7 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
@@ -138,11 +106,11 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Demo&lt;/title&gt;
+	&lt;title&gt;Es6 Project Demo&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 	&lt;div id=&#39;content&#39;&gt;&lt;/div&gt;
-	&lt;script src=&quot;assets/bundle.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
     </div>
@@ -151,10 +119,10 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/react-webpack-less-scope-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

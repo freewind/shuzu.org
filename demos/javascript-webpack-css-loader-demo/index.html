@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>webpack-sourcemap-demo - 数组网</title>
+    <title>javascript-webpack-css-loader-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,47 +8,53 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">webpack-sourcemap-demo</div>
+    <div class="site-slogan">javascript-webpack-css-loader-demo</div>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        Webpack SourceMap Demo
-======================
-
-Generate source-map for the generated bundle.js which is friendly to development.
+        Webpack Css Loader Demo
+=======================
 
 ```
 npm install -g webpack
 npm install
-webpack
+webpack ./entry.js bundle.js
 ```
 
-Then open `index.html` in your browser, and open the dev tool of the browser, and refresh. You will see the break point and the clear source code.
+Then open `index.html`
 
-![webpack-debug](images/webpack-debug.png)    </div>
+Note
+-----
+
+Or you can use:
+
+```
+webpack ./entry.js bundle.js --module-bind &#39;css=style!css&#39;
+```
+
+that you can just write `require(&#39;./index.css&#39;)`
+ in you js file.
+    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
         </div>
         <div class="path">entry.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">require(&#39;./index.css&#39;);
+        <pre class="content"><code class="js">require(&#39;!style!css!./index.css&#39;);
 
-debugger;
-
-document.write(&#39;it works!&#39;);
-</code></pre>
+document.write(&#39;hello, css loader&#39;);</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
         </div>
         <div class="path">index.css</div>
     </div>
@@ -61,37 +67,13 @@ document.write(&#39;it works!&#39;);
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="js">module.exports = {
-  entry: &#39;./entry.js&#39;,
-  output: {
-    path: __dirname,
-    filename: &#39;bundle.js&#39;
-  },
-  devtool: &#39;inline-source-map&#39;,
-  module: {
-    loaders: [{ 
-      test: /\.css$/,
-      loader: &#39;style!css&#39; // note style is before css
-    }]
-  }
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;webpack-config-demo&quot;,
+  &quot;name&quot;: &quot;webpack-css-loader-demo&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
   &quot;description&quot;: &quot;&quot;,
   &quot;main&quot;: &quot;index.js&quot;,
@@ -112,7 +94,7 @@ document.write(&#39;it works!&#39;);
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
@@ -121,10 +103,10 @@ document.write(&#39;it works!&#39;);
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Webpack Config File Demo&lt;/title&gt;
+	&lt;title&gt;Webpack css loader demo&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+	&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
     </div>
@@ -133,10 +115,10 @@ document.write(&#39;it works!&#39;);
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/webpack-sourcemap-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/webpack-sourcemap-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-css-loader-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

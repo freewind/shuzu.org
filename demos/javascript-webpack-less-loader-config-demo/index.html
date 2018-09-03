@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>javascript-webpack-config-demo - 数组网</title>
+    <title>javascript-webpack-less-loader-config-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,22 +8,20 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">javascript-webpack-config-demo</div>
+    <div class="site-slogan">javascript-webpack-less-loader-config-demo</div>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        Webpack Config File Demo
-========================
-
-Put all settings in `webpack.config.js`
+        Webpack Css Loader Config Demo
+==============================
 
 ```
 npm install
 npm run demo
 ```
 
-Then open `index.html` in your browser.
+Then open `index.html`.
 
 ![demo](./images/demo.jpg)    </div>
 </div>
@@ -31,33 +29,19 @@ Then open `index.html` in your browser.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
         </div>
         <div class="path">entry.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">require(&#39;./index.css&#39;)
-
-document.write(&#39;The body should have a yellow background color now&#39;)</code></pre>
+        <pre class="content"><code class="js">require(&#39;./index.less&#39;)
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
-        </div>
-        <div class="path">index.css</div>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css">body {
-  background-color: yellow;
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
     </div>
@@ -70,10 +54,11 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
     },
     module: {
         rules: [{
-            test: /\.css$/,
+            test: /\.less$/,
             use: [
                 {loader: &#39;style-loader&#39;},
-                {loader: &#39;css-loader&#39;}
+                {loader: &#39;css-loader&#39;},
+                {loader: &#39;less-loader&#39;}
             ]
         }]
     }
@@ -83,7 +68,7 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
     </div>
@@ -93,10 +78,12 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
     &quot;demo&quot;: &quot;webpack &amp;&amp; open index.html&quot;
   },
   &quot;dependencies&quot;: {
-    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
-    &quot;style-loader&quot;: &quot;^0.13.1&quot;
+    &quot;css-loader&quot;: &quot;^1.0.0&quot;,
+    &quot;less-loader&quot;: &quot;^4.1.0&quot;,
+    &quot;style-loader&quot;: &quot;^0.23.0&quot;
   },
   &quot;devDependencies&quot;: {
+    &quot;less&quot;: &quot;^3.8.1&quot;,
     &quot;webpack&quot;: &quot;^4.17.1&quot;,
     &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
   }
@@ -107,26 +94,42 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="html">&lt;html lang=&quot;en&quot;&gt;
+        <pre class="content"><code class="html">&lt;html&gt;
 &lt;body&gt;
-&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;bg-yellow&quot;&gt;I should have a yellow background&lt;/div&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/blob/master/index.less" target="_blank" title="show github file">index.less</a>
+        </div>
+        <div class="path">index.less</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="less">body {
+  .bg-yellow {
+    background-color: yellow;
+  }
+}</code></pre>
     </div>
 </div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-less-loader-config-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

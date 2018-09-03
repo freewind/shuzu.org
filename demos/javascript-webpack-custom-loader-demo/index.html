@@ -1,0 +1,157 @@
+<html>
+<head>
+    <title>javascript-webpack-custom-loader-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-webpack-custom-loader-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Webpack Custom Loader Demo
+=====================================
+
+Webpack的loader从概念上讲非常简单，就是一个简单的函数，你把要处理的文本传给它，它会返回处理完的文本。
+
+同时它还可以拿到配置和参数，在这个Demo里未考虑。
+
+```
+npm install
+npm run demo
+```
+
+Then open `index.html`.
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- Writing a Loader: &lt;https://webpack.js.org/contribute/writing-a-loader/&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+        </div>
+        <div class="path">entry.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const hello = require(&#39;./my.hello&#39;)
+
+console.log(hello)
+
+hello()
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const path = require(&#39;path&#39;)
+
+module.exports = {
+    entry: &#39;./entry.js&#39;,
+    output: {
+        path: __dirname,
+        filename: &#39;bundle.js&#39;
+    },
+    module: {
+        rules: [{
+            test: /\.hello/,
+            use: [
+                {loader: path.resolve(&#39;./src/hello-loader.js&#39;)}
+            ]
+        }]
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/blob/master/src/hello-loader.js" target="_blank" title="show github file">hello-loader.js</a>
+        </div>
+        <div class="path">src/hello-loader.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = function (source) {
+    return `
+    module.exports = function() {
+        const words = &#39;Hello, ${source} (from hello-loader.js)!&#39;
+        const node = document.createTextNode(words)
+        document.body.appendChild(node)
+    }
+    `
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;webpack &amp;&amp; open index.html&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;css-loader&quot;: &quot;^1.0.0&quot;,
+    &quot;less-loader&quot;: &quot;^4.1.0&quot;,
+    &quot;style-loader&quot;: &quot;^0.23.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;less&quot;: &quot;^3.8.1&quot;,
+    &quot;webpack&quot;: &quot;^4.17.1&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-webpack-custom-loader-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

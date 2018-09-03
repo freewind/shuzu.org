@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>webpack-dev-server-demo - 数组网</title>
+    <title>javascript-webpack-jquery-expose-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,41 +8,57 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">webpack-dev-server-demo</div>
+    <div class="site-slogan">javascript-webpack-jquery-expose-demo</div>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        webpack-dev-server demo
-=======================
+        Webpack Expose jQuery to Global Demo
+===================================
+
+Some 3rd party requires the `jQuery` or `$` existed in global, and it&#39;s not easy with normal webpack.
+
+We can use the `expose-loader` to do this job, please note the `require.resolve(&quot;jquery&quot;)` part in `webpack.config.js`.
 
 ```
+npm install -g webpack
 npm install
-webpack-dev-server --progress --colors
+webpack
 ```
 
-Then open &lt;http://localhost:8080/webpack-dev-server/&gt;.
+Then open `index.html` in your browser.
 
-You will see the content of `index.html` wrapped with a message banner, and when any file is changed, webpack-dev-server will recompile it based on `webpack.config.js` and reload the browser automatically.
+Documents
+---------
 
-    </div>
+1. https://www.npmjs.com/package/bootstrap-webpack    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-server-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
         </div>
         <div class="path">entry.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">document.write(&#39;it works&#39;);</code></pre>
+        <pre class="content"><code class="js">// recommend way: const $ = require(&#39;jquery&#39;);
+require(&#39;jquery&#39;);
+
+// we can use `$` without define it,
+// since we already expose it in `webpack.config.js`
+// Notice
+// this is not the recommended way to use it,
+// here just to demo how we can expose it since some 3rd party libraries
+// need the global `jQuery` or `$`
+$(&#39;#content&#39;).text(&#39;it works!&#39;);
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-server-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
     </div>
@@ -52,6 +68,15 @@ You will see the content of `index.html` wrapped with a message banner, and when
   output: {
     path: __dirname,
     filename: &#39;bundle.js&#39;
+  },
+  module: {
+    loaders: [{
+      test: /\.css$/,
+      loader: &#39;style!css&#39; // note style is before css
+    }, { 
+      test: require.resolve(&quot;jquery&quot;), 
+      loader: &quot;expose?$!expose?jQuery&quot; 
+    }]
   }
 }</code></pre>
     </div>
@@ -59,13 +84,13 @@ You will see the content of `index.html` wrapped with a message banner, and when
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-server-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;webpack-dev-demo&quot;,
+  &quot;name&quot;: &quot;webpack-jquery-expose-demo&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
   &quot;description&quot;: &quot;&quot;,
   &quot;main&quot;: &quot;index.js&quot;,
@@ -76,8 +101,8 @@ You will see the content of `index.html` wrapped with a message banner, and when
   &quot;author&quot;: &quot;&quot;,
   &quot;license&quot;: &quot;ISC&quot;,
   &quot;dependencies&quot;: {
-    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
-    &quot;style-loader&quot;: &quot;^0.13.1&quot;
+    &quot;expose-loader&quot;: &quot;^0.7.1&quot;,
+    &quot;jquery&quot;: &quot;^3.1.0&quot;
   }
 }
 </code></pre>
@@ -86,7 +111,7 @@ You will see the content of `index.html` wrapped with a message banner, and when
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
-            <a href="https://github.com/freewind-demos/webpack-dev-server-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">index.html</div>
     </div>
@@ -95,10 +120,11 @@ You will see the content of `index.html` wrapped with a message banner, and when
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Webpack Dev Server Demo&lt;/title&gt;
+	&lt;title&gt;Webpack Config File Demo&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-	&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+	&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+	&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
     </div>
@@ -107,10 +133,10 @@ You will see the content of `index.html` wrapped with a message banner, and when
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/webpack-dev-server-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/webpack-dev-server-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-jquery-expose-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
