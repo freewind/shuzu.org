@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>angularjs1-directive-template-url-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-directive-template-url-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Directive Template Url Demo
+======================================
+
+Use template from a standalone template file.
+
+```
+npm install
+http-server . -c-1 -o
+```
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- AngularJS1: https://angularjs.org/
+- directive api: &lt;https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object&gt;
+- $element api: &lt;https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.directive(&#39;myDirective&#39;, function () {
+    return {
+        templateUrl: &#39;./my-directive.html&#39;,
+        restrict: &#39;A&#39;
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    Notice:
+
+```
+app.directive(&#39;myDirective&#39;, function () { ... });
+```
+
+Must use `myDirective`, not `my-directive`</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .red-border {
+            border: 1px solid red;
+        }
+        .bg-yellow {
+            background-color: yellow;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div my-directive class=&quot;red-border&quot;&gt;Hello, world! (should replaced by the directive `myDirective`)&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    Notice:
+
+```
+&lt;div my-directive&gt;...&lt;/div&gt;
+```
+
+Must use `my-directive`, not `myDirective`.</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/my-directive.html" target="_blank" title="show github file">my-directive.html</a>
+        </div>
+        <div class="path">my-directive.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;div class=&quot;bg-yellow&quot;&gt;Good! Template from directive&lt;/div&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-template-url-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

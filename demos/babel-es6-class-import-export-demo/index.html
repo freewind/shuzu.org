@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>babel-es6-class-import-export-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">babel-es6-class-import-export-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Babel Es6 Class Import Export Demo
+==================================
+
+```
+npm install
+npm start
+```
+
+Will print:
+
+```
+Hello, Freewind
+```
+
+Reference
+=========
+
+1. try babel online: &lt;https://babeljs.io/repl/&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/babel-es6-class-import-export-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </div>
+        <div class="path">hello.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import User from &#39;./user&#39;;
+
+new User(&#39;Freewind&#39;).hello();</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/babel-es6-class-import-export-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;babel-node hello&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@babel/cli&quot;: &quot;^7.0.0&quot;,
+    &quot;@babel/core&quot;: &quot;^7.0.0&quot;,
+    &quot;@babel/node&quot;: &quot;^7.0.0&quot;,
+    &quot;@babel/preset-env&quot;: &quot;^7.0.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/babel-es6-class-import-export-demo/blob/master/user.js" target="_blank" title="show github file">user.js</a>
+        </div>
+        <div class="path">user.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">class User {
+	constructor(name) {
+		this.name = name;
+	}
+
+	hello() {
+		console.log(&quot;Hello, &quot; + this.name);
+	}
+}
+
+export default User;
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/babel-es6-class-import-export-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/babel-es6-class-import-export-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

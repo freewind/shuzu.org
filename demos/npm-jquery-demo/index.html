@@ -19,17 +19,11 @@
 Use the `jquery.js` from npm jquery module on the html page.
 
 ```
-npm install -g http-server
 npm install
+open index.html
 ```
 
-Start:
-
-```
-http-server
-```
-
-Visit &lt;http://localhost:8080/index.html&gt;, you will see `hello jquery` on the page.    </div>
+You will see &quot;hello jquery&quot; on page.    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
@@ -42,16 +36,13 @@ Visit &lt;http://localhost:8080/index.html&gt;, you will see `hello jquery` on t
     <div class="body">
         <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-	&lt;meta charset=&quot;UTF-8&quot;&gt;
-	&lt;title&gt;Npm Jquery Demo&lt;/title&gt;
-	&lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
 &lt;body&gt;
-	&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
-	&lt;script&gt;
-		$(&quot;#content&quot;).text(&#39;hello jquery&#39;);
-	&lt;/script&gt;
+&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+
+&lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(&#39;#content&#39;).text(&#39;hello jquery&#39;)
+&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
     </div>
@@ -65,16 +56,6 @@ Visit &lt;http://localhost:8080/index.html&gt;, you will see `hello jquery` on t
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;npm-jquery-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
   &quot;dependencies&quot;: {
     &quot;jquery&quot;: &quot;^3.1.0&quot;
   }

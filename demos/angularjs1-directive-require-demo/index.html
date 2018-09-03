@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>angularjs1-directive-require-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-directive-require-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Directive Require Demo
+=================================
+
+`require`表示当前directive依赖别的哪些directive，同时还能把它们的controller拿到手，放到`link`函数中调用。
+
+```
+npm install
+open index.html
+open index-invalid.html
+```
+
+Resources
+---------
+
+- AngularJS1: &lt;https://angularjs.org/&gt;
+- directive require api: &lt;https://docs.angularjs.org/api/ng/service/$compile#-require-&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.directive(&#39;bgParent&#39;, function () {
+    return {
+        restrict: &#39;E&#39;,
+        controller: function () {
+            this.controllerName = &#39;bgParent\&#39;s controller&#39;
+        }
+    }
+})
+app.directive(&#39;bgColor&#39;, function () {
+    return {
+        restrict: &#39;A&#39;,
+        require: &#39;^bgParent&#39;,
+        link: function (scope, element, attrs, ctrlOfRequiredDirective) {
+            console.log(&#39;required controller: &#39; + ctrlOfRequiredDirective.controllerName)
+            element.css(&#39;background-color&#39;, attrs.bgColor)
+        }
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    声明了`require: &#39;^bgParent&#39;`之后，就可以在`link`中拿到它的controller了（
+`ctrlOfRequiredDirective`）</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo/blob/master/index-invalid.html" target="_blank" title="show github file">index-invalid.html</a>
+        </div>
+        <div class="path">index-invalid.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div bg-color=&quot;blue&quot;&gt;Hello, world!&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    ![demo-invalid](./images/demo-invalid.jpg)</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;bg-parent&gt;
+    &lt;div bg-color=&quot;red&quot;&gt;Hello, world!&lt;/div&gt;
+&lt;/bg-parent&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    ![demo](./images/demo.jpg)</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-require-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

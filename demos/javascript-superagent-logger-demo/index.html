@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>javascript-superagent-logger-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-superagent-logger-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript SuperAgent Logger Demo
+=================================
+
+```
+npm install
+node index.js
+```
+
+You will see:
+
+```
+HTTP  GET     200 http://taobao.com/ (356ms)
+got response
+```
+
+This line is logged by the logger:
+
+```
+HTTP  GET     200 http://taobao.com/ (356ms)
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-superagent-logger-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const request = require(&#39;superagent&#39;);
+const logger = require(&#39;superagent-logger&#39;);
+
+request.get(&#39;http://taobao.com&#39;)
+  .use(logger)
+  .end((err, res) =&gt; {
+    if(err) return console.error(err);
+    console.log(&#39;got response&#39;);
+  });</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-superagent-logger-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;superagent&quot;: &quot;^3.8.3&quot;,
+    &quot;superagent-logger&quot;: &quot;^1.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-superagent-logger-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-superagent-logger-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

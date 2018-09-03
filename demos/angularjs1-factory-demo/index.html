@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title>angularjs1-factory-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-factory-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Factory Demo
+=======================
+
+`factory`，顾名思义，是用来产生一些对象供我们使用，关注点在“怎样生成我们需要的结构和数据”。
+
+当某个对象需要以比较复杂的逻辑生成时，我们可以为它定义一个`factory`。
+
+在使用factory时，我们的关注点是结构和数据，而`service`的关注点是行为和功能。
+
+由于factory需要有“返回任何一种形式的对象”的能力，所以从技术上来说，它应该是一个普通的函数，它可以返回任何一种类型的对象或者数据。
+
+与service一样，所有的factory都是单例的。
+
+```
+npm install
+open index.html
+```
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- AngularJS1: &lt;https://angularjs.org/&gt;
+- AngularJS : Factory and Service? : &lt;https://stackoverflow.com/questions/23074875/angularjs-factory-and-service&gt;
+- AngularJS: Service vs provider vs factory: &lt;https://stackoverflow.com/questions/15666048/angularjs-service-vs-provider-vs-factory&gt;
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-factory-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+
+app.factory(&#39;randomNumber&#39;, function () {
+    return function () {
+        return Math.random()
+    }
+})
+
+app.controller(&#39;MyController&#39;, function ($scope, randomNumber) {
+    $scope.message = &#39;Random number: &#39; + randomNumber()
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-factory-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div ng-controller=&quot;MyController&quot;&gt;{{ message }}&lt;/div&gt;
+&lt;div ng-controller=&quot;MyController&quot;&gt;{{ message }}&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-factory-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;,
+    &quot;jquery&quot;: &quot;^3.3.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-factory-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-factory-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<html>
+<head>
+    <title>typescript-mapped-types-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-mapped-types-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript Base Demo
+====================
+
+```
+npm install
+npx ts-node hello.ts
+```
+
+```
+{ name: &#39;Freewind&#39;, location: &#39;China&#39; }
+```
+
+Resources
+---------
+
+- &lt;https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html#mapped-types&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-mapped-types-demo/blob/master/hello.ts" target="_blank" title="show github file">hello.ts</a>
+        </div>
+        <div class="path">hello.ts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">interface Person {
+    name: string;
+    age: number;
+    location: string;
+}
+
+type PartialOf&lt;T&gt; = {
+    [P in keyof T]?: T[P]
+}
+
+type PartialPerson = PartialOf&lt;Person&gt;
+
+const person: PartialPerson = {
+    name: &#39;Freewind&#39;,
+    location: &#39;China&#39;
+}
+
+console.log(person)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-mapped-types-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;ts-node hello.ts&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;7.0.0&quot;,
+    &quot;typescript&quot;: &quot;3.0.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/typescript-mapped-types-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </div>
+        <div class="path">tsconfig.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true
+  }
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-mapped-types-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-mapped-types-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

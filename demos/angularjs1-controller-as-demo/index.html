@@ -16,7 +16,14 @@
         AngularJS1 &quot;Controller As&quot; Demo
 ===============================
 
-Use `controller as someVar`, we can use the controller itself as the `$scope`.
+通过`controller as someVar`语法，我们可以给controller一个别名。
+
+在多个controller嵌套的情况下，使用这种语法会让代码更清楚。
+否者你可能需要写`$parent.someVar`甚至`$parent.$parent.$parent.someVar`这样的代码。
+
+一旦我们使用`controller as`，那么controller本身就代替了`$scope`，你的变量和函数都应该挂在`this`上，而不是`$scope`上了。
+
+`controller as`也是当前AngularJS1中推荐的用法。
 
 ```
 npm install
@@ -28,6 +35,7 @@ open index.html
 Resources
 ---------
 
+- 强烈推荐：&lt;https://blog.thoughtram.io/angularjs/2015/01/02/exploring-angular-1.3-bindToController.html&gt;
 - AngularJS1 style guide, highly recommended: &lt;https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#controllers&gt;
 - &lt;https://beginor.github.io/2016/04/05/angularjs-controller-as.html&gt;    </div>
 </div>
@@ -40,14 +48,13 @@ Resources
         <div class="path">app.js</div>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, []);
-app.controller(&#39;HelloController&#39;, function () {
-    this.userName = &quot;AngularJs1&quot;;
-    this.showHelloWords = false;
-    this.sayHello = function () {
-        this.showHelloWords = true
-    }
-});</code></pre>
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.controller(&#39;ParentController&#39;, function () {
+    this.hello = &#39;Hello ParentController&#39;
+})
+app.controller(&#39;ChildController&#39;, function () {
+    this.hello = &#39;Hello ChildController&#39;
+})</code></pre>
     </div>
 </div>
 <div class="markdown markdown-body center-in-page">
@@ -74,14 +81,22 @@ app.controller(&#39;HelloController&#39;, function ($scope) {
     <div class="body">
         <pre class="content"><code class="html">&lt;html&gt;
 &lt;head&gt;
+    &lt;style&gt;
+        .controller {
+            border: 1px solid red;
+            padding: 5px;
+            margin: 5px;
+        }
+    &lt;/style&gt;
 &lt;/head&gt;
 &lt;body ng-app=&quot;app&quot;&gt;
 &lt;div&gt;
-    &lt;div ng-controller=&quot;HelloController as vm&quot;&gt;
-        &lt;label&gt;Name&lt;/label&gt;
-        &lt;input type=&quot;text&quot; ng-model=&quot;vm.userName&quot;/&gt;
-        &lt;button ng-click=&quot;vm.sayHello()&quot;&gt;Say Hi!&lt;/button&gt;
-        &lt;div ng-show=&quot;vm.showHelloWords&quot;&gt;Hi, {{vm.userName}}!&lt;/div&gt;
+    &lt;div ng-controller=&quot;ParentController as parent&quot; class=&quot;controller&quot;&gt;
+        &lt;div&gt;{{ parent.hello }}&lt;/div&gt;
+        &lt;div ng-controller=&quot;ChildController as child&quot; class=&quot;controller&quot;&gt;
+            &lt;div&gt;{{ parent.hello }}&lt;/div&gt;
+            &lt;div&gt;{{ child.hello }}&lt;/div&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;

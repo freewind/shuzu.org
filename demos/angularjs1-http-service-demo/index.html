@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>angularjs1-http-service-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-http-service-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 `$http` Service Demo
+===============================
+
+```
+npm install
+npm start
+```
+
+Click on the &quot;Fetch&quot; button, you will see:
+
+![demo](./images/demo.jpg)    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.controller(&#39;MyController&#39;, function ($scope, $http) {
+    $scope.fetchData = function () {
+        $http.get(&#39;/data.json&#39;)
+            .then(function success(response) {
+                $scope.data = response.data
+            }, function error(response) {
+                $scope.data = &#39;Failed: &#39; + JSON.stringify(response)
+            })
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/data.json" target="_blank" title="show github file">data.json</a>
+        </div>
+        <div class="path">data.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;AngularJS&quot;,
+  &quot;url&quot;: &quot;https://angularjs.org/&quot;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div ng-app=&quot;app&quot;&gt;
+    &lt;div ng-controller=&quot;MyController&quot;&gt;
+        &lt;button ng-click=&quot;fetchData()&quot;&gt;Fetch&lt;/button&gt;
+        &lt;hr/&gt;
+        {{ data }}
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;http-server . -c-1 -o&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-http-service-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-http-service-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

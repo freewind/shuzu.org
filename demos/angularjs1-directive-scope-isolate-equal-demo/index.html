@@ -1,0 +1,152 @@
+<html>
+<head>
+    <title>angularjs1-directive-scope-isolate-equal-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">angularjs1-directive-scope-isolate-equal-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        AngularJS1 Directive `scope: { myAttr: &#39;=outAttr&#39; }` Demo
+=========================================================
+
+```
+scope: { myAttr: &#39;=outAttr&#39; }
+```
+
+- `scope: {}`: 表示directive独立了，不再使用外层controller中的`$scope`了
+- `outAttr`: 表示外面需要使用`out-attr=&quot;something&quot;`的方式向我传参数
+    - `something`必须是一个变量名，不能使用表达式，因为是双向绑定
+    - 可以是任何类型，而不需要像`@outAttr`那样最后结果只能是字符串
+- `myAttr`: 表示directive里面使用`myAttr`这个名字对应`outAttr`，可以使用`$scope.myAttr`引用值
+
+最重要的：
+
+`=`表示“双向绑定”。在AngularJS中，它的意思是，哪怕`outAttr`与`myAttr`这两个变量的引用都指向了新的值，另一个也会跟着变，它们始终指向同一个对象。
+
+相应的，如果是单向绑定`scope: { myAttr: &#39;&lt;outAttr&#39; }`，则它们在最开始指向同一个值：
+- `outAttr`引用变了，`myAttr`会跟着变
+- `myAttr`引用变了，`outAttr`不会跟着变
+
+```
+npm install
+open index.html
+```
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- AngularJS1: &lt;https://angularjs.org/&gt;
+- directive scope api: &lt;https://docs.angularjs.org/api/ng/service/$compile#-scope-&gt;
+- $element api: &lt;https://docs.angularjs.org/api/ng/function/angular.element#angularjs-s-jqlite&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-equal-demo/blob/master/app.js" target="_blank" title="show github file">app.js</a>
+        </div>
+        <div class="path">app.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const app = angular.module(&#39;app&#39;, [])
+app.controller(&#39;myController&#39;, function ($scope) {
+    $scope.userInfo = {
+        name: &#39;Freewind&#39;,
+        email: &#39;test@test.com&#39;
+    }
+    $scope.change = function () {
+        $scope.userInfo = {
+            name: &#39;111&#39;,
+            email: &#39;111&#39;
+        }
+    }
+})
+app.directive(&#39;myDirective&#39;, function () {
+    return {
+        restrict: &#39;E&#39;,
+        scope: {
+            directiveUserInfo: &#39;=userInfo&#39;
+        },
+        template: &#39;&lt;div&gt;&#39; +
+            &#39;{{ directiveUserInfo }}&#39; +
+            &#39;&lt;button ng-click=&quot;change()&quot;&gt;change from directive&lt;/button&gt; &#39; +
+            &#39;&lt;/div&gt;&#39;,
+        controller: function ($scope) {
+            $scope.change = function () {
+                $scope.directiveUserInfo = {
+                    name: &#39;222&#39;,
+                    email: &#39;222&#39;
+                }
+            }
+        }
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-equal-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div ng-controller=&quot;myController&quot; class=&quot;controller&quot;&gt;
+    &lt;div&gt;{{ userInfo }}
+        &lt;button ng-click=&quot;change()&quot;&gt;change from parent&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;hr/&gt;
+    &lt;div class=&quot;directive&quot;&gt;
+        &lt;my-directive user-info=&quot;userInfo&quot;&gt;&lt;/my-directive&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src=&quot;./node_modules/angular/angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-equal-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;angular&quot;: &quot;^1.7.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-equal-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/angularjs1-directive-scope-isolate-equal-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>
