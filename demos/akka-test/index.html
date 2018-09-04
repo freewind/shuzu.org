@@ -11,13 +11,22 @@
     <div class="site-slogan">akka-test</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/akka-test">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/akka-test/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/sbt" target="_blank" title="show github file">sbt</a>
-        </div>
-        <div class="path">sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">#!/usr/bin/env bash
@@ -568,10 +577,10 @@ if shouldFilter; then mainFiltered; else main; fi
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
-        </div>
-        <div class="path">build.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">name := &quot;My Project&quot;
@@ -591,10 +600,10 @@ libraryDependencies ++= Seq(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/FailTest.scala" target="_blank" title="show github file">FailTest.scala</a>
-        </div>
-        <div class="path">src/main/scala/FailTest.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">import akka.actor.SupervisorStrategy.Restart
@@ -643,10 +652,10 @@ case object Hello
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/pass_functions/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/pass_functions/MyActor.scala" target="_blank" title="show github file">MyActor.scala</a>
-        </div>
-        <div class="path">src/main/scala/pass_functions/MyActor.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package pass_functions
@@ -678,10 +687,10 @@ case class ContentChange(path: String, f: () =&gt; VersionAndContent)
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/error_handling/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/error_handling/ServerActorDemo.scala" target="_blank" title="show github file">ServerActorDemo.scala</a>
-        </div>
-        <div class="path">src/main/scala/error_handling/ServerActorDemo.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package error_handling
@@ -726,10 +735,10 @@ class ServerActor extends Actor {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/disconnect/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/disconnect/MyLocalActor.scala" target="_blank" title="show github file">MyLocalActor.scala</a>
-        </div>
-        <div class="path">src/main/scala/disconnect/MyLocalActor.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package disconnect
@@ -785,10 +794,10 @@ object MyLocalConnector {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/disconnect/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/disconnect/ExceptionMessage.scala" target="_blank" title="show github file">ExceptionMessage.scala</a>
-        </div>
-        <div class="path">src/main/scala/disconnect/ExceptionMessage.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package disconnect
@@ -801,10 +810,10 @@ case class MyException(content : String) extends ExceptionMessage
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/disconnect/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/disconnect/RemoteEventStream.scala" target="_blank" title="show github file">RemoteEventStream.scala</a>
-        </div>
-        <div class="path">src/main/scala/disconnect/RemoteEventStream.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package disconnect
@@ -863,10 +872,10 @@ object RemoteEventStream {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/sender_info/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/sender_info/ServerActor.scala" target="_blank" title="show github file">ServerActor.scala</a>
-        </div>
-        <div class="path">src/main/scala/sender_info/ServerActor.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package sender_info
@@ -902,10 +911,10 @@ class ClientActor(serverActor: ActorRef, index: String) extends Actor {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/Main.scala" target="_blank" title="show github file">Main.scala</a>
-        </div>
-        <div class="path">src/main/scala/Main.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">import akka.actor.{ActorRef, Actor, Props, ActorSystem}
@@ -974,7 +983,6 @@ case class FinalResult(total: Int)
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/akka-test">打开Github项目地址</a>
     </span>
@@ -986,6 +994,7 @@ case class FinalResult(total: Int)
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

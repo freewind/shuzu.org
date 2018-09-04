@@ -11,6 +11,15 @@
     <div class="site-slogan">jianshu-class-posts-summary</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jianshu-class-posts-summary">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Generate Jianshu Posts Information
@@ -24,10 +33,10 @@ brew install sbt
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">project/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/project/plugins.sbt" target="_blank" title="show github file">plugins.sbt</a>
-        </div>
-        <div class="path">project/plugins.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">resolvers += &quot;Sonatype snapshots&quot; at &quot;https://oss.sonatype.org/content/repositories/snapshots/&quot;
@@ -37,10 +46,10 @@ addSbtPlugin(&quot;com.github.mpeltonen&quot; %% &quot;sbt-idea&quot; % &quot;1.
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
-        </div>
-        <div class="path">build.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">name := &quot;jianshu-class-posts-summary&quot;
@@ -68,10 +77,10 @@ libraryDependencies ++= Seq(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/ArticlePages.scala" target="_blank" title="show github file">ArticlePages.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/ArticlePages.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -144,10 +153,10 @@ object Main extends App {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/XiyouApp.scala" target="_blank" title="show github file">XiyouApp.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/XiyouApp.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -206,10 +215,10 @@ object XiyouApp extends App {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/reports/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/utils.scala" target="_blank" title="show github file">utils.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/utils.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu.reports
@@ -241,10 +250,10 @@ object utils {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/reports/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala" target="_blank" title="show github file">SummaryReport.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/SummaryReport.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu.reports
@@ -296,10 +305,10 @@ object SummaryReport {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/reports/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala" target="_blank" title="show github file">RecentArticleReport.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/reports/RecentArticleReport.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu.reports
@@ -363,10 +372,10 @@ object RecentArticleReport {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala" target="_blank" title="show github file">DaJiangTangApp.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/DaJiangTangApp.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -452,10 +461,10 @@ object DaJiangTangApp extends App {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/MyTest.scala" target="_blank" title="show github file">MyTest.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/MyTest.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -476,10 +485,10 @@ object MyTest extends App {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/models.scala" target="_blank" title="show github file">models.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/models.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -498,10 +507,10 @@ case class Article(id: String, title: String, reads: Int, comments: Int, likes: 
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/in/freewind/jianshu/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/Config.scala" target="_blank" title="show github file">Config.scala</a>
-        </div>
-        <div class="path">src/main/scala/in/freewind/jianshu/Config.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package in.freewind.jianshu
@@ -516,10 +525,10 @@ object Config {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/resources/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/resources/report-template.html" target="_blank" title="show github file">report-template.html</a>
-        </div>
-        <div class="path">src/main/resources/report-template.html</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="html">&lt;!doctype html&gt;
@@ -1056,7 +1065,6 @@ header, .context-menu, .megamenu-content, footer{
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/jianshu-class-posts-summary">打开Github项目地址</a>
     </span>
@@ -1068,6 +1076,7 @@ header, .context-menu, .megamenu-content, footer{
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

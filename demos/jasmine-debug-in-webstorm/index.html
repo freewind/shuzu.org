@@ -11,6 +11,15 @@
     <div class="site-slogan">jasmine-debug-in-webstorm</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Jasmine Debugging Demo
@@ -28,10 +37,10 @@ Then set some break points, you can single debug in webstorm by running `run-spe
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">spec/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
-        </div>
-        <div class="path">spec/hello-spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var hello = require(&#39;../src/hello&#39;);
@@ -45,10 +54,10 @@ describe(&quot;A suite&quot;, function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">spec/support/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
-        </div>
-        <div class="path">spec/support/jasmine.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -67,10 +76,10 @@ describe(&quot;A suite&quot;, function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/src/core.js" target="_blank" title="show github file">core.js</a>
-        </div>
-        <div class="path">src/core.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">module.exports = function() {
@@ -80,10 +89,10 @@ describe(&quot;A suite&quot;, function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/src/hello.js" target="_blank" title="show github file">hello.js</a>
-        </div>
-        <div class="path">src/hello.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">let core = require(&#39;./core&#39;);
@@ -98,10 +107,10 @@ module.exports = function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -124,10 +133,10 @@ module.exports = function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm/blob/master/run-spec.js" target="_blank" title="show github file">run-spec.js</a>
-        </div>
-        <div class="path">run-spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var Jasmine = require(&#39;jasmine&#39;);
@@ -141,7 +150,6 @@ jasmine.execute();
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/jasmine-debug-in-webstorm">打开Github项目地址</a>
     </span>
@@ -153,6 +161,7 @@ jasmine.execute();
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

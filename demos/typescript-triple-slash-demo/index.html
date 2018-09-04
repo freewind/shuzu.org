@@ -11,6 +11,15 @@
     <div class="site-slogan">typescript-triple-slash-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-triple-slash-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         /// &amp;lt;reference path=&quot;...&quot; /&gt; Demo
@@ -62,10 +71,10 @@ export declare function hello(name: any): void;
 最后参考了其它文章，改成了现在的样子，主要就是加了`declare module &#39;a&#39;`的声明。</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">my-module/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/a.js" target="_blank" title="show github file">a.js</a>
-        </div>
-        <div class="path">my-module/a.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">module.exports.hello = function (name) {
@@ -76,10 +85,10 @@ export declare function hello(name: any): void;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">my-module/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/my-module/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">my-module/package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -109,10 +118,10 @@ hello1.ts(4,7): error TS2345: Argument of type &#39;1&#39; is not assignable to 
 ```</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello2.ts" target="_blank" title="show github file">hello2.ts</a>
-        </div>
-        <div class="path">hello2.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">import {hello} from &quot;a&quot;;
@@ -123,10 +132,10 @@ hello(1);
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
-        </div>
-        <div class="path">a.d.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">declare module &#39;a&#39; {
@@ -138,10 +147,10 @@ hello(1);
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/hello1.ts" target="_blank" title="show github file">hello1.ts</a>
-        </div>
-        <div class="path">hello1.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">/// &lt;reference path=&quot;./a.d.ts&quot; /&gt;
@@ -152,10 +161,10 @@ hello(1);</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-triple-slash-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -172,7 +181,6 @@ hello(1);</code></pre>
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/typescript-triple-slash-demo">打开Github项目地址</a>
     </span>
@@ -184,6 +192,7 @@ hello(1);</code></pre>
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

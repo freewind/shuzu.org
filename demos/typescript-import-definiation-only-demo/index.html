@@ -11,6 +11,15 @@
     <div class="site-slogan">typescript-import-definiation-only-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         TypeScript Hello World Demo
@@ -41,10 +50,10 @@ Hello, typescript (from a)
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-c.ts" target="_blank" title="show github file">hello-c.ts</a>
-        </div>
-        <div class="path">hello-c.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">import {hello} from &quot;./modules/c&quot;;
@@ -57,10 +66,10 @@ hello(&quot;typescript&quot;);
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-a.ts" target="_blank" title="show github file">hello-a.ts</a>
-        </div>
-        <div class="path">hello-a.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">import {hello} from &quot;./modules/a&quot;;
@@ -74,10 +83,10 @@ hello(&quot;typescript&quot;);
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/hello-b.ts" target="_blank" title="show github file">hello-b.ts</a>
-        </div>
-        <div class="path">hello-b.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">import {hello} from &quot;./modules/b&quot;;
@@ -122,10 +131,10 @@ Hello, typescript (from b)
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -139,10 +148,10 @@ Hello, typescript (from b)
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">modules/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.js" target="_blank" title="show github file">a.js</a>
-        </div>
-        <div class="path">modules/a.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&quot;use strict&quot;;
@@ -156,10 +165,10 @@ exports.hello = hello;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">modules/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/c.d.ts" target="_blank" title="show github file">c.d.ts</a>
-        </div>
-        <div class="path">modules/c.d.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">export declare function hello(name: any): void;
@@ -168,10 +177,10 @@ exports.hello = hello;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">modules/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/a.d.ts" target="_blank" title="show github file">a.d.ts</a>
-        </div>
-        <div class="path">modules/a.d.ts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="ts">export declare function hello(name: any): void;
@@ -180,10 +189,10 @@ exports.hello = hello;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">modules/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo/blob/master/modules/b.js" target="_blank" title="show github file">b.js</a>
-        </div>
-        <div class="path">modules/b.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&quot;use strict&quot;;
@@ -197,7 +206,6 @@ exports.hello = hello;
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/typescript-import-definiation-only-demo">打开Github项目地址</a>
     </span>
@@ -209,6 +217,7 @@ exports.hello = hello;
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

@@ -11,6 +11,15 @@
     <div class="site-slogan">jest-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jest-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jest-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Jest Demo
@@ -27,10 +36,10 @@ npm test
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">spec/support/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
-        </div>
-        <div class="path">spec/support/jasmine.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -49,10 +58,10 @@ npm test
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">__tests__/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/__tests__/square-sum-spec.js" target="_blank" title="show github file">square-sum-spec.js</a>
-        </div>
-        <div class="path">__tests__/square-sum-spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">jest.unmock(&#39;../square-sum&#39;);
@@ -71,10 +80,10 @@ describe(&#39;square-sum&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/square.js" target="_blank" title="show github file">square.js</a>
-        </div>
-        <div class="path">square.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">function square(a) {
@@ -86,10 +95,10 @@ module.exports = square;</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -113,10 +122,10 @@ module.exports = square;</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jest-demo/blob/master/square-sum.js" target="_blank" title="show github file">square-sum.js</a>
-        </div>
-        <div class="path">square-sum.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const square = require(&#39;./square&#39;);
@@ -130,7 +139,6 @@ module.exports = squareSum;</code></pre>
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/jest-demo">打开Github项目地址</a>
     </span>
@@ -142,6 +150,7 @@ module.exports = squareSum;</code></pre>
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

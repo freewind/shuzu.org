@@ -11,6 +11,15 @@
     <div class="site-slogan">go-search-rss-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/go-search-rss-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/go-search-rss-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Go Hello World Demo
@@ -27,10 +36,10 @@ You will see `Hello, go!`
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">data/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/data/data.json" target="_blank" title="show github file">data.json</a>
-        </div>
-        <div class="path">data/data.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">[
@@ -59,10 +68,10 @@ You will see `Hello, go!`
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/main.go" target="_blank" title="show github file">main.go</a>
-        </div>
-        <div class="path">main.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package main
@@ -86,10 +95,10 @@ func main() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">search/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/feed.go" target="_blank" title="show github file">feed.go</a>
-        </div>
-        <div class="path">search/feed.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package search
@@ -126,10 +135,10 @@ func RetrieveFeeds() ([]*Feed, error) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">search/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/search.go" target="_blank" title="show github file">search.go</a>
-        </div>
-        <div class="path">search/search.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package search
@@ -185,10 +194,10 @@ func Register(feedType string, matcher Matcher) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">search/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/match.go" target="_blank" title="show github file">match.go</a>
-        </div>
-        <div class="path">search/match.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package search
@@ -229,10 +238,10 @@ func Display(results chan *Result) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">search/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/search/default.go" target="_blank" title="show github file">default.go</a>
-        </div>
-        <div class="path">search/default.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package search
@@ -252,10 +261,10 @@ func (m defaultMatcher) Search(feed *Feed, searchTerm string) ([]*Result, error)
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">matchers/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/go-search-rss-demo/blob/master/matchers/rss.go" target="_blank" title="show github file">rss.go</a>
-        </div>
-        <div class="path">matchers/rss.go</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="go">package matchers
@@ -382,7 +391,6 @@ func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/go-search-rss-demo">打开Github项目地址</a>
     </span>
@@ -394,6 +402,7 @@ func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

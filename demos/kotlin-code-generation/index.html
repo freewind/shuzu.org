@@ -11,6 +11,15 @@
     <div class="site-slogan">kotlin-code-generation</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/kotlin-code-generation">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/kotlin-code-generation/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Kotlin Code Generation
@@ -39,10 +48,10 @@ AKPT is not supported by Kotlin-JS    </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example-js/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/build.gradle" target="_blank" title="show github file">build.gradle</a>
-        </div>
-        <div class="path">example-js/build.gradle</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="gradle">apply plugin: &#39;kotlin2js&#39;
@@ -69,10 +78,10 @@ idea {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example-js/src/test/kotlin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/src/test/kotlin/test.kt" target="_blank" title="show github file">test.kt</a>
-        </div>
-        <div class="path">example-js/src/test/kotlin/test.kt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package org.kotlin.test
@@ -94,10 +103,10 @@ class AnnotationTest {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example-js/src/main/kotlin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example-js/src/main/kotlin/ExampleJs.kt" target="_blank" title="show github file">ExampleJs.kt</a>
-        </div>
-        <div class="path">example-js/src/main/kotlin/ExampleJs.kt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package org.kotlin.test
@@ -113,10 +122,10 @@ class AnotherJsClass</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/build.gradle" target="_blank" title="show github file">build.gradle</a>
-        </div>
-        <div class="path">build.gradle</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="gradle">buildscript {
@@ -142,10 +151,10 @@ allprojects {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">annotation-processor/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/annotation-processor/build.gradle" target="_blank" title="show github file">build.gradle</a>
-        </div>
-        <div class="path">annotation-processor/build.gradle</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="gradle">apply plugin: &#39;kotlin&#39;
@@ -158,10 +167,10 @@ dependencies {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">annotation-processor/src/main/kotlin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/annotation-processor/src/main/kotlin/TestAnnotationProcessor.kt" target="_blank" title="show github file">TestAnnotationProcessor.kt</a>
-        </div>
-        <div class="path">annotation-processor/src/main/kotlin/TestAnnotationProcessor.kt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package org.kotlin.annotationProcessor
@@ -242,10 +251,10 @@ class TestAnnotationProcessor : AbstractProcessor() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">annotation-processor/src/main/resources/META-INF/services/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/annotation-processor/src/main/resources/META-INF/services/javax.annotation.processing.Processor" target="_blank" title="show github file">javax.annotation.processing.Processor</a>
-        </div>
-        <div class="path">annotation-processor/src/main/resources/META-INF/services/javax.annotation.processing.Processor</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="Processor">org.kotlin.annotationProcessor.TestAnnotationProcessor</code></pre>
@@ -253,10 +262,10 @@ class TestAnnotationProcessor : AbstractProcessor() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/settings.gradle" target="_blank" title="show github file">settings.gradle</a>
-        </div>
-        <div class="path">settings.gradle</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="gradle">include &#39;:annotation-processor&#39;, &#39;:example&#39;, &#39;:example-js&#39;</code></pre>
@@ -264,10 +273,10 @@ class TestAnnotationProcessor : AbstractProcessor() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/test/java/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/src/test/java/LibraryTest.java" target="_blank" title="show github file">LibraryTest.java</a>
-        </div>
-        <div class="path">src/test/java/LibraryTest.java</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="java">/*
@@ -287,10 +296,10 @@ public class LibraryTest {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/java/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/src/main/java/Library.java" target="_blank" title="show github file">Library.java</a>
-        </div>
-        <div class="path">src/main/java/Library.java</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="java">/*
@@ -306,10 +315,10 @@ public class Library {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/build.gradle" target="_blank" title="show github file">build.gradle</a>
-        </div>
-        <div class="path">example/build.gradle</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="gradle">apply plugin: &#39;kotlin&#39;
@@ -336,10 +345,10 @@ idea {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example/src/test/kotlin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/src/test/kotlin/test.kt" target="_blank" title="show github file">test.kt</a>
-        </div>
-        <div class="path">example/src/test/kotlin/test.kt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package org.kotlin.test
@@ -361,10 +370,10 @@ class AnnotationTest {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">example/src/main/kotlin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/example/src/main/kotlin/Example.kt" target="_blank" title="show github file">Example.kt</a>
-        </div>
-        <div class="path">example/src/main/kotlin/Example.kt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="kt">package org.kotlin.test
@@ -380,10 +389,10 @@ class AnotherClass</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/kotlin-code-generation/blob/master/gradle.properties" target="_blank" title="show github file">gradle.properties</a>
-        </div>
-        <div class="path">gradle.properties</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="properties">kapt.verbose=true</code></pre>
@@ -391,7 +400,6 @@ class AnotherClass</code></pre>
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/kotlin-code-generation">打开Github项目地址</a>
     </span>
@@ -403,6 +411,7 @@ class AnotherClass</code></pre>
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

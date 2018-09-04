@@ -11,6 +11,15 @@
     <div class="site-slogan">jsp-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/jsp-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/jsp-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Maven JSP Demo
@@ -28,10 +37,10 @@ Open &lt;http://localhost:8080/&gt;.
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
-        </div>
-        <div class="path">pom.xml</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
@@ -66,10 +75,10 @@ Open &lt;http://localhost:8080/&gt;.
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/add.jsp" target="_blank" title="show github file">add.jsp</a>
-        </div>
-        <div class="path">src/main/webapp/add.jsp</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="jsp">1 + 1 = &lt;%= 1+1 %&gt;
@@ -78,10 +87,10 @@ Open &lt;http://localhost:8080/&gt;.
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/use-defined-class.jsp" target="_blank" title="show github file">use-defined-class.jsp</a>
-        </div>
-        <div class="path">src/main/webapp/use-defined-class.jsp</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="jsp">&lt;%@ page import=&quot;demo.Hello&quot; %&gt;
@@ -93,10 +102,10 @@ Open &lt;http://localhost:8080/&gt;.
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/chinese-chars.jsp" target="_blank" title="show github file">chinese-chars.jsp</a>
-        </div>
-        <div class="path">src/main/webapp/chinese-chars.jsp</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
@@ -106,10 +115,10 @@ This is &lt;%= &quot;中文&quot; %&gt;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/index.jsp" target="_blank" title="show github file">index.jsp</a>
-        </div>
-        <div class="path">src/main/webapp/index.jsp</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="jsp">&lt;ul&gt;
@@ -123,10 +132,10 @@ This is &lt;%= &quot;中文&quot; %&gt;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/WEB-INF/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
-        </div>
-        <div class="path">src/main/webapp/WEB-INF/web.xml</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -141,10 +150,10 @@ This is &lt;%= &quot;中文&quot; %&gt;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/webapp/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/loop.jsp" target="_blank" title="show github file">loop.jsp</a>
-        </div>
-        <div class="path">src/main/webapp/loop.jsp</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="jsp">&lt;%@ page import=&quot;java.util.List&quot; %&gt;
@@ -165,10 +174,10 @@ names.add(&quot;Mike&quot;);
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/java/demo/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/java/demo/Hello.java" target="_blank" title="show github file">Hello.java</a>
-        </div>
-        <div class="path">src/main/java/demo/Hello.java</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="java">package demo;
@@ -185,7 +194,6 @@ public class Hello {
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/jsp-demo">打开Github项目地址</a>
     </span>
@@ -197,6 +205,7 @@ public class Hello {
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

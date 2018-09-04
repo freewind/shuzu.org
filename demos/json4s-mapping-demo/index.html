@@ -11,6 +11,15 @@
     <div class="site-slogan">json4s-mapping-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/json4s-mapping-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/json4s-mapping-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Sbt Hello World Demo
@@ -24,10 +33,10 @@ sbt test
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">project/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
-        </div>
-        <div class="path">project/build.properties</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="properties">sbt.version=1.0.4
@@ -36,10 +45,10 @@ sbt test
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
-        </div>
-        <div class="path">build.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">name := &quot;hello&quot;
@@ -61,10 +70,10 @@ libraryDependencies ++= Seq(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/test/scala/my/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/src/test/scala/my/PersonSpec.scala" target="_blank" title="show github file">PersonSpec.scala</a>
-        </div>
-        <div class="path">src/test/scala/my/PersonSpec.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package my
@@ -96,10 +105,10 @@ class PersonSpec extends FunSuite with Matchers {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/my/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/json4s-mapping-demo/blob/master/src/main/scala/my/Person.scala" target="_blank" title="show github file">Person.scala</a>
-        </div>
-        <div class="path">src/main/scala/my/Person.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package my
@@ -110,7 +119,6 @@ case class Person(name: String, age: Int, address: Option[String], phones: List[
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/json4s-mapping-demo">打开Github项目地址</a>
     </span>
@@ -122,6 +130,7 @@ case class Person(name: String, age: Int, address: Option[String], phones: List[
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

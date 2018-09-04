@@ -11,6 +11,15 @@
     <div class="site-slogan">sbt-buildinfo-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/sbt-buildinfo-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Sbt BuildInfo Plugin Demo
@@ -27,10 +36,10 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt" target="_blank" title="show github file">sbt</a>
-        </div>
-        <div class="path">sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">#!/usr/bin/env bash
@@ -40,10 +49,10 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt.bat" target="_blank" title="show github file">sbt.bat</a>
-        </div>
-        <div class="path">sbt.bat</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="bat">@REM SBT launcher script
@@ -54,10 +63,10 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">project/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/buildinfo.sbt" target="_blank" title="show github file">buildinfo.sbt</a>
-        </div>
-        <div class="path">project/buildinfo.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">addSbtPlugin(&quot;com.eed3si9n&quot; % &quot;sbt-buildinfo&quot; % &quot;0.7.0&quot;)</code></pre>
@@ -65,10 +74,10 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">project/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/Dependencies.scala" target="_blank" title="show github file">Dependencies.scala</a>
-        </div>
-        <div class="path">project/Dependencies.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">import sbt._
@@ -81,10 +90,10 @@ object Dependencies {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">project/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
-        </div>
-        <div class="path">project/build.properties</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="properties">sbt.version=1.0.0
@@ -93,10 +102,10 @@ object Dependencies {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">sbt-dist/conf/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/conf/sbtconfig.txt" target="_blank" title="show github file">sbtconfig.txt</a>
-        </div>
-        <div class="path">sbt-dist/conf/sbtconfig.txt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="txt"># Set the java args to high
@@ -118,10 +127,10 @@ object Dependencies {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">sbt-dist/conf/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/conf/sbtopts" target="_blank" title="show github file">sbtopts</a>
-        </div>
-        <div class="path">sbt-dist/conf/sbtopts</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbtopts"># ------------------------------------------------ #
@@ -178,10 +187,10 @@ object Dependencies {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">sbt-dist/bin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt" target="_blank" title="show github file">sbt</a>
-        </div>
-        <div class="path">sbt-dist/bin/sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">#!/usr/bin/env bash
@@ -340,10 +349,10 @@ run &quot;$@&quot;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">sbt-dist/bin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt-launch-lib.bash" target="_blank" title="show github file">sbt-launch-lib.bash</a>
-        </div>
-        <div class="path">sbt-dist/bin/sbt-launch-lib.bash</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="bash">#!/usr/bin/env bash
@@ -564,10 +573,10 @@ run() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">sbt-dist/bin/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt.bat" target="_blank" title="show github file">sbt.bat</a>
-        </div>
-        <div class="path">sbt-dist/bin/sbt.bat</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="bat">@REM SBT launcher script
@@ -628,10 +637,10 @@ exit /B 0
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
-        </div>
-        <div class="path">build.sbt</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="sbt">import Dependencies._
@@ -655,10 +664,10 @@ lazy val root = (project in file(&quot;.&quot;)).
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/test/scala/example/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/src/test/scala/example/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
-        </div>
-        <div class="path">src/test/scala/example/HelloSpec.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package example
@@ -675,10 +684,10 @@ class HelloSpec extends FlatSpec with Matchers {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">src/main/scala/example/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/src/main/scala/example/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
-        </div>
-        <div class="path">src/main/scala/example/Hello.scala</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="scala">package example
@@ -695,7 +704,6 @@ trait Greeting {
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/sbt-buildinfo-demo">打开Github项目地址</a>
     </span>
@@ -707,6 +715,7 @@ trait Greeting {
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

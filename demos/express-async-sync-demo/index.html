@@ -11,6 +11,15 @@
     <div class="site-slogan">express-async-sync-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/express-async-sync-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/express-async-sync-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
         Start Server
@@ -45,10 +54,10 @@ http http://localhost:3000/async/users
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/sync/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/sync/db.js" target="_blank" title="show github file">db.js</a>
-        </div>
-        <div class="path">app/sync/db.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&#39;use strict&#39;;
@@ -77,10 +86,10 @@ module.exports = {findAll, save};</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/sync/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/sync/handlers.js" target="_blank" title="show github file">handlers.js</a>
-        </div>
-        <div class="path">app/sync/handlers.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&#39;use strict&#39;;
@@ -113,10 +122,10 @@ module.exports = {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/sync/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/sync/service.js" target="_blank" title="show github file">service.js</a>
-        </div>
-        <div class="path">app/sync/service.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const db = require(&#39;./db&#39;);
@@ -136,10 +145,10 @@ module.exports = {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">app/index.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&#39;use strict&#39;;
@@ -168,10 +177,10 @@ app.listen(3000, function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/user-model.js" target="_blank" title="show github file">user-model.js</a>
-        </div>
-        <div class="path">app/user-model.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">class User {
@@ -186,10 +195,10 @@ module.exports = User;</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/make-error-randomly.js" target="_blank" title="show github file">make-error-randomly.js</a>
-        </div>
-        <div class="path">app/make-error-randomly.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&#39;use strict&#39;;
@@ -209,10 +218,10 @@ module.exports = function () {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/async/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/db.js" target="_blank" title="show github file">db.js</a>
-        </div>
-        <div class="path">app/async/db.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">&#39;use strict&#39;;
@@ -247,10 +256,10 @@ module.exports = {findAll, save};</code></pre>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/async/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/handlers.js" target="_blank" title="show github file">handlers.js</a>
-        </div>
-        <div class="path">app/async/handlers.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const userService = require(&#39;./service&#39;);
@@ -278,10 +287,10 @@ module.exports = {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">app/async/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/app/async/service.js" target="_blank" title="show github file">service.js</a>
-        </div>
-        <div class="path">app/async/service.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const db = require(&#39;./db&#39;);
@@ -301,10 +310,10 @@ module.exports = {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/express-async-sync-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -330,7 +339,6 @@ module.exports = {
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/express-async-sync-demo">打开Github项目地址</a>
     </span>
@@ -342,6 +350,7 @@ module.exports = {
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>

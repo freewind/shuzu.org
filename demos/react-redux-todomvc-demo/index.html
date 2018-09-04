@@ -11,13 +11,22 @@
     <div class="site-slogan">react-redux-todomvc-demo</div>
 </div>
 
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/react-redux-todomvc-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
-        </div>
-        <div class="path">.babelrc</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="babelrc">{
@@ -33,10 +42,10 @@
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">actions/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/actions/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">actions/index.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import * as types from &#39;../constants/ActionTypes&#39;
@@ -69,10 +78,10 @@ export function clearCompleted() {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">constants/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/constants/ActionTypes.js" target="_blank" title="show github file">ActionTypes.js</a>
-        </div>
-        <div class="path">constants/ActionTypes.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">export const ADD_TODO = &#39;ADD_TODO&#39;
@@ -86,10 +95,10 @@ export const CLEAR_COMPLETED = &#39;CLEAR_COMPLETED&#39;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">constants/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/constants/TodoFilters.js" target="_blank" title="show github file">TodoFilters.js</a>
-        </div>
-        <div class="path">constants/TodoFilters.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">export const SHOW_ALL = &#39;show_all&#39;
@@ -100,10 +109,10 @@ export const SHOW_ACTIVE = &#39;show_active&#39;
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">store/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/store/configureStore.js" target="_blank" title="show github file">configureStore.js</a>
-        </div>
-        <div class="path">store/configureStore.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import { createStore } from &#39;redux&#39;
@@ -127,10 +136,10 @@ export default function configureStore(preloadedState) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/setup.js" target="_blank" title="show github file">setup.js</a>
-        </div>
-        <div class="path">test/setup.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import { jsdom } from &#39;jsdom&#39;
@@ -143,10 +152,10 @@ global.navigator = global.window.navigator
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/actions/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/actions/todos.spec.js" target="_blank" title="show github file">todos.spec.js</a>
-        </div>
-        <div class="path">test/actions/todos.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -200,10 +209,10 @@ describe(&#39;todo actions&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/reducers/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/reducers/todos.spec.js" target="_blank" title="show github file">todos.spec.js</a>
-        </div>
-        <div class="path">test/reducers/todos.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -496,10 +505,10 @@ describe(&#39;todos reducer&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/.eslintrc" target="_blank" title="show github file">.eslintrc</a>
-        </div>
-        <div class="path">test/.eslintrc</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="eslintrc">{
@@ -512,10 +521,10 @@ describe(&#39;todos reducer&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/TodoItem.spec.js" target="_blank" title="show github file">TodoItem.spec.js</a>
-        </div>
-        <div class="path">test/components/TodoItem.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -643,10 +652,10 @@ describe(&#39;components&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/Header.spec.js" target="_blank" title="show github file">Header.spec.js</a>
-        </div>
-        <div class="path">test/components/Header.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -704,10 +713,10 @@ describe(&#39;components&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/TodoTextInput.spec.js" target="_blank" title="show github file">TodoTextInput.spec.js</a>
-        </div>
-        <div class="path">test/components/TodoTextInput.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -796,10 +805,10 @@ describe(&#39;components&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/Footer.spec.js" target="_blank" title="show github file">Footer.spec.js</a>
-        </div>
-        <div class="path">test/components/Footer.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -909,10 +918,10 @@ describe(&#39;components&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">test/components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/test/components/MainSection.spec.js" target="_blank" title="show github file">MainSection.spec.js</a>
-        </div>
-        <div class="path">test/components/MainSection.spec.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import expect from &#39;expect&#39;
@@ -1050,10 +1059,10 @@ describe(&#39;components&#39;, () =&gt; {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
-        </div>
-        <div class="path">webpack.config.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var path = require(&#39;path&#39;)
@@ -1095,10 +1104,10 @@ module.exports = {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">index.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import &#39;babel-polyfill&#39;
@@ -1122,10 +1131,10 @@ render(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">reducers/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/reducers/index.js" target="_blank" title="show github file">index.js</a>
-        </div>
-        <div class="path">reducers/index.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import { combineReducers } from &#39;redux&#39;
@@ -1141,10 +1150,10 @@ export default rootReducer
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">reducers/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/reducers/todos.js" target="_blank" title="show github file">todos.js</a>
-        </div>
-        <div class="path">reducers/todos.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from &#39;../constants/ActionTypes&#39;
@@ -1206,10 +1215,10 @@ export default function todos(state = initialState, action) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
-        </div>
-        <div class="path">package.json</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
@@ -1266,10 +1275,10 @@ export default function todos(state = initialState, action) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">containers/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/containers/App.js" target="_blank" title="show github file">App.js</a>
-        </div>
-        <div class="path">containers/App.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
@@ -1317,10 +1326,10 @@ export default connect(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
-        </div>
-        <div class="path">index.html</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="html">&lt;!DOCTYPE html&gt;
@@ -1339,10 +1348,10 @@ export default connect(
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path"></span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/server.js" target="_blank" title="show github file">server.js</a>
-        </div>
-        <div class="path">server.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">var webpack = require(&#39;webpack&#39;)
@@ -1373,10 +1382,10 @@ app.listen(port, function(error) {
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/Header.js" target="_blank" title="show github file">Header.js</a>
-        </div>
-        <div class="path">components/Header.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { PropTypes, Component } from &#39;react&#39;
@@ -1411,10 +1420,10 @@ export default Header
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/Footer.js" target="_blank" title="show github file">Footer.js</a>
-        </div>
-        <div class="path">components/Footer.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { PropTypes, Component } from &#39;react&#39;
@@ -1495,10 +1504,10 @@ export default Footer
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/TodoItem.js" target="_blank" title="show github file">TodoItem.js</a>
-        </div>
-        <div class="path">components/TodoItem.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
@@ -1576,10 +1585,10 @@ export default TodoItem
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/TodoTextInput.js" target="_blank" title="show github file">TodoTextInput.js</a>
-        </div>
-        <div class="path">components/TodoTextInput.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
@@ -1645,10 +1654,10 @@ export default TodoTextInput
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
-        <div class="name">
+        <span class="parent-path">components/</span>
+        <span class="name">
             <a href="https://github.com/freewind-demos/react-redux-todomvc-demo/blob/master/components/MainSection.js" target="_blank" title="show github file">MainSection.js</a>
-        </div>
-        <div class="path">components/MainSection.js</div>
+        </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">import React, { Component, PropTypes } from &#39;react&#39;
@@ -1739,7 +1748,6 @@ export default MainSection
 </div>
 
 <div class="github center-in-page markdown-body">
-    <span class="github-icon"><img src="../../images/github.jpg"></span>
     <span class="repo-url">
         <a href="https://github.com/freewind-demos/react-redux-todomvc-demo">打开Github项目地址</a>
     </span>
@@ -1751,6 +1759,7 @@ export default MainSection
 <script src="../../js/site.js"></script>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
 </script>
 </body>
 </html>
