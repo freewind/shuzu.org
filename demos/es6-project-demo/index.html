@@ -46,6 +46,19 @@ If you modify `public/hello.jsx` to change the text, you will see the changes ar
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
         <div class="path">app/server.js</div>
@@ -221,6 +234,56 @@ module.exports = {
         <pre class="content"><code class="yml">language: node_js
 node_js:
   - &quot;6&quot;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/public/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">public/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+class Hello extends React.Component {
+    render() {
+        return (&lt;div&gt;
+            &lt;h1&gt;Hello world&lt;/h1&gt;
+            &lt;/div&gt;)
+    }
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/es6-project-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import $ from &#39;jquery&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+// use jquery
+console.log($(&#39;#content&#39;).text());
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

@@ -71,6 +71,35 @@ You can see it in new open pages by clicking the bottom link.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/maven-session-demo/blob/master/src/main/webapp/index.jsp" target="_blank" title="show github file">index.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/index.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Session: &lt;%= session.getAttribute(&quot;name&quot;) %&gt;&lt;/h1&gt;
+&lt;form action=&quot;/set-session&quot;&gt;
+    &lt;div&gt;
+        &lt;label&gt;New session&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
+    &lt;/div&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Set&quot;/&gt;
+&lt;/form&gt;
+&lt;div&gt;
+    &lt;a href=&quot;./show-session.jsp&quot; target=&quot;_blank&quot;&gt;Show session in new page&lt;/a&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/maven-session-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
         </div>
         <div class="path">src/main/webapp/WEB-INF/web.xml</div>
@@ -94,6 +123,25 @@ You can see it in new open pages by clicking the bottom link.
     &lt;/servlet-mapping&gt;
 
 &lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/maven-session-demo/blob/master/src/main/webapp/show-session.jsp" target="_blank" title="show github file">show-session.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/show-session.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Session: &lt;%= session.getAttribute(&quot;name&quot;) %&gt;&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
     </div>
 </div>

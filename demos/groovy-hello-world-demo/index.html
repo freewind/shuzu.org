@@ -55,6 +55,50 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-hello-world-demo/blob/master/src/test/groovy/my/GroovySpec.groovy" target="_blank" title="show github file">GroovySpec.groovy</a>
+        </div>
+        <div class="path">src/test/groovy/my/GroovySpec.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+import org.junit.Test
+
+import static org.fest.assertions.api.Assertions.assertThat
+
+class HelloSpec {
+
+    @Test
+    void &quot;test hello&quot;() {
+        String greeting = Hello.hello(&quot;gradle&quot;)
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle!&quot;)
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-hello-world-demo/blob/master/src/main/groovy/my/Hello.groovy" target="_blank" title="show github file">Hello.groovy</a>
+        </div>
+        <div class="path">src/main/groovy/my/Hello.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+static def hello(String name) {
+    return &quot;Hello, $name!&quot;
+}
+
+println(hello(&quot;Groovy&quot;))
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

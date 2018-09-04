@@ -25,6 +25,50 @@ brew install sbt
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/project/plugins.sbt" target="_blank" title="show github file">plugins.sbt</a>
+        </div>
+        <div class="path">project/plugins.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">resolvers += &quot;Sonatype snapshots&quot; at &quot;https://oss.sonatype.org/content/repositories/snapshots/&quot;
+
+addSbtPlugin(&quot;com.github.mpeltonen&quot; %% &quot;sbt-idea&quot; % &quot;1.7.0-SNAPSHOT&quot;)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;jianshu-class-posts-summary&quot;
+
+version := &quot;1.0&quot;
+
+organization := &quot;org.my&quot;
+
+scalaVersion := &quot;2.11.0&quot;
+
+sbtVersion := &quot;0.13.5&quot;
+
+resolvers ++= Seq(
+  &quot;aliyun&quot; at &quot;http://maven.aliyun.com/nexus/content/groups/public/&quot;,
+  &quot;Sonatype releases&quot; at &quot;http://oss.sonatype.org/content/repositories/releases&quot;
+)
+
+libraryDependencies ++= Seq(
+  &quot;org.apache.commons&quot; % &quot;commons-lang3&quot; % &quot;3.3.2&quot;,
+  &quot;org.scala-lang.modules&quot; %% &quot;scala-xml&quot; % &quot;1.0.6&quot;,
+  &quot;net.ruippeixotog&quot; %% &quot;scala-scraper&quot; % &quot;1.1.0&quot;
+)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jianshu-class-posts-summary/blob/master/src/main/scala/in/freewind/jianshu/ArticlePages.scala" target="_blank" title="show github file">ArticlePages.scala</a>
         </div>
         <div class="path">src/main/scala/in/freewind/jianshu/ArticlePages.scala</div>

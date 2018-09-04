@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>javascript-webpack-html-webpack-plugin-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-webpack-html-webpack-plugin-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Webpack &quot;html-webpack-plugin&quot; Demo
+=============================================
+
+It will generate a simple html page contains the generated bundle.js.
+
+```
+npm install
+npm run demo
+```
+
+It will open the generated `index.html` automatically.
+
+![demo](./images/demo.jpg)    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-html-webpack-plugin-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+        </div>
+        <div class="path">entry.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">document.write(&#39;This HTML page is auto generated&#39;)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-html-webpack-plugin-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </div>
+        <div class="path">webpack.config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+
+module.exports = {
+    entry: &#39;./entry.js&#39;,
+    output: {
+        path: __dirname,
+        filename: &#39;bundle.js&#39;
+    },
+    plugins: [new HtmlWebpackPlugin()]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-webpack-html-webpack-plugin-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;webpack &amp;&amp; open index.html&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+    &quot;webpack&quot;: &quot;^4.17.1&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-webpack-html-webpack-plugin-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-webpack-html-webpack-plugin-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

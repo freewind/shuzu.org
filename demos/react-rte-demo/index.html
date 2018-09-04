@@ -30,6 +30,19 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;, you will see a ric
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-rte-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-rte-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -53,6 +66,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;, you will see a ric
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-rte-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import EditorPage from &#39;./components/editor-page.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;EditorPage /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -113,6 +146,84 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;, you will see a ric
 	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-rte-demo/blob/master/components/my-stateful-editor.jsx" target="_blank" title="show github file">my-stateful-editor.jsx</a>
+        </div>
+        <div class="path">components/my-stateful-editor.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component, PropTypes} from &#39;react&#39;;
+import RichTextEditor from &#39;react-rte&#39;;
+
+class MyStatefulEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: RichTextEditor.createEmptyValue()
+    }
+  }
+
+  render() {
+    return &lt;RichTextEditor
+      value={this.state.value}
+      onChange={this._onChange.bind(this)}/&gt;;
+  }
+
+  _onChange(value) {
+    this.setState({value});
+    if (this.props.onChange) {
+      this.props.onChange(value.toString(&#39;html&#39;));
+    }
+  }
+}
+;
+
+
+MyStatefulEditor.propTypes = {
+  onChange: PropTypes.func
+}
+
+export default MyStatefulEditor;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-rte-demo/blob/master/components/editor-page.jsx" target="_blank" title="show github file">editor-page.jsx</a>
+        </div>
+        <div class="path">components/editor-page.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import MyStatefulEditor from &#39;./my-stateful-editor.jsx&#39;;
+
+export default class EditorPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorContent: &#39;&#39;
+    }
+  }
+
+  render() {
+    return &lt;div&gt;
+      &lt;MyStatefulEditor onChange={this._onChange.bind(this)}/&gt;
+      &lt;hr/&gt;
+      &lt;div&gt;
+        &lt;h2&gt;Editor Content&lt;/h2&gt;
+        &lt;div&gt;{this.state.editorContent}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+
+  _onChange(editorContent) {
+    this.setState({editorContent});
+  }
+}</code></pre>
     </div>
 </div>
 

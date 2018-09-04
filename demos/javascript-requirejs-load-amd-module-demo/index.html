@@ -1,0 +1,125 @@
+<html>
+<head>
+    <title>javascript-requirejs-load-amd-module-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-requirejs-load-amd-module-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript RequireJS Demo
+=========================
+
+RequireJS是用来在浏览器中加载js模块的，文档写得极其晦涩难懂，不把人看死都写不出来一个hello world。
+
+好在我们现在有webpack了。
+
+```
+npm install
+npm run demo
+```
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- 快速理解RequireJS: &lt;http://freewind.in/posts/2741-understand-requirejs-quickly/&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo/blob/master/hello-amd-module.js" target="_blank" title="show github file">hello-amd-module.js</a>
+        </div>
+        <div class="path">hello-amd-module.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">define([], function () {
+    return {
+        showInPage: function (elementId) {
+            document.getElementById(elementId).innerText = &#39;Hello, RequireJS (from hello-module)&#39;
+        }
+    }
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo/blob/master/requirejs-config.js" target="_blank" title="show github file">requirejs-config.js</a>
+        </div>
+        <div class="path">requirejs-config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">requirejs.config({
+    paths: {
+        hello: &#39;./hello-amd-module&#39;
+    }
+})
+
+requirejs([&#39;hello&#39;], function (hello) {
+    hello.showInPage(&#39;main&#39;)
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;open index.html&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;requirejs&quot;: &quot;^2.3.6&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/requirejs/require.js&quot; data-main=&quot;./requirejs-config.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;main&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-requirejs-load-amd-module-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

@@ -40,6 +40,56 @@ Then visit:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-views-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-views-demo/blob/master/views/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">views/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+export default class Hello extends React.Component {
+  render() {
+  	return &lt;div&gt;Hello World!&lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-views-demo/blob/master/views/data.jsx" target="_blank" title="show github file">data.jsx</a>
+        </div>
+        <div class="path">views/data.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+export default class Names extends React.Component {
+	render() {
+		const names = this.props.names.map(name =&gt; 
+			&lt;li key={name}&gt;{name}&lt;/li&gt;
+		);
+		return &lt;ul&gt;{names}&lt;/ul&gt;;
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-views-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">index.js</div>

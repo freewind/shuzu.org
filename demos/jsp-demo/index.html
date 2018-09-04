@@ -67,6 +67,63 @@ Open &lt;http://localhost:8080/&gt;.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/add.jsp" target="_blank" title="show github file">add.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/add.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">1 + 1 = &lt;%= 1+1 %&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/use-defined-class.jsp" target="_blank" title="show github file">use-defined-class.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/use-defined-class.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page import=&quot;demo.Hello&quot; %&gt;
+&lt;div&gt;
+    &lt;%= new Hello().greeting(&quot;World!&quot;) %&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/chinese-chars.jsp" target="_blank" title="show github file">chinese-chars.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/chinese-chars.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+This is &lt;%= &quot;中文&quot; %&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/index.jsp" target="_blank" title="show github file">index.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/index.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;./add.jsp&quot;&gt;Number Add&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;./loop.jsp&quot;&gt;For loop&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;./chinese-chars.jsp&quot;&gt;Chinese Characters&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;./use-defined-class.jsp&quot;&gt;Use defined class&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/WEB-INF/web.xml" target="_blank" title="show github file">web.xml</a>
         </div>
         <div class="path">src/main/webapp/WEB-INF/web.xml</div>
@@ -79,6 +136,30 @@ Open &lt;http://localhost:8080/&gt;.
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&quot;&gt;
 
 &lt;/web-app&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/jsp-demo/blob/master/src/main/webapp/loop.jsp" target="_blank" title="show github file">loop.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/loop.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page import=&quot;java.util.List&quot; %&gt;
+&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;
+&lt;%
+List&lt;String&gt; names = new ArrayList&lt;String&gt;();
+names.add(&quot;Jack&quot;);
+names.add(&quot;Mike&quot;);
+%&gt;
+&lt;ul&gt;
+    Names:
+    &lt;% for(String name:names) { %&gt;
+    &lt;li&gt;&lt;%= name %&gt;&lt;/li&gt;
+    &lt;% } %&gt;
+&lt;/ul&gt;
 </code></pre>
     </div>
 </div>

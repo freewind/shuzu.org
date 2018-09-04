@@ -140,6 +140,43 @@ new Vue({
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-watch-demo/blob/master/src/App.vue" target="_blank" title="show github file">App.vue</a>
+        </div>
+        <div class="path">src/App.vue</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="vue">&lt;template&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;text&quot; v-model=&quot;message&quot; autofocus/&gt;
+        &lt;div&gt;{{ message }}&lt;/div&gt;
+        &lt;div&gt;{{ myMessage1 }}&lt;/div&gt;
+        &lt;div&gt;{{ myMessage2 }}&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script lang=&quot;ts&quot;&gt;
+    import {Component, Watch, Vue} from &#39;vue-property-decorator&#39;
+
+    @Component({})
+    export default class App extends Vue {
+        message: string = &#39;change me&#39;
+
+        myMessage1: string = &#39;&#39;
+        myMessage2: string = &#39;&#39;
+
+        @Watch(&#39;message&#39;)
+        update() {
+            this.myMessage1 = this.message + &#39; (1)&#39;
+            this.myMessage2 = this.message + &#39; (2)&#39;
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/vue-typescript-watch-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>

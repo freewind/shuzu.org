@@ -56,6 +56,26 @@ run.sh
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/run.sh" target="_blank" title="show github file">run.sh</a>
+        </div>
+        <div class="path">run.sh</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sh">#!/bin/bash
+
+rm -rf ~/.m2/repository/org/apache/commons/commons-lang3/3.7
+
+mvn --settings ./user-settings.xml \
+    -Dcenter-mirror-url=http://maven.aliyun.com/nexus/content/repositories/jcenter \
+    clean compile \
+    | grep aliyun
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/maven-pass-vars-to-settings-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>

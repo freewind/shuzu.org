@@ -31,6 +31,40 @@ If you modify `public/hello.jsx` to change the text, you will see the changes ar
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+
+class Hello extends Component {
+	render() {
+		return &lt;div&gt;
+		  &lt;h1&gt;Hello world&lt;/h1&gt;
+		&lt;/div&gt;;
+	}
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -54,6 +88,26 @@ If you modify `public/hello.jsx` to change the text, you will see the changes ar
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-react-es6-webpack-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

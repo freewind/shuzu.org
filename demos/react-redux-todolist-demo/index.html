@@ -52,6 +52,49 @@ npm run webpack:watch
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/.editorconfig" target="_blank" title="show github file">.editorconfig</a>
+        </div>
+        <div class="path">.editorconfig</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="editorconfig"># EditorConfig is awesome: http://EditorConfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,jsx,html,less,yml}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;,
+    &quot;react&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/webpack.config-test.js" target="_blank" title="show github file">webpack.config-test.js</a>
         </div>
         <div class="path">webpack.config-test.js</div>
@@ -754,6 +797,32 @@ export default function () {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">src/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import App from &#39;./components/app.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import {createStore} from &#39;redux&#39;;
+import reducers from &#39;./reducers&#39;;
+import {Provider} from &#39;react-redux&#39;;
+
+const store = createStore(reducers);
+
+ReactDOM.render(
+  &lt;Provider store={store}&gt;
+    &lt;App /&gt;
+  &lt;/Provider&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/containers/footer-container.js" target="_blank" title="show github file">footer-container.js</a>
         </div>
         <div class="path">src/containers/footer-container.js</div>
@@ -954,6 +1023,158 @@ export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/clear-complete-button.jsx" target="_blank" title="show github file">clear-complete-button.jsx</a>
+        </div>
+        <div class="path">src/components/clear-complete-button.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class ClearCompleteButton extends Component {
+  render() {
+    const {clearCompleteTodos} = this.props;
+    return &lt;button onClick={() =&gt;clearCompleteTodos()}&gt;Clear completed&lt;/button&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/header.jsx" target="_blank" title="show github file">header.jsx</a>
+        </div>
+        <div class="path">src/components/header.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import Logo from &#39;./logo.jsx&#39;;
+
+export default class Header extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;Logo/&gt;
+    &lt;/div&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/footer.jsx" target="_blank" title="show github file">footer.jsx</a>
+        </div>
+        <div class="path">src/components/footer.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import TodoActiveCountContainer from &#39;../containers/todo-active-count-container&#39;;
+import FilterButtons from &#39;./filter-buttons.jsx&#39;;
+import ClearCompleteButtonContainer from &#39;../containers/clear-complete-button-container&#39;;
+
+export default class Footer extends Component {
+  render() {
+    const {hasCompleteTodos} = this.props;
+    return &lt;div className=&quot;footer&quot;&gt;
+      &lt;TodoActiveCountContainer/&gt;
+      &lt;FilterButtons/&gt;
+      { hasCompleteTodos
+        ? &lt;ClearCompleteButtonContainer/&gt;
+        : &quot;&quot;
+      }
+    &lt;/div&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo.jsx" target="_blank" title="show github file">todo.jsx</a>
+        </div>
+        <div class="path">src/components/todo.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import classNames from &#39;classnames&#39;;
+import &#39;./todo.less&#39;;
+
+export default class Todo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false
+    }
+  }
+
+  render() {
+    const {editing} = this.state;
+    const {todo} = this.props;
+    const completed = !todo.active;
+    const todoContentClasses = classNames({
+      completed,
+      content: true
+    });
+    return &lt;div&gt;
+      &lt;input className=&quot;todo-state&quot; type=&quot;checkbox&quot; defaultChecked={completed}
+             onChange={() =&gt; this.props.onToggleTodo(todo.id)}/&gt;
+      &lt;span className=&quot;todo-content&quot;&gt;
+        { editing
+          ? &lt;input className=&quot;edit&quot; type=&quot;text&quot; defaultValue={todo.content}
+                   onKeyPress={this._onEnter.bind(this)}/&gt;
+          :
+          &lt;span className={todoContentClasses}
+                onDoubleClick={() =&gt; this.setState({editing: true})}&gt;{todo.content}&lt;/span&gt;
+        }
+        &lt;button className=&quot;todo-delete&quot; onClick={() =&gt; this.props.onDeleteTodo(todo.id)}&gt;X&lt;/button&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;;
+  }
+
+  _onEnter(event) {
+    const {todo, onEditTodo} = this.props;
+    if (event.charCode === 13) {
+      const newContent = event.target.value;
+      onEditTodo(todo.id, newContent);
+      this.setState({
+        editing: false
+      });
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/filter-button.jsx" target="_blank" title="show github file">filter-button.jsx</a>
+        </div>
+        <div class="path">src/components/filter-button.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import classNames from &#39;classnames&#39;;
+
+export default class FilterButton extends Component {
+
+  render() {
+    const {name, forFilter, globalFilter, filterTodos} = this.props;
+    var selectedClassNames = classNames({
+      selected: forFilter === globalFilter
+    });
+    return &lt;button className={selectedClassNames} onClick={() =&gt; filterTodos(forFilter)}&gt;{name}&lt;/button&gt;;
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo.less" target="_blank" title="show github file">todo.less</a>
         </div>
         <div class="path">src/components/todo.less</div>
@@ -977,6 +1198,37 @@ export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">src/components/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+class Hello extends React.Component {
+  render() {
+    const {fruit, onDeleteFruit} = this.props;
+    return &lt;div&gt;
+      &lt;h1&gt;Hello, I like:&lt;/h1&gt;
+      &lt;ul&gt;
+        {
+          fruit.map(name =&gt; &lt;li&gt;
+            {name}
+            &lt;button title=&quot;delete&quot; onClick={() =&gt; onDeleteFruit(name)}&gt;x&lt;/button&gt;
+          &lt;/li&gt;)
+        }
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  }
+}
+
+export default Hello;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/filter-buttons.less" target="_blank" title="show github file">filter-buttons.less</a>
         </div>
         <div class="path">src/components/filter-buttons.less</div>
@@ -993,6 +1245,178 @@ export default connect(mapStateToProps, mapDispatchToProps)(FilterButton);
 
   .selected {
     background-color: #DDDDDD;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo-input.jsx" target="_blank" title="show github file">todo-input.jsx</a>
+        </div>
+        <div class="path">src/components/todo-input.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class TodoInput extends Component {
+  constructor(props) {
+    super(props);
+    this.onNewTodo = this.props.onNewTodo;
+  }
+
+  render() {
+    return &lt;span&gt;
+      &lt;input id=&quot;todo-input&quot; type=&quot;text&quot; placeholder=&quot;What needs to be done?&quot;
+             onKeyPress={this._onInputItem.bind(this)}/&gt;
+    &lt;/span&gt;;
+  }
+
+  _onInputItem(event) {
+    if (event.charCode === 13) {
+      const content = event.target.value;
+      if (content) {
+        event.target.value = &#39;&#39;;
+        this.onNewTodo(content);
+      }
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/app.jsx" target="_blank" title="show github file">app.jsx</a>
+        </div>
+        <div class="path">src/components/app.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import Header from &#39;./header.jsx&#39;;
+import Body from &#39;./body.jsx&#39;;
+import FooterContainer from &#39;../containers/footer-container&#39;;
+
+export default class App extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;Header/&gt;
+      &lt;Body/&gt;
+      &lt;FooterContainer/&gt;
+    &lt;/div&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/body.jsx" target="_blank" title="show github file">body.jsx</a>
+        </div>
+        <div class="path">src/components/body.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &quot;react&quot;;
+import TodoInputContainer from &quot;../containers/todo-input-container&quot;;
+import TodoListContainer from &quot;../containers/todo-list-container&quot;;
+
+export default class Body extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;TodoInputContainer /&gt;
+      &lt;TodoListContainer/&gt;
+    &lt;/div&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo-active-count.jsx" target="_blank" title="show github file">todo-active-count.jsx</a>
+        </div>
+        <div class="path">src/components/todo-active-count.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class TodoActiveCount extends Component {
+  render() {
+    const {activeCount} = this.props;
+    return &lt;span&gt;{activeCount} items left&lt;/span&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/filter-buttons.jsx" target="_blank" title="show github file">filter-buttons.jsx</a>
+        </div>
+        <div class="path">src/components/filter-buttons.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import FilterButtonContainer from &#39;../containers/filter-button-container&#39;;
+import * as filterTypes from &#39;../constants/filter-types&#39;;
+import &#39;./filter-buttons.less&#39;;
+
+export default class FilterButtons extends Component {
+
+  render() {
+    return &lt;span className=&quot;filter-buttons&quot;&gt;
+      &lt;FilterButtonContainer name=&quot;All&quot; forFilter={filterTypes.ALL}/&gt;
+      &lt;FilterButtonContainer name=&quot;Active&quot; forFilter={filterTypes.ACTIVE}/&gt;
+      &lt;FilterButtonContainer name=&quot;Completed&quot; forFilter={filterTypes.COMPLETED}/&gt;
+    &lt;/span&gt;;
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/todo-list.jsx" target="_blank" title="show github file">todo-list.jsx</a>
+        </div>
+        <div class="path">src/components/todo-list.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import TodoContainer from &#39;../containers/todo-container&#39;;
+
+export default class TodoList extends Component {
+  render() {
+    const {todos} = this.props;
+    return &lt;div&gt;
+      {
+        todos.map(todo =&gt; &lt;TodoContainer key={todo.id} todo={todo}/&gt;)
+      }
+    &lt;/div&gt;;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-todolist-demo/blob/master/src/components/logo.jsx" target="_blank" title="show github file">logo.jsx</a>
+        </div>
+        <div class="path">src/components/logo.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class Logo extends Component {
+  render() {
+    return &lt;span&gt;Todos&lt;/span&gt;;
   }
 }
 </code></pre>

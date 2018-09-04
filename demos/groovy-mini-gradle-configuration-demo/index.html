@@ -55,6 +55,99 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-mini-gradle-configuration-demo/blob/master/src/test/groovy/my/GroovySpec.groovy" target="_blank" title="show github file">GroovySpec.groovy</a>
+        </div>
+        <div class="path">src/test/groovy/my/GroovySpec.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+import org.junit.Test
+
+import static org.fest.assertions.api.Assertions.assertThat
+
+class HelloSpec {
+
+    @Test
+    void &quot;test hello&quot;() {
+        String greeting = Hello.hello(&quot;gradle&quot;)
+        assertThat(greeting).isEqualTo(&quot;Hello, gradle!&quot;)
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-mini-gradle-configuration-demo/blob/master/src/main/groovy/my/Hello.groovy" target="_blank" title="show github file">Hello.groovy</a>
+        </div>
+        <div class="path">src/main/groovy/my/Hello.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+class ConfigurationContainer {
+    private Map&lt;String, Closure&gt; configurations = [:]
+
+    def init(String configurationName, Closure handler) {
+        configurations[configurationName] = handler
+    }
+
+    boolean hasConfig(String name) {
+        configurations.containsKey(name)
+    }
+
+    Closure getConfig(String name) {
+        return configurations.get(name)
+    }
+}
+
+class DependencyHandler {
+
+    private ConfigurationContainer configurationContainer
+
+    DependencyHandler(configurationContainer) {
+        this.configurationContainer = configurationContainer
+    }
+
+    @Override
+    Object invokeMethod(String name, Object args) {
+        if (configurationContainer.hasConfig(name)) {
+            return configurationContainer.getConfig(name).call(args)
+        } else {
+            return println(&quot;Can&#39;t find config &#39;$name&#39;, please check your config&quot;)
+        }
+    }
+}
+
+
+def createDependencyHandler() {
+    ConfigurationContainer configurationContainer = new ConfigurationContainer()
+    configurationContainer.init(&quot;compile&quot;, { lib -&gt; println(&quot;### loading $lib and use it when compiling main code&quot;) })
+    configurationContainer.init(&quot;testCompile&quot;, { lib -&gt; println(&quot;### loading $lib and use it when compiling tests&quot;) })
+    return new DependencyHandler(configurationContainer)
+}
+
+def dependencies(Closure configClosure) {
+    dependencyHandler = createDependencyHandler()
+    configClosure.resolveStrategy = Closure.DELEGATE_FIRST
+    configClosure.delegate = dependencyHandler
+    configClosure()
+}
+
+dependencies {
+    compile &#39;org.apache.commons:commons-lang3:3.4&#39;
+    others &#39;anything&#39;
+}
+
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

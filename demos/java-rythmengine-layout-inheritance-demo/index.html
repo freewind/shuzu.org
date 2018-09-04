@@ -38,6 +38,30 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" target="_blank" title="show github file">inputFiles.lst</a>
+        </div>
+        <div class="path">target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">/Users/freewind/workspace/java-hello-world-demo/src/main/java/demo/Hello.java
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" target="_blank" title="show github file">createdFiles.lst</a>
+        </div>
+        <div class="path">target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">demo/Hello.class
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>
@@ -167,6 +191,57 @@ public class Item {
     }
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/src/main/resources/rythm/hello.rythm" target="_blank" title="show github file">hello.rythm</a>
+        </div>
+        <div class="path">src/main/resources/rythm/hello.rythm</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="rythm">@extends(layout)
+@set(title=&quot;Hello Page&quot;)
+&lt;div&gt;I&#39;m the hello.rythm&lt;/div&gt;
+
+@section(&quot;footer&quot;) {
+&lt;div&gt;Footer!&lt;/div&gt;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/src/main/resources/rythm/_partial.rythm" target="_blank" title="show github file">_partial.rythm</a>
+        </div>
+        <div class="path">src/main/resources/rythm/_partial.rythm</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="rythm">&lt;div&gt;I&#39;m from _partial.rythm&lt;/div&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-layout-inheritance-demo/blob/master/src/main/resources/rythm/layout.rythm" target="_blank" title="show github file">layout.rythm</a>
+        </div>
+        <div class="path">src/main/resources/rythm/layout.rythm</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="rythm">@args String title = &quot;Rythm Index&quot;
+
+&lt;html&gt;
+&lt;title&gt;@title&lt;/title&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, Rythm!&lt;/h1&gt;
+    &lt;div&gt;
+        @doLayout()
+    &lt;/div&gt;
+    @include(&quot;_partial&quot;)
+    @render(&quot;footer&quot;)
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

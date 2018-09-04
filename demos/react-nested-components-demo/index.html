@@ -31,6 +31,57 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/todo-form.jsx" target="_blank" title="show github file">todo-form.jsx</a>
+        </div>
+        <div class="path">todo-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class TodoForm extends Component {
+	render() {
+		return &lt;div&gt;TodoForm&lt;/div&gt;
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+
+class Hello extends Component {
+	render() {
+		return &lt;div&gt;
+		  &lt;h1&gt;Hello world&lt;/h1&gt;
+		&lt;/div&gt;;
+	}
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -53,6 +104,53 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.
       }
     }]
   }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import TodoBox from &#39;./todo-box.jsx&#39;;
+
+ReactDOM.render(
+  &lt;TodoBox /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/todo-box.jsx" target="_blank" title="show github file">todo-box.jsx</a>
+        </div>
+        <div class="path">todo-box.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import TodoForm from &#39;./todo-form.jsx&#39;;
+import TodoList from &#39;./todo-list.jsx&#39;;
+
+export default class TodoBox extends Component {
+	render() {
+		return &lt;div&gt;
+		  &lt;TodoForm /&gt;
+		  &lt;TodoList /&gt;
+		&lt;/div&gt;;
+	}
 }</code></pre>
     </div>
 </div>
@@ -113,6 +211,23 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.
 	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-components-demo/blob/master/todo-list.jsx" target="_blank" title="show github file">todo-list.jsx</a>
+        </div>
+        <div class="path">todo-list.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class TodoList extends Component {
+	render() {
+		return &lt;div&gt;TodoList&lt;/div&gt;
+	}
+}</code></pre>
     </div>
 </div>
 

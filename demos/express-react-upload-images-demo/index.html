@@ -34921,6 +34921,19 @@ Then visit &lt;http://localhost:3000&gt;, and upload images. You will see upload
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
         <div class="path">app/server.js</div>
@@ -35118,6 +35131,34 @@ node_js:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import UploadForm from &#39;./upload-form.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import $ from &#39;jquery&#39;;
+
+ReactDOM.render(
+  &lt;UploadForm /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+// use jquery
+console.log($(&#39;#content&#39;).text());
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">public/index.html</div>
@@ -35134,6 +35175,68 @@ node_js:
 	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-upload-images-demo/blob/master/public/upload-form.jsx" target="_blank" title="show github file">upload-form.jsx</a>
+        </div>
+        <div class="path">public/upload-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+import _ from &#39;lodash&#39;;
+
+class UploadForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedImage: null,
+      uploadedImages: []
+    }
+  }
+  render() {
+    return &lt;div&gt;
+      &lt;h1&gt;Upload Images&lt;/h1&gt;
+      &lt;div&gt;
+        {this.state.uploadedImages.map(i =&gt; &lt;img src={i} /&gt;)}
+      &lt;/div&gt;
+      &lt;form onSubmit={this._onSubmit.bind(this)}&gt;
+        &lt;input type=&quot;file&quot; name=&quot;image&quot; accept=&quot;.jpg,.jpeg,.png,.gif&quot; 
+          onChange={(e) =&gt; this._handleImageChange(e)} /&gt;
+        &lt;input type=&#39;submit&#39; value=&#39;Upload!&#39; /&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;;
+  }
+
+  _handleImageChange(event) {
+    const file = event.target.files[0];
+    this.setState({
+      selectedImage: file
+    });
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append(&#39;image&#39;, this.state.selectedImage);
+
+    request.post(&#39;/api/uploaded-images&#39;)
+      .send(formData)
+      .end((err, res) =&gt; {
+        if (err) return alert(&#39;uploading failed!&#39;);
+        const uploadedImagePath = res.text;
+        this.setState({
+          uploadedImages: _.concat(this.state.uploadedImages, uploadedImagePath)
+        });
+      })
+  }
+}
+
+export default UploadForm;</code></pre>
     </div>
 </div>
 

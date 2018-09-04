@@ -34,6 +34,19 @@ Then visit &lt;http://localhost:3000&gt;.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/app/api.js" target="_blank" title="show github file">api.js</a>
         </div>
         <div class="path">app/api.js</div>
@@ -296,6 +309,200 @@ node_js:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/register-form.jsx" target="_blank" title="show github file">register-form.jsx</a>
+        </div>
+        <div class="path">public/register-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+import {hashHistory} from &#39;react-router&#39;;
+
+export default class RegisterForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: &#39;&#39;,
+      password: &#39;&#39;
+    }
+  }
+
+  render() {
+    return &lt;form onSubmit={this._onSubmit.bind(this)}&gt;
+      &lt;div&gt;
+        Register
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;username&quot; onChange={event =&gt; {
+          this.setState({username: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;password&quot; placeholder=&quot;password&quot; onChange={event =&gt; {
+          this.setState({password: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;Register&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    request
+      .post(&#39;/api/users&#39;)
+      .send({
+        username: this.state.username,
+        password: this.state.password
+      })
+      .end((err, res) =&gt; {
+        if (err) return console.log(err);
+        console.log(res);
+        alert(&#39;successful!&#39;);
+        hashHistory.push(&#39;/login&#39;);
+      })
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">public/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+class Hello extends React.Component {
+    render() {
+        return (&lt;div&gt;
+            &lt;h1&gt;Hello world&lt;/h1&gt;
+            &lt;/div&gt;)
+    }
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/layout.jsx" target="_blank" title="show github file">layout.jsx</a>
+        </div>
+        <div class="path">public/layout.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+
+export default class Layout extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;div&gt;
+        &lt;Link to=&quot;/register&quot;&gt;Register&lt;/Link&gt; -
+        &lt;Link to=&quot;/login&quot;&gt;Login&lt;/Link&gt; -
+        &lt;Link to=&quot;/personal&quot;&gt;Personal&lt;/Link&gt;
+      &lt;/div&gt;
+      &lt;div&gt;{this.props.children}&lt;/div&gt;
+    &lt;/div&gt;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/personal-page.jsx" target="_blank" title="show github file">personal-page.jsx</a>
+        </div>
+        <div class="path">public/personal-page.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+import {hashHistory} from &#39;react-router&#39;;
+
+export default class PersonalPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: &#39;unknown&#39;,
+      greeting: &#39;unknown&#39;
+    }
+  }
+
+  componentWillMount() {
+    request
+      .get(&#39;/api/personal&#39;)
+      .end((err, res) =&gt; {
+        console.log(err);
+        if (err) {
+          if (res.statusCode === 401) {
+            alert(&#39;please login!&#39;);
+            return hashHistory.push(&#39;/login&#39;);
+          } else {
+            return alert(err);
+          }
+        }
+        const {username, greeting} = res.body;
+        this.setState({username, greeting});
+      })
+  }
+
+  render() {
+    return &lt;div&gt;
+      &lt;div&gt;Personal Page&lt;/div&gt;
+      &lt;div&gt;Username: {this.state.username}&lt;/div&gt;
+      &lt;div&gt;Greeting: {this.state.greeting}&lt;/div&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import RegisterForm from &#39;./register-form.jsx&#39;;
+import LoginForm from &#39;./login-form.jsx&#39;;
+import Layout from &#39;./layout.jsx&#39;;
+import PersonalPage from &#39;./personal-page.jsx&#39;;
+
+import {Router, Route, IndexRedirect, hashHistory} from &#39;react-router&#39;;
+
+const router = &lt;Router history={hashHistory}&gt;
+  &lt;Route path=&quot;/&quot; component={Layout}&gt;
+    &lt;IndexRedirect to=&quot;/register&quot;/&gt;
+    &lt;Route path=&quot;/register&quot; component={RegisterForm}/&gt;
+    &lt;Route path=&quot;/login&quot; component={LoginForm}/&gt;
+    &lt;Route path=&quot;/personal&quot; component={PersonalPage}/&gt;
+  &lt;/Route&gt;
+&lt;/Router&gt;;
+
+ReactDOM.render(
+  router,
+  document.getElementById(&quot;content&quot;)
+);
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/index.html" target="_blank" title="show github file">index.html</a>
         </div>
         <div class="path">public/index.html</div>
@@ -312,6 +519,67 @@ node_js:
 	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-login-demo/blob/master/public/login-form.jsx" target="_blank" title="show github file">login-form.jsx</a>
+        </div>
+        <div class="path">public/login-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+import {hashHistory} from &#39;react-router&#39;;
+
+export default class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: &#39;&#39;,
+      password: &#39;&#39;
+    }
+  }
+
+  render() {
+    return &lt;form onSubmit={this._onSubmit.bind(this)}&gt;
+      &lt;div&gt;
+        Login
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;username&quot; onChange={event =&gt; {
+          this.setState({username: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;password&quot; placeholder=&quot;password&quot; onChange={event =&gt; {
+          this.setState({password: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;Login&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    request
+      .post(&#39;/api/sessions&#39;)
+      .send({
+        username: this.state.username,
+        password: this.state.password
+      })
+      .end((err, res) =&gt; {
+        if (err) return alert(err);
+        console.log(res);
+        alert(&#39;successful!&#39;);
+        hashHistory.push(&#39;/personal&#39;);
+      })
+  }
+
+}</code></pre>
     </div>
 </div>
 

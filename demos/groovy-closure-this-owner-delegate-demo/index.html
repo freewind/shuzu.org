@@ -54,6 +54,62 @@ task wrapper(type: Wrapper) {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-closure-this-owner-delegate-demo/blob/master/src/main/groovy/my/this-owner-delegate.groovy" target="_blank" title="show github file">this-owner-delegate.groovy</a>
+        </div>
+        <div class="path">src/main/groovy/my/this-owner-delegate.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+class MyClass {
+
+    def outerClosure = {
+
+        println(&quot;----------- outerClosure() ------------&quot;)
+        println this.class.name
+        println owner.class.name
+        println delegate.class.name
+
+        def nestedClosure = {
+            println(&quot;----------- nestedClosure() ------------&quot;)
+            println this.class.name
+            println owner.class.name
+            println delegate.class.name
+        }
+
+        nestedClosure()
+    }
+}
+
+def closure = new MyClass().outerClosure
+closure()</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/groovy-closure-this-owner-delegate-demo/blob/master/src/main/groovy/my/change-delegate.groovy" target="_blank" title="show github file">change-delegate.groovy</a>
+        </div>
+        <div class="path">src/main/groovy/my/change-delegate.groovy</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="groovy">package my
+
+Closure hello = {
+    println message
+}
+
+class Hello {
+    String message = &quot;Hello delegate!&quot;
+}
+
+hello.delegate = new Hello()
+hello()</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

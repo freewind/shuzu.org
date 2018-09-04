@@ -355,9 +355,6 @@
     <loc>http://shuzu.org/demos/es6-project-demo/index.html</loc>
   </url>
   <url>
-    <loc>http://shuzu.org/demos/eslint-checking-demo/index.html</loc>
-  </url>
-  <url>
     <loc>http://shuzu.org/demos/eth-truffle-hello-world-demo/index.html</loc>
   </url>
   <url>
@@ -1063,7 +1060,13 @@
     <loc>http://shuzu.org/demos/javascript-es6-class-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-eslint-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-frontend-hello-world-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-jspm-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-lodash-split-by-string-demo/index.html</loc>
@@ -1081,6 +1084,9 @@
     <loc>http://shuzu.org/demos/javascript-react-webpack-less-scope-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-requirejs-load-amd-module-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-split-by-regex-with-capture-group-demo/index.html</loc>
   </url>
   <url>
@@ -1094,6 +1100,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-superagent-logger-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-systemjs-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-webpack-bootstrap3-demo/index.html</loc>
@@ -1111,10 +1120,16 @@
     <loc>http://shuzu.org/demos/javascript-webpack-custom-loader-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-webpack-custom-plugin-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-webpack-dev-server-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-webpack-hello-world-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-webpack-html-webpack-plugin-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-webpack-jquery-expose-demo/index.html</loc>

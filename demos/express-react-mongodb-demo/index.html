@@ -57,6 +57,19 @@ Documents
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/app/db/db.js" target="_blank" title="show github file">db.js</a>
         </div>
         <div class="path">app/db/db.js</div>
@@ -342,6 +355,116 @@ module.exports = {
         <pre class="content"><code class="yml">language: node_js
 node_js:
   - &quot;6&quot;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/public/student-table.jsx" target="_blank" title="show github file">student-table.jsx</a>
+        </div>
+        <div class="path">public/student-table.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import $ from &#39;jquery&#39;;
+import _ from &#39;lodash&#39;;
+
+export default class StudentTable extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			students: []
+		};
+		this.initData = this.initData.bind(this);
+		this.removeStudent = this.removeStudent.bind(this);
+	}
+
+	componentDidMount() {
+		const self = this;
+		$.get(&#39;/students&#39;, function(students) {
+			self.setState({
+				students: students
+			})
+		});
+	}
+
+	render() {
+		const studentRows = this.state.students.map(student =&gt; 
+			&lt;tr key={student._id}&gt;
+			&lt;td&gt;{student.name}&lt;/td&gt;
+			&lt;td&gt;{student.gender}&lt;/td&gt;
+			&lt;td&gt;
+			&lt;button onClick={this.removeStudent(student._id)}&gt;删除&lt;/button&gt;
+			&lt;/td&gt;
+			&lt;/tr&gt;
+			);
+		return &lt;div&gt;
+		&lt;div&gt;&lt;button onClick={this.initData}&gt;初始化数据&lt;/button&gt;&lt;/div&gt;
+		&lt;table&gt;
+		&lt;thead&gt;
+		&lt;tr&gt;
+		&lt;th&gt;姓名&lt;/th&gt;
+		&lt;th&gt;性别&lt;/th&gt;
+		&lt;th&gt;操作&lt;/th&gt;
+		&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tbody&gt;
+		{studentRows}
+		&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;/div&gt;;
+	}
+
+	initData() {
+		const self = this;
+		$.post(&#39;/init&#39;, function(students) {
+			self.setState({
+				students: students
+			})
+		});
+	}
+
+	removeStudent(id) {
+		return () =&gt; {
+			const self = this;
+			$.ajax({
+				url: &#39;/students/&#39; + id,
+				type: &#39;DELETE&#39;,
+				success: function(result) {
+					const remainStudents = _.filter(self.state.students, s =&gt; s._id !== id);
+					self.setState({
+						students: remainStudents 
+					});
+				}
+			});
+		}
+	}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-mongodb-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import StudentTable from &#39;./student-table.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+	&lt;StudentTable /&gt;,
+	document.getElementById(&quot;content&quot;)
+	);
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+	module.hot.accept();
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

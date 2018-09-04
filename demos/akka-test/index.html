@@ -15,6 +15,583 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/akka-test/blob/master/sbt" target="_blank" title="show github file">sbt</a>
+        </div>
+        <div class="path">sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">#!/usr/bin/env bash
+#
+# A more capable sbt runner, coincidentally also called sbt.
+# Author: Paul Phillips &lt;paulp@improving.org&gt;
+
+# todo - make this dynamic
+declare -r sbt_release_version=&quot;0.13.8&quot;
+declare -r sbt_unreleased_version=&quot;0.13.8&quot;
+declare -r buildProps=&quot;project/build.properties&quot;
+
+declare sbt_jar sbt_dir sbt_create sbt_version
+declare scala_version sbt_explicit_version
+declare verbose noshare batch trace_level log_level
+declare sbt_saved_stty debugUs
+
+echoerr () { echo &gt;&amp;2 &quot;$@&quot;; }
+vlog ()    { [[ -n &quot;$verbose&quot; ]] &amp;&amp; echoerr &quot;$@&quot;; }
+
+# spaces are possible, e.g. sbt.version = 0.13.0
+build_props_sbt () {
+  [[ -r &quot;$buildProps&quot; ]] &amp;&amp; \
+    grep &#39;^sbt\.version&#39; &quot;$buildProps&quot; | tr &#39;=\r&#39; &#39; &#39; | awk &#39;{ print $2; }&#39;
+}
+
+update_build_props_sbt () {
+  local ver=&quot;$1&quot;
+  local old=&quot;$(build_props_sbt)&quot;
+
+  [[ -r &quot;$buildProps&quot; ]] &amp;&amp; [[ &quot;$ver&quot; != &quot;$old&quot; ]] &amp;&amp; {
+    perl -pi -e &quot;s/^sbt\.version\b.*\$/sbt.version=${ver}/&quot; &quot;$buildProps&quot;
+    grep -q &#39;^sbt.version[ =]&#39; &quot;$buildProps&quot; || printf &quot;\nsbt.version=%s\n&quot; &quot;$ver&quot; &gt;&gt; &quot;$buildProps&quot;
+
+    vlog &quot;!!!&quot;
+    vlog &quot;!!! Updated file $buildProps setting sbt.version to: $ver&quot;
+    vlog &quot;!!! Previous value was: $old&quot;
+    vlog &quot;!!!&quot;
+  }
+}
+
+set_sbt_version () {
+  sbt_version=&quot;${sbt_explicit_version:-$(build_props_sbt)}&quot;
+  [[ -n &quot;$sbt_version&quot; ]] || sbt_version=$sbt_release_version
+  export sbt_version
+}
+
+# restore stty settings (echo in particular)
+onSbtRunnerExit() {
+  [[ -n &quot;$sbt_saved_stty&quot; ]] || return
+  vlog &quot;&quot;
+  vlog &quot;restoring stty: $sbt_saved_stty&quot;
+  stty &quot;$sbt_saved_stty&quot;
+  unset sbt_saved_stty
+}
+
+# save stty and trap exit, to ensure echo is reenabled if we are interrupted.
+trap onSbtRunnerExit EXIT
+sbt_saved_stty=&quot;$(stty -g 2&gt;/dev/null)&quot;
+vlog &quot;Saved stty: $sbt_saved_stty&quot;
+
+# this seems to cover the bases on OSX, and someone will
+# have to tell me about the others.
+get_script_path () {
+  local path=&quot;$1&quot;
+  [[ -L &quot;$path&quot; ]] || { echo &quot;$path&quot; ; return; }
+
+  local target=&quot;$(readlink &quot;$path&quot;)&quot;
+  if [[ &quot;${target:0:1}&quot; == &quot;/&quot; ]]; then
+    echo &quot;$target&quot;
+  else
+    echo &quot;${path%/*}/$target&quot;
+  fi
+}
+
+die() {
+  echo &quot;Aborting: $@&quot;
+  exit 1
+}
+
+make_url () {
+  version=&quot;$1&quot;
+
+  case &quot;$version&quot; in
+        0.7.*) echo &quot;http://simple-build-tool.googlecode.com/files/sbt-launch-0.7.7.jar&quot; ;;
+      0.10.* ) echo &quot;$sbt_launch_repo/org.scala-tools.sbt/sbt-launch/$version/sbt-launch.jar&quot; ;;
+    0.11.[12]) echo &quot;$sbt_launch_repo/org.scala-tools.sbt/sbt-launch/$version/sbt-launch.jar&quot; ;;
+            *) echo &quot;$sbt_launch_repo/org.scala-sbt/sbt-launch/$version/sbt-launch.jar&quot; ;;
+  esac
+}
+
+init_default_option_file () {
+  local overriding_var=&quot;${!1}&quot;
+  local default_file=&quot;$2&quot;
+  if [[ ! -r &quot;$default_file&quot; &amp;&amp; &quot;$overriding_var&quot; =~ ^@(.*)$ ]]; then
+    local envvar_file=&quot;${BASH_REMATCH[1]}&quot;
+    if [[ -r &quot;$envvar_file&quot; ]]; then
+      default_file=&quot;$envvar_file&quot;
+    fi
+  fi
+  echo &quot;$default_file&quot;
+}
+
+declare -r cms_opts=&quot;-XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC&quot;
+declare -r jit_opts=&quot;-XX:ReservedCodeCacheSize=256m -XX:+TieredCompilation&quot;
+declare -r default_jvm_opts_common=&quot;-Xms512m -Xmx1536m -Xss2m $jit_opts $cms_opts&quot;
+declare -r noshare_opts=&quot;-Dsbt.global.base=project/.sbtboot -Dsbt.boot.directory=project/.boot -Dsbt.ivy.home=project/.ivy&quot;
+declare -r latest_28=&quot;2.8.2&quot;
+declare -r latest_29=&quot;2.9.3&quot;
+declare -r latest_210=&quot;2.10.5&quot;
+declare -r latest_211=&quot;2.11.6&quot;
+
+declare -r script_path=&quot;$(get_script_path &quot;$BASH_SOURCE&quot;)&quot;
+declare -r script_name=&quot;${script_path##*/}&quot;
+
+# some non-read-onlies set with defaults
+declare java_cmd=&quot;java&quot;
+declare sbt_opts_file=&quot;$(init_default_option_file SBT_OPTS .sbtopts)&quot;
+declare jvm_opts_file=&quot;$(init_default_option_file JVM_OPTS .jvmopts)&quot;
+declare sbt_launch_repo=&quot;http://typesafe.artifactoryonline.com/typesafe/ivy-releases&quot;
+
+# pull -J and -D options to give to java.
+declare -a residual_args
+declare -a java_args
+declare -a scalac_args
+declare -a sbt_commands
+
+# args to jvm/sbt via files or environment variables
+declare -a extra_jvm_opts extra_sbt_opts
+
+addJava () {
+  vlog &quot;[addJava] arg = &#39;$1&#39;&quot;
+  java_args+=(&quot;$1&quot;)
+}
+addSbt () {
+  vlog &quot;[addSbt] arg = &#39;$1&#39;&quot;
+  sbt_commands+=(&quot;$1&quot;)
+}
+setThisBuild () {
+  vlog &quot;[addBuild] args = &#39;$@&#39;&quot;
+  local key=&quot;$1&quot; &amp;&amp; shift
+  addSbt &quot;set $key in ThisBuild := $@&quot;
+}
+addScalac () {
+  vlog &quot;[addScalac] arg = &#39;$1&#39;&quot;
+  scalac_args+=(&quot;$1&quot;)
+}
+addResidual () {
+  vlog &quot;[residual] arg = &#39;$1&#39;&quot;
+  residual_args+=(&quot;$1&quot;)
+}
+addResolver () {
+  addSbt &quot;set resolvers += $1&quot;
+}
+addDebugger () {
+  addJava &quot;-Xdebug&quot;
+  addJava &quot;-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=$1&quot;
+}
+setScalaVersion () {
+  [[ &quot;$1&quot; == *&quot;-SNAPSHOT&quot; ]] &amp;&amp; addResolver &#39;Resolver.sonatypeRepo(&quot;snapshots&quot;)&#39;
+  addSbt &quot;++ $1&quot;
+}
+setJavaHome () {
+  java_cmd=&quot;$1/bin/java&quot;
+  setThisBuild javaHome &quot;Some(file(\&quot;$1\&quot;))&quot;
+  export JAVA_HOME=&quot;$1&quot;
+  export JDK_HOME=&quot;$1&quot;
+  export PATH=&quot;$JAVA_HOME/bin:$PATH&quot;
+}
+setJavaHomeQuietly () {
+  addSbt warn
+  setJavaHome &quot;$1&quot;
+  addSbt info
+}
+
+# if set, use JDK_HOME/JAVA_HOME over java found in path
+if [[ -e &quot;$JDK_HOME/lib/tools.jar&quot; ]]; then
+  setJavaHomeQuietly &quot;$JDK_HOME&quot;
+elif [[ -e &quot;$JAVA_HOME/bin/java&quot; ]]; then
+  setJavaHomeQuietly &quot;$JAVA_HOME&quot;
+fi
+
+# directory to store sbt launchers
+declare sbt_launch_dir=&quot;$HOME/.sbt/launchers&quot;
+[[ -d &quot;$sbt_launch_dir&quot; ]] || mkdir -p &quot;$sbt_launch_dir&quot;
+[[ -w &quot;$sbt_launch_dir&quot; ]] || sbt_launch_dir=&quot;$(mktemp -d -t sbt_extras_launchers.XXXXXX)&quot;
+
+java_version () {
+  local version=$(&quot;$java_cmd&quot; -version 2&gt;&amp;1 | grep -E -e &#39;(java|openjdk) version&#39; | awk &#39;{ print $3 }&#39; | tr -d \&quot;)
+  vlog &quot;Detected Java version: $version&quot;
+  echo &quot;${version:2:1}&quot;
+}
+
+# MaxPermSize critical on pre-8 jvms but incurs noisy warning on 8+
+default_jvm_opts () {
+  local v=&quot;$(java_version)&quot;
+  if [[ $v -ge 8 ]]; then
+    echo &quot;$default_jvm_opts_common&quot;
+  else
+    echo &quot;-XX:MaxPermSize=384m $default_jvm_opts_common&quot;
+  fi
+}
+
+build_props_scala () {
+  if [[ -r &quot;$buildProps&quot; ]]; then
+    versionLine=&quot;$(grep &#39;^build.scala.versions&#39; &quot;$buildProps&quot;)&quot;
+    versionString=&quot;${versionLine##build.scala.versions=}&quot;
+    echo &quot;${versionString%% .*}&quot;
+  fi
+}
+
+execRunner () {
+  # print the arguments one to a line, quoting any containing spaces
+  vlog &quot;# Executing command line:&quot; &amp;&amp; {
+    for arg; do
+      if [[ -n &quot;$arg&quot; ]]; then
+        if printf &quot;%s\n&quot; &quot;$arg&quot; | grep -q &#39; &#39;; then
+          printf &gt;&amp;2 &quot;\&quot;%s\&quot;\n&quot; &quot;$arg&quot;
+        else
+          printf &gt;&amp;2 &quot;%s\n&quot; &quot;$arg&quot;
+        fi
+      fi
+    done
+    vlog &quot;&quot;
+  }
+
+  [[ -n &quot;$batch&quot; ]] &amp;&amp; exec &lt;/dev/null
+  exec &quot;$@&quot;
+}
+
+jar_url () {
+  make_url &quot;$1&quot;
+}
+
+jar_file () {
+  echo &quot;$sbt_launch_dir/$1/sbt-launch.jar&quot;
+}
+
+download_url () {
+  local url=&quot;$1&quot;
+  local jar=&quot;$2&quot;
+
+  echoerr &quot;Downloading sbt launcher for $sbt_version:&quot;
+  echoerr &quot;  From  $url&quot;
+  echoerr &quot;    To  $jar&quot;
+
+  mkdir -p &quot;${jar%/*}&quot; &amp;&amp; {
+    if which curl &gt;/dev/null; then
+      curl --fail --silent &quot;$url&quot; --output &quot;$jar&quot;
+    elif which wget &gt;/dev/null; then
+      wget --quiet -O &quot;$jar&quot; &quot;$url&quot;
+    fi
+  } &amp;&amp; [[ -r &quot;$jar&quot; ]]
+}
+
+acquire_sbt_jar () {
+  sbt_url=&quot;$(jar_url &quot;$sbt_version&quot;)&quot;
+  sbt_jar=&quot;$(jar_file &quot;$sbt_version&quot;)&quot;
+
+  [[ -r &quot;$sbt_jar&quot; ]] || download_url &quot;$sbt_url&quot; &quot;$sbt_jar&quot;
+}
+
+usage () {
+  cat &lt;&lt;EOM
+Usage: $script_name [options]
+
+Note that options which are passed along to sbt begin with -- whereas
+options to this runner use a single dash. Any sbt command can be scheduled
+to run first by prefixing the command with --, so --warn, --error and so on
+are not special.
+
+Output filtering: if there is a file in the home directory called .sbtignore
+and this is not an interactive sbt session, the file is treated as a list of
+bash regular expressions. Output lines which match any regex are not echoed.
+One can see exactly which lines would have been suppressed by starting this
+runner with the -x option.
+
+  -h | -help         print this message
+  -v                 verbose operation (this runner is chattier)
+  -d, -w, -q         aliases for --debug, --warn, --error (q means quiet)
+  -x                 debug this script
+  -trace &lt;level&gt;     display stack traces with a max of &lt;level&gt; frames (default: -1, traces suppressed)
+  -debug-inc         enable debugging log for the incremental compiler
+  -no-colors         disable ANSI color codes
+  -sbt-create        start sbt even if current directory contains no sbt project
+  -sbt-dir   &lt;path&gt;  path to global settings/plugins directory (default: ~/.sbt/&lt;version&gt;)
+  -sbt-boot  &lt;path&gt;  path to shared boot directory (default: ~/.sbt/boot in 0.11+)
+  -ivy       &lt;path&gt;  path to local Ivy repository (default: ~/.ivy2)
+  -no-share          use all local caches; no sharing
+  -offline           put sbt in offline mode
+  -jvm-debug &lt;port&gt;  Turn on JVM debugging, open at the given port.
+  -batch             Disable interactive mode
+  -prompt &lt;expr&gt;     Set the sbt prompt; in expr, &#39;s&#39; is the State and &#39;e&#39; is Extracted
+
+  # sbt version (default: sbt.version from $buildProps if present, otherwise $sbt_release_version)
+  -sbt-force-latest         force the use of the latest release of sbt: $sbt_release_version
+  -sbt-version  &lt;version&gt;   use the specified version of sbt (default: $sbt_release_version)
+  -sbt-dev                  use the latest pre-release version of sbt: $sbt_unreleased_version
+  -sbt-jar      &lt;path&gt;      use the specified jar as the sbt launcher
+  -sbt-launch-dir &lt;path&gt;    directory to hold sbt launchers (default: ~/.sbt/launchers)
+  -sbt-launch-repo &lt;url&gt;    repo url for downloading sbt launcher jar (default: $sbt_launch_repo)
+
+  # scala version (default: as chosen by sbt)
+  -28                       use $latest_28
+  -29                       use $latest_29
+  -210                      use $latest_210
+  -211                      use $latest_211
+  -scala-home &lt;path&gt;        use the scala build at the specified directory
+  -scala-version &lt;version&gt;  use the specified version of scala
+  -binary-version &lt;version&gt; use the specified scala version when searching for dependencies
+
+  # java version (default: java from PATH, currently $(java -version 2&gt;&amp;1 | grep version))
+  -java-home &lt;path&gt;         alternate JAVA_HOME
+
+  # passing options to the jvm - note it does NOT use JAVA_OPTS due to pollution
+  # The default set is used if JVM_OPTS is unset and no -jvm-opts file is found
+  &lt;default&gt;        $(default_jvm_opts)
+  JVM_OPTS         environment variable holding either the jvm args directly, or
+                   the reference to a file containing jvm args if given path is prepended by &#39;@&#39; (e.g. &#39;@/etc/jvmopts&#39;)
+                   Note: &quot;@&quot;-file is overridden by local &#39;.jvmopts&#39; or &#39;-jvm-opts&#39; argument.
+  -jvm-opts &lt;path&gt; file containing jvm args (if not given, .jvmopts in project root is used if present)
+  -Dkey=val        pass -Dkey=val directly to the jvm
+  -J-X             pass option -X directly to the jvm (-J is stripped)
+
+  # passing options to sbt, OR to this runner
+  SBT_OPTS         environment variable holding either the sbt args directly, or
+                   the reference to a file containing sbt args if given path is prepended by &#39;@&#39; (e.g. &#39;@/etc/sbtopts&#39;)
+                   Note: &quot;@&quot;-file is overridden by local &#39;.sbtopts&#39; or &#39;-sbt-opts&#39; argument.
+  -sbt-opts &lt;path&gt; file containing sbt args (if not given, .sbtopts in project root is used if present)
+  -S-X             add -X to sbt&#39;s scalacOptions (-S is stripped)
+EOM
+}
+
+process_args ()
+{
+  require_arg () {
+    local type=&quot;$1&quot;
+    local opt=&quot;$2&quot;
+    local arg=&quot;$3&quot;
+
+    if [[ -z &quot;$arg&quot; ]] || [[ &quot;${arg:0:1}&quot; == &quot;-&quot; ]]; then
+      die &quot;$opt requires &lt;$type&gt; argument&quot;
+    fi
+  }
+  while [[ $# -gt 0 ]]; do
+    case &quot;$1&quot; in
+          -h|-help) usage; exit 1 ;;
+                -v) verbose=true &amp;&amp; shift ;;
+                -d) addSbt &quot;--debug&quot; &amp;&amp; addSbt debug &amp;&amp; shift ;;
+                -w) addSbt &quot;--warn&quot;  &amp;&amp; addSbt warn  &amp;&amp; shift ;;
+                -q) addSbt &quot;--error&quot; &amp;&amp; addSbt error &amp;&amp; shift ;;
+                -x) debugUs=true &amp;&amp; shift ;;
+            -trace) require_arg integer &quot;$1&quot; &quot;$2&quot; &amp;&amp; trace_level=&quot;$2&quot; &amp;&amp; shift 2 ;;
+              -ivy) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; addJava &quot;-Dsbt.ivy.home=$2&quot; &amp;&amp; shift 2 ;;
+        -no-colors) addJava &quot;-Dsbt.log.noformat=true&quot; &amp;&amp; shift ;;
+         -no-share) noshare=true &amp;&amp; shift ;;
+         -sbt-boot) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; addJava &quot;-Dsbt.boot.directory=$2&quot; &amp;&amp; shift 2 ;;
+          -sbt-dir) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_dir=&quot;$2&quot; &amp;&amp; shift 2 ;;
+        -debug-inc) addJava &quot;-Dxsbt.inc.debug=true&quot; &amp;&amp; shift ;;
+          -offline) addSbt &quot;set offline := true&quot; &amp;&amp; shift ;;
+        -jvm-debug) require_arg port &quot;$1&quot; &quot;$2&quot; &amp;&amp; addDebugger &quot;$2&quot; &amp;&amp; shift 2 ;;
+            -batch) batch=true &amp;&amp; shift ;;
+           -prompt) require_arg &quot;expr&quot; &quot;$1&quot; &quot;$2&quot; &amp;&amp; setThisBuild shellPrompt &quot;(s =&gt; { val e = Project.extract(s) ; $2 })&quot; &amp;&amp; shift 2 ;;
+
+       -sbt-create) sbt_create=true &amp;&amp; shift ;;
+          -sbt-jar) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_jar=&quot;$2&quot; &amp;&amp; shift 2 ;;
+      -sbt-version) require_arg version &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_explicit_version=&quot;$2&quot; &amp;&amp; shift 2 ;;
+ -sbt-force-latest) sbt_explicit_version=&quot;$sbt_release_version&quot; &amp;&amp; shift ;;
+          -sbt-dev) sbt_explicit_version=&quot;$sbt_unreleased_version&quot; &amp;&amp; shift ;;
+   -sbt-launch-dir) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_launch_dir=&quot;$2&quot; &amp;&amp; shift 2 ;;
+  -sbt-launch-repo) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_launch_repo=&quot;$2&quot; &amp;&amp; shift 2 ;;
+    -scala-version) require_arg version &quot;$1&quot; &quot;$2&quot; &amp;&amp; setScalaVersion &quot;$2&quot; &amp;&amp; shift 2 ;;
+   -binary-version) require_arg version &quot;$1&quot; &quot;$2&quot; &amp;&amp; setThisBuild scalaBinaryVersion &quot;\&quot;$2\&quot;&quot; &amp;&amp; shift 2 ;;
+       -scala-home) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; setThisBuild scalaHome &quot;Some(file(\&quot;$2\&quot;))&quot; &amp;&amp; shift 2 ;;
+        -java-home) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; setJavaHome &quot;$2&quot; &amp;&amp; shift 2 ;;
+         -sbt-opts) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_opts_file=&quot;$2&quot; &amp;&amp; shift 2 ;;
+         -jvm-opts) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; jvm_opts_file=&quot;$2&quot; &amp;&amp; shift 2 ;;
+
+               -D*) addJava &quot;$1&quot; &amp;&amp; shift ;;
+               -J*) addJava &quot;${1:2}&quot; &amp;&amp; shift ;;
+               -S*) addScalac &quot;${1:2}&quot; &amp;&amp; shift ;;
+               -28) setScalaVersion &quot;$latest_28&quot; &amp;&amp; shift ;;
+               -29) setScalaVersion &quot;$latest_29&quot; &amp;&amp; shift ;;
+              -210) setScalaVersion &quot;$latest_210&quot; &amp;&amp; shift ;;
+              -211) setScalaVersion &quot;$latest_211&quot; &amp;&amp; shift ;;
+
+           --debug) addSbt debug &amp;&amp; addResidual &quot;$1&quot; &amp;&amp; shift ;;
+            --warn) addSbt warn  &amp;&amp; addResidual &quot;$1&quot; &amp;&amp; shift ;;
+           --error) addSbt error &amp;&amp; addResidual &quot;$1&quot; &amp;&amp; shift ;;
+                 *) addResidual &quot;$1&quot; &amp;&amp; shift ;;
+    esac
+  done
+}
+
+# process the direct command line arguments
+process_args &quot;$@&quot;
+
+# skip #-styled comments and blank lines
+readConfigFile() {
+  while read line; do
+    [[ $line =~ ^# ]] || [[ -z $line ]] || echo &quot;$line&quot;
+  done &lt; &quot;$1&quot;
+}
+
+# if there are file/environment sbt_opts, process again so we
+# can supply args to this runner
+if [[ -r &quot;$sbt_opts_file&quot; ]]; then
+  vlog &quot;Using sbt options defined in file $sbt_opts_file&quot;
+  while read opt; do extra_sbt_opts+=(&quot;$opt&quot;); done &lt; &lt;(readConfigFile &quot;$sbt_opts_file&quot;)
+elif [[ -n &quot;$SBT_OPTS&quot; &amp;&amp; ! (&quot;$SBT_OPTS&quot; =~ ^@.*) ]]; then
+  vlog &quot;Using sbt options defined in variable \$SBT_OPTS&quot;
+  extra_sbt_opts=( $SBT_OPTS )
+else
+  vlog &quot;No extra sbt options have been defined&quot;
+fi
+
+[[ -n &quot;${extra_sbt_opts[*]}&quot; ]] &amp;&amp; process_args &quot;${extra_sbt_opts[@]}&quot;
+
+# reset &quot;$@&quot; to the residual args
+set -- &quot;${residual_args[@]}&quot;
+argumentCount=$#
+
+# set sbt version
+set_sbt_version
+
+# only exists in 0.12+
+setTraceLevel() {
+  case &quot;$sbt_version&quot; in
+    &quot;0.7.&quot;* | &quot;0.10.&quot;* | &quot;0.11.&quot;* ) echoerr &quot;Cannot set trace level in sbt version $sbt_version&quot; ;;
+                                 *) setThisBuild traceLevel $trace_level ;;
+  esac
+}
+
+# set scalacOptions if we were given any -S opts
+[[ ${#scalac_args[@]} -eq 0 ]] || addSbt &quot;set scalacOptions in ThisBuild += \&quot;${scalac_args[@]}\&quot;&quot;
+
+# Update build.properties on disk to set explicit version - sbt gives us no choice
+[[ -n &quot;$sbt_explicit_version&quot; ]] &amp;&amp; update_build_props_sbt &quot;$sbt_explicit_version&quot;
+vlog &quot;Detected sbt version $sbt_version&quot;
+
+[[ -n &quot;$scala_version&quot; ]] &amp;&amp; vlog &quot;Overriding scala version to $scala_version&quot;
+
+# no args - alert them there&#39;s stuff in here
+(( argumentCount &gt; 0 )) || {
+  vlog &quot;Starting $script_name: invoke with -help for other options&quot;
+  residual_args=( shell )
+}
+
+# verify this is an sbt dir or -create was given
+[[ -r ./build.sbt || -d ./project || -n &quot;$sbt_create&quot; ]] || {
+  cat &lt;&lt;EOM
+$(pwd) doesn&#39;t appear to be an sbt project.
+If you want to start sbt anyway, run:
+  $0 -sbt-create
+
+EOM
+  exit 1
+}
+
+# pick up completion if present; todo
+[[ -r .sbt_completion.sh ]] &amp;&amp; source .sbt_completion.sh
+
+# no jar? download it.
+[[ -r &quot;$sbt_jar&quot; ]] || acquire_sbt_jar || {
+  # still no jar? uh-oh.
+  echo &quot;Download failed. Obtain the jar manually and place it at $sbt_jar&quot;
+  exit 1
+}
+
+if [[ -n &quot;$noshare&quot; ]]; then
+  for opt in ${noshare_opts}; do
+    addJava &quot;$opt&quot;
+  done
+else
+  case &quot;$sbt_version&quot; in
+    &quot;0.7.&quot;* | &quot;0.10.&quot;* | &quot;0.11.&quot;* | &quot;0.12.&quot;* )
+      [[ -n &quot;$sbt_dir&quot; ]] || {
+        sbt_dir=&quot;$HOME/.sbt/$sbt_version&quot;
+        vlog &quot;Using $sbt_dir as sbt dir, -sbt-dir to override.&quot;
+      }
+    ;;
+  esac
+
+  if [[ -n &quot;$sbt_dir&quot; ]]; then
+    addJava &quot;-Dsbt.global.base=$sbt_dir&quot;
+  fi
+fi
+
+if [[ -r &quot;$jvm_opts_file&quot; ]]; then
+  vlog &quot;Using jvm options defined in file $jvm_opts_file&quot;
+  while read opt; do extra_jvm_opts+=(&quot;$opt&quot;); done &lt; &lt;(readConfigFile &quot;$jvm_opts_file&quot;)
+elif [[ -n &quot;$JVM_OPTS&quot; &amp;&amp; ! (&quot;$JVM_OPTS&quot; =~ ^@.*) ]]; then
+  vlog &quot;Using jvm options defined in \$JVM_OPTS variable&quot;
+  extra_jvm_opts=( $JVM_OPTS )
+else
+  vlog &quot;Using default jvm options&quot;
+  extra_jvm_opts=( $(default_jvm_opts) )
+fi
+
+# traceLevel is 0.12+
+[[ -n &quot;$trace_level&quot; ]] &amp;&amp; setTraceLevel
+
+main () {
+  execRunner &quot;$java_cmd&quot; \
+    &quot;${extra_jvm_opts[@]}&quot; \
+    &quot;${java_args[@]}&quot; \
+    -jar &quot;$sbt_jar&quot; \
+    &quot;${sbt_commands[@]}&quot; \
+    &quot;${residual_args[@]}&quot;
+}
+
+# sbt inserts this string on certain lines when formatting is enabled:
+#   val OverwriteLine = &quot;\r\u001BM\u001B[2K&quot;
+# ...in order not to spam the console with a million &quot;Resolving&quot; lines.
+# Unfortunately that makes it that much harder to work with when
+# we&#39;re not going to print those lines anyway. We strip that bit of
+# line noise, but leave the other codes to preserve color.
+mainFiltered () {
+  local ansiOverwrite=&#39;\r\x1BM\x1B[2K&#39;
+  local excludeRegex=$(egrep -v &#39;^#|^$&#39; ~/.sbtignore | paste -sd&#39;|&#39; -)
+
+  echoLine () {
+    local line=&quot;$1&quot;
+    local line1=&quot;$(echo &quot;$line&quot; | sed -r &#39;s/\r\x1BM\x1B\[2K//g&#39;)&quot;       # This strips the OverwriteLine code.
+    local line2=&quot;$(echo &quot;$line1&quot; | sed -r &#39;s/\x1B\[[0-9;]*[JKmsu]//g&#39;)&quot; # This strips all codes - we test regexes against this.
+
+    if [[ $line2 =~ $excludeRegex ]]; then
+      [[ -n $debugUs ]] &amp;&amp; echo &quot;[X] $line1&quot;
+    else
+      [[ -n $debugUs ]] &amp;&amp; echo &quot;    $line1&quot; || echo &quot;$line1&quot;
+    fi
+  }
+
+  echoLine &quot;Starting sbt with output filtering enabled.&quot;
+  main | while read -r line; do echoLine &quot;$line&quot;; done
+}
+
+# Only filter if there&#39;s a filter file and we don&#39;t see a known interactive command.
+# Obviously this is super ad hoc but I don&#39;t know how to improve on it. Testing whether
+# stdin is a terminal is useless because most of my use cases for this filtering are
+# exactly when I&#39;m at a terminal, running sbt non-interactively.
+shouldFilter () { [[ -f ~/.sbtignore ]] &amp;&amp; ! egrep -q &#39;\b(shell|console|consoleProject)\b&#39; &lt;&lt;&lt;&quot;${residual_args[@]}&quot;; }
+
+# run sbt
+if shouldFilter; then mainFiltered; else main; fi
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/akka-test/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;My Project&quot;
+ 
+version := &quot;1.0&quot;
+ 
+scalaVersion := &quot;2.11.6&quot;
+ 
+resolvers += &quot;Typesafe Repository&quot; at &quot;http://repo.typesafe.com/typesafe/releases/&quot;
+ 
+libraryDependencies ++= Seq(
+  &quot;com.typesafe.akka&quot; %% &quot;akka-actor&quot; % &quot;2.3.11&quot;,
+  &quot;com.typesafe.akka&quot; %% &quot;akka-remote&quot; % &quot;2.3.11&quot;
+)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/akka-test/blob/master/src/main/scala/FailTest.scala" target="_blank" title="show github file">FailTest.scala</a>
         </div>
         <div class="path">src/main/scala/FailTest.scala</div>

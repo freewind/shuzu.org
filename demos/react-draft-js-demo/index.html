@@ -30,6 +30,19 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-draft-js-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-draft-js-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -56,6 +69,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-draft-js-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import MyEditor from &#39;./my-editor.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+require(&#39;draft-js/dist/Draft.css&#39;);
+
+ReactDOM.render(
+  &lt;MyEditor /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -116,6 +149,36 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 	&lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-draft-js-demo/blob/master/my-editor.jsx" target="_blank" title="show github file">my-editor.jsx</a>
+        </div>
+        <div class="path">my-editor.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+import {Editor, EditorState} from &#39;draft-js&#39;;
+
+export default class MyEditor extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			editorState: EditorState.createEmpty()
+		}
+	}
+	render() {
+		return &lt;Editor
+		  editorState={this.state.editorState}
+		  onChange={this._onChange.bind(this)}&gt;
+		&lt;/Editor&gt;;
+	}
+	_onChange(editorState) {
+		this.setState({editorState});
+	}
+};</code></pre>
     </div>
 </div>
 

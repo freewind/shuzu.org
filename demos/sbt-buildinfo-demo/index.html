@@ -28,6 +28,44 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt" target="_blank" title="show github file">sbt</a>
+        </div>
+        <div class="path">sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">#!/usr/bin/env bash
+
+./sbt-dist/bin/sbt &quot;$@&quot;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt.bat" target="_blank" title="show github file">sbt.bat</a>
+        </div>
+        <div class="path">sbt.bat</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="bat">@REM SBT launcher script
+
+.\sbt-dist\bin\sbt.bat %*
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/buildinfo.sbt" target="_blank" title="show github file">buildinfo.sbt</a>
+        </div>
+        <div class="path">project/buildinfo.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">addSbtPlugin(&quot;com.eed3si9n&quot; % &quot;sbt-buildinfo&quot; % &quot;0.7.0&quot;)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/Dependencies.scala" target="_blank" title="show github file">Dependencies.scala</a>
         </div>
         <div class="path">project/Dependencies.scala</div>
@@ -38,6 +76,18 @@ Then see `target/scala-2.12/src_managed/main/sbt-buildinfo.scala`    </div>
 object Dependencies {
   lazy val scalaTest = &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.3&quot;
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
+        </div>
+        <div class="path">project/build.properties</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="properties">sbt.version=1.0.0
 </code></pre>
     </div>
 </div>
@@ -64,6 +114,543 @@ object Dependencies {
 -Dsbt.log.format=true
 
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/conf/sbtopts" target="_blank" title="show github file">sbtopts</a>
+        </div>
+        <div class="path">sbt-dist/conf/sbtopts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbtopts"># ------------------------------------------------ #
+#  The SBT Configuration file.                     #
+# ------------------------------------------------ #
+
+
+# Disable ANSI color codes
+#
+#-no-colors
+
+# Starts sbt even if the current directory contains no sbt project.
+#
+-sbt-create
+
+# Path to global settings/plugins directory (default: ~/.sbt)
+#
+#-sbt-dir  /etc/sbt
+
+# Path to shared boot directory (default: ~/.sbt/boot in 0.11 series)
+#
+#-sbt-boot ~/.sbt/boot  
+
+# Path to local Ivy repository (default: ~/.ivy2)
+#
+#-ivy ~/.ivy2
+
+# set memory options
+#
+#-mem   &lt;integer&gt;  
+
+# Use local caches for projects, no sharing.
+#
+#-no-share
+
+# Put SBT in offline mode.
+#
+#-offline
+
+# Sets the SBT version to use.
+#-sbt-version  0.11.3
+
+# Scala version (default: latest release)
+#
+#-scala-home &lt;path&gt;        
+#-scala-version &lt;version&gt;
+
+# java version (default: java from PATH, currently $(java -version |&amp; grep version))
+#
+#-java-home &lt;path&gt;
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt" target="_blank" title="show github file">sbt</a>
+        </div>
+        <div class="path">sbt-dist/bin/sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">#!/usr/bin/env bash
+
+
+###  ------------------------------- ###
+###  Helper methods for BASH scripts ###
+###  ------------------------------- ###
+
+realpath () {
+(
+  TARGET_FILE=&quot;$1&quot;
+  FIX_CYGPATH=&quot;$2&quot;
+
+  cd &quot;$(dirname &quot;$TARGET_FILE&quot;)&quot;
+  TARGET_FILE=$(basename &quot;$TARGET_FILE&quot;)
+
+  COUNT=0
+  while [ -L &quot;$TARGET_FILE&quot; -a $COUNT -lt 100 ]
+  do
+      TARGET_FILE=$(readlink &quot;$TARGET_FILE&quot;)
+      cd &quot;$(dirname &quot;$TARGET_FILE&quot;)&quot;
+      TARGET_FILE=$(basename &quot;$TARGET_FILE&quot;)
+      COUNT=$(($COUNT + 1))
+  done
+
+  # make sure we grab the actual windows path, instead of cygwin&#39;s path.
+  if [[ &quot;x$FIX_CYGPATH&quot; != &quot;x&quot; ]]; then
+    echo &quot;$(cygwinpath &quot;$(pwd -P)/$TARGET_FILE&quot;)&quot;
+  else
+    echo &quot;$(pwd -P)/$TARGET_FILE&quot;
+  fi
+)
+}
+
+
+# Uses uname to detect if we&#39;re in the odd cygwin environment.
+is_cygwin() {
+  local os=$(uname -s)
+  case &quot;$os&quot; in
+    CYGWIN*) return 0 ;;
+    *)  return 1 ;;
+  esac
+}
+
+# TODO - Use nicer bash-isms here.
+CYGWIN_FLAG=$(if is_cygwin; then echo true; else echo false; fi)
+
+
+# This can fix cygwin style /cygdrive paths so we get the
+# windows style paths.
+cygwinpath() {
+  local file=&quot;$1&quot;
+  if [[ &quot;$CYGWIN_FLAG&quot; == &quot;true&quot; ]]; then
+    echo $(cygpath -w $file)
+  else
+    echo $file
+  fi
+}
+
+. &quot;$(dirname &quot;$(realpath &quot;$0&quot;)&quot;)/sbt-launch-lib.bash&quot;
+
+
+declare -r noshare_opts=&quot;-Dsbt.global.base=project/.sbtboot -Dsbt.boot.directory=project/.boot -Dsbt.ivy.home=project/.ivy&quot;
+declare -r sbt_opts_file=&quot;.sbtopts&quot;
+declare -r etc_sbt_opts_file=&quot;${sbt_home}/conf/sbtopts&quot;
+declare -r win_sbt_opts_file=&quot;${sbt_home}/conf/sbtconfig.txt&quot;
+
+usage() {
+ cat &lt;&lt;EOM
+Usage: $script_name [options]
+
+  -h | -help         print this message
+  -v | -verbose      this runner is chattier
+  -d | -debug        set sbt log level to debug
+  -no-colors         disable ANSI color codes
+  -sbt-create        start sbt even if current directory contains no sbt project
+  -sbt-dir   &lt;path&gt;  path to global settings/plugins directory (default: ~/.sbt)
+  -sbt-boot  &lt;path&gt;  path to shared boot directory (default: ~/.sbt/boot in 0.11 series)
+  -ivy       &lt;path&gt;  path to local Ivy repository (default: ~/.ivy2)
+  -mem    &lt;integer&gt;  set memory options (default: $sbt_mem, which is $(get_mem_opts $sbt_mem))
+  -no-share          use all local caches; no sharing
+  -no-global         uses global caches, but does not use global ~/.sbt directory.
+  -jvm-debug &lt;port&gt;  Turn on JVM debugging, open at the given port.
+  -batch             Disable interactive mode
+
+  # sbt version (default: from project/build.properties if present, else latest release)
+  -sbt-version  &lt;version&gt;   use the specified version of sbt
+  -sbt-jar      &lt;path&gt;      use the specified jar as the sbt launcher
+  -sbt-rc                   use an RC version of sbt
+  -sbt-snapshot             use a snapshot version of sbt
+
+  # java version (default: java from PATH, currently $(java -version 2&gt;&amp;1 | grep version))
+  -java-home &lt;path&gt;         alternate JAVA_HOME
+
+  # jvm options and output control
+  JAVA_OPTS          environment variable, if unset uses &quot;$java_opts&quot;
+  SBT_OPTS           environment variable, if unset uses &quot;$default_sbt_opts&quot;
+  .sbtopts           if this file exists in the current directory, it is
+                     prepended to the runner args
+  /etc/sbt/sbtopts   if this file exists, it is prepended to the runner args
+  -Dkey=val          pass -Dkey=val directly to the java runtime
+  -J-X               pass option -X directly to the java runtime 
+                     (-J is stripped)
+  -S-X               add -X to sbt&#39;s scalacOptions (-S is stripped)
+
+In the case of duplicated or conflicting options, the order above
+shows precedence: JAVA_OPTS lowest, command line options highest.
+EOM
+}
+
+
+
+process_my_args () {
+  while [[ $# -gt 0 ]]; do
+    case &quot;$1&quot; in
+     -no-colors) addJava &quot;-Dsbt.log.noformat=true&quot; &amp;&amp; shift ;;
+      -no-share) addJava &quot;$noshare_opts&quot; &amp;&amp; shift ;;
+     -no-global) addJava &quot;-Dsbt.global.base=$(pwd)/project/.sbtboot&quot; &amp;&amp; shift ;;
+      -sbt-boot) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; addJava &quot;-Dsbt.boot.directory=$2&quot; &amp;&amp; shift 2 ;;
+       -sbt-dir) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; addJava &quot;-Dsbt.global.base=$2&quot; &amp;&amp; shift 2 ;;
+     -debug-inc) addJava &quot;-Dxsbt.inc.debug=true&quot; &amp;&amp; shift ;;
+         -batch) exec &lt;/dev/null &amp;&amp; shift ;;
+
+    -sbt-create) sbt_create=true &amp;&amp; shift ;;
+
+              *) addResidual &quot;$1&quot; &amp;&amp; shift ;;
+    esac
+  done
+  
+  # Now, ensure sbt version is used.
+  [[ &quot;${sbt_version}XXX&quot; != &quot;XXX&quot; ]] &amp;&amp; addJava &quot;-Dsbt.version=$sbt_version&quot; 
+}
+
+loadConfigFile() {
+  cat &quot;$1&quot; | sed &#39;/^\#/d&#39; | while read line; do
+    eval echo $line
+  done
+}
+
+# TODO - Pull in config based on operating system... (MSYS + cygwin should pull in txt file).
+# Here we pull in the global settings configuration.
+[[ -f &quot;$etc_sbt_opts_file&quot; ]] &amp;&amp; set -- $(loadConfigFile &quot;$etc_sbt_opts_file&quot;) &quot;$@&quot;
+# -- Windows behavior stub&#39;d
+# JAVA_OPTS=$(cat &quot;$WDIR/sbtconfig.txt&quot; | sed -e &#39;s/\r//g&#39; -e &#39;s/^#.*$//g&#39; | sed &#39;:a;N;$!ba;s/\n/ /g&#39;)
+
+
+#  Pull in the project-level config file, if it exists.
+[[ -f &quot;$sbt_opts_file&quot; ]] &amp;&amp; set -- $(loadConfigFile &quot;$sbt_opts_file&quot;) &quot;$@&quot;
+
+
+run &quot;$@&quot;
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt-launch-lib.bash" target="_blank" title="show github file">sbt-launch-lib.bash</a>
+        </div>
+        <div class="path">sbt-dist/bin/sbt-launch-lib.bash</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="bash">#!/usr/bin/env bash
+#
+
+# A library to simplify using the SBT launcher from other packages.
+# Note: This should be used by tools like giter8/conscript etc.
+
+# TODO - Should we merge the main SBT script with this library?
+
+declare -a residual_args
+declare -a java_args
+declare -a scalac_args
+declare -a sbt_commands
+declare java_cmd=java
+declare java_version
+declare -r sbt_bin_dir=&quot;$(dirname &quot;$(realpath &quot;$0&quot;)&quot;)&quot;
+declare -r sbt_home=&quot;$(dirname &quot;$sbt_bin_dir&quot;)&quot;
+
+echoerr () {
+  echo 1&gt;&amp;2 &quot;$@&quot;
+}
+vlog () {
+  [[ $verbose || $debug ]] &amp;&amp; echoerr &quot;$@&quot;
+}
+dlog () {
+  [[ $debug ]] &amp;&amp; echoerr &quot;$@&quot;
+}
+
+jar_file () {
+  echo &quot;$(cygwinpath &quot;${sbt_home}/bin/sbt-launch.jar&quot;)&quot;
+}
+
+acquire_sbt_jar () {
+  sbt_jar=&quot;$(jar_file)&quot;
+
+  if [[ ! -f &quot;$sbt_jar&quot; ]]; then
+    echoerr &quot;Could not find launcher jar: $sbt_jar&quot;
+    exit 2
+  fi
+}
+
+execRunner () {
+  # print the arguments one to a line, quoting any containing spaces
+  [[ $verbose || $debug ]] &amp;&amp; echo &quot;# Executing command line:&quot; &amp;&amp; {
+    for arg; do
+      if printf &quot;%s\n&quot; &quot;$arg&quot; | grep -q &#39; &#39;; then
+        printf &quot;\&quot;%s\&quot;\n&quot; &quot;$arg&quot;
+      else
+        printf &quot;%s\n&quot; &quot;$arg&quot;
+      fi
+    done
+    echo &quot;&quot;
+  }
+
+  # THis used to be exec, but we loose the ability to re-hook stty then
+  # for cygwin...  Maybe we should flag the feature here...
+  &quot;$@&quot;
+}
+
+addJava () {
+  dlog &quot;[addJava] arg = &#39;$1&#39;&quot;
+  java_args=( &quot;${java_args[@]}&quot; &quot;$1&quot; )
+}
+addSbt () {
+  dlog &quot;[addSbt] arg = &#39;$1&#39;&quot;
+  sbt_commands=( &quot;${sbt_commands[@]}&quot; &quot;$1&quot; )
+}
+addResidual () {
+  dlog &quot;[residual] arg = &#39;$1&#39;&quot;
+  residual_args=( &quot;${residual_args[@]}&quot; &quot;$1&quot; )
+}
+addDebugger () {
+  addJava &quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=$1&quot;
+}
+
+get_mem_opts () {
+  # if we detect any of these settings in ${JAVA_OPTS} or ${JAVA_TOOL_OPTIONS} we need to NOT output our settings.
+  # The reason is the Xms/Xmx, if they don&#39;t line up, cause errors.
+  if [[ &quot;${JAVA_OPTS}&quot; == *-Xmx* ]] || [[ &quot;${JAVA_OPTS}&quot; == *-Xms* ]] || [[ &quot;${JAVA_OPTS}&quot; == *-XX:MaxPermSize* ]] || [[ &quot;${JAVA_OPTS}&quot; == *-XX:MaxMetaspaceSize* ]] || [[ &quot;${JAVA_OPTS}&quot; == *-XX:ReservedCodeCacheSize* ]]; then
+    echo &quot;&quot;
+  elif [[ &quot;${JAVA_TOOL_OPTIONS}&quot; == *-Xmx* ]] || [[ &quot;${JAVA_TOOL_OPTIONS}&quot; == *-Xms* ]] || [[ &quot;${JAVA_TOOL_OPTIONS}&quot; == *-XX:MaxPermSize* ]] || [[ &quot;${JAVA_TOOL_OPTIONS}&quot; == *-XX:MaxMetaspaceSize* ]] || [[ &quot;${JAVA_TOOL_OPTIONS}&quot; == *-XX:ReservedCodeCacheSize* ]]; then
+    echo &quot;&quot;
+  elif [[ &quot;${SBT_OPTS}&quot; == *-Xmx* ]] || [[ &quot;${SBT_OPTS}&quot; == *-Xms* ]] || [[ &quot;${SBT_OPTS}&quot; == *-XX:MaxPermSize* ]] || [[ &quot;${SBT_OPTS}&quot; == *-XX:MaxMetaspaceSize* ]] || [[ &quot;${SBT_OPTS}&quot; == *-XX:ReservedCodeCacheSize* ]]; then
+    echo &quot;&quot;
+  else
+    # a ham-fisted attempt to move some memory settings in concert
+    # so they need not be messed around with individually.
+    local mem=${1:-1024}
+    local codecache=$(( $mem / 8 ))
+    (( $codecache &gt; 128 )) || codecache=128
+    (( $codecache &lt; 512 )) || codecache=512
+    local class_metadata_size=$(( $codecache * 2 ))
+    local class_metadata_opt=$([[ &quot;$java_version&quot; &lt; &quot;1.8&quot; ]] &amp;&amp; echo &quot;MaxPermSize&quot; || echo &quot;MaxMetaspaceSize&quot;)
+
+    local arg_xms=$([[ &quot;${java_args[@]}&quot; == *-Xms* ]] &amp;&amp; echo &quot;&quot; || echo &quot;-Xms${mem}m&quot;)
+    local arg_xmx=$([[ &quot;${java_args[@]}&quot; == *-Xmx* ]] &amp;&amp; echo &quot;&quot; || echo &quot;-Xmx${mem}m&quot;)
+    local arg_rccs=$([[ &quot;${java_args[@]}&quot; == *-XX:ReservedCodeCacheSize* ]] &amp;&amp; echo &quot;&quot; || echo &quot;-XX:ReservedCodeCacheSize=${codecache}m&quot;)
+    local arg_meta=$([[ &quot;${java_args[@]}&quot; == *-XX:${class_metadata_opt}* ]] &amp;&amp; echo &quot;&quot; || echo &quot;-XX:${class_metadata_opt}=${class_metadata_size}m&quot;)
+
+    echo &quot;${arg_xms} ${arg_xmx} ${arg_rccs} ${arg_meta}&quot;
+  fi
+}
+
+require_arg () {
+  local type=&quot;$1&quot;
+  local opt=&quot;$2&quot;
+  local arg=&quot;$3&quot;
+  if [[ -z &quot;$arg&quot; ]] || [[ &quot;${arg:0:1}&quot; == &quot;-&quot; ]]; then
+    echo &quot;$opt requires &lt;$type&gt; argument&quot;
+    exit 1
+  fi
+}
+
+is_function_defined() {
+  declare -f &quot;$1&quot; &gt; /dev/null
+}
+
+process_args () {
+  while [[ $# -gt 0 ]]; do
+    case &quot;$1&quot; in
+       -h|-help) usage; exit 1 ;;
+    -v|-verbose) verbose=1 &amp;&amp; shift ;;
+      -d|-debug) debug=1 &amp;&amp; shift ;;
+
+           -ivy) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; addJava &quot;-Dsbt.ivy.home=$2&quot; &amp;&amp; shift 2 ;;
+           -mem) require_arg integer &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_mem=&quot;$2&quot; &amp;&amp; shift 2 ;;
+     -jvm-debug) require_arg port &quot;$1&quot; &quot;$2&quot; &amp;&amp; addDebugger $2 &amp;&amp; shift 2 ;;
+         -batch) exec &lt;/dev/null &amp;&amp; shift ;;
+
+       -sbt-jar) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_jar=&quot;$2&quot; &amp;&amp; shift 2 ;;
+   -sbt-version) require_arg version &quot;$1&quot; &quot;$2&quot; &amp;&amp; sbt_version=&quot;$2&quot; &amp;&amp; shift 2 ;;
+     -java-home) require_arg path &quot;$1&quot; &quot;$2&quot; &amp;&amp; java_cmd=&quot;$2/bin/java&quot; &amp;&amp; shift 2 ;;
+
+            -D*) addJava &quot;$1&quot; &amp;&amp; shift ;;
+            -J*) addJava &quot;${1:2}&quot; &amp;&amp; shift ;;
+              *) addResidual &quot;$1&quot; &amp;&amp; shift ;;
+    esac
+  done
+  
+  is_function_defined process_my_args &amp;&amp; {
+    myargs=(&quot;${residual_args[@]}&quot;)
+    residual_args=()
+    process_my_args &quot;${myargs[@]}&quot;
+  }
+
+  java_version=$(&quot;$java_cmd&quot; -Xmx512M -version 2&gt;&amp;1 | awk -F &#39;&quot;&#39; &#39;/version/ {print $2}&#39;)
+  vlog &quot;[process_args] java_version = &#39;$java_version&#39;&quot;
+}
+
+# Detect that we have java installed.
+checkJava() {
+  local required_version=&quot;$1&quot;
+  # Now check to see if it&#39;s a good enough version
+  if [[ &quot;$java_version&quot; == &quot;&quot; ]]; then
+    echo
+    echo No java installations was detected.
+    echo Please go to http://www.java.com/getjava/ and download
+    echo
+    exit 1
+  elif [[ ! &quot;$java_version&quot; &gt; &quot;$required_version&quot; ]]; then
+    echo
+    echo The java installation you have is not up to date
+    echo $script_name requires at least version $required_version+, you have
+    echo version $java_version
+    echo
+    echo Please go to http://www.java.com/getjava/ and download
+    echo a valid Java Runtime and install before running $script_name.
+    echo
+    exit 1
+  fi
+}
+
+
+run() {
+  # no jar? download it.
+  [[ -f &quot;$sbt_jar&quot; ]] || acquire_sbt_jar &quot;$sbt_version&quot; || {
+    # still no jar? uh-oh.
+    echo &quot;Download failed. Obtain the sbt-launch.jar manually and place it at $sbt_jar&quot;
+    exit 1
+  }
+
+  # process the combined args, then reset &quot;$@&quot; to the residuals
+  process_args &quot;$@&quot;
+  set -- &quot;${residual_args[@]}&quot;
+  argumentCount=$#
+
+  # TODO - java check should be configurable...
+  checkJava &quot;1.6&quot;
+
+  #If we&#39;re in cygwin, we should use the windows config, and terminal hacks
+  if [[ &quot;$CYGWIN_FLAG&quot; == &quot;true&quot; ]]; then
+    stty -icanon min 1 -echo &gt; /dev/null 2&gt;&amp;1
+    addJava &quot;-Djline.terminal=jline.UnixTerminal&quot;
+    addJava &quot;-Dsbt.cygwin=true&quot;
+  fi
+
+  # run sbt
+  execRunner &quot;$java_cmd&quot; \
+    $(get_mem_opts $sbt_mem) \
+    ${JAVA_OPTS} \
+    ${SBT_OPTS:-$default_sbt_opts} \
+    ${java_args[@]} \
+    -jar &quot;$sbt_jar&quot; \
+    &quot;${sbt_commands[@]}&quot; \
+    &quot;${residual_args[@]}&quot;  
+  
+  exit_code=$?
+
+  # Clean up the terminal from cygwin hacks.
+  if [[ &quot;$CYGWIN_FLAG&quot; == &quot;true&quot; ]]; then
+    stty icanon echo &gt; /dev/null 2&gt;&amp;1
+  fi
+  exit $exit_code
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/sbt-dist/bin/sbt.bat" target="_blank" title="show github file">sbt.bat</a>
+        </div>
+        <div class="path">sbt-dist/bin/sbt.bat</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="bat">@REM SBT launcher script
+@REM 
+@REM Envioronment:
+@REM JAVA_HOME - location of a JDK home dir (mandatory)
+@REM SBT_OPTS  - JVM options (optional)
+@REM Configuration:
+@REM sbtconfig.txt found in the SBT_HOME.
+
+@REM   ZOMG! We need delayed expansion to build up CFG_OPTS later 
+@setlocal enabledelayedexpansion
+
+@echo off
+set SBT_HOME=%~dp0
+
+rem FIRST we load the config file of extra options.
+set FN=%SBT_HOME%\..\conf\sbtconfig.txt
+set CFG_OPTS=
+FOR /F &quot;tokens=* eol=# usebackq delims=&quot; %%i IN (&quot;%FN%&quot;) DO (
+  set DO_NOT_REUSE_ME=%%i
+  rem ZOMG (Part #2) WE use !! here to delay the expansion of
+  rem CFG_OPTS, otherwise it remains &quot;&quot; for this loop.
+  set CFG_OPTS=!CFG_OPTS! !DO_NOT_REUSE_ME!
+)
+
+rem We use the value of the JAVACMD environment variable if defined
+set _JAVACMD=%JAVACMD%
+
+if &quot;%_JAVACMD%&quot;==&quot;&quot; (
+  if not &quot;%JAVA_HOME%&quot;==&quot;&quot; (
+    if exist &quot;%JAVA_HOME%\bin\java.exe&quot; set &quot;_JAVACMD=%JAVA_HOME%\bin\java.exe&quot;
+  )
+)
+
+if &quot;%_JAVACMD%&quot;==&quot;&quot; set _JAVACMD=java
+
+rem We use the value of the JAVA_OPTS environment variable if defined, rather than the config.
+set _JAVA_OPTS=%JAVA_OPTS%
+if &quot;%_JAVA_OPTS%&quot;==&quot;&quot; set _JAVA_OPTS=%CFG_OPTS%
+
+:run
+
+&quot;%_JAVACMD%&quot; %_JAVA_OPTS% %SBT_OPTS% -cp &quot;%SBT_HOME%sbt-launch.jar&quot; xsbt.boot.Boot %*
+if ERRORLEVEL 1 goto error
+goto end
+
+:error
+@endlocal
+exit /B 1
+
+
+:end
+@endlocal
+exit /B 0
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/sbt-buildinfo-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">import Dependencies._
+
+lazy val root = (project in file(&quot;.&quot;)).
+  settings(
+    inThisBuild(List(
+      organization := &quot;com.example&quot;,
+      scalaVersion := &quot;2.12.3&quot;,
+      version      := &quot;0.1.0-SNAPSHOT&quot;
+    )),
+    name := &quot;Hello&quot;,
+    libraryDependencies += scalaTest % Test
+  ).
+  enablePlugins(BuildInfoPlugin).
+  settings(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoPackage := &quot;hello&quot;
+  )</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

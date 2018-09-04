@@ -55,6 +55,112 @@ export function checkPassword(password) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-form-validation-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-form-validation-demo/blob/master/form.jsx" target="_blank" title="show github file">form.jsx</a>
+        </div>
+        <div class="path">form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {checkUsername, checkPassword} from &#39;./validation&#39;;
+
+class Form extends Component {
+  constructor(props) {
+    // required if we want to invoke `this.`
+    super(props);
+    this.state = {
+      usernameError: &#39;&#39;,
+      passwordError: &#39;&#39;,
+      submitButtonEnabled: false
+    };
+  }
+
+  render() {
+    return &lt;form onSubmit={this._onSubmit.bind(this)}&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;text&quot;
+               onChange={this._onUsernameChanged.bind(this)}
+               onBlur={this._checkUsername.bind(this)}
+        /&gt;
+        &lt;span&gt;{this.state.usernameError}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;password&quot;
+               onChange={this._onPasswordChange.bind(this)}
+               onBlur={this._checkPassword.bind(this)}
+        /&gt;
+        &lt;span&gt;{this.state.passwordError}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button type=&quot;submit&quot; disabled={this.state.submitButtonEnabled ? &#39;&#39; : &#39;disabled&#39;}&gt;
+          注册
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;;
+  }
+
+  _onUsernameChanged(event) {
+    this.setState({
+      username: event.target.value,
+      usernameError: &#39;&#39;
+    }, () =&gt; this._determineIfEnableSubmitButton());
+  }
+
+  _checkUsername(event) {
+    if (checkUsername(event.target.value)) {
+      this.setState({usernameError: &#39;&#39;});
+    } else {
+      this.setState({usernameError: &#39;用户名长度必须&gt;=6&#39;});
+    }
+  }
+
+  _onPasswordChange(event) {
+    this.setState({
+      password: event.target.value,
+      passwordError: &#39;&#39;
+    }, () =&gt; this._determineIfEnableSubmitButton());
+  }
+
+  _checkPassword(event) {
+    const password = event.target.value;
+    if (checkPassword(password)) {
+      this.setState({passwordError: &#39;&#39;});
+    } else {
+      this.setState({passwordError: &#39;密码长度必须&gt;=10&#39;})
+    }
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    alert(&#39;will submit: &#39; + this.state.username + &#39;, &#39; + this.state.password);
+  }
+
+  _determineIfEnableSubmitButton() {
+    const canSubmit = checkUsername(this.state.username) &amp;&amp; checkPassword(this.state.password);
+    this.setState({
+      submitButtonEnabled: canSubmit
+    });
+  }
+}
+
+export default Form;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-form-validation-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -78,6 +184,26 @@ export function checkPassword(password) {
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-form-validation-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Form from &#39;./form.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Form/&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

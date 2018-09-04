@@ -139,6 +139,66 @@ new Vue({
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/src/App.vue" target="_blank" title="show github file">App.vue</a>
+        </div>
+        <div class="path">src/App.vue</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="vue">&lt;template&gt;
+
+    &lt;div&gt;
+        &lt;input type=&quot;text&quot; autofocus placeholder=&quot;press up/down/left/right/enter&quot;
+               v-on:keydown.up=&quot;pressUp()&quot;
+               v-on:keydown.right=&quot;pressRight()&quot;
+               v-on:keydown.down=&quot;pressDown()&quot;
+               v-on:keydown.left=&quot;pressLeft()&quot;
+               v-on:keydown.enter=&quot;pressEnter()&quot;
+        &gt;
+        &lt;div&gt;You pressed {{ key }}&lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/template&gt;
+
+&lt;script lang=&quot;ts&quot;&gt;
+    import {Component, Vue} from &#39;vue-property-decorator&#39;
+
+    @Component({})
+    export default class App extends Vue {
+        key: string = &#39;&#39;
+
+        pressUp() {
+            this.key = &#39;up arrow&#39;
+        }
+
+        pressDown() {
+            this.key = &#39;down arrow&#39;
+        }
+
+        pressLeft() {
+            this.key = &#39;left arrow&#39;
+        }
+
+        pressRight() {
+            this.key = &#39;right arrow&#39;
+        }
+
+        pressEnter() {
+            this.key = &#39;enter&#39;
+        }
+    }
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+    input {
+        width: 400px
+    }
+&lt;/style&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/vue-typescript-keydown-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </div>
         <div class="path">package.json</div>

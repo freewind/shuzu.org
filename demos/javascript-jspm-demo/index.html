@@ -1,0 +1,734 @@
+<html>
+<head>
+    <title>javascript-jspm-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-jspm-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript JSPM Demo
+====================
+
+Jspm是构建于SystemJS之上的一套前端包管理系统。
+
+首先在全局安装`jspm`：
+
+```
+npm install
+npm run jspm-install
+```
+
+![demo](./images/demo.jpg)
+
+开发与打包
+-----
+
+默认情况下，本地各JS文件不会被打包，JavaScript文件的转换（ES6-&gt;ES5）也是在浏览器端完成。
+
+如果需要在打包，可以执行：
+
+```
+npx jspm bundle index --inject
+```
+
+其中`index`指的是入口文件`index.js`，`--inject`是说将该bundle信息加入到`config.js`中。
+
+执行完以后，它会生成`build.js`文件，同时向`config.js`增加这段：
+
+```
+bundles: {
+  &quot;build.js&quot;: [
+    &quot;index.js&quot;,
+    &quot;src/hello-es6.js&quot;,
+    &quot;npm:jquery@3.3.1.js&quot;,
+    &quot;npm:jquery@3.3.1/dist/jquery.js&quot;,
+    &quot;src/hello-commonjs.js&quot;,
+    &quot;src/hello-amd.js&quot;
+  ]
+}
+```
+
+这样，当前端的`index.html`读取到这一段时，就会只下载`build.js`，而不会下载`build.js`里所包含的其它文件了。
+
+与Webpack比较
+------------
+
+与Webpack喜欢在server端将依赖打包成一个文件的风格不同的是，Jspm倾向于：
+
+- 在开发阶段，它的各项操作都是在前端完成的（比如将es6转换成普通js代码也是通过浏览器端的babel实现的）
+- 文件不打包，而是在前端由SystemJS下载各JS文件并管理依赖
+- 尽量使用CDN的速度优势，实际上jspm本身也提供了一个CDN: &lt;https://jspm.io/&gt;
+
+当然在发布时，Jspm还是可以在server端将所有文件转换并打包成一个文件的。
+
+然而相比Webpack，Webpack的优势并不大：
+
+- webpack使用和配置都很方便，编译速度也很快
+- webpack可以通过`webpack-cdn-plugin`插件，不打包依赖，同时使用相应的CDN
+- webpack的生态非常繁荣
+
+同时还有一定的劣势：
+
+- 我们在不可避免的使用`npm`的同时，还需要使用`jspm`，掌握两套模块依赖管理的配置。
+
+所以我觉得还是尽可能的使用Webpack + npm这一套解决方案就够了。
+
+Resources
+---------
+
+- JSPM ES6 Demo: &lt;https://github.com/jspm/demo-es6&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import helloAmd from &#39;./src/hello-amd.js&#39;
+import helloCommonsJS from &#39;./src/hello-commonjs.js&#39;
+import {hello as helloEs6} from &#39;./src/hello-es6.js&#39;
+
+helloAmd(&#39;main1&#39;)
+helloCommonsJS(&#39;main2&#39;)
+helloEs6(&#39;main3&#39;)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/src/hello-commonjs.js" target="_blank" title="show github file">hello-commonjs.js</a>
+        </div>
+        <div class="path">src/hello-commonjs.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = function (id) {
+    document.getElementById(id).innerText = &#39;Hello! (from hello-commonjs.js)&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/src/hello-amd.js" target="_blank" title="show github file">hello-amd.js</a>
+        </div>
+        <div class="path">src/hello-amd.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">define([], function () {
+    return function (elementId) {
+        document.getElementById(elementId).innerText = &#39;Hello! (from hello-amd.js)&#39;
+    }
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/src/hello-es6.js" target="_blank" title="show github file">hello-es6.js</a>
+        </div>
+        <div class="path">src/hello-es6.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import $ from &#39;jquery&#39;
+
+export function hello(elementId) {
+    const $element = $(&#39;#&#39; + elementId)
+    $element.text(&#39;Hello! (from hello-es6.js)&#39;)
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;jspm-install&quot;: &quot;jspm install&quot;,
+    &quot;demo&quot;: &quot;http-server . -c-1 -o&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;,
+    &quot;jspm&quot;: &quot;^0.16.53&quot;
+  },
+  &quot;jspm&quot;: {
+    &quot;main&quot;: &quot;index.js&quot;,
+    &quot;dependencies&quot;: {
+      &quot;jquery&quot;: &quot;npm:jquery@^3.3.1&quot;
+    },
+    &quot;devDependencies&quot;: {
+      &quot;babel&quot;: &quot;npm:babel-core@^5.8.24&quot;,
+      &quot;babel-runtime&quot;: &quot;npm:babel-runtime@^5.8.24&quot;,
+      &quot;core-js&quot;: &quot;npm:core-js@^1.1.4&quot;
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./jspm_packages/system.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;./config.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        SystemJS.import(&#39;index&#39;)
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;main1&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;main2&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;main3&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-jspm-demo/blob/master/config.js" target="_blank" title="show github file">config.js</a>
+        </div>
+        <div class="path">config.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">System.config({
+  baseURL: &quot;/&quot;,
+  defaultJSExtensions: true,
+  transpiler: &quot;babel&quot;,
+  babelOptions: {
+    &quot;optional&quot;: [
+      &quot;runtime&quot;,
+      &quot;optimisation.modules.system&quot;
+    ]
+  },
+  paths: {
+    &quot;github:*&quot;: &quot;jspm_packages/github/*&quot;,
+    &quot;npm:*&quot;: &quot;jspm_packages/npm/*&quot;
+  },
+  bundles: {
+    &quot;build.js&quot;: [
+      &quot;index.js&quot;,
+      &quot;src/hello-es6.js&quot;,
+      &quot;npm:jquery@3.3.1.js&quot;,
+      &quot;npm:jquery@3.3.1/dist/jquery.js&quot;,
+      &quot;src/hello-commonjs.js&quot;,
+      &quot;src/hello-amd.js&quot;
+    ]
+  },
+
+  map: {
+    &quot;babel&quot;: &quot;npm:babel-core@5.8.38&quot;,
+    &quot;babel-runtime&quot;: &quot;npm:babel-runtime@5.8.38&quot;,
+    &quot;core-js&quot;: &quot;npm:core-js@1.2.7&quot;,
+    &quot;http-server&quot;: &quot;npm:http-server@0.11.1&quot;,
+    &quot;jquery&quot;: &quot;npm:jquery@3.3.1&quot;,
+    &quot;github:jspm/nodelibs-assert@0.1.0&quot;: {
+      &quot;assert&quot;: &quot;npm:assert@1.4.1&quot;
+    },
+    &quot;github:jspm/nodelibs-buffer@0.1.1&quot;: {
+      &quot;buffer&quot;: &quot;npm:buffer@5.2.1&quot;
+    },
+    &quot;github:jspm/nodelibs-constants@0.1.0&quot;: {
+      &quot;constants-browserify&quot;: &quot;npm:constants-browserify@0.0.1&quot;
+    },
+    &quot;github:jspm/nodelibs-crypto@0.1.0&quot;: {
+      &quot;crypto-browserify&quot;: &quot;npm:crypto-browserify@3.12.0&quot;
+    },
+    &quot;github:jspm/nodelibs-events@0.1.1&quot;: {
+      &quot;events&quot;: &quot;npm:events@1.0.2&quot;
+    },
+    &quot;github:jspm/nodelibs-http@1.7.1&quot;: {
+      &quot;Base64&quot;: &quot;npm:Base64@0.2.1&quot;,
+      &quot;events&quot;: &quot;github:jspm/nodelibs-events@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;url&quot;: &quot;github:jspm/nodelibs-url@0.1.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;github:jspm/nodelibs-https@0.1.0&quot;: {
+      &quot;https-browserify&quot;: &quot;npm:https-browserify@0.0.0&quot;
+    },
+    &quot;github:jspm/nodelibs-net@0.1.2&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;,
+      &quot;net&quot;: &quot;github:jspm/nodelibs-net@0.1.2&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;timers&quot;: &quot;github:jspm/nodelibs-timers@0.1.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;github:jspm/nodelibs-os@0.1.0&quot;: {
+      &quot;os-browserify&quot;: &quot;npm:os-browserify@0.1.2&quot;
+    },
+    &quot;github:jspm/nodelibs-path@0.1.0&quot;: {
+      &quot;path-browserify&quot;: &quot;npm:path-browserify@0.0.0&quot;
+    },
+    &quot;github:jspm/nodelibs-process@0.1.2&quot;: {
+      &quot;process&quot;: &quot;npm:process@0.11.10&quot;
+    },
+    &quot;github:jspm/nodelibs-stream@0.1.0&quot;: {
+      &quot;stream-browserify&quot;: &quot;npm:stream-browserify@1.0.0&quot;
+    },
+    &quot;github:jspm/nodelibs-string_decoder@0.1.0&quot;: {
+      &quot;string_decoder&quot;: &quot;npm:string_decoder@0.10.31&quot;
+    },
+    &quot;github:jspm/nodelibs-timers@0.1.0&quot;: {
+      &quot;timers-browserify&quot;: &quot;npm:timers-browserify@1.4.2&quot;
+    },
+    &quot;github:jspm/nodelibs-tty@0.1.0&quot;: {
+      &quot;tty-browserify&quot;: &quot;npm:tty-browserify@0.0.0&quot;
+    },
+    &quot;github:jspm/nodelibs-url@0.1.0&quot;: {
+      &quot;url&quot;: &quot;npm:url@0.10.3&quot;
+    },
+    &quot;github:jspm/nodelibs-util@0.1.0&quot;: {
+      &quot;util&quot;: &quot;npm:util@0.10.3&quot;
+    },
+    &quot;github:jspm/nodelibs-vm@0.1.0&quot;: {
+      &quot;vm-browserify&quot;: &quot;npm:vm-browserify@0.0.4&quot;
+    },
+    &quot;npm:asn1.js@4.10.1&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;minimalistic-assert&quot;: &quot;npm:minimalistic-assert@1.0.1&quot;,
+      &quot;vm&quot;: &quot;github:jspm/nodelibs-vm@0.1.0&quot;
+    },
+    &quot;npm:assert@1.4.1&quot;: {
+      &quot;assert&quot;: &quot;github:jspm/nodelibs-assert@0.1.0&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;util&quot;: &quot;npm:util@0.10.3&quot;
+    },
+    &quot;npm:async@1.5.2&quot;: {
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:babel-runtime@5.8.38&quot;: {
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:browserify-aes@1.2.0&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;buffer-xor&quot;: &quot;npm:buffer-xor@1.0.3&quot;,
+      &quot;cipher-base&quot;: &quot;npm:cipher-base@1.0.4&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;evp_bytestokey&quot;: &quot;npm:evp_bytestokey@1.0.3&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:browserify-cipher@1.0.1&quot;: {
+      &quot;browserify-aes&quot;: &quot;npm:browserify-aes@1.2.0&quot;,
+      &quot;browserify-des&quot;: &quot;npm:browserify-des@1.0.2&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;evp_bytestokey&quot;: &quot;npm:evp_bytestokey@1.0.3&quot;
+    },
+    &quot;npm:browserify-des@1.0.2&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;cipher-base&quot;: &quot;npm:cipher-base@1.0.4&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;des.js&quot;: &quot;npm:des.js@1.0.0&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;
+    },
+    &quot;npm:browserify-rsa@4.0.1&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;constants&quot;: &quot;github:jspm/nodelibs-constants@0.1.0&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;randombytes&quot;: &quot;npm:randombytes@2.0.6&quot;
+    },
+    &quot;npm:browserify-sign@4.0.4&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;browserify-rsa&quot;: &quot;npm:browserify-rsa@4.0.1&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;create-hmac&quot;: &quot;npm:create-hmac@1.1.7&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;elliptic&quot;: &quot;npm:elliptic@6.4.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;parse-asn1&quot;: &quot;npm:parse-asn1@5.1.1&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:buffer-xor@1.0.3&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:buffer@5.2.1&quot;: {
+      &quot;base64-js&quot;: &quot;npm:base64-js@1.3.0&quot;,
+      &quot;ieee754&quot;: &quot;npm:ieee754@1.1.12&quot;
+    },
+    &quot;npm:cipher-base@1.0.4&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;string_decoder&quot;: &quot;github:jspm/nodelibs-string_decoder@0.1.0&quot;
+    },
+    &quot;npm:colors@1.0.3&quot;: {
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:constants-browserify@0.0.1&quot;: {
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:core-js@1.2.7&quot;: {
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:core-util-is@1.0.2&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;
+    },
+    &quot;npm:create-ecdh@4.0.3&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;elliptic&quot;: &quot;npm:elliptic@6.4.1&quot;
+    },
+    &quot;npm:create-hash@1.2.0&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;cipher-base&quot;: &quot;npm:cipher-base@1.0.4&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;md5.js&quot;: &quot;npm:md5.js@1.3.4&quot;,
+      &quot;ripemd160&quot;: &quot;npm:ripemd160@2.0.2&quot;,
+      &quot;sha.js&quot;: &quot;npm:sha.js@2.4.11&quot;
+    },
+    &quot;npm:create-hmac@1.1.7&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;cipher-base&quot;: &quot;npm:cipher-base@1.0.4&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;ripemd160&quot;: &quot;npm:ripemd160@2.0.2&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;,
+      &quot;sha.js&quot;: &quot;npm:sha.js@2.4.11&quot;
+    },
+    &quot;npm:crypto-browserify@3.12.0&quot;: {
+      &quot;browserify-cipher&quot;: &quot;npm:browserify-cipher@1.0.1&quot;,
+      &quot;browserify-sign&quot;: &quot;npm:browserify-sign@4.0.4&quot;,
+      &quot;create-ecdh&quot;: &quot;npm:create-ecdh@4.0.3&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;create-hmac&quot;: &quot;npm:create-hmac@1.1.7&quot;,
+      &quot;diffie-hellman&quot;: &quot;npm:diffie-hellman@5.0.3&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;pbkdf2&quot;: &quot;npm:pbkdf2@3.0.16&quot;,
+      &quot;public-encrypt&quot;: &quot;npm:public-encrypt@4.0.2&quot;,
+      &quot;randombytes&quot;: &quot;npm:randombytes@2.0.6&quot;,
+      &quot;randomfill&quot;: &quot;npm:randomfill@1.0.4&quot;
+    },
+    &quot;npm:debug@2.6.9&quot;: {
+      &quot;ms&quot;: &quot;npm:ms@2.0.0&quot;
+    },
+    &quot;npm:debug@3.1.0&quot;: {
+      &quot;ms&quot;: &quot;npm:ms@2.0.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;tty&quot;: &quot;github:jspm/nodelibs-tty@0.1.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:des.js@1.0.0&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;minimalistic-assert&quot;: &quot;npm:minimalistic-assert@1.0.1&quot;
+    },
+    &quot;npm:diffie-hellman@5.0.3&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;miller-rabin&quot;: &quot;npm:miller-rabin@4.0.1&quot;,
+      &quot;randombytes&quot;: &quot;npm:randombytes@2.0.6&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:ecstatic@3.3.0&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;he&quot;: &quot;npm:he@1.1.1&quot;,
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;,
+      &quot;mime&quot;: &quot;npm:mime@1.6.0&quot;,
+      &quot;minimist&quot;: &quot;npm:minimist@1.2.0&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;,
+      &quot;url&quot;: &quot;github:jspm/nodelibs-url@0.1.0&quot;,
+      &quot;url-join&quot;: &quot;npm:url-join@2.0.5&quot;
+    },
+    &quot;npm:elliptic@6.4.1&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;brorand&quot;: &quot;npm:brorand@1.1.0&quot;,
+      &quot;hash.js&quot;: &quot;npm:hash.js@1.1.5&quot;,
+      &quot;hmac-drbg&quot;: &quot;npm:hmac-drbg@1.0.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;minimalistic-assert&quot;: &quot;npm:minimalistic-assert@1.0.1&quot;,
+      &quot;minimalistic-crypto-utils&quot;: &quot;npm:minimalistic-crypto-utils@1.0.1&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:evp_bytestokey@1.0.3&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;md5.js&quot;: &quot;npm:md5.js@1.3.4&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;
+    },
+    &quot;npm:follow-redirects@1.5.7&quot;: {
+      &quot;assert&quot;: &quot;github:jspm/nodelibs-assert@0.1.0&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;debug&quot;: &quot;npm:debug@3.1.0&quot;,
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;,
+      &quot;https&quot;: &quot;github:jspm/nodelibs-https@0.1.0&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;url&quot;: &quot;github:jspm/nodelibs-url@0.1.0&quot;
+    },
+    &quot;npm:hash-base@3.0.4&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;
+    },
+    &quot;npm:hash.js@1.1.5&quot;: {
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.3&quot;,
+      &quot;minimalistic-assert&quot;: &quot;npm:minimalistic-assert@1.0.1&quot;
+    },
+    &quot;npm:hmac-drbg@1.0.1&quot;: {
+      &quot;hash.js&quot;: &quot;npm:hash.js@1.1.5&quot;,
+      &quot;minimalistic-assert&quot;: &quot;npm:minimalistic-assert@1.0.1&quot;,
+      &quot;minimalistic-crypto-utils&quot;: &quot;npm:minimalistic-crypto-utils@1.0.1&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:http-proxy@1.17.0&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;eventemitter3&quot;: &quot;npm:eventemitter3@3.1.0&quot;,
+      &quot;follow-redirects&quot;: &quot;npm:follow-redirects@1.5.7&quot;,
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;,
+      &quot;https&quot;: &quot;github:jspm/nodelibs-https@0.1.0&quot;,
+      &quot;requires-port&quot;: &quot;npm:requires-port@1.0.0&quot;,
+      &quot;url&quot;: &quot;github:jspm/nodelibs-url@0.1.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:http-server@0.11.1&quot;: {
+      &quot;colors&quot;: &quot;npm:colors@1.0.3&quot;,
+      &quot;corser&quot;: &quot;npm:corser@2.0.1&quot;,
+      &quot;ecstatic&quot;: &quot;npm:ecstatic@3.3.0&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;http-proxy&quot;: &quot;npm:http-proxy@1.17.0&quot;,
+      &quot;opener&quot;: &quot;npm:opener@1.4.3&quot;,
+      &quot;optimist&quot;: &quot;npm:optimist@0.6.1&quot;,
+      &quot;portfinder&quot;: &quot;npm:portfinder@1.0.17&quot;,
+      &quot;union&quot;: &quot;npm:union@0.4.6&quot;
+    },
+    &quot;npm:https-browserify@0.0.0&quot;: {
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;
+    },
+    &quot;npm:inherits@2.0.1&quot;: {
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:inherits@2.0.3&quot;: {
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:md5.js@1.3.4&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;hash-base&quot;: &quot;npm:hash-base@3.0.4&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;
+    },
+    &quot;npm:miller-rabin@4.0.1&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;brorand&quot;: &quot;npm:brorand@1.1.0&quot;
+    },
+    &quot;npm:mime@1.6.0&quot;: {
+      &quot;assert&quot;: &quot;github:jspm/nodelibs-assert@0.1.0&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:mkdirp@0.5.1&quot;: {
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;minimist&quot;: &quot;npm:minimist@0.0.8&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:opener@1.4.3&quot;: {
+      &quot;child_process&quot;: &quot;github:jspm/nodelibs-child_process@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:optimist@0.6.1&quot;: {
+      &quot;minimist&quot;: &quot;npm:minimist@0.0.8&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;wordwrap&quot;: &quot;npm:wordwrap@0.0.3&quot;
+    },
+    &quot;npm:os-browserify@0.1.2&quot;: {
+      &quot;os&quot;: &quot;github:jspm/nodelibs-os@0.1.0&quot;
+    },
+    &quot;npm:parse-asn1@5.1.1&quot;: {
+      &quot;asn1.js&quot;: &quot;npm:asn1.js@4.10.1&quot;,
+      &quot;browserify-aes&quot;: &quot;npm:browserify-aes@1.2.0&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;evp_bytestokey&quot;: &quot;npm:evp_bytestokey@1.0.3&quot;,
+      &quot;pbkdf2&quot;: &quot;npm:pbkdf2@3.0.16&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;
+    },
+    &quot;npm:path-browserify@0.0.0&quot;: {
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:pbkdf2@3.0.16&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;create-hmac&quot;: &quot;npm:create-hmac@1.1.7&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;ripemd160&quot;: &quot;npm:ripemd160@2.0.2&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;,
+      &quot;sha.js&quot;: &quot;npm:sha.js@2.4.11&quot;
+    },
+    &quot;npm:portfinder@1.0.17&quot;: {
+      &quot;async&quot;: &quot;npm:async@1.5.2&quot;,
+      &quot;debug&quot;: &quot;npm:debug@2.6.9&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;mkdirp&quot;: &quot;npm:mkdirp@0.5.1&quot;,
+      &quot;net&quot;: &quot;github:jspm/nodelibs-net@0.1.2&quot;,
+      &quot;os&quot;: &quot;github:jspm/nodelibs-os@0.1.0&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;
+    },
+    &quot;npm:process@0.11.10&quot;: {
+      &quot;assert&quot;: &quot;github:jspm/nodelibs-assert@0.1.0&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;vm&quot;: &quot;github:jspm/nodelibs-vm@0.1.0&quot;
+    },
+    &quot;npm:public-encrypt@4.0.2&quot;: {
+      &quot;bn.js&quot;: &quot;npm:bn.js@4.11.8&quot;,
+      &quot;browserify-rsa&quot;: &quot;npm:browserify-rsa@4.0.1&quot;,
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;create-hash&quot;: &quot;npm:create-hash@1.2.0&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;parse-asn1&quot;: &quot;npm:parse-asn1@5.1.1&quot;,
+      &quot;randombytes&quot;: &quot;npm:randombytes@2.0.6&quot;
+    },
+    &quot;npm:punycode@1.3.2&quot;: {
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:randombytes@2.0.6&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;
+    },
+    &quot;npm:randomfill@1.0.4&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;randombytes&quot;: &quot;npm:randombytes@2.0.6&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;
+    },
+    &quot;npm:readable-stream@1.1.14&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;core-util-is&quot;: &quot;npm:core-util-is@1.0.2&quot;,
+      &quot;events&quot;: &quot;github:jspm/nodelibs-events@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;isarray&quot;: &quot;npm:isarray@0.0.1&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;stream-browserify&quot;: &quot;npm:stream-browserify@1.0.0&quot;,
+      &quot;string_decoder&quot;: &quot;npm:string_decoder@0.10.31&quot;
+    },
+    &quot;npm:ripemd160@2.0.2&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;hash-base&quot;: &quot;npm:hash-base@3.0.4&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;
+    },
+    &quot;npm:safe-buffer@5.1.2&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;
+    },
+    &quot;npm:sha.js@2.4.11&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;safe-buffer&quot;: &quot;npm:safe-buffer@5.1.2&quot;
+    },
+    &quot;npm:stream-browserify@1.0.0&quot;: {
+      &quot;events&quot;: &quot;github:jspm/nodelibs-events@0.1.1&quot;,
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;readable-stream&quot;: &quot;npm:readable-stream@1.1.14&quot;
+    },
+    &quot;npm:string_decoder@0.10.31&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;
+    },
+    &quot;npm:timers-browserify@1.4.2&quot;: {
+      &quot;process&quot;: &quot;npm:process@0.11.10&quot;
+    },
+    &quot;npm:union@0.4.6&quot;: {
+      &quot;buffer&quot;: &quot;github:jspm/nodelibs-buffer@0.1.1&quot;,
+      &quot;child_process&quot;: &quot;github:jspm/nodelibs-child_process@0.1.0&quot;,
+      &quot;crypto&quot;: &quot;github:jspm/nodelibs-crypto@0.1.0&quot;,
+      &quot;events&quot;: &quot;github:jspm/nodelibs-events@0.1.1&quot;,
+      &quot;fs&quot;: &quot;github:jspm/nodelibs-fs@0.1.2&quot;,
+      &quot;http&quot;: &quot;github:jspm/nodelibs-http@1.7.1&quot;,
+      &quot;https&quot;: &quot;github:jspm/nodelibs-https@0.1.0&quot;,
+      &quot;path&quot;: &quot;github:jspm/nodelibs-path@0.1.0&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;,
+      &quot;qs&quot;: &quot;npm:qs@2.3.3&quot;,
+      &quot;stream&quot;: &quot;github:jspm/nodelibs-stream@0.1.0&quot;,
+      &quot;systemjs-json&quot;: &quot;github:systemjs/plugin-json@0.1.2&quot;,
+      &quot;url&quot;: &quot;github:jspm/nodelibs-url@0.1.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:url@0.10.3&quot;: {
+      &quot;assert&quot;: &quot;github:jspm/nodelibs-assert@0.1.0&quot;,
+      &quot;punycode&quot;: &quot;npm:punycode@1.3.2&quot;,
+      &quot;querystring&quot;: &quot;npm:querystring@0.2.0&quot;,
+      &quot;util&quot;: &quot;github:jspm/nodelibs-util@0.1.0&quot;
+    },
+    &quot;npm:util@0.10.3&quot;: {
+      &quot;inherits&quot;: &quot;npm:inherits@2.0.1&quot;,
+      &quot;process&quot;: &quot;github:jspm/nodelibs-process@0.1.2&quot;
+    },
+    &quot;npm:vm-browserify@0.0.4&quot;: {
+      &quot;indexof&quot;: &quot;npm:indexof@0.0.1&quot;
+    }
+  }
+});
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-jspm-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-jspm-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

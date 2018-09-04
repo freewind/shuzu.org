@@ -87,6 +87,36 @@ object Hello extends App {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalarx-demo/blob/master/build.sc" target="_blank" title="show github file">build.sc</a>
+        </div>
+        <div class="path">build.sc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sc">import mill._
+import mill.scalalib._
+
+trait MyScalaModule extends ScalaModule { outer =&gt;
+  override def scalaVersion = &quot;2.12.4&quot;
+  trait MyTests extends Tests {
+    override def moduleDeps = outer :: outer.moduleDeps.toList
+    override def ivyDeps = Agg(ivy&quot;org.scalatest::scalatest:3.0.4&quot;)
+    override def testFrameworks = Seq(&quot;org.scalatest.tools.Framework&quot;)
+  }
+}
+
+object demo extends MyScalaModule {
+  override def ivyDeps = Agg(
+    ivy&quot;com.lihaoyi::scalarx:0.3.2&quot;,
+    ivy&quot;org.scala-lang:scala-reflect:${scalaVersion()}&quot;
+  )
+  object test extends MyTests
+}
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

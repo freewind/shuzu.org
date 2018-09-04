@@ -34,6 +34,131 @@ References
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/grid-demo.jsx" target="_blank" title="show github file">grid-demo.jsx</a>
+        </div>
+        <div class="path">grid-demo.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Grid, Row, Col} from &#39;react-bootstrap&#39;;
+
+export default class GridDemo extends Component {
+	render() {
+		return &lt;Grid&gt;
+		  &lt;Row className=&quot;show-grid&quot;&gt;
+		    &lt;Col xs={4}&gt;xs=4&lt;/Col&gt;
+		    &lt;Col xs={8}&gt;xs=8&lt;/Col&gt;
+		  &lt;/Row&gt;
+		  &lt;Row className=&quot;show-grid&quot;&gt;
+		    &lt;Col xs={6} xsOffset={2}&gt;xs=6 xsOffset=2&lt;/Col&gt;
+		  &lt;/Row&gt;
+		&lt;/Grid&gt;;
+	}
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+import {Button} from &#39;react-bootstrap&#39;;
+
+class Hello extends Component {
+	render() {
+		return &lt;div&gt;
+		  &lt;Button&gt;Hello&lt;/Button&gt;
+		&lt;/div&gt;;
+	}
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/layout.jsx" target="_blank" title="show github file">layout.jsx</a>
+        </div>
+        <div class="path">layout.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+
+export default class Layout extends Component {
+	render() {
+		return &lt;div&gt;
+			&lt;div&gt;
+				&lt;ul&gt;
+					&lt;li&gt;&lt;Link to=&#39;/grid&#39;&gt;Grid&lt;/Link&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;Link to=&#39;/buttons&#39;&gt;Buttons&lt;/Link&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;Link to=&#39;/form&#39;&gt;Form&lt;/Link&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/div&gt;
+			&lt;div&gt;{this.props.children}&lt;/div&gt;
+		&lt;/div&gt;;
+	}
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/form.jsx" target="_blank" title="show github file">form.jsx</a>
+        </div>
+        <div class="path">form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {FormGroup, FormControl, ControlLabel, Checkbox, Button} from &#39;react-bootstrap&#39;;
+
+export default class Form extends Component {
+	render() {
+		return &lt;form&gt;
+			&lt;FormGroup&gt;
+				&lt;ControlLabel&gt;User Name&lt;/ControlLabel&gt;
+				&lt;FormControl type=&quot;text&quot; placeholder=&quot;Username&quot;&gt;&lt;/FormControl&gt;
+			&lt;/FormGroup&gt;
+			&lt;FormGroup&gt;
+			  &lt;ControlLabel&gt;Password&lt;/ControlLabel&gt;
+			  &lt;FormControl type=&quot;password&quot; /&gt;
+			&lt;/FormGroup&gt;
+			&lt;FormGroup&gt;
+			  &lt;ControlLabel&gt;Description&lt;/ControlLabel&gt;
+			  &lt;FormControl componentClass=&quot;textarea&quot; placeholder=&quot;my description&quot; /&gt;
+			&lt;/FormGroup&gt;
+			&lt;Checkbox checked onChange={this._onChange.bind(this)}&gt;remember me&lt;/Checkbox&gt;
+      &lt;Button type=&quot;submit&quot;&gt;Submit&lt;/Button&gt;
+		&lt;/form&gt;;
+	}
+
+	_onChange() {
+		// required, but do nothing here
+	}
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -72,6 +197,41 @@ References
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import {Router, Route, IndexRedirect, hashHistory} from &#39;react-router&#39;;
+import Layout from &#39;./layout.jsx&#39;;
+import GridDemo from &#39;./grid-demo.jsx&#39;;
+import Form from &#39;./form.jsx&#39;;
+import Buttons from &#39;./buttons.jsx&#39;;
+require(&#39;jquery&#39;);
+require(&#39;bootstrap-webpack&#39;);
+
+const router = &lt;Router history={hashHistory}&gt;
+	&lt;Route path=&#39;/&#39; component={Layout}&gt;
+		&lt;Route path=&#39;grid&#39; component={GridDemo} /&gt;
+		&lt;Route path=&#39;form&#39; component={Form} /&gt;
+		&lt;Route path=&#39;buttons&#39; component={Buttons} /&gt;
+	&lt;/Route&gt;
+&lt;/Router&gt;;
+
+ReactDOM.render(
+  router,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -125,6 +285,32 @@ References
   }
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-bootstrap-demo/blob/master/buttons.jsx" target="_blank" title="show github file">buttons.jsx</a>
+        </div>
+        <div class="path">buttons.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Button} from &#39;react-bootstrap&#39;;
+
+export default class Buttons extends Component {
+	render() {
+		return &lt;div&gt;
+			&lt;Button&gt;Default&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;primary&quot;&gt;Primary&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;success&quot;&gt;Success&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;info&quot;&gt;Info&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;warning&quot;&gt;Warning&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;danger&quot;&gt;Danger&lt;/Button&gt;
+			&lt;Button bsStyle=&quot;link&quot;&gt;Link&lt;/Button&gt;
+		&lt;/div&gt;;
+	}
+};</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

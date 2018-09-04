@@ -40,6 +40,353 @@ Steps in summary
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/ether_send.sol" target="_blank" title="show github file">ether_send.sol</a>
+        </div>
+        <div class="path">contracts/ether_send.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract Crowdfunding {
+
+  mapping(address =&gt; uint) public balances;
+  address public owner;
+  uint256 INVEST_MIN = 1 ether;
+  uint256 INVEST_MAX = 10 ether;
+
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  function crowdfunding() {
+    owner = msg.sender;
+  }
+
+  function withdrawfunds() onlyOwner {
+    msg.sender.transfer(this.balance);
+  }
+
+  function invest() public payable {
+    require(msg.value &gt; INVEST_MIN &amp;&amp; msg.value &lt; INVEST_MAX);
+
+    balances[msg.sender] += msg.value;
+  }
+
+  function getBalance() public constant returns (uint) {
+    return balances[msg.sender];
+  }
+
+  function() public payable {
+    invest();
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/Hello.sol" target="_blank" title="show github file">Hello.sol</a>
+        </div>
+        <div class="path">contracts/Hello.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">pragma solidity ^0.4.4;
+
+
+contract Hello {
+  string message = &quot;Hello Eth&quot;;
+
+  function Hello() {
+    // constructor
+  }
+
+  function getMessage() returns (string) {
+    return message;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/weak_random.sol" target="_blank" title="show github file">weak_random.sol</a>
+        </div>
+        <div class="path">contracts/weak_random.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">pragma solidity ^0.4.16;
+
+contract WeakRandom {
+    struct Contestant {
+        address addr;
+        uint gameId;
+    }
+
+    uint public constant prize = 2.5 ether;
+    uint public constant totalTickets = 50;
+    uint public constant pricePerTicket = prize / totalTickets;
+
+    uint public gameId = 1;
+    uint public nextTicket = 0;
+    mapping (uint =&gt; Contestant) public contestants;
+
+    function () payable public {
+        uint moneySent = msg.value;
+
+        while (moneySent &gt;= pricePerTicket &amp;&amp; nextTicket &lt; totalTickets) {
+            uint currTicket = nextTicket++;
+            contestants[currTicket] = Contestant(msg.sender, gameId);
+            moneySent -= pricePerTicket;
+        }
+
+        if (nextTicket == totalTickets) {
+            chooseWinner();
+        }
+
+        // Send back leftover money
+        if (moneySent &gt; 0) {
+            msg.sender.transfer(moneySent);
+        }
+    }
+
+    function chooseWinner() private {
+        address seed1 = contestants[uint(block.coinbase) % totalTickets].addr;
+        address seed2 = contestants[uint(msg.sender) % totalTickets].addr;
+        uint seed3 = block.difficulty;
+        bytes32 randHash = keccak256(seed1, seed2, seed3);
+
+        uint winningNumber = uint(randHash) % totalTickets;
+        address winningAddress = contestants[winningNumber].addr;
+
+        gameId++;
+        nextTicket = 0;
+        winningAddress.transfer(prize);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/reentrancy.sol" target="_blank" title="show github file">reentrancy.sol</a>
+        </div>
+        <div class="path">contracts/reentrancy.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract Reentrancy {
+
+  mapping(address =&gt; uint) public balances;
+
+  function donate(address _to) public payable {
+    balances[_to] += msg.value;
+  }
+
+  function balanceOf(address _who) public constant returns (uint balance) {
+    return balances[_who];
+  }
+
+  function withdraw(uint _amount) public {
+    if(balances[msg.sender] &gt;= _amount) {
+      msg.sender.call.value(_amount)();
+      balances[msg.sender] -= _amount;
+    }
+  }
+
+  function() payable {}
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/origin.sol" target="_blank" title="show github file">origin.sol</a>
+        </div>
+        <div class="path">contracts/origin.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract Origin {
+  address public owner;
+
+
+  /** 
+   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
+   * account.
+   */
+  function Origin() {
+    owner = msg.sender;
+  }
+
+
+  /**
+   * @dev Throws if called by any account other than the owner. 
+   */
+  modifier onlyOwner() {
+    if (tx.origin != owner) {
+      throw;
+    }
+    _;
+  }
+
+
+  /**
+   * @dev Allows the current owner to transfer control of the contract to a newOwner.
+   * @param newOwner The address to transfer ownership to. 
+   */
+  function transferOwnership(address newOwner) onlyOwner {
+    if (newOwner != address(0)) {
+      owner = newOwner;
+    }
+  }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/underflow.sol" target="_blank" title="show github file">underflow.sol</a>
+        </div>
+        <div class="path">contracts/underflow.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract Under {
+
+  mapping(address =&gt; uint) balances;
+  uint public totalSupply;
+
+  function Token(uint _initialSupply) {
+    balances[msg.sender] = totalSupply = _initialSupply;
+  }
+
+  function sendeth(address _to, uint _value) public returns (bool) {
+    require(balances[msg.sender] - _value &gt;= 0);
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    return true;
+  }
+
+  function balanceOf(address _owner) public constant returns (uint balance) {
+    return balances[_owner];
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/exceptions.sol" target="_blank" title="show github file">exceptions.sol</a>
+        </div>
+        <div class="path">contracts/exceptions.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract Exceptions {
+
+    uint256[8] myarray;
+
+    function assert1() {
+    	uint256 i = 1;
+        assert(i == 0);
+    }
+
+    function assert2() {
+    	uint256 i = 1;
+        assert(i &gt; 0);
+    }
+
+    function assert3(uint256 input) {
+        assert(input != 23);
+    }
+
+    function requireisfine(uint256 input) {
+        require(input != 23);
+    }
+
+    function divisionby0(uint256 input) {
+        uint256 i = 1/input;
+    }
+
+    function thisisfine(uint256 input) {
+        if (input &gt; 0) {
+            uint256 i = 1/input;
+        }
+    }    
+
+    function arrayaccess(uint256 index) {
+        uint256 i = myarray[index];
+    }
+
+    function thisisalsofind(uint256 index) {
+        if (index &lt; 8) {
+            uint256 i = myarray[index];
+        }
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/returnvalue.sol" target="_blank" title="show github file">returnvalue.sol</a>
+        </div>
+        <div class="path">contracts/returnvalue.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">contract ReturnValue {
+
+  address callee = 0xE0F7e56e62b4267062172495D7506087205A4229;
+
+  function callnotchecked()  {
+    callee.call();
+  }
+
+  function callchecked()  {
+  	require(callee.call());
+  }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/contracts/Migrations.sol" target="_blank" title="show github file">Migrations.sol</a>
+        </div>
+        <div class="path">contracts/Migrations.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">pragma solidity ^0.4.17;
+
+contract Migrations {
+  address public owner;
+  uint public last_completed_migration;
+
+  modifier restricted() {
+    if (msg.sender == owner) _;
+  }
+
+  function Migrations() public {
+    owner = msg.sender;
+  }
+
+  function setCompleted(uint completed) public restricted {
+    last_completed_migration = completed;
+  }
+
+  function upgrade(address new_address) public restricted {
+    Migrations upgraded = Migrations(new_address);
+    upgraded.setCompleted(last_completed_migration);
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/eth-truffle-security-problems-contracts-demo/blob/master/test/hello.js" target="_blank" title="show github file">hello.js</a>
         </div>
         <div class="path">test/hello.js</div>

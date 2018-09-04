@@ -33,6 +33,49 @@ The return object is provided by &lt;http://cheerio.js.org/&gt;    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-render-demo/blob/master/.editorconfig" target="_blank" title="show github file">.editorconfig</a>
+        </div>
+        <div class="path">.editorconfig</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="editorconfig"># EditorConfig is awesome: http://EditorConfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,jsx,html,less,yml}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-render-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;,
+    &quot;react&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/mocha-chai-enzyme-render-demo/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
         </div>
         <div class="path">spec/hello-spec.js</div>
@@ -91,6 +134,52 @@ module.exports = {
     }]
   }
 };
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-render-demo/blob/master/src/box.jsx" target="_blank" title="show github file">box.jsx</a>
+        </div>
+        <div class="path">src/box.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+export default class Box extends React.Component {
+  render() {
+    const {name} = this.props;
+    return &lt;div&gt;Box: {name}&lt;/div&gt;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/mocha-chai-enzyme-render-demo/blob/master/src/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">src/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import Box from &#39;./box.jsx&#39;;
+
+class Hello extends React.Component {
+  render() {
+    const {fruit} = this.props;
+    return &lt;div&gt;
+      &lt;h1&gt;Hello, I like:&lt;/h1&gt;
+      {
+        fruit.map((name, index) =&gt; &lt;Box name={name} key={index}/&gt;)
+      }
+    &lt;/div&gt;
+  }
+}
+
+export default Hello;
 </code></pre>
     </div>
 </div>

@@ -32,6 +32,30 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" target="_blank" title="show github file">inputFiles.lst</a>
+        </div>
+        <div class="path">target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">/Users/freewind/workspace/java-hello-world-demo/src/main/java/demo/Hello.java
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" target="_blank" title="show github file">createdFiles.lst</a>
+        </div>
+        <div class="path">target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">demo/Hello.class
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/java-rythmengine-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>
@@ -172,6 +196,40 @@ public class Item {
     }
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/java-rythmengine-demo/blob/master/src/main/resources/hello.rythm" target="_blank" title="show github file">hello.rythm</a>
+        </div>
+        <div class="path">src/main/resources/hello.rythm</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="rythm">@import demo.models.*
+@args List&lt;Item&gt; items
+&lt;html&gt;
+&lt;body&gt;
+@for(Item item: items) {
+
+&lt;div&gt;
+    &lt;div&gt;Name: @item.name&lt;/div&gt;
+    &lt;div&gt;Price: @item.price&lt;/div&gt;
+    &lt;div&gt;Keywords:
+        @for(String keyword in item.keywords) {
+            &lt;span&gt;@keyword&lt;/span&gt;
+        }
+    &lt;/div&gt;
+    &lt;ul&gt;
+    @for(Feature feature: item.features) {
+        &lt;li&gt;Feature: @feature.description&lt;/li&gt;
+    }
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </div>
 </div>
 

@@ -37,6 +37,20 @@ Note
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/app/register.js" target="_blank" title="show github file">register.js</a>
         </div>
         <div class="path">app/register.js</div>
@@ -130,6 +144,76 @@ app.listen(3000, function () {
   &quot;random&quot;: false
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/spec/public/register-spec.jsx" target="_blank" title="show github file">register-spec.jsx</a>
+        </div>
+        <div class="path">spec/public/register-spec.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">&quot;use strict&quot;;
+import superagent from &#39;superagent&#39;;
+import nock from &#39;nock&#39;;
+import RegisterForm from &#39;../../public/register-form.jsx&#39;;
+import {shallow, mount} from &#39;enzyme&#39;;
+import React from &#39;react&#39;;
+import jsdomGlobal from &#39;jsdom-global&#39;;
+jsdomGlobal();
+
+function _inputAndSubmitForm(wrapper) {
+  wrapper.find(&#39;#username&#39;).simulate(&#39;change&#39;, {target: {value: &#39;freewind&#39;}});
+  wrapper.find(&#39;#password&#39;).simulate(&#39;change&#39;, {target: {value: &#39;123456&#39;}});
+  wrapper.find(&#39;#form&#39;).simulate(&#39;submit&#39;);
+}
+
+describe(&#39;RegisterForm&#39;, () =&gt; {
+
+  beforeEach(() =&gt; {
+    nock.cleanAll();
+  });
+
+  describe(&#39;send register request&#39;, () =&gt; {
+    it(&#39;successfully&#39;, (done) =&gt; {
+      nock(/.*/)
+        .post(&#39;/api/users&#39;, {
+          username: &#39;freewind&#39;,
+          password: &#39;123456&#39;
+        })
+        .reply(201, &quot;ok&quot;);
+
+      spyOn(window, &#39;alert&#39;);
+      const wrapper = mount(&lt;RegisterForm /&gt;);
+      _inputAndSubmitForm(wrapper);
+
+      setTimeout(() =&gt; {
+        expect(window.alert).toHaveBeenCalledWith(&#39;注册成功：ok&#39;);
+        done();
+      }, 100);
+    });
+
+    fit(&#39;failed&#39;, (done) =&gt; {
+      nock(/.*/)
+        .post(&#39;/api/users&#39;, {
+          username: &#39;freewind&#39;,
+          password: &#39;123456&#39;
+        })
+        .reply(409, &quot;already exists&quot;);
+
+      spyOn(window, &#39;alert&#39;);
+      const wrapper = mount(&lt;RegisterForm /&gt;);
+      _inputAndSubmitForm(wrapper);
+
+      setTimeout(() =&gt; {
+        expect(window.alert).toHaveBeenCalledWith(&#39;注册失败：already exists&#39;);
+        done();
+      }, 100);
+    })
+  });
+
+});</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -237,6 +321,99 @@ module.exports = {
         <pre class="content"><code class="yml">language: node_js
 node_js:
   - &quot;6&quot;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/public/register-form.jsx" target="_blank" title="show github file">register-form.jsx</a>
+        </div>
+        <div class="path">public/register-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+
+export default class RegisterForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: &#39;&#39;,
+      password: &#39;&#39;
+    }
+  }
+
+  render() {
+    return &lt;form id=&quot;form&quot; onSubmit={this._onSubmit.bind(this)}&gt;
+      &lt;div&gt;
+        &lt;h1&gt;Register&lt;/h1&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input id=&quot;username&quot; type=&quot;text&quot; placeholder=&quot;username&quot; onChange={event =&gt; {
+          this.setState({username: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;input id=&quot;password&quot; type=&quot;password&quot; placeholder=&quot;password&quot; onChange={event =&gt; {
+          this.setState({password: event.target.value})
+        }}/&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button type=&quot;submit&quot;&gt;Register&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+
+    request
+      .post(&#39;/api/users&#39;)
+      .send({
+        username: this.state.username,
+        password: this.state.password
+      })
+      .end((err, res) =&gt; {
+        if (err) {
+          console.error(err);
+          if (res.statusCode === 400) {
+            return window.alert(&#39;提交数据格式有误：&#39; + res.text);
+          }
+          if (res.statusCode === 409) {
+            return window.alert(&#39;注册失败：&#39; + res.text);
+          }
+          return window.alert(&#39;未知错误：&#39; + res.statusCode);
+        }
+        window.alert(&#39;注册成功：&#39; + res.text);
+      })
+  }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/express-react-register-test-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import RegisterForm from &#39;./register-form.jsx&#39;;
+
+ReactDOM.render(
+  &lt;RegisterForm /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+// Notice!!!
+// Following is required to make reloading happen
+if (module.hot) {
+  module.hot.accept();
+}
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

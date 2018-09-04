@@ -51,6 +51,49 @@ npm run webpack:watch
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/.editorconfig" target="_blank" title="show github file">.editorconfig</a>
+        </div>
+        <div class="path">.editorconfig</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="editorconfig"># EditorConfig is awesome: http://EditorConfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,jsx,html,less,yml}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;,
+    &quot;react&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/spec/reducers/index-spec.js" target="_blank" title="show github file">index-spec.js</a>
         </div>
         <div class="path">spec/reducers/index-spec.js</div>
@@ -223,6 +266,32 @@ export default function (state = initStore, action) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">src/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import HelloContainer from &#39;./containers/hello-container&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import {createStore} from &#39;redux&#39;;
+import reducers from &#39;./reducers&#39;;
+import {Provider} from &#39;react-redux&#39;;
+
+const store = createStore(reducers);
+
+ReactDOM.render(
+  &lt;Provider store={store}&gt;
+    &lt;HelloContainer /&gt;
+  &lt;/Provider&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/containers/hello-container.js" target="_blank" title="show github file">hello-container.js</a>
         </div>
         <div class="path">src/containers/hello-container.js</div>
@@ -246,6 +315,37 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hello);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-base-project/blob/master/src/components/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">src/components/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+class Hello extends React.Component {
+  render() {
+    const {fruit, onDeleteFruit} = this.props;
+    return &lt;div&gt;
+      &lt;h1&gt;Hello, I like:&lt;/h1&gt;
+      &lt;ul&gt;
+        {
+          fruit.map(name =&gt; &lt;li&gt;
+            {name}
+            &lt;button title=&quot;delete&quot; onClick={() =&gt; onDeleteFruit(name)}&gt;x&lt;/button&gt;
+          &lt;/li&gt;)
+        }
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  }
+}
+
+export default Hello;
 </code></pre>
     </div>
 </div>

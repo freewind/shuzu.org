@@ -26,6 +26,34 @@ I tried but gave up to use it as the first choice, until the performance becomes
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo/blob/master/build.gradle.kts" target="_blank" title="show github file">build.gradle.kts</a>
+        </div>
+        <div class="path">build.gradle.kts</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kts">plugins {
+    kotlin(&quot;jvm&quot;) version &quot;1.2.51&quot;
+}
+
+dependencies {
+    compile(kotlin(&quot;stdlib&quot;))
+    compile(&quot;org.apache.commons:commons-lang3:3.7&quot;)
+    compile(&quot;commons-io:commons-io:2.6&quot;)
+    testCompile(kotlin(&quot;test-junit&quot;))
+    testCompile(&quot;junit:junit:4.11&quot;)
+    testCompile(&quot;org.assertj:assertj-core:3.9.0&quot;)
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-gradle-dsl-demo/blob/master/src/test/kotlin/example/HelloTest.kt" target="_blank" title="show github file">HelloTest.kt</a>
         </div>
         <div class="path">src/test/kotlin/example/HelloTest.kt</div>

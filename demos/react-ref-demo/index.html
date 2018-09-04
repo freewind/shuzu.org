@@ -29,6 +29,52 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-ref-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-ref-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+class Hello extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;h1&gt;Hello Freewind&lt;/h1&gt;
+      &lt;div&gt;
+        &lt;button ref=&quot;button1&quot; onClick={() =&gt; alert(&#39;1&#39;)}&gt;Click 1&lt;/button&gt;
+        &lt;button ref=&quot;button2&quot; onClick={() =&gt; alert(&#39;2&#39;)}&gt;Click 2&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button onClick={this._clickBoth.bind(this)}&gt;Click both&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;;
+  }
+
+  _clickBoth() {
+    this.refs.button1.click();
+    this.refs.button2.click();
+  }
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-ref-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -52,6 +98,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-ref-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

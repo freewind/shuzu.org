@@ -56,6 +56,55 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.editorconfig" target="_blank" title="show github file">.editorconfig</a>
+        </div>
+        <div class="path">.editorconfig</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="editorconfig">root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [
+    [&quot;env&quot;, {
+      &quot;modules&quot;: false,
+      &quot;targets&quot;: {
+        &quot;browsers&quot;: [&quot;&gt; 1%&quot;, &quot;last 2 versions&quot;, &quot;not ie &lt;= 8&quot;]
+      }
+    }],
+    &quot;stage-2&quot;
+  ],
+  &quot;plugins&quot;: [&quot;transform-vue-jsx&quot;, &quot;transform-runtime&quot;],
+  &quot;env&quot;: {
+    &quot;test&quot;: {
+      &quot;presets&quot;: [&quot;env&quot;, &quot;stage-2&quot;],
+      &quot;plugins&quot;: [&quot;transform-vue-jsx&quot;, &quot;istanbul&quot;]
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.eslintrc.js" target="_blank" title="show github file">.eslintrc.js</a>
         </div>
         <div class="path">.eslintrc.js</div>
@@ -370,6 +419,42 @@ module.exports = function karmaConfig (config) {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/test/unit/.eslintrc" target="_blank" title="show github file">.eslintrc</a>
+        </div>
+        <div class="path">test/unit/.eslintrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="eslintrc">{
+  &quot;env&quot;: { 
+    &quot;mocha&quot;: true
+  },
+  &quot;globals&quot;: { 
+    &quot;expect&quot;: true,
+    &quot;sinon&quot;: true
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/.eslintignore" target="_blank" title="show github file">.eslintignore</a>
+        </div>
+        <div class="path">.eslintignore</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="eslintignore">/build/
+/config/
+/dist/
+/*.js
+/test/unit/coverage/
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/config/test.env.js" target="_blank" title="show github file">test.env.js</a>
         </div>
         <div class="path">config/test.env.js</div>
@@ -508,6 +593,52 @@ module.exports = {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/assets/logo.png" target="_blank" title="show github file">logo.png</a>
+        </div>
+        <div class="path">src/assets/logo.png</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="png">�PNG
+
+   IHDR   �   �   �X��   tEXtSoftware Adobe ImageReadyq�e&lt;  #iTXtXML:com.adobe.xmp     &lt;?xpacket begin=&quot;﻿&quot; id=&quot;W5M0MpCehiHzreSzNTczkc9d&quot;?&gt; &lt;x:xmpmeta xmlns:x=&quot;adobe:ns:meta/&quot; x:xmptk=&quot;Adobe XMP Core 5.6-c014 79.156797, 2014/08/20-09:53:02        &quot;&gt; &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt; &lt;rdf:Description rdf:about=&quot;&quot; xmlns:xmpMM=&quot;http://ns.adobe.com/xap/1.0/mm/&quot; xmlns:stRef=&quot;http://ns.adobe.com/xap/1.0/sType/ResourceRef#&quot; xmlns:xmp=&quot;http://ns.adobe.com/xap/1.0/&quot; xmpMM:DocumentID=&quot;xmp.did:996BB8FA761611E5A84E8FB1649162D8&quot; xmpMM:InstanceID=&quot;xmp.iid:996BB8F9761611E5A84E8FB1649162D8&quot; xmp:CreatorTool=&quot;Adobe Photoshop CC (Macintosh)&quot;&gt; &lt;xmpMM:DerivedFrom stRef:instanceID=&quot;xmp.iid:656A1279769211E391898D90BF8CE476&quot; stRef:documentID=&quot;xmp.did:656A127A769211E391898D90BF8CE476&quot;/&gt; &lt;/rdf:Description&gt; &lt;/rdf:RDF&gt; &lt;/x:xmpmeta&gt; &lt;?xpacket end=&quot;r&quot;?&gt;V�*  4IDATx��]k�]�u^�u�=��]
+�&lt;��e�R~�O����h��c܄�Xr!	!ᴄP����*�iA����i�Kc{��g���&lt;��}�����q�=�ܻ&gt;����s�Yg����8���I��
+��p5
+�D�P�(J�B	�P(A
+%�B�Q(� 
+�D�P(A
+%�B�h�k������Œs�(q���w)�[&quot;wI���ة��]*���{j�~O!B�/��g��VL�~�_��^�&gt;����
+gwR�זSⲏq�f=��|ۊ�W�aBn�O�y��=��7��:��#�Fʛ�������&#39;�CN�����f���_@�e���s�:�%�*R����u�!�5b&lt;Q�e��&amp;F�&amp;��Zx����Dx��&#39;q�I���+|���y��e�2E٢�e�]�Dp��8���c������x� 9I����-~&#39;�����q����7�_᳈փ��aB�2�E�����gٞ�X���UW.���^E�)�O\�V����#��|���YDyr�\�(S��Pr�����f��D��O��������(���i�*|��c�b������}3&gt;��n�5e�2l�n�_D�f���&gt;��wٶKlE��!y�vR�~�[�S�菓���ĭ�o�&quot;�������G�*�+T��ߔ��r��X.�n_��m�Ydf[&quot;m��4�؏ߦ�h��.?������%���N%�N�}��xD��_��x&lt;r���=9�Br��k�9D]%�H&quot;A���M�Ԃ���&quot;[�3X���y��N@]Dŋ��Ntp�_��I����q����2&#39;���D�?�̔�Pr ��&#39;�L~����;w�
+��Qp^�y�$���O�p�+&lt;����Sfd��:�&gt;�7�y���C
+%��ßn�r�:���z�KE䡏M���?0���_��=J�����pm�����/�&amp;r����rϥ�M�P&amp;��q&gt;f��_b���Vd�L�E=�Z*�AW��Ċ�h��n�o^Ρr6����6��w�EDת�zpY�����z&lt;��?�!�L����LwӾ�%��%(W���S9*�Dqc��k��l�n��P6(#��L`m�5�6�Z�&#39;��Gl�9`?�wv�0�#�C9E��#S]&lt;8��i�9�nC��k���	_$̦�lPF(+�����V[��M�v��n	�/�T����3;)|��T��ߐLF�I�$%u���k�5�ڛ2_�[�Zq��lPF(+��:Q��8a���U�6�lE���70Ӿf�t$`�V����ۉ����u�V�s�Z�&amp;�-b�*J���lPF(+���:	u��&#39;������|n)+M�]tu��Η܂gfp�N���5⑩/�r�[UL����2J�=�n�b	Ȝ��;�n���x��9�a���?!�M�J0���������;	뭸Pm�R���������&quot;�Z�����¥}�Z�ÓgFM|���&gt;a8w���w�C�gIj=P�]��]��[�kF�F�	q��eS���zm�P´/;�?vG&amp;�N�K�k�r�{��Ĺq��sg���أ�r�r,U5��s.�y�x�m��V��{Z�]=���z��T�i��������{U\Uùp~&gt;7�a^
+
+�g�e��H�Ď=6ۺ\s� ?b{S�-&#39;��3X�G��n��,�������$G�+�&lt;��&gt;-v9{��h�ʗ��&quot;T�f�wu9�(#��9���{߼:��4���&lt;��7봪�H H2�)X�&lt;�k�Z&#39;]5�]��pnI2Z��A��v�uw!�}�m�D�@��\B������	?�\�V��iұ��@Ô1���s���ުL�%�&amp;��e��mݭ;A��&quot;C y.��\�s&#39;�s���K�ȃ|8�R�ӢTz�s�\bd�h�;3Վ��AF���ǶM�}4$�N*\�/c� �����&#39;~�z.wG�K���7�-΁sI��&quot;ƐB#�ܗ��l�mA���8`O�C*^3@��B���Ge_��Jr�Y�X}�8��ň�-�1-]��a��V���L̅�QGoYp`�N&gt;� ��&lt;���$Y��&quot;D�������f[Ug��X��5�$�h9��h-�h%� ���V���˖Rp��uZ�L!����h�|�YT8W~��~K�d�[�8����[G)+� ׋���t��$�e��}���Z��m g��o�:&#39;2Z��»[��`�_IԂ /��ي`�օ=T\�&#39;fU�ٕ��Ó�O���F���~#g��Ϋ��؊i�?��u3s�,��W7/��-��%8���r�~Byn*�m�c���
+Xo�1�zf�2Z��M�8Q�r�m��;���3۩y�eZ��H�=������3U3�h��.���E��SrzS�2ڭ�N�!p�&gt;q�2��
+���V��w#�c�����d&quot;�T�O�I�:���1f%$m��1,��xL�z�}�.�4� �ް��5xP��{3�$C��VӾ�Ji�����h����L�&quot;f�6�!b��
+m=jZk�_�� u�����%2��t���#S_&amp;(&quot;�F���y����&#39;2�W���z%�_�uP,A ��܄+��2=1i0���?�ɷ������-�����#���V��A�?��/��U��^&amp;)����==��@xȆ��պ�!��!v����~[���6[I\��+�]&amp;D�k_��~P��������U��|�%[�(/���&amp;���XD�MI3Д2�{��N���&quot;Z�$��@����z�d�\���	tj��c;_\8��a_��ߥ��1r{�`��ó��b�0��]�5��b�W�|�[uA݆�uv^�:-:;m��Y@�Ok�c�}(�����:� /��H�j�uZ��P��^~R�&quot;�}����0��1	V��	��}�ֱ�� 2�Xu�݆6����\�9�9N�X�v�ȼ\���gfnA&gt;`�SdE@���tyn&quot;w���̑�v� ��Dn�4ԩ��@�{l�$V�x&lt;�����!y���=48������ 6B�l��f!i��� ͂$w��� N7�F,��@��v#5������g�_�v�s�F��҆L\ ����a{�Qk��(��܂c��2��J�5#FF�1@,��� �֯���#R���_vSA�&lt;����{G����:Դ �,�}����&#39;E�ۨqXUF[M[ SF[��h�d��f�e,$��v3�%8�d��VVF����ʝɻ�֝�&#39;p7�^�������%&amp;�B}&#39;(��V�g�2ڽ��P�)�5iz�&lt;WH������0���L-&quot;��A�f{N�Su�b�����Q����l���h�-x�֕�# S��4
+n�&gt;Y���Z�&amp;���ݾ uE��CY^&lt;k���v���h���:�xy_�E�ފ��(XF���V+@R�c⊦*Ͻf��B乵&quot;���=�����h�����2Ii�iyi,&quot;��Fa�I�i�VF���{,���֍�&#39;���u�Y�Ӻ���s���ղӺ����~soB��u[&#39;H	&quot;}��z�Gŵ��]F�&lt;�ߝ4m��޺2ڼ�ٞ��-�Q&gt;��⑜N���벹����ר�V���s�=��&lt;פQ�)�O�[��v�i]�2ژ�I��� �m&quot;+����T\�Cyn��h��y����:�9��6,��a�uHQ�3r$�E�
+�h�He�&amp;�̡ǰć�D���6�lE�#r����AJʉ�e�|d_��3|��#	��+�X���ȧ1�Z��`E��uZv����i�m��d�9�L����sO�&lt;��h�G��)�TF�Ty��!�O�2�t����&lt;�&amp;�a��%OO?d�Z	� |�,7�i����������2Z��L�V�.���eLJ���(��v�sO�&lt;wY��1F`#�]f|&lt;�Ŗ�d�!�;�:�V���˻�dϵ�h�|�徳yǖ-)A�!qU��^:`�&quot;�e���}#�o���P��B�gٞ�9`�P�r	���V׍]�k|,�}Ɩ���8��:vノl�FF�&gt; �|Rmk�]��&quot;�G+�yn��s�e��ƗD�ve�-K%H�f=F�yeTz���wJ�Fմ|m� _�N�ʜ�l&quot;�L�}Sd+�4
+�v����w����6|��`�-C%H�3�WE�!Ͻ�����F�����Y0;��}�2{8o�-���s�l�\$�l�:-���ka� �,�]�Ǌ�W����s���H*�V5`�V��Xee�r�[=n�L	�@|�$*2�F!L�i�K
+�٩9pn\ì�
+Ŧ-�W�Z��L��(U���;��
+W�3Z�x��3W��%XF{�-+%H���8��97�F��N#y�i��h�ܸ��\&amp;(�;�\��NT�⼪�s{3�J�skX�q�J�N������ܥ��&lt;ɶG�}4� �sW�pڷ:072Z��h�ز!%H��9�X�)�k�)xi���6���&lt;sN��*:��99�`�!�����wQ�Ҿŷ&quot;U-����`�-%� `7�	q^��*[���E�Q��-�s��,Sbe��$q�~%���|�Ul��6j��.$\Ȱ5I�{�8��|%�mY(A�Glo����s�5},_@�j��-�!XF����L��&quot;spX��v��U��V��b��C��v]�U�f$��l�%�X�*�G�[�F˿�e�hw��+Ar��&quot;��&lt;����������ΐ���5Ӻ�WɕѮoƊԬy�m���hH�9�T����[�-|p,~��})���\	�#|���;R@�z�E�v�#�12�q���[��53A��O7�lE ���sg{�Q}�l���e��qE	�O&lt;��[�v�s/[J��3�Ӫ����p�`�+6Ƥ�/���em�Y��X���K��1��@	RO�̶Kd+�uZr+���U�v0&gt;�w���V�ll� M ���iy� y��&lt;���`mE��N	�`f�*r�y��T��\��g�e�[mL� M������
+�H�*T���ܾ�1��τN�l	��Z��ާĵ&quot;1�Ȟ��Sҏ�&lt;���{�o�
+�j�%�l׈�#�¥K�?��z�ưe�R�A��d�N���Dc��`�_”�$5����6vJ����J��+J6f�i@7}���9�&amp;3%H�V�2,�K�@�޼������dv�������l�� -�!��F	2;��ݩa�Q�(�{l�4�8dcBJR�� �mL� �i&lt;�����c%�LX�!�(Af���i����@���(�2��P���P��#l7��}�l�]�9)�f��B���޳B	2g��{U(Af��lϵ�}&gt;g�U��7��� ���۽M|��{T(A$�&lt;ք�u�$&amp;=U����Di��Í��J�Ec&#39;��Mt?��{R(Aj���^� ���k�&#39;��&gt;����P��h�iyAl�A���ݖc�o���P�Ե����ᜓ[	� �S�Ij�*%H��l/�����
+%HðN}U�(f�kl��χ��
+%H��-��\c���P�d��l[�����P�d���#Яw�o
+%H�R�� ���,�3��y���P��[[%H�.�v~l��(� �����Y5%H�c��ݾs��A����^�ຯ�k+� ⱮE��Q,/�=���=n��P����_�U��iq|�vk�s���B	�;��v���?`��P��	�w��
+%Hn�$۞:�w�=�B	�{���9J�L�ێ�o�=�B	�4�n��58�85�n�J���&amp;�f{.���pۛ�����
+%��u`�iE&lt;϶{��m�P�4=�7�7
+%H.�۶y���F�i��vd���*� -�
+�s8�{�B	�rx��|��=F�iY�[�w
+%HK�e�]3|��~�P��&lt;&gt;9Θ��D�i	f�zܿ���J��]�n�ٿ�kDAߖ��$*iV(���P(A
+%�B�Q(� 
+�D�P�(J�B	�P(� 
+�D�P�(J�&quot;��  * �:�;�    IEND�B`�</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/router/index.js" target="_blank" title="show github file">index.js</a>
         </div>
         <div class="path">src/router/index.js</div>
@@ -554,6 +685,164 @@ new Vue({
   components: { App },
   template: &#39;&lt;App/&gt;&#39;
 })
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/App.vue" target="_blank" title="show github file">App.vue</a>
+        </div>
+        <div class="path">src/App.vue</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="vue">&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;img src=&quot;./assets/logo.png&quot;&gt;
+    &lt;router-view/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &#39;App&#39;
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+#app {
+  font-family: &#39;Avenir&#39;, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+&lt;/style&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/vue-cli-hello-world-demo/blob/master/src/components/HelloWorld.vue" target="_blank" title="show github file">HelloWorld.vue</a>
+        </div>
+        <div class="path">src/components/HelloWorld.vue</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="vue">&lt;template&gt;
+  &lt;div class=&quot;hello&quot;&gt;
+    &lt;h1&gt;{{ msg }}&lt;/h1&gt;
+    &lt;h2&gt;Essential Links&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;https://vuejs.org&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          Core Docs
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;https://forum.vuejs.org&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          Forum
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;https://chat.vuejs.org&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          Community Chat
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;https://twitter.com/vuejs&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          Twitter
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;br&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;http://vuejs-templates.github.io/webpack/&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          Docs for This Template
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h2&gt;Ecosystem&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;http://router.vuejs.org/&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          vue-router
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;http://vuex.vuejs.org/&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          vuex
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;http://vue-loader.vuejs.org/&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          vue-loader
+        &lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;a
+          href=&quot;https://github.com/vuejs/awesome-vue&quot;
+          target=&quot;_blank&quot;
+        &gt;
+          awesome-vue
+        &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &#39;HelloWorld&#39;,
+  data () {
+    return {
+      msg: &#39;Welcome to Your Vue.js App&#39;
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;!-- Add &quot;scoped&quot; attribute to limit CSS to this component only --&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+&lt;/style&gt;
 </code></pre>
     </div>
 </div>

@@ -54,6 +54,119 @@ Then open `index.html` in your browser.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-params-id-demo/blob/master/app/app.jsx" target="_blank" title="show github file">app.jsx</a>
+        </div>
+        <div class="path">app/app.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+
+export default class App extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;div&gt;
+        &lt;Link to=&quot;/&quot;&gt;Index&lt;/Link&gt;
+      &lt;/div&gt;
+      &lt;div&gt;{this.props.children}&lt;/div&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-params-id-demo/blob/master/app/articles.jsx" target="_blank" title="show github file">articles.jsx</a>
+        </div>
+        <div class="path">app/articles.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+import articles from &#39;./articles&#39;;
+
+export default class Articles extends Component {
+
+  render() {
+    console.log(articles);
+
+    return &lt;div&gt;
+      &lt;h1&gt;Articles&lt;/h1&gt;
+      &lt;div&gt;
+        {
+          articles.map(article =&gt;
+            &lt;div key={article.id}&gt;
+              &lt;div&gt;&lt;Link to={&quot;/article/&quot; + article.id}&gt;{article.title}&lt;/Link&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          )
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-params-id-demo/blob/master/app/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">app/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import {Router, Route, IndexRedirect, hashHistory} from &#39;react-router&#39;;
+import App from &#39;./app.jsx&#39;;
+import Articles from &#39;./articles.jsx&#39;;
+import Article from &#39;./article.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+const router = &lt;Router history={hashHistory}&gt;
+  &lt;Route path=&#39;/&#39; component={App}&gt;
+    &lt;IndexRedirect to=&quot;/articles&quot;/&gt;
+    &lt;Route path=&#39;articles&#39; component={Articles}/&gt;
+    &lt;Route path=&#39;article/:id&#39; component={Article}/&gt;
+  &lt;/Route&gt;
+&lt;/Router&gt;;
+
+ReactDOM.render(
+  router,
+  document.getElementById(&#39;content&#39;)
+);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-params-id-demo/blob/master/app/article.jsx" target="_blank" title="show github file">article.jsx</a>
+        </div>
+        <div class="path">app/article.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">&quot;use strict&quot;;
+import React, {Component} from &#39;react&#39;;
+import articles from &#39;./articles&#39;;
+import _ from &#39;lodash&#39;;
+
+function _findArticle(id) {
+  return _.find(articles, a =&gt; a.id === id)
+}
+
+export default class Article extends Component {
+  render() {
+    const article = _findArticle(this.props.params.id);
+    return &lt;div&gt;
+      &lt;h1&gt;{article.title}&lt;/h1&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-router-params-id-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
         </div>
         <div class="path">index.css</div>

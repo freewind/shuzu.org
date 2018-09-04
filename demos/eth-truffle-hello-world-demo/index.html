@@ -40,6 +40,65 @@ Steps in summary
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-hello-world-demo/blob/master/contracts/Hello.sol" target="_blank" title="show github file">Hello.sol</a>
+        </div>
+        <div class="path">contracts/Hello.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">pragma solidity ^0.4.4;
+
+
+contract Hello {
+  string message = &quot;Hello Eth&quot;;
+
+  function Hello() {
+    // constructor
+  }
+
+  function getMessage() returns (string) {
+    return message;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/eth-truffle-hello-world-demo/blob/master/contracts/Migrations.sol" target="_blank" title="show github file">Migrations.sol</a>
+        </div>
+        <div class="path">contracts/Migrations.sol</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sol">pragma solidity ^0.4.17;
+
+contract Migrations {
+  address public owner;
+  uint public last_completed_migration;
+
+  modifier restricted() {
+    if (msg.sender == owner) _;
+  }
+
+  function Migrations() public {
+    owner = msg.sender;
+  }
+
+  function setCompleted(uint completed) public restricted {
+    last_completed_migration = completed;
+  }
+
+  function upgrade(address new_address) public restricted {
+    Migrations upgraded = Migrations(new_address);
+    upgraded.setCompleted(last_completed_migration);
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/eth-truffle-hello-world-demo/blob/master/test/hello.js" target="_blank" title="show github file">hello.js</a>
         </div>
         <div class="path">test/hello.js</div>

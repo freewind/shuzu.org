@@ -54,6 +54,45 @@ gretty {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-gretty-demo/blob/master/src/main/webapp/index.jsp" target="_blank" title="show github file">index.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/index.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%= &quot;Hello, Gretty: you can use all kind versions of jetty/tomcat now&quot; %&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gradle-gretty-demo/blob/master/gretty.plugin" target="_blank" title="show github file">gretty.plugin</a>
+        </div>
+        <div class="path">gretty.plugin</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="plugin">buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath &#39;org.akhikhl.gretty:gretty:1.2.4&#39;
+  }
+}
+
+repositories {
+  jcenter()
+}
+
+if (!project.plugins.findPlugin(org.akhikhl.gretty.GrettyPlugin))
+  project.apply(plugin: org.akhikhl.gretty.GrettyPlugin)
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

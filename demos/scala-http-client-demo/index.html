@@ -26,6 +26,42 @@ Resources
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/scala-http-client-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
+        </div>
+        <div class="path">project/build.properties</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="properties">sbt.version=1.0.4
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-http-client-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;hello&quot;
+
+version := &quot;0.1&quot;
+
+organization := &quot;org.my&quot;
+
+scalaVersion := &quot;2.12.4&quot;
+
+sbtVersion := &quot;1.0.4&quot;
+
+libraryDependencies ++= Seq(
+  &quot;com.softwaremill.sttp&quot; %% &quot;core&quot; % &quot;1.1.2&quot;,
+  &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.4&quot; % &quot;test&quot;
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/scala-http-client-demo/blob/master/src/test/scala/my/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
         </div>
         <div class="path">src/test/scala/my/HelloSpec.scala</div>

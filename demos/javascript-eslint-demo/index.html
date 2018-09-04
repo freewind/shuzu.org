@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title>javascript-eslint-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-eslint-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Eslint Demo
+======================
+
+```
+npm install
+npm run demo
+```
+
+将会检查出代码中不符合规范的地方。    </div>
+</div>
+
+<div class="markdown markdown-body center-in-page">
+    ```
+$ npx eslint index.js
+```
+
+```
+/Users/freewind/workspace/javascript-eslint-demo/index.js
+  1:10  error  &#39;hello&#39; is defined but never used       no-unused-vars
+  3:5   error  Unexpected console statement            no-console
+  4:9   error  &#39;b&#39; is assigned a value but never used  no-unused-vars
+
+✖ 3 problems (3 errors, 0 warnings)
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-eslint-demo/blob/master/.eslintrc.js" target="_blank" title="show github file">.eslintrc.js</a>
+        </div>
+        <div class="path">.eslintrc.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+    &quot;env&quot;: {
+        &quot;node&quot;: true
+    },
+    &quot;extends&quot;: &quot;eslint:recommended&quot;,
+    &quot;parserOptions&quot;: {
+        &quot;ecmaVersion&quot;: 5
+    },
+    &quot;rules&quot;: {
+        &quot;indent&quot;: [
+            &quot;error&quot;,
+            4
+        ],
+        &quot;linebreak-style&quot;: [
+            &quot;error&quot;,
+            &quot;unix&quot;
+        ],
+        &quot;quotes&quot;: [
+            &quot;error&quot;,
+            &quot;single&quot;
+        ],
+        &quot;semi&quot;: [
+            &quot;error&quot;,
+            &quot;never&quot;
+        ]
+    }
+};</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-eslint-demo/blob/master/index.js" target="_blank" title="show github file">index.js</a>
+        </div>
+        <div class="path">index.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function hello() {
+    var a = 123
+    console.log(a)
+    var b = a + &#39;abc&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    `.eslintrc.js`文件是怎样产生的：
+
+```
+$ npx eslint --init
+```
+
+```
+? How would you like to configure ESLint? Answer questions about your style
+? Which version of ECMAScript do you use? ES5
+? Where will your code run? Node
+? Do you use JSX? No
+? What style of indentation do you use? Spaces
+? What quotes do you use for strings? Single
+? What line endings do you use? Unix
+? Do you require semicolons? No
+? What format do you want your config file to be in? JavaScript
+Successfully created .eslintrc.js file in /Users/freewind/workspace/javascript-eslint-demo
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-eslint-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;eslint .&quot;
+  },
+  &quot;dependencies&quot;: {},
+  &quot;devDependencies&quot;: {
+    &quot;eslint&quot;: &quot;^5.5.0&quot;,
+    &quot;eslint-config-airbnb-base&quot;: &quot;^13.1.0&quot;,
+    &quot;eslint-plugin-import&quot;: &quot;^2.14.0&quot;,
+    &quot;eslint-rules&quot;: &quot;^0.4.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-eslint-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-eslint-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

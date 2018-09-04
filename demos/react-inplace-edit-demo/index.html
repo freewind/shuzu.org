@@ -29,6 +29,63 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-inplace-edit-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-inplace-edit-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+class Hello extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: &#39;Double click me to edit!&#39;,
+      editing: false
+    }
+  }
+
+  render() {
+    const {editing, content} = this.state;
+    return &lt;div&gt;
+      { editing
+        ? &lt;input type=&quot;text&quot; defaultValue={content}
+                 onKeyPress={this._onEnter.bind(this)}/&gt;
+        : &lt;span onDoubleClick={() =&gt; this.setState({editing: true})}&gt;{content}&lt;/span&gt;}
+    &lt;/div&gt;;
+  }
+
+  _onEnter(event) {
+    if (event.charCode === 13) {
+      const newContent = event.target.value;
+      this.setState({
+        content: newContent,
+        editing: false
+      })
+    }
+  }
+
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-inplace-edit-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -52,6 +109,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-inplace-edit-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

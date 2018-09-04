@@ -15,6 +15,51 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;react&quot;, &quot;es2015&quot;],
+  &quot;plugins&quot;: [
+    [&quot;transform-es2015-template-literals&quot;, { &quot;loose&quot;: true }],
+    &quot;transform-es2015-literals&quot;,
+    &quot;transform-es2015-function-name&quot;,
+    &quot;transform-es2015-arrow-functions&quot;,
+    &quot;transform-es2015-block-scoped-functions&quot;,
+    [&quot;transform-es2015-classes&quot;, { &quot;loose&quot;: true }],
+    &quot;transform-es2015-object-super&quot;,
+    &quot;transform-es2015-shorthand-properties&quot;,
+    [&quot;transform-es2015-computed-properties&quot;, { &quot;loose&quot;: true }],
+    [&quot;transform-es2015-for-of&quot;, { &quot;loose&quot;: true }],
+    &quot;transform-es2015-sticky-regex&quot;,
+    &quot;transform-es2015-unicode-regex&quot;,
+    &quot;check-es2015-constants&quot;,
+    [&quot;transform-es2015-spread&quot;, { &quot;loose&quot;: true }],
+    &quot;transform-es2015-parameters&quot;,
+    [&quot;transform-es2015-destructuring&quot;, { &quot;loose&quot;: true }],
+    &quot;transform-es2015-block-scoping&quot;
+  ],
+  &quot;env&quot;: {
+    &quot;commonjs&quot;: {
+      &quot;plugins&quot;: [
+        [&quot;transform-es2015-modules-commonjs&quot;, { &quot;loose&quot;: true }]
+      ]
+    },
+    &quot;es&quot;: {
+      &quot;plugins&quot;: [
+        &quot;./build/use-lodash-es&quot;
+      ]
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/test/reducers/counter.spec.js" target="_blank" title="show github file">counter.spec.js</a>
         </div>
         <div class="path">test/reducers/counter.spec.js</div>
@@ -42,6 +87,22 @@ describe(&#39;reducers&#39;, () =&gt; {
     })
   })
 })
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-counter-demo/blob/master/test/.eslintrc" target="_blank" title="show github file">.eslintrc</a>
+        </div>
+        <div class="path">test/.eslintrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="eslintrc">{
+  &quot;env&quot;: {
+    &quot;mocha&quot;: true
+  }
+}
 </code></pre>
     </div>
 </div>

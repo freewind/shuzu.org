@@ -42,6 +42,58 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-checkbox-state-change-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-checkbox-state-change-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import classNames from &#39;classnames&#39;;
+import &#39;./hello.less&#39;;
+
+class Hello extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: true
+    }
+  }
+
+  render() {
+    const {active} = this.state;
+    const itemClass = classNames({
+      completed: !active
+    });
+    return &lt;div&gt;
+      &lt;input type=&quot;checkbox&quot; onChange={()=&gt; {
+        this.setState({active: !active})
+      }}/&gt;
+      &lt;span className={itemClass}&gt;Hello world!&lt;/span&gt;
+    &lt;/div&gt;;
+  }
+
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-checkbox-state-change-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -68,6 +120,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 };</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-checkbox-state-change-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

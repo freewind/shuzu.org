@@ -195,6 +195,196 @@ Then visit:
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/pages/list.jsp" target="_blank" title="show github file">list.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/pages/list.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;%@ page import=&quot;java.util.List&quot; %&gt;
+&lt;%@ page import=&quot;demo.models.Book&quot; %&gt;
+&lt;%@ page import=&quot;demo.views.ViewHelper&quot; %&gt;
+&lt;% List&lt;Book&gt; books = (List&lt;Book&gt;)request.getAttribute(&quot;books&quot;); %&gt;
+&lt;% String username = (String)session.getAttribute(&quot;username&quot;); %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;&lt;%= ViewHelper.null2empty(request.getAttribute(&quot;message&quot;)) %&gt;&lt;/div&gt;
+
+&lt;% if(username!=null) { %&gt;
+&lt;div&gt;
+    Welcome, &lt;span&gt;&lt;%= ViewHelper.null2empty(username) %&gt;&lt;/span&gt;
+    &lt;a href=&quot;/logout&quot;&gt;Logout&lt;/a&gt;
+&lt;/div&gt;
+&lt;% } %&gt;
+
+&lt;h1&gt;List All Books&lt;/h1&gt;
+&lt;table border=&quot;1&quot; cellpadding=&quot;5&quot;&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+        &lt;th&gt;Operations&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;% for(Book book: books) { %&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;%= book.getTitle() %&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;%= book.getDescription() %&gt;&lt;/td&gt;
+        &lt;td&gt;
+            &lt;a href=&quot;/show-book.html?id=&lt;%=book.getId()%&gt;&quot;&gt;Show&lt;/a&gt;
+            &lt;a href=&quot;/edit-book.html?id=&lt;%=book.getId()%&gt;&quot;&gt;Edit&lt;/a&gt;
+            &lt;a href=&quot;/delete-book?id=&lt;%=book.getId()%&gt;&quot;&gt;Delete&lt;/a&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;% } %&gt;
+&lt;/table&gt;
+&lt;p&gt;
+    &lt;a href=&quot;/create-book.html&quot;&gt;Create New Book&lt;/a&gt;
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/pages/edit.jsp" target="_blank" title="show github file">edit.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/pages/edit.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;%@ page import=&quot;demo.models.Book&quot; %&gt;
+&lt;% Book book = (Book)request.getAttribute(&quot;book&quot;); %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Edit Book&lt;/h1&gt;
+&lt;form action=&quot;/update-book&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;%=book.getId()%&gt;&quot;/&gt;
+    &lt;div&gt;
+        &lt;label&gt;Title&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;title&quot; value=&quot;&lt;%= book.getTitle() %&gt;&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;Description&lt;/label&gt;
+        &lt;textarea name=&quot;description&quot;&gt;&lt;%= book.getDescription() %&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Update&quot;/&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/pages/create.jsp" target="_blank" title="show github file">create.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/pages/create.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Create New Book&lt;/h1&gt;
+&lt;form action=&quot;/create-book&quot; method=&quot;post&quot;&gt;
+    &lt;div&gt;
+        &lt;label&gt;Title&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;title&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;Description&lt;/label&gt;
+        &lt;textarea name=&quot;description&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Create&quot;/&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/pages/login.jsp" target="_blank" title="show github file">login.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/pages/login.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;%@ page import=&quot;demo.views.ViewHelper&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div&gt;&lt;%= ViewHelper.null2empty(request.getAttribute(&quot;message&quot;)) %&gt;&lt;/div&gt;
+
+&lt;h1&gt;My Book System&lt;/h1&gt;
+&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;
+    &lt;div&gt;
+        &lt;label&gt;Username&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label&gt;Password&lt;/label&gt;
+        &lt;input type=&quot;password&quot; name=&quot;password&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Login&quot;/&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/webapp/WEB-INF/pages/show.jsp" target="_blank" title="show github file">show.jsp</a>
+        </div>
+        <div class="path">src/main/webapp/WEB-INF/pages/show.jsp</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsp">&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; %&gt;
+&lt;%@ page import=&quot;demo.models.Book&quot; %&gt;
+&lt;% Book book = (Book)request.getAttribute(&quot;book&quot;); %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Book #&lt;%=book.getId()%&gt;&lt;/h1&gt;
+&lt;form&gt;
+    &lt;div&gt;
+        &lt;%= book.getTitle() %&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;%= book.getDescription() %&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/books-crud-servlet-filter-demo/blob/master/src/main/java/demo/views/ListBooksPageServlet.java" target="_blank" title="show github file">ListBooksPageServlet.java</a>
         </div>
         <div class="path">src/main/java/demo/views/ListBooksPageServlet.java</div>

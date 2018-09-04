@@ -29,6 +29,68 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-timer-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-timer-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+import moment from &#39;moment&#39;;
+
+class Hello extends Component {
+
+	constructor(props) {
+		super(props);
+		this.start = moment();
+		this.state = {
+			now: moment(),
+			elapsed: moment(0)
+		};
+	}
+
+	componentDidMount() {
+		this.timer = setInterval(this._onTick.bind(this), 1000);
+	}
+
+	_onTick() {
+		this.setState({
+			now: moment(),
+			elapsed: moment(moment().diff(this.start))
+		});
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.timer);
+	}
+
+	render() {
+		const {now, elapsed} = this.state;
+		return &lt;div&gt;
+		  &lt;div&gt;Now: {now.format(&#39;YYYY-MM-DD HH:mm:ss&#39;)}&lt;/div&gt;
+		  &lt;div&gt;Elapsed: {elapsed.format(&#39;mm:ss&#39;)}&lt;/div&gt;
+		&lt;/div&gt;;
+	}
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-timer-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -52,6 +114,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-timer-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

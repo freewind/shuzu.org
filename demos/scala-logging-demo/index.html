@@ -25,6 +25,44 @@ sbt test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
+        </div>
+        <div class="path">project/build.properties</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="properties">sbt.version=1.0.4
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;hello&quot;
+
+version := &quot;1.0&quot;
+
+organization := &quot;org.my&quot;
+
+scalaVersion := &quot;2.12.4&quot;
+
+sbtVersion := &quot;1.0.4&quot;
+
+libraryDependencies ++= Seq(
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot;,
+  &quot;com.typesafe.scala-logging&quot; %% &quot;scala-logging&quot; % &quot;3.7.2&quot;,
+  //  &quot;org.json4s&quot; %% &quot;json4s-jackson&quot; % &quot;3.5.3&quot;
+  &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.4&quot; % &quot;test&quot;
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/scala-logging-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
         </div>
         <div class="path">src/main/scala/my/Hello.scala</div>

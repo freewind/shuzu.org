@@ -25,6 +25,62 @@ sbt test
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/my-mp3-sort/blob/master/project/plugins.sbt" target="_blank" title="show github file">plugins.sbt</a>
+        </div>
+        <div class="path">project/plugins.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">resolvers += &quot;Sonatype snapshots&quot; at &quot;https://oss.sonatype.org/content/repositories/snapshots/&quot;
+
+addSbtPlugin(&quot;com.github.mpeltonen&quot; %% &quot;sbt-idea&quot; % &quot;1.7.0-SNAPSHOT&quot;)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/my-mp3-sort/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;hello&quot;
+
+version := &quot;1.0&quot;
+
+organization := &quot;org.my&quot;
+
+scalaVersion := &quot;2.11.0&quot;
+
+sbtVersion := &quot;0.13.5&quot;
+
+resolvers ++= Seq(
+  &quot;ibiblio&quot; at &quot;http://mirrors.ibiblio.org/pub/mirrors/maven2&quot;,
+  &quot;Sonatype snapshots&quot; at &quot;https://oss.sonatype.org/content/repositories/snapshots/&quot;,
+  &quot;Sonatype releases&quot; at &quot;http://oss.sonatype.org/content/repositories/releases&quot;,
+  &quot;Scalaz Bintray Repo&quot; at &quot;http://dl.bintray.com/scalaz/releases&quot;
+)
+
+libraryDependencies ++= Seq(
+  &quot;org.apache.commons&quot; % &quot;commons-lang3&quot; % &quot;3.3.2&quot;,
+  &quot;commons-io&quot; % &quot;commons-io&quot; % &quot;2.4&quot;,
+  &quot;com.google.guava&quot; % &quot;guava&quot; % &quot;18.0&quot;,
+  &quot;org.scalaz&quot; %% &quot;scalaz-core&quot; % &quot;7.1.0&quot;,
+  &quot;io.argonaut&quot; %% &quot;argonaut&quot; % &quot;6.1-M4&quot;,
+  &quot;net.databinder&quot; %% &quot;unfiltered&quot; % &quot;0.8.1&quot;,
+  &quot;net.databinder&quot; %% &quot;unfiltered-filter-async&quot; % &quot;0.8.1&quot;,
+  &quot;net.databinder&quot; %% &quot;unfiltered-jetty&quot; % &quot;0.8.1&quot;,
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.2&quot;,
+  &quot;org.slf4j&quot; % &quot;slf4j-api&quot; % &quot;1.7.7&quot;,
+  &quot;org.commonjava.googlecode.markdown4j&quot; % &quot;markdown4j&quot; % &quot;2.2-cj-1.0&quot;,
+  &quot;com.github.spullara.mustache.java&quot; % &quot;compiler&quot; %    &quot;0.8.16&quot;,
+  &quot;org.jsoup&quot; % &quot;jsoup&quot; % &quot;1.7.3&quot;,
+  &quot;org.specs2&quot; %% &quot;specs2&quot; % &quot;2.4.2&quot; % &quot;test&quot;
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/my-mp3-sort/blob/master/src/test/scala/my/HelloSpec.scala" target="_blank" title="show github file">HelloSpec.scala</a>
         </div>
         <div class="path">src/test/scala/my/HelloSpec.scala</div>

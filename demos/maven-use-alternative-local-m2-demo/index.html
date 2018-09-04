@@ -44,6 +44,19 @@ run.sh
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/maven-use-alternative-local-m2-demo/blob/master/run.sh" target="_blank" title="show github file">run.sh</a>
+        </div>
+        <div class="path">run.sh</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sh">#!/bin/bash
+
+mvn --settings ./user-settings.xml -DlocalRepository=./dotM2 clean compile</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/maven-use-alternative-local-m2-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>

@@ -31,6 +31,51 @@ npm install jasmine-enzyme --save-dev    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-component-test-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-component-test-demo/blob/master/spec/hello-spec.jsx" target="_blank" title="show github file">hello-spec.jsx</a>
+        </div>
+        <div class="path">spec/hello-spec.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;../hello.jsx&#39;;
+import jasmineEnzyme from &#39;jasmine-enzyme&#39;;
+import { shallow } from &#39;enzyme&#39;;
+import React from &#39;react&#39;;
+
+describe(&#39;&lt;Hello /&gt;&#39;, () =&gt; {
+  beforeEach(() =&gt; {
+    jasmineEnzyme();
+  });
+
+  it(&#39;has empty name by default&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello /&gt;);
+    expect(wrapper.find(&#39;#username&#39;).text()).toEqual(&quot;&quot;);
+  });
+
+  it(&#39;changes the title when input value changes&#39;, () =&gt; {
+    const wrapper = shallow(&lt;Hello /&gt;);
+    wrapper.find(&#39;#username&#39;).simulate(&#39;change&#39;, { target: { value: &#39;Freewind&#39; } });
+    expect(wrapper.find(&#39;#title&#39;).text()).toEqual(&quot;Hello Freewind&quot;);
+  });
+
+});</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-component-test-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
         </div>
         <div class="path">spec/support/jasmine.json</div>
@@ -50,6 +95,40 @@ npm install jasmine-enzyme --save-dev    </div>
   &quot;random&quot;: false
 }
 </code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-component-test-demo/blob/master/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+class Hello extends Component {
+  constructor(props) {
+    // required if we want to invoke `this.`
+    super(props);
+    this.state = {
+      username: &#39;&#39;
+    };
+  }
+
+  render() {
+    return &lt;div&gt;
+      &lt;h1 id=&quot;title&quot;&gt;Hello {this.state.username}&lt;/h1&gt;
+      &lt;input id=&quot;username&quot; type=&quot;text&quot; onChange={this.handleNewUsername.bind(this)} /&gt;
+    &lt;/div&gt;;
+  }
+
+  handleNewUsername(event) {
+    this.setState({username: event.target.value});
+  }
+}
+
+export default Hello;</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -78,6 +157,26 @@ npm install jasmine-enzyme --save-dev    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-component-test-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

@@ -29,6 +29,19 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </div>
         <div class="path">webpack.config.js</div>
@@ -52,6 +65,26 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
     }]
   }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import App from &#39;./components/app.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;App /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
@@ -111,6 +144,153 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 &lt;script src=&quot;/assets/bundle.js&quot;&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/search-panel2.jsx" target="_blank" title="show github file">search-panel2.jsx</a>
+        </div>
+        <div class="path">components/search-panel2.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import SearchPanel3 from &#39;./search-panel3.jsx&#39;;
+
+export default class SearchPanel2 extends Component {
+  render() {
+    return &lt;div className=&quot;search-panel&quot;&gt;
+      &lt;SearchPanel3 onSearch={this.props.onSearch}/&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/app.jsx" target="_blank" title="show github file">app.jsx</a>
+        </div>
+        <div class="path">components/app.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import SearchResult from &#39;./search-result.jsx&#39;;
+import SearchPanel1 from &#39;./search-panel1.jsx&#39;;
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      keyword: &#39;&#39;
+    }
+  }
+
+  render() {
+    return &lt;div&gt;
+      &lt;SearchPanel1 onSearch={(keyword) =&gt; this.setState({keyword: keyword})}/&gt;
+      &lt;hr /&gt;
+      &lt;SearchResult keyword={this.state.keyword} items={
+        [&#39;JavaScript&#39;, &#39;Node&#39;, &#39;React&#39;, &#39;Redux&#39;, &#39;Bootstrap&#39;, &#39;Webpack&#39;, &#39;Babel&#39;]
+      }/&gt;
+    &lt;/div&gt;;
+  }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/search-panel1.jsx" target="_blank" title="show github file">search-panel1.jsx</a>
+        </div>
+        <div class="path">components/search-panel1.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import SearchPanel2 from &#39;./search-panel2.jsx&#39;;
+
+export default class SearchPanel1 extends Component {
+  render() {
+    return &lt;div className=&quot;search-panel&quot;&gt;
+      &lt;SearchPanel2 onSearch={this.props.onSearch}/&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/search-panel3.jsx" target="_blank" title="show github file">search-panel3.jsx</a>
+        </div>
+        <div class="path">components/search-panel3.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import SearchForm from &#39;./search-form.jsx&#39;;
+
+export default class SearchPanel3 extends Component {
+  render() {
+    return &lt;div className=&quot;search-panel&quot;&gt;
+      &lt;SearchForm onSearch={this.props.onSearch}/&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/search-form.jsx" target="_blank" title="show github file">search-form.jsx</a>
+        </div>
+        <div class="path">components/search-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class SearchForm extends Component {
+  constructor(props) {
+    super(props);
+    this.onSearch = this.props.onSearch;
+  }
+
+  render() {
+    return &lt;form&gt;
+      &lt;input type=&quot;text&quot; placeholder=&quot;keyword&quot; autoFocus=&quot;true&quot;
+             onChange={this._onKeywordChange.bind(this)}/&gt;
+    &lt;/form&gt;
+  }
+
+  _onKeywordChange(event) {
+    let keyword = event.target.value;
+    this.onSearch(keyword);
+  }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-nested-search-demo/blob/master/components/search-result.jsx" target="_blank" title="show github file">search-result.jsx</a>
+        </div>
+        <div class="path">components/search-result.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class SearchResult extends Component {
+  render() {
+    const {keyword, items}  = this.props;
+    return &lt;div&gt;
+      {
+        items.filter(item =&gt; item.toLowerCase().includes(keyword.toLowerCase()))
+          .map(i =&gt; &lt;div&gt;{i}&lt;/div&gt;)
+      }
+    &lt;/div&gt;;
+  }
+}</code></pre>
     </div>
 </div>
 

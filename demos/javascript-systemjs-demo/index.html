@@ -1,0 +1,134 @@
+<html>
+<head>
+    <title>javascript-systemjs-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-systemjs-demo</div>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript SystemJS Demo
+========================
+
+SystemJS跟RequireJS有点像，可以在前端load使用不同模块类型(`commonjs`, `AMD`等)的js文件。
+
+不过对ES6的支持有问题（文档一上来就给了[一个ES6模块的例子](https://github.com/systemjs/systemjs/blob/master/docs/getting-started.md)，结果死活跑不起来），用户也很少，基本上不用考虑。
+
+在SystemJS之上，还有一个jspm（作者是同一个），提供了更强大的功能（比如ES6代码转换等等），不过跟webpack比起来，基本上看不出有什么优势，生态也很弱。
+
+这个例子也是我费了九牛二虎之力才弄出来的，还是用webpack吧。
+
+```
+npm install
+npm run demo
+```
+
+![demo](./images/demo.jpg)
+
+Resources
+---------
+
+- &lt;https://github.com/systemjs/systemjs/blob/master/docs/getting-started.md&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-systemjs-demo/blob/master/hello-commonjs.js" target="_blank" title="show github file">hello-commonjs.js</a>
+        </div>
+        <div class="path">hello-commonjs.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = function (id) {
+    document.getElementById(id).innerText = &#39;Hello! (from hello-commonjs.js)&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-systemjs-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </div>
+        <div class="path">package.json</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;http-server . -c-1 -o&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;systemjs&quot;: &quot;^0.21.4&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;http-server&quot;: &quot;^0.11.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-systemjs-demo/blob/master/hello-amd.js" target="_blank" title="show github file">hello-amd.js</a>
+        </div>
+        <div class="path">hello-amd.js</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">define([], function () {
+    return function (elementId) {
+        document.getElementById(elementId).innerText = &#39;Hello! (from hello-amd.js)&#39;
+    }
+})
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/javascript-systemjs-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </div>
+        <div class="path">index.html</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/systemjs/dist/system.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        SystemJS.import(&#39;./hello-amd.js&#39;).then(function (hello) {
+            hello(&#39;main1&#39;)
+        })
+        SystemJS.import(&#39;./hello-commonjs.js&#39;).then(function (hello) {
+            hello(&#39;main2&#39;)
+        })
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;main1&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;main2&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="github-icon"><img src="../../images/github.jpg"></span>
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-systemjs-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-systemjs-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

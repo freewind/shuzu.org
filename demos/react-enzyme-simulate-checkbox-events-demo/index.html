@@ -44,6 +44,49 @@ See the content of test `checks the checkbox` in `hello-spec.js`.
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/.editorconfig" target="_blank" title="show github file">.editorconfig</a>
+        </div>
+        <div class="path">.editorconfig</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="editorconfig"># EditorConfig is awesome: http://EditorConfig.org
+
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.{js,jsx,html,less,yml}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [
+    &quot;es2015&quot;,
+    &quot;react&quot;
+  ]
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
         </div>
         <div class="path">spec/hello-spec.js</div>
@@ -134,6 +177,64 @@ module.exports = {
     }]
   }
 };
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/src/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">src/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React from &#39;react&#39;;
+
+class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: false
+    }
+  }
+
+  render() {
+    const {checked} = this.state;
+    return &lt;div&gt;
+      &lt;input type=&quot;checkbox&quot; defaultChecked={checked} onChange={this._toggle.bind(this)}/&gt;
+      {
+        checked ? &quot;checked&quot; : &quot;not checked&quot;
+      }
+    &lt;/div&gt;
+  }
+
+  _toggle() {
+    const {onToggle} = this.props;
+    this.setState({checked: !this.state.checked});
+    onToggle();
+  }
+}
+
+export default Hello;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-enzyme-simulate-checkbox-events-demo/blob/master/src/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">src/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+ReactDOM.render(
+  &lt;Hello /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
 </code></pre>
     </div>
 </div>

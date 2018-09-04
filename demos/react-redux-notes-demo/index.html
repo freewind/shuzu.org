@@ -29,6 +29,19 @@ Then visit &lt;http://localhost:8080/webpack-dev-server/&gt;.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/.babelrc" target="_blank" title="show github file">.babelrc</a>
+        </div>
+        <div class="path">.babelrc</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="babelrc">{
+  &quot;presets&quot;: [&quot;es2015&quot;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/app/server.js" target="_blank" title="show github file">server.js</a>
         </div>
         <div class="path">app/server.js</div>
@@ -154,6 +167,179 @@ app.listen(3000, function () {
     &quot;webpack-hot-middleware&quot;: &quot;^2.12.2&quot;
   }
 }
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/public/message-form.jsx" target="_blank" title="show github file">message-form.jsx</a>
+        </div>
+        <div class="path">public/message-form.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+
+export default class MessageForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: &#39;&#39;,
+      content: &#39;&#39;
+    };
+  }
+
+  render() {
+    return &lt;form onSubmit={this._onSubmit.bind(this)}&gt;
+      &lt;div&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;Username&quot;
+               value={this.state.username}
+               onChange={this._onUsernameChange.bind(this)}/&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;Message Content&quot;
+               value={this.state.content}
+               onChange={this._onContentChange.bind(this)}/&gt;
+        &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;;
+  }
+
+  _onUsernameChange(event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
+
+  _onContentChange(event) {
+    this.setState({
+      content: event.target.value
+    })
+  }
+
+  _onSubmit(event) {
+    event.preventDefault();
+    request.post(&#39;/api/messages&#39;)
+      .send({
+        username: this.state.username,
+        content: this.state.content
+      })
+      .end((err, res) =&gt; {
+        if (err) return console.error(err);
+        this.setState({content: &#39;&#39;});
+        console.log(&#39;sent&#39;);
+      })
+  }
+
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/public/chat.jsx" target="_blank" title="show github file">chat.jsx</a>
+        </div>
+        <div class="path">public/chat.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import MessageForm from &#39;./message-form.jsx&#39;;
+import MessageList from &#39;./message-list.jsx&#39;;
+
+export default class Chat extends Component {
+
+  render() {
+    return &lt;div&gt;
+      &lt;MessageForm/&gt;
+      &lt;hr/&gt;
+      &lt;MessageList/&gt;
+    &lt;/div&gt;;
+  }
+  
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/public/hello.jsx" target="_blank" title="show github file">hello.jsx</a>
+        </div>
+        <div class="path">public/hello.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React,{Component} from &#39;react&#39;;
+
+class Hello extends Component {
+	render() {
+		return &lt;div&gt;
+		  &lt;h1&gt;Hello Freewind&lt;/h1&gt;
+		&lt;/div&gt;;
+	}
+}
+
+export default Hello;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/public/message-list.jsx" target="_blank" title="show github file">message-list.jsx</a>
+        </div>
+        <div class="path">public/message-list.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import request from &#39;superagent&#39;;
+
+export default class MessageList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: []
+    };
+  }
+
+  componentWillMount() {
+    const self = this;
+    console.log(&#39;------- componentWillMount&#39;);
+    setInterval(function () {
+      request.get(&#39;/api/messages&#39;)
+        .end((err, res) =&gt; {
+          if (err) return console.error(err);
+          self.setState({messages: res.body});
+        })
+    }, 1000);
+  }
+
+  render() {
+    return &lt;ul&gt;
+      {
+        this.state.messages.map(message =&gt;
+          &lt;li&gt;{message.username}: {message.content}&lt;/li&gt;
+        )
+      }
+    &lt;/ul&gt;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-redux-notes-demo/blob/master/public/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">public/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import Hello from &#39;./hello.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import Chat from &#39;./chat.jsx&#39;;
+
+ReactDOM.render(
+  &lt;Chat /&gt;,
+  document.getElementById(&quot;content&quot;)
+);
+
 </code></pre>
     </div>
 </div>

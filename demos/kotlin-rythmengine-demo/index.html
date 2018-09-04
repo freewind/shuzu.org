@@ -128,6 +128,40 @@ class Feature(val description: String)
 class Item(val name: String, val price: String, val keywords: List&lt;String&gt;, val features: List&lt;Feature&gt;)</code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-rythmengine-demo/blob/master/src/main/resources/rythm/hello.rythm" target="_blank" title="show github file">hello.rythm</a>
+        </div>
+        <div class="path">src/main/resources/rythm/hello.rythm</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="rythm">@import example.*
+@args List&lt;Item&gt; items
+&lt;html&gt;
+&lt;body&gt;
+    @for(Item item: items) {
+
+&lt;div&gt;
+    &lt;div&gt;Name: @item.name@&lt;/div&gt;
+    &lt;div&gt;Price: @item.price@&lt;/div&gt;
+    &lt;div&gt;Keywords:
+        @for(String keyword in item.keywords@) {
+        &lt;span&gt;@keyword&lt;/span&gt;
+        }
+    &lt;/div&gt;
+    &lt;ul&gt;
+        @for(Feature feature: item.features@) {
+        &lt;li&gt;Feature: @feature.description@&lt;/li&gt;
+        }
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+    }
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

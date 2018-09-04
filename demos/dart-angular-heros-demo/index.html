@@ -47,6 +47,141 @@ If you find a problem with this sample&#39;s code, please open an [issue][].
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/app_component.dart" target="_blank" title="show github file">app_component.dart</a>
+        </div>
+        <div class="path">lib/app_component.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+
+import &#39;package:angular_tour_of_heroes/src/heroes_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_service.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/dashboard_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_detail_component.dart&#39;;
+
+@Component(
+  selector: &#39;my-app&#39;,
+  template: &#39;&#39;&#39;
+      &lt;h1&gt;{{title}}&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;a [routerLink]=&quot;[&#39;Dashboard&#39;]&quot;&gt;Dashboard&lt;/a&gt;
+        &lt;a [routerLink]=&quot;[&#39;Heroes&#39;]&quot;&gt;Heroes&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;router-outlet&gt;&lt;/router-outlet&gt;&#39;&#39;&#39;,
+  styleUrls: const [&#39;app_component.css&#39;],
+  directives: const [ROUTER_DIRECTIVES],
+  providers: const [HeroService],
+)
+@RouteConfig(const [
+  const Route(
+      path: &#39;/dashboard&#39;,
+      name: &#39;Dashboard&#39;,
+      component: DashboardComponent,
+      useAsDefault: true),
+  const Route(
+      path: &#39;/detail/:id&#39;, name: &#39;HeroDetail&#39;, component: HeroDetailComponent),
+  const Route(path: &#39;/heroes&#39;, name: &#39;Heroes&#39;, component: HeroesComponent)
+])
+class AppComponent {
+  final title = &#39;Tour of Heroes&#39;;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/in_memory_data_service.dart" target="_blank" title="show github file">in_memory_data_service.dart</a>
+        </div>
+        <div class="path">lib/in_memory_data_service.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">// Note: MockClient constructor API forces all InMemoryDataService members to
+// be static.
+import &#39;dart:async&#39;;
+import &#39;dart:convert&#39;;
+import &#39;dart:math&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+import &#39;package:http/testing.dart&#39;;
+
+import &#39;src/hero.dart&#39;;
+
+@Injectable()
+class InMemoryDataService extends MockClient {
+  static final _initialHeroes = [
+    {&#39;id&#39;: 11, &#39;name&#39;: &#39;Mr. Nice&#39;},
+    {&#39;id&#39;: 12, &#39;name&#39;: &#39;Narco&#39;},
+    {&#39;id&#39;: 13, &#39;name&#39;: &#39;Bombasto&#39;},
+    {&#39;id&#39;: 14, &#39;name&#39;: &#39;Celeritas&#39;},
+    {&#39;id&#39;: 15, &#39;name&#39;: &#39;Magneta&#39;},
+    {&#39;id&#39;: 16, &#39;name&#39;: &#39;RubberMan&#39;},
+    {&#39;id&#39;: 17, &#39;name&#39;: &#39;Dynama&#39;},
+    {&#39;id&#39;: 18, &#39;name&#39;: &#39;Dr IQ&#39;},
+    {&#39;id&#39;: 19, &#39;name&#39;: &#39;Magma&#39;},
+    {&#39;id&#39;: 20, &#39;name&#39;: &#39;Tornado&#39;}
+  ];
+  static List&lt;Hero&gt; _heroesDb;
+  static int _nextId;
+
+  static Future&lt;Response&gt; _handler(Request request) async {
+    if (_heroesDb == null) resetDb();
+    var data;
+    switch (request.method) {
+      case &#39;GET&#39;:
+        final id =
+            int.parse(request.url.pathSegments.last, onError: (_) =&gt; null);
+        if (id != null) {
+          data = _heroesDb
+              .firstWhere((hero) =&gt; hero.id == id); // throws if no match
+        } else {
+          String prefix = request.url.queryParameters[&#39;name&#39;] ?? &#39;&#39;;
+          final regExp = new RegExp(prefix, caseSensitive: false);
+          data = _heroesDb.where((hero) =&gt; hero.name.contains(regExp)).toList();
+        }
+        break;
+      case &#39;POST&#39;:
+        var name = JSON.decode(request.body)[&#39;name&#39;];
+        var newHero = new Hero(_nextId++, name);
+        _heroesDb.add(newHero);
+        data = newHero;
+        break;
+      case &#39;PUT&#39;:
+        var heroChanges = new Hero.fromJson(JSON.decode(request.body));
+        var targetHero = _heroesDb.firstWhere((h) =&gt; h.id == heroChanges.id);
+        targetHero.name = heroChanges.name;
+        data = targetHero;
+        break;
+      case &#39;DELETE&#39;:
+        var id = int.parse(request.url.pathSegments.last);
+        _heroesDb.removeWhere((hero) =&gt; hero.id == id);
+        // No data, so leave it as null.
+        break;
+      default:
+        throw &#39;Unimplemented HTTP method ${request.method}&#39;;
+    }
+    return new Response(JSON.encode({&#39;data&#39;: data}), 200,
+        headers: {&#39;content-type&#39;: &#39;application/json&#39;});
+  }
+
+  static resetDb() {
+    _heroesDb = _initialHeroes.map((json) =&gt; new Hero.fromJson(json)).toList();
+    _nextId = _heroesDb.map((hero) =&gt; hero.id).fold(0, max) + 1;
+  }
+
+  static String lookUpName(int id) =&gt;
+      _heroesDb.firstWhere((hero) =&gt; hero.id == id, orElse: null)?.name;
+
+  InMemoryDataService() : super(_handler);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/app_component.css" target="_blank" title="show github file">app_component.css</a>
         </div>
         <div class="path">lib/app_component.css</div>
@@ -234,6 +369,43 @@ h4 {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/dashboard_component.dart" target="_blank" title="show github file">dashboard_component.dart</a>
+        </div>
+        <div class="path">lib/src/dashboard_component.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+
+import &#39;hero.dart&#39;;
+import &#39;hero_service.dart&#39;;
+import &#39;hero_search_component.dart&#39;;
+
+@Component(
+  selector: &#39;my-dashboard&#39;,
+  templateUrl: &#39;dashboard_component.html&#39;,
+  styleUrls: const [&#39;dashboard_component.css&#39;],
+  directives: const [CORE_DIRECTIVES, HeroSearchComponent, ROUTER_DIRECTIVES],
+)
+class DashboardComponent implements OnInit {
+  List&lt;Hero&gt; heroes;
+
+  final HeroService _heroService;
+
+  DashboardComponent(this._heroService);
+
+  Future&lt;Null&gt; ngOnInit() async {
+    heroes = (await _heroService.getHeroes()).skip(1).take(4).toList();
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.css" target="_blank" title="show github file">heroes_component.css</a>
         </div>
         <div class="path">lib/src/heroes_component.css</div>
@@ -311,6 +483,157 @@ button.delete {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_service.dart" target="_blank" title="show github file">hero_search_service.dart</a>
+        </div>
+        <div class="path">lib/src/hero_search_service.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+import &#39;dart:convert&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+
+import &#39;hero.dart&#39;;
+
+@Injectable()
+class HeroSearchService {
+  final Client _http;
+
+  HeroSearchService(this._http);
+
+  Future&lt;List&lt;Hero&gt;&gt; search(String term) async {
+    try {
+      final response = await _http.get(&#39;app/heroes/?name=$term&#39;);
+      return _extractData(response)
+          .map((json) =&gt; new Hero.fromJson(json))
+          .toList();
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  dynamic _extractData(Response resp) =&gt; JSON.decode(resp.body)[&#39;data&#39;];
+
+  Exception _handleError(dynamic e) {
+    print(e); // for demo purposes only
+    return new Exception(&#39;Server error; cause: $e&#39;);
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.dart" target="_blank" title="show github file">hero_search_component.dart</a>
+        </div>
+        <div class="path">lib/src/hero_search_component.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:stream_transform/stream_transform.dart&#39;;
+
+import &#39;hero_search_service.dart&#39;;
+import &#39;hero.dart&#39;;
+
+@Component(
+  selector: &#39;hero-search&#39;,
+  templateUrl: &#39;hero_search_component.html&#39;,
+  styleUrls: const [&#39;hero_search_component.css&#39;],
+  directives: const [CORE_DIRECTIVES],
+  providers: const [HeroSearchService],
+  pipes: const [COMMON_PIPES],
+)
+class HeroSearchComponent implements OnInit {
+  HeroSearchService _heroSearchService;
+  Router _router;
+
+  Stream&lt;List&lt;Hero&gt;&gt; heroes;
+  StreamController&lt;String&gt; _searchTerms =
+      new StreamController&lt;String&gt;.broadcast();
+
+  HeroSearchComponent(this._heroSearchService, this._router) {}
+
+  // Push a search term into the stream.
+  void search(String term) =&gt; _searchTerms.add(term);
+
+  Future&lt;Null&gt; ngOnInit() async {
+    heroes = _searchTerms.stream
+        .transform(debounce(new Duration(milliseconds: 300)))
+        .distinct()
+        .transform(switchMap((term) =&gt; term.isEmpty
+            ? new Stream&lt;List&lt;Hero&gt;&gt;.fromIterable([&lt;Hero&gt;[]])
+            : _heroSearchService.search(term).asStream()))
+        .handleError((e) {
+      print(e); // for demo purposes only
+    });
+  }
+
+  void gotoDetail(Hero hero) {
+    var link = [
+      &#39;HeroDetail&#39;,
+      {&#39;id&#39;: hero.id.toString()}
+    ];
+    _router.navigate(link);
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.dart" target="_blank" title="show github file">hero_detail_component.dart</a>
+        </div>
+        <div class="path">lib/src/hero_detail_component.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_forms/angular_forms.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+
+import &#39;hero.dart&#39;;
+import &#39;hero_service.dart&#39;;
+
+@Component(
+  selector: &#39;hero-detail&#39;,
+  templateUrl: &#39;hero_detail_component.html&#39;,
+  styleUrls: const [&#39;hero_detail_component.css&#39;],
+  directives: const [CORE_DIRECTIVES, formDirectives],
+)
+class HeroDetailComponent implements OnInit {
+  Hero hero;
+  final HeroService _heroService;
+  final RouteParams _routeParams;
+  final Location _location;
+
+  HeroDetailComponent(this._heroService, this._routeParams, this._location);
+
+  Future&lt;Null&gt; ngOnInit() async {
+    var _id = _routeParams.get(&#39;id&#39;);
+    var id = int.parse(_id ?? &#39;&#39;, onError: (_) =&gt; null);
+    if (id != null) hero = await (_heroService.getHero(id));
+  }
+
+  Future&lt;Null&gt; save() async {
+    await _heroService.update(hero);
+    goBack();
+  }
+
+  void goBack() =&gt; _location.back();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_detail_component.html" target="_blank" title="show github file">hero_detail_component.html</a>
         </div>
         <div class="path">lib/src/hero_detail_component.html</div>
@@ -373,6 +696,67 @@ button:disabled {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/heroes_component.dart" target="_blank" title="show github file">heroes_component.dart</a>
+        </div>
+        <div class="path">lib/src/heroes_component.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+
+import &#39;hero.dart&#39;;
+import &#39;hero_detail_component.dart&#39;;
+import &#39;hero_service.dart&#39;;
+
+@Component(
+  selector: &#39;my-heroes&#39;,
+  templateUrl: &#39;heroes_component.html&#39;,
+  styleUrls: const [&#39;heroes_component.css&#39;],
+  directives: const [CORE_DIRECTIVES, HeroDetailComponent],
+  pipes: const [COMMON_PIPES],
+)
+class HeroesComponent implements OnInit {
+  final HeroService _heroService;
+  final Router _router;
+  List&lt;Hero&gt; heroes;
+  Hero selectedHero;
+
+  HeroesComponent(this._heroService, this._router);
+
+  Future&lt;Null&gt; getHeroes() async {
+    heroes = await _heroService.getHeroes();
+  }
+
+  Future&lt;Null&gt; add(String name) async {
+    name = name.trim();
+    if (name.isEmpty) return;
+    heroes.add(await _heroService.create(name));
+    selectedHero = null;
+  }
+
+  Future&lt;Null&gt; delete(Hero hero) async {
+    await _heroService.delete(hero.id);
+    heroes.remove(hero);
+    if (selectedHero == hero) selectedHero = null;
+  }
+
+  void ngOnInit() =&gt; getHeroes();
+
+  void onSelect(Hero hero) =&gt; selectedHero = hero;
+
+  Future&lt;Null&gt; gotoDetail() =&gt; _router.navigate([
+        &#39;HeroDetail&#39;,
+        {&#39;id&#39;: selectedHero.id.toString()}
+      ]);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_search_component.css" target="_blank" title="show github file">hero_search_component.css</a>
         </div>
         <div class="path">lib/src/hero_search_component.css</div>
@@ -395,6 +779,167 @@ button:disabled {
 </code></pre>
     </div>
 </div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero.dart" target="_blank" title="show github file">hero.dart</a>
+        </div>
+        <div class="path">lib/src/hero.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">class Hero {
+  final int id;
+  String name;
+
+  Hero(this.id, this.name);
+
+  factory Hero.fromJson(Map&lt;String, dynamic&gt; hero) =&gt;
+      new Hero(_toInt(hero[&#39;id&#39;]), hero[&#39;name&#39;]);
+
+  Map toJson() =&gt; {&#39;id&#39;: id, &#39;name&#39;: name};
+}
+
+int _toInt(id) =&gt; id is int ? id : int.parse(id);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/lib/src/hero_service.dart" target="_blank" title="show github file">hero_service.dart</a>
+        </div>
+        <div class="path">lib/src/hero_service.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+import &#39;dart:convert&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+
+import &#39;hero.dart&#39;;
+
+@Injectable()
+class HeroService {
+  static final _headers = {&#39;Content-Type&#39;: &#39;application/json&#39;};
+  static const _heroesUrl = &#39;api/heroes&#39;; // URL to web API
+
+  final Client _http;
+
+  HeroService(this._http);
+
+  Future&lt;List&lt;Hero&gt;&gt; getHeroes() async {
+    try {
+      final response = await _http.get(_heroesUrl);
+      final heroes = _extractData(response)
+          .map((value) =&gt; new Hero.fromJson(value))
+          .toList();
+      return heroes;
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  dynamic _extractData(Response resp) =&gt; JSON.decode(resp.body)[&#39;data&#39;];
+
+  Exception _handleError(dynamic e) {
+    print(e); // for demo purposes only
+    return new Exception(&#39;Server error; cause: $e&#39;);
+  }
+
+  Future&lt;Hero&gt; getHero(int id) async {
+    try {
+      final response = await _http.get(&#39;$_heroesUrl/$id&#39;);
+      return new Hero.fromJson(_extractData(response));
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  Future&lt;Hero&gt; create(String name) async {
+    try {
+      final response = await _http.post(_heroesUrl,
+          headers: _headers, body: JSON.encode({&#39;name&#39;: name}));
+      return new Hero.fromJson(_extractData(response));
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  Future&lt;Hero&gt; update(Hero hero) async {
+    try {
+      final url = &#39;$_heroesUrl/${hero.id}&#39;;
+      final response =
+          await _http.put(url, headers: _headers, body: JSON.encode(hero));
+      return new Hero.fromJson(_extractData(response));
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  Future&lt;Null&gt; delete(int id) async {
+    try {
+      final url = &#39;$_heroesUrl/$id&#39;;
+      await _http.delete(url, headers: _headers);
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/LICENSE" target="_blank" title="show github file">LICENSE</a>
+        </div>
+        <div class="path">LICENSE</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="LICENSE">The MIT License
+
+Copyright (c) 2014-2017 Google, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/utils.dart" target="_blank" title="show github file">utils.dart</a>
+        </div>
+        <div class="path">test/utils.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+Map&lt;String, dynamic&gt; heroData(String idAsString, String name) =&gt;
+    {&#39;id&#39;: int.parse(idAsString, onError: (_) =&gt; -1), &#39;name&#39;: name};
+
+Stream&lt;T&gt; inIndexOrder&lt;T&gt;(Iterable&lt;Future&lt;T&gt;&gt; futures) async* {
+  for (var x in futures) yield await x;
+}
+</code></pre>
+    </div>
+</div>
 <div class="markdown markdown-body center-in-page">
     Changes/additions relative to toh-5:
 
@@ -403,6 +948,932 @@ button:disabled {
 - Test waiting for element update before proceeding.
 - Test interaction with (mock) db backend.
 - Use `@WithVisibleText()` PO field annotation.</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/app_po.dart" target="_blank" title="show github file">app_po.dart</a>
+        </div>
+        <div class="path">test/app_po.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:pageloader/objects.dart&#39;;
+import &#39;utils.dart&#39;;
+
+class AppPO {
+  @ByTagName(&#39;h1&#39;)
+  PageLoaderElement _h1;
+
+  @ByCss(&#39;nav a&#39;)
+  List&lt;PageLoaderElement&gt; _tabLinks;
+
+  Future&lt;String&gt; get pageTitle =&gt; _h1.visibleText;
+
+  Future&lt;List&lt;String&gt;&gt; get tabTitles =&gt;
+      inIndexOrder(_tabLinks.map((el) =&gt; el.visibleText)).toList();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/dashboard_po.dart" target="_blank" title="show github file">dashboard_po.dart</a>
+        </div>
+        <div class="path">test/dashboard_po.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:pageloader/objects.dart&#39;;
+import &#39;utils.dart&#39;;
+
+class DashboardPO {
+  @FirstByCss(&#39;h3&#39;)
+  PageLoaderElement _title;
+
+  @ByTagName(&#39;a&#39;)
+  List&lt;PageLoaderElement&gt; _heroes;
+
+  @ByTagName(&#39;input&#39;)
+  PageLoaderElement search;
+
+  @ByCss(&#39;div[id=&quot;search-component&quot;] div div&#39;)
+  List&lt;PageLoaderElement&gt; _heroesFound;
+
+  @ByCss(&#39;div[id=&quot;search-component&quot;]&#39;)
+  PageLoaderElement heroSearchDiv;
+
+  Future&lt;String&gt; get title =&gt; _title.visibleText;
+
+  Future&lt;List&lt;String&gt;&gt; get heroNames =&gt;
+      inIndexOrder(_heroes.map((el) =&gt; el.visibleText)).toList();
+
+  Future selectHero(int index) =&gt; _heroes[index].click();
+
+  Future&lt;List&lt;String&gt;&gt; get heroesFound =&gt;
+      inIndexOrder(_heroesFound.map((el) =&gt; el.visibleText)).toList();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/app_test.dart" target="_blank" title="show github file">app_test.dart</a>
+        </div>
+        <div class="path">test/app_test.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Skip(&#39;AppComponent tests need bootstrap equivalent for the Router init&#39;)
+@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_test/angular_test.dart&#39;;
+import &#39;package:angular_tour_of_heroes/app_component.dart&#39;;
+import &#39;package:mockito/mockito.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;app_po.dart&#39;;
+
+NgTestFixture&lt;AppComponent&gt; fixture;
+AppPO appPO;
+
+final mockPlatformLocation = new MockPlatformLocation();
+
+class MockPlatformLocation extends Mock implements PlatformLocation {}
+
+@AngularEntrypoint()
+void main() {
+  final providers = [
+    provide(APP_BASE_HREF, useValue: &#39;/&#39;),
+    provide(ROUTER_PRIMARY_COMPONENT, useValue: AppComponent),
+    provide(PlatformLocation, useValue: mockPlatformLocation),
+  ];
+
+  final testBed = new NgTestBed&lt;AppComponent&gt;().addProviders(providers);
+
+  setUpAll(() async {
+    // Seems like we&#39;d need to do something equivalent to:
+    // bootstrap(AppComponent);
+  });
+
+  setUp(() async {
+    fixture = await testBed.create();
+    appPO = await fixture.resolvePageObject(AppPO);
+  });
+
+  tearDown(disposeAnyRunningTest);
+
+  group(&#39;Basics:&#39;, basicTests);
+}
+
+void basicTests() {
+  test(&#39;page title&#39;, () async {
+    expect(await appPO.pageTitle, &#39;Tour of Heroes&#39;);
+  });
+
+  test(&#39;tab titles&#39;, () async {
+    final expectTitles = [&#39;Dashboard&#39;, &#39;Heroes&#39;];
+    expect(await appPO.tabTitles, expectTitles);
+  });
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/all_test.dart" target="_blank" title="show github file">all_test.dart</a>
+        </div>
+        <div class="path">test/all_test.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+library heroes_test;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;dashboard.dart&#39; as dashboard;
+import &#39;heroes.dart&#39; as heroes;
+import &#39;hero_detail.dart&#39; as hero_detail;
+import &#39;hero_search.dart&#39; as hero_search;
+
+@AngularEntrypoint()
+void main() {
+  group(&#39;dashboard:&#39;, dashboard.main);
+  group(&#39;heroes:&#39;, heroes.main);
+  group(&#39;hero detail:&#39;, hero_detail.main);
+  group(&#39;hero search:&#39;, hero_search.main);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/hero_detail.dart" target="_blank" title="show github file">hero_detail.dart</a>
+        </div>
+        <div class="path">test/hero_detail.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_test/angular_test.dart&#39;;
+import &#39;package:angular_tour_of_heroes/in_memory_data_service.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_detail_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_service.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+import &#39;package:mockito/mockito.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;hero_detail_po.dart&#39;;
+
+NgTestFixture&lt;HeroDetailComponent&gt; fixture;
+HeroDetailPO po;
+
+class MockPlatformLocation extends Mock implements PlatformLocation {}
+
+final mockPlatformLocation = new MockPlatformLocation();
+
+@AngularEntrypoint()
+void main() {
+  final baseProviders = new List.from(ROUTER_PROVIDERS)
+    ..addAll([
+      provide(APP_BASE_HREF, useValue: &#39;/&#39;),
+      provide(Client, useClass: InMemoryDataService),
+      provide(PlatformLocation, useValue: mockPlatformLocation),
+      provide(RouteParams, useValue: new RouteParams({})),
+      HeroService,
+    ]);
+  final testBed =
+      new NgTestBed&lt;HeroDetailComponent&gt;().addProviders(baseProviders);
+
+  setUp(() {
+    InMemoryDataService.resetDb();
+  });
+
+  tearDown(disposeAnyRunningTest);
+
+  test(&#39;No initial hero results in an empty view&#39;, () async {
+    fixture = await testBed.create();
+    expect(fixture.rootElement.text.trim(), &#39;&#39;);
+  });
+
+  const targetHero = const {&#39;id&#39;: 15, &#39;name&#39;: &#39;Magneta&#39;};
+
+  group(&#39;${targetHero[&#39;name&#39;]} initial hero:&#39;, () {
+    const nameSuffix = &#39;X&#39;;
+    final Map updatedHero = {
+      &#39;id&#39;: targetHero[&#39;id&#39;],
+      &#39;name&#39;: &quot;${targetHero[&#39;name&#39;]}$nameSuffix&quot;
+    };
+
+    setUp(() async {
+      final groupTestBed = testBed.fork().addProviders([
+        provide(RouteParams,
+            useValue: new RouteParams({&#39;id&#39;: targetHero[&#39;id&#39;].toString()}))
+      ]);
+      fixture = await groupTestBed.create();
+      po = await fixture.resolvePageObject(HeroDetailPO);
+    });
+
+    test(&#39;show hero details&#39;, () async {
+      expect(await po.heroFromDetails, targetHero);
+    });
+
+    test(&#39;back button&#39;, () async {
+      await po.back();
+      verify(mockPlatformLocation.back());
+    });
+
+    group(&#39;Update name:&#39;, () {
+      setUp(() async {
+        await po.type(nameSuffix);
+      });
+
+      test(&#39;show updated name&#39;, () async {
+        expect(await po.heroFromDetails, updatedHero);
+      });
+
+      test(&#39;discard changes&#39;, () async {
+        await po.back();
+        verify(mockPlatformLocation.back());
+        final name = InMemoryDataService.lookUpName(targetHero[&#39;id&#39;]);
+        expect(name, targetHero[&#39;name&#39;]);
+      });
+
+      test(&#39;save changes and go back&#39;, () async {
+        await po.save();
+        verify(mockPlatformLocation.back());
+        final name = InMemoryDataService.lookUpName(targetHero[&#39;id&#39;]);
+        expect(name, updatedHero[&#39;name&#39;]);
+      });
+    });
+  });
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/heroes_po.dart" target="_blank" title="show github file">heroes_po.dart</a>
+        </div>
+        <div class="path">test/heroes_po.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:pageloader/objects.dart&#39;;
+import &#39;utils.dart&#39;;
+
+class HeroesPO {
+  @FirstByCss(&#39;h2&#39;)
+  PageLoaderElement _title;
+
+  @ByTagName(&#39;li&#39;)
+  List&lt;PageLoaderElement&gt; _heroes;
+
+  @ByTagName(&#39;li&#39;)
+  @WithClass(&#39;selected&#39;)
+  @optional
+  PageLoaderElement _selectedHero;
+
+  @FirstByCss(&#39;div h2&#39;)
+  @optional
+  PageLoaderElement _miniDetailHeading;
+
+  @ByTagName(&#39;button&#39;)
+  @WithVisibleText(&#39;View Details&#39;)
+  @optional
+  PageLoaderElement _gotoDetail;
+
+  @ByCss(&#39;button&#39;)
+  @WithVisibleText(&#39;Add&#39;)
+  PageLoaderElement _add;
+
+  @ByCss(&#39;li button&#39;)
+  List&lt;PageLoaderElement&gt; _deleteHeroes;
+
+  @ByTagName(&#39;input&#39;)
+  PageLoaderElement _input;
+
+  Future&lt;String&gt; get title =&gt; _title.visibleText;
+
+  Iterable&lt;Future&lt;Map&gt;&gt; get heroes =&gt;
+      _heroes.map((el) async =&gt; _heroDataFromLi(await el.visibleText));
+
+  Future selectHero(int index) =&gt; _heroes[index].click();
+  Future deleteHero(int index) =&gt; _deleteHeroes[index].click();
+
+  Future&lt;Map&gt; get selectedHero async =&gt; _selectedHero == null
+      ? null
+      : _heroDataFromLi(await _selectedHero.visibleText);
+
+  Future&lt;String&gt; get myHeroNameInUppercase async {
+    if (_miniDetailHeading == null) return null;
+    final text = await _miniDetailHeading.visibleText;
+    final matches = new RegExp((r&#39;^(.*) is my hero\s*$&#39;)).firstMatch(text);
+    return matches[1];
+  }
+
+  Future&lt;Null&gt; addHero(String name) async {
+    await _input.clear();
+    await _input.type(name);
+    return _add.click();
+  }
+
+  Future&lt;Null&gt; gotoDetail() async =&gt; _gotoDetail.click();
+
+  Map&lt;String, dynamic&gt; _heroDataFromLi(String liText) {
+    final matches = new RegExp((r&#39;^(\d+) (.*) x$&#39;)).firstMatch(liText);
+    return heroData(matches[1], matches[2]);
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/hero_detail_po.dart" target="_blank" title="show github file">hero_detail_po.dart</a>
+        </div>
+        <div class="path">test/hero_detail_po.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:pageloader/objects.dart&#39;;
+import &#39;utils.dart&#39;;
+
+class HeroDetailPO {
+  @FirstByCss(&#39;div h2&#39;)
+  PageLoaderElement _title; // e.g. &#39;Mr Freeze details!&#39;
+
+  @FirstByCss(&#39;div div&#39;)
+  PageLoaderElement _id;
+
+  @ByTagName(&#39;input&#39;)
+  PageLoaderElement _input;
+
+  @ByTagName(&#39;button&#39;)
+  @WithVisibleText(&#39;Back&#39;)
+  PageLoaderElement _back;
+
+  @ByTagName(&#39;button&#39;)
+  @WithVisibleText(&#39;Save&#39;)
+  PageLoaderElement _save;
+
+  Future&lt;Map&gt; get heroFromDetails async {
+    if (_id == null) return null;
+    final idAsString = (await _id.visibleText).split(&#39;:&#39;)[1];
+    final text = await _title.visibleText;
+    final matches = new RegExp((r&#39;^(.*) details!$&#39;)).firstMatch(text);
+    return heroData(idAsString, matches[1]);
+  }
+
+  Future clear() =&gt; _input.clear();
+  Future type(String s) =&gt; _input.type(s);
+
+  Future back() =&gt; _back.click();
+  Future save() =&gt; _save.click();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/hero_search_po.dart" target="_blank" title="show github file">hero_search_po.dart</a>
+        </div>
+        <div class="path">test/hero_search_po.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;dart:async&#39;;
+
+import &#39;package:pageloader/objects.dart&#39;;
+import &#39;utils.dart&#39;;
+
+class HeroSearchPO {
+  @FirstByCss(&#39;h4&#39;)
+  PageLoaderElement _title;
+
+  @ByTagName(&#39;input&#39;)
+  PageLoaderElement search;
+
+  @ByCss(&#39;div[id=&quot;search-component&quot;] div div&#39;)
+  List&lt;PageLoaderElement&gt; _heroes; // heroes found
+
+  Future&lt;String&gt; get title =&gt; _title.visibleText;
+
+  Future&lt;List&lt;String&gt;&gt; get heroNames =&gt;
+      inIndexOrder(_heroes.map((el) =&gt; el.visibleText)).toList();
+
+  Future selectHero(int index) =&gt; _heroes[index].click();
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/heroes.dart" target="_blank" title="show github file">heroes.dart</a>
+        </div>
+        <div class="path">test/heroes.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_test/angular_test.dart&#39;;
+import &#39;package:angular_tour_of_heroes/in_memory_data_service.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/heroes_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_service.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+import &#39;package:mockito/mockito.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;heroes_po.dart&#39;;
+import &#39;utils.dart&#39;;
+
+const numHeroes = 10;
+const targetHeroIndex = 4; // index in full heroes list
+const targetHero = const {&#39;id&#39;: 15, &#39;name&#39;: &#39;Magneta&#39;};
+
+NgTestFixture&lt;HeroesComponent&gt; fixture;
+HeroesPO po;
+
+final mockRouter = new MockRouter();
+
+class MockRouter extends Mock implements Router {}
+
+@AngularEntrypoint()
+void main() {
+  final testBed = new NgTestBed&lt;HeroesComponent&gt;().addProviders([
+    provide(Client, useClass: InMemoryDataService),
+    provide(Router, useValue: mockRouter),
+    HeroService,
+  ]);
+
+  setUp(() async {
+    InMemoryDataService.resetDb();
+    fixture = await testBed.create();
+    po = await fixture.resolvePageObject(HeroesPO);
+  });
+
+  tearDown(disposeAnyRunningTest);
+
+  group(&#39;Basics:&#39;, basicTests);
+  group(&#39;Selected hero:&#39;, selectedHeroTests);
+  group(&#39;Add hero:&#39;, addHeroTests);
+  group(&#39;Delete hero:&#39;, deleteHeroTests);
+}
+
+void basicTests() {
+  test(&#39;title&#39;, () async {
+    expect(await po.title, &#39;My Heroes&#39;);
+  });
+
+  test(&#39;hero count&#39;, () async {
+    await fixture.update();
+    expect(po.heroes.length, numHeroes);
+  });
+
+  test(&#39;no selected hero&#39;, () async {
+    expect(await po.selectedHero, null);
+  });
+}
+
+void selectedHeroTests() {
+  setUp(() async {
+    await po.selectHero(targetHeroIndex);
+    po = await fixture.resolvePageObject(HeroesPO);
+  });
+
+  test(&#39;is selected&#39;, () async {
+    expect(await po.selectedHero, targetHero);
+  });
+
+  test(&#39;show mini-detail&#39;, () async {
+    expect(
+        await po.myHeroNameInUppercase, equalsIgnoringCase(targetHero[&#39;name&#39;]));
+  });
+
+  test(&#39;go to detail&#39;, () async {
+    await po.gotoDetail();
+    final c = verify(mockRouter.navigate(captureAny));
+    final linkParams = [
+      &#39;HeroDetail&#39;,
+      {&#39;id&#39;: &#39;${targetHero[&#39;id&#39;]}&#39;}
+    ];
+    expect(c.captured.single, linkParams);
+  });
+
+  test(&#39;select another hero&#39;, () async {
+    await po.selectHero(0);
+    po = await fixture.resolvePageObject(HeroesPO);
+    final heroData = {&#39;id&#39;: 11, &#39;name&#39;: &#39;Mr. Nice&#39;};
+    expect(await po.selectedHero, heroData);
+  });
+}
+
+void addHeroTests() {
+  const newHeroName = &#39;Carl&#39;;
+
+  setUp(() async {
+    await po.addHero(newHeroName);
+    po = await fixture.resolvePageObject(HeroesPO);
+  });
+
+  test(&#39;hero count&#39;, () async {
+    expect(po.heroes.length, numHeroes + 1);
+  });
+
+  test(&#39;select new hero&#39;, () async {
+    await po.selectHero(numHeroes);
+    po = await fixture.resolvePageObject(HeroesPO);
+    expect(po.heroes.length, numHeroes + 1);
+    expect((await po.selectedHero)[&#39;name&#39;], newHeroName);
+    expect(await po.myHeroNameInUppercase, equalsIgnoringCase(newHeroName));
+  });
+}
+
+void deleteHeroTests() {
+  List&lt;Map&gt; heroesWithoutTarget = [];
+
+  setUp(() async {
+    heroesWithoutTarget = await inIndexOrder(po.heroes).toList()
+      ..removeAt(targetHeroIndex);
+    await po.deleteHero(targetHeroIndex);
+    po = await fixture.resolvePageObject(HeroesPO);
+  });
+
+  test(&#39;hero count&#39;, () async {
+    expect(po.heroes.length, numHeroes - 1);
+  });
+
+  test(&#39;heroes left&#39;, () async {
+    expect(await inIndexOrder(po.heroes).toList(), heroesWithoutTarget);
+  });
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/hero_search.dart" target="_blank" title="show github file">hero_search.dart</a>
+        </div>
+        <div class="path">test/hero_search.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+
+import &#39;dart:async&#39;;
+
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_test/angular_test.dart&#39;;
+import &#39;package:angular_tour_of_heroes/app_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/in_memory_data_service.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_search_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_service.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+import &#39;package:mockito/mockito.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;hero_search_po.dart&#39;;
+
+NgTestFixture&lt;HeroSearchComponent&gt; fixture;
+HeroSearchPO po;
+
+final mockPlatformLocation = new MockPlatformLocation();
+
+class MockPlatformLocation extends Mock implements PlatformLocation {}
+
+@AngularEntrypoint()
+void main() {
+  final providers = new List.from(ROUTER_PROVIDERS)
+    ..addAll([
+      provide(APP_BASE_HREF, useValue: &#39;/&#39;),
+      provide(Client, useClass: InMemoryDataService),
+      provide(ROUTER_PRIMARY_COMPONENT, useValue: AppComponent),
+      provide(PlatformLocation, useValue: mockPlatformLocation),
+      HeroService,
+    ]);
+  final testBed = new NgTestBed&lt;HeroSearchComponent&gt;().addProviders(providers);
+
+  setUpAll(() async {
+    when(mockPlatformLocation.pathname).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.search).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.hash).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.getBaseHrefFromDOM()).thenReturn(&#39;&#39;);
+  });
+
+  setUp(() async {
+    InMemoryDataService.resetDb();
+    fixture = await testBed.create();
+    po = await fixture.resolvePageObject(HeroSearchPO);
+  });
+
+  tearDown(disposeAnyRunningTest);
+
+  test(&#39;title&#39;, () async {
+    expect(await po.title, &#39;Hero Search&#39;);
+  });
+
+  test(&#39;initially no heroes found&#39;, () async {
+    expect(await po.heroNames, []);
+  });
+
+  group(&#39;Search hero:&#39;, heroSearchTests);
+}
+
+void heroSearchTests() {
+  final searchText = &#39;ma&#39;;
+
+  setUp(() async {
+    await _typeSearchTextAndRefreshPO(searchText);
+  });
+
+  test(&#39;list heroes matching ${searchText}&#39;, () async {
+    final matchedHeroNames = [
+      &#39;Magneta&#39;,
+      &#39;RubberMan&#39;,
+      &#39;Dynama&#39;,
+      &#39;Magma&#39;,
+    ];
+    expect(await po.heroNames, matchedHeroNames);
+  });
+
+  test(&#39;list heroes matching ${searchText}g&#39;, () async {
+    await _typeSearchTextAndRefreshPO(&#39;g&#39;);
+    expect(await po.heroNames, [&#39;Magneta&#39;, &#39;Magma&#39;]);
+  });
+
+  test(&#39;select hero and navigate to detail&#39;, () async {
+    clearInteractions(mockPlatformLocation);
+    await po.selectHero(0);
+    final c = verify(mockPlatformLocation.pushState(any, any, captureAny));
+    expect(c.captured.single, &#39;/detail/15&#39;);
+  });
+}
+
+Future _typeSearchTextAndRefreshPO(String searchText) async {
+  Future firstHero;
+  await fixture.update((c) =&gt; firstHero = c.heroes.first);
+  await po.search.type(searchText);
+  await firstHero;
+  po = await fixture.resolvePageObject(HeroSearchPO);
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/test/dashboard.dart" target="_blank" title="show github file">dashboard.dart</a>
+        </div>
+        <div class="path">test/dashboard.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">@Tags(const [&#39;aot&#39;])
+@TestOn(&#39;browser&#39;)
+
+import &#39;dart:async&#39;;
+import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_test/angular_test.dart&#39;;
+import &#39;package:angular_tour_of_heroes/app_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/in_memory_data_service.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/dashboard_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/src/hero_service.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+import &#39;package:mockito/mockito.dart&#39;;
+import &#39;package:test/test.dart&#39;;
+
+import &#39;dashboard_po.dart&#39;;
+
+NgTestFixture&lt;DashboardComponent&gt; fixture;
+DashboardPO po;
+
+final mockPlatformLocation = new MockPlatformLocation();
+
+class MockPlatformLocation extends Mock implements PlatformLocation {}
+
+@AngularEntrypoint()
+void main() {
+  final providers = new List.from(ROUTER_PROVIDERS)
+    ..addAll([
+      provide(APP_BASE_HREF, useValue: &#39;/&#39;),
+      provide(Client, useClass: InMemoryDataService),
+      provide(ROUTER_PRIMARY_COMPONENT, useValue: AppComponent),
+      provide(PlatformLocation, useValue: mockPlatformLocation),
+      HeroService,
+    ]);
+  final testBed = new NgTestBed&lt;DashboardComponent&gt;().addProviders(providers);
+
+  setUpAll(() async {
+    when(mockPlatformLocation.pathname).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.search).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.hash).thenReturn(&#39;&#39;);
+    when(mockPlatformLocation.getBaseHrefFromDOM()).thenReturn(&#39;&#39;);
+  });
+
+  setUp(() async {
+    fixture = await testBed.create();
+    po = await fixture.resolvePageObject(DashboardPO);
+  });
+
+  tearDown(disposeAnyRunningTest);
+
+  test(&#39;title&#39;, () async {
+    expect(await po.title, &#39;Top Heroes&#39;);
+  });
+
+  test(&#39;show top heroes&#39;, () async {
+    final expectedNames = [&#39;Narco&#39;, &#39;Bombasto&#39;, &#39;Celeritas&#39;, &#39;Magneta&#39;];
+    expect(await po.heroNames, expectedNames);
+  });
+
+  test(&#39;select hero and navigate to detail&#39;, () async {
+    clearInteractions(mockPlatformLocation);
+    await po.selectHero(3);
+    final c = verify(mockPlatformLocation.pushState(any, any, captureAny));
+    expect(c.captured.single, &#39;/detail/15&#39;);
+  });
+
+  test(&#39;no search no heroes&#39;, () async {
+    expect(await po.heroesFound, []);
+  });
+
+  group(&#39;Search hero:&#39;, heroSearchTests);
+}
+
+void heroSearchTests() {
+  final matchedHeroNames = [
+    &#39;Magneta&#39;,
+    &#39;RubberMan&#39;,
+    &#39;Dynama&#39;,
+    &#39;Magma&#39;,
+  ];
+
+  setUp(() async {
+    await po.search.type(&#39;ma&#39;);
+    await new Future.delayed(const Duration(seconds: 1));
+    po = await fixture.resolvePageObject(DashboardPO);
+  });
+
+  test(&#39;list matching heroes&#39;, () async {
+    expect(await po.heroesFound, matchedHeroNames);
+  });
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/pubspec.yaml" target="_blank" title="show github file">pubspec.yaml</a>
+        </div>
+        <div class="path">pubspec.yaml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="yaml">name: angular_tour_of_heroes
+description: Tour of Heroes
+version: 0.0.1
+
+environment:
+  sdk: &#39;&gt;=1.24.0 &lt;2.0.0&#39;
+
+dependencies:
+  angular: ^4.0.0
+  angular_forms: ^1.0.0
+  angular_router: ^1.0.2
+  http: ^0.11.0
+  stream_transform: ^0.0.6
+
+dev_dependencies:
+  angular_test: ^1.0.0
+  browser: ^0.10.0
+  dart_to_js_script_rewriter: ^1.0.1
+  mockito: ^2.0.2
+  test: ^0.12.30
+
+transformers:
+- angular:
+    entry_points:
+    - web/main.dart
+    - test/**_test.dart
+- test/pub_serve:
+    $include: test/**_test.dart
+- dart_to_js_script_rewriter
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/analysis_options.yaml" target="_blank" title="show github file">analysis_options.yaml</a>
+        </div>
+        <div class="path">analysis_options.yaml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="yaml">analyzer:
+  strong-mode: true
+#   exclude:
+#     - path/to/excluded/files/**
+
+# Lint rules and documentation, see http://dart-lang.github.io/linter/lints
+linter:
+  rules:
+    - cancel_subscriptions
+    - hash_and_equals
+    - iterable_contains_unrelated_type
+    - list_remove_unrelated_type
+    - test_types_in_equals
+    - unrelated_type_equality_checks
+    - valid_regexps
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/favicon.png" target="_blank" title="show github file">favicon.png</a>
+        </div>
+        <div class="path">web/favicon.png</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="png">�PNG
+
+   IHDR   @   @   �iq�  
+,IDATx�[|����ٶm۶m۶�^�fm4j�omۍ�Y�6�T���g���&amp;_�oy~���93��ɽ7���w����t޽a���S���L�������@e_Q�q興k���]a��&gt;|:��Q��@3ވP^�P��mL �J�c��
+Z�O��\Ą�6K��`�L	O����zJ��c�����Tl
++��ks��&gt;������T�&amp;`����`
+Y(��C��R�AN�=�$E	��q���1������Hت�&#39;�%}+��ޔ�:�2&#39;N��΀ 1.,�2� �E9��B���o��ƝI���$�T��`
+S��i���*�1�ɰ1L���Ξ�s�]{��@,�2�0�&quot;1[B�����aNF~���,�^:Z�sr�h�
+�m%�q]�ΐ7���zL�iT�P̲��~�pi?�Z���RN(�H���;��@m[���uV�&amp;%p(����������&amp;1�2iq�w7�S߂�PwW[��A�$q�$ᮈ1S@�|�:�X�����࿇[O���R�Z�s��C3k�����] W&lt;k�+�A��qz�`�I�A�Y���b��	�1y�F,��&lt;&amp;/Or�:/B�CI0I�Q�󟰠�WO���6�ͭmx�q¯���*�PR� �%� [h�+L���5�_�5�� K��o_ձ� ���A���Qa�P�����V&lt;���7IHx���Z�qo0�ׁY��?��wS�������� 	S����B���$O���A��[1|�&amp;&lt;��C�.P�WPۗ��B�����+V���n�txwJ�r]�q�h�Ȯ�0�{�T��{�&#39;�O:8�q�CcC�]�	P��!%��/!���Ԝ:���X��1�zx�!%��08�S�	6a���.�E(`�J� ���:@�	L&lt;y5&gt;7M�A�:I�P�	����ֆW�0F�Ac�R��?�Hhȫ*�p����)a�g�:��ʷ1�� ������B:L]�����xKr��$�{���΁��d�66��i}=��%6&amp;�Ԟ# %F����n0����ݼ1�k����\��ήB����*������:��!���6/����A7�&amp;�ަ6&lt;q�&lt;�
+�Z��^.���#�*Ҍ�uu�g$��L����E�@y^F!������&amp;�P���(�u3�y&gt;���Oh=����0J%D@�����Ց��4���/�vx��dY%��P�c�&amp;Hm�ia𿓳��^�_�&quot;,
+7�.�o����p���z��ȵ�w j���t��9UgJpq�Exsa=/��sN�I�(,��ɩh�J�O@Z�]�[�Y{��]�j����d��	�qǂ�&amp;�S���Tr���	i�_:�`4ۍ����Q�.���d��4�&quot;Xܵ��+�(u�	v��ʬ6F)�K�Wc�@�bTƳF����m�&gt;jk+&#39;�������=�E�[��~��lMPtރ -xN��t|��W�Q���f�dl/W�w�	�ņxq������&quot;Gt��4F*;�
+�3#�q0�V��%s�:29&quot;�a�hK��҇û:��c��	�
+�~[��#�P�qDQi|2�J~�	R[A�0H�����be�����8�e� �t�A��Y�\�����S���Đ�*^��aܖ���:�͸�0�2�0Fr6B��G c��Qrͤt֡-Ⱥ���n�XR��Ψ�O����i&gt;T-&quot;M?��	�J�Ho����v-d�돠�j31CE�$�~�x_#/����G����� ��K�a��:�~��A(u-�ޏAZ�p��_5�����Ϊ�������(B�Z�l�1� 	zx�q���KMڳ&gt;��i���X���{���NK���P�d*�_��KC锨C�sZ��NƯ�(W?�[b�`�e!!k�#��1FZ7��h�C��C3Dɩ]��O�~&amp;)w��/7x��UL�g3D�(i#Đ҇tc$��;lh��c*�@��|(�)fWFPoM#�S�ƨ��� ��(XjS����&gt;�|x�@�d ×ǯ�TxfLƈM���,Ȇ1x��6����?(��-(������5����&lt;�aE���f&#39;��y/�FY�)��D@��C�����������k_.bޞ\�|bdt�;&#39;�t��6B*�A�9d���_�#&quot;�!NV&gt;bAL�]�ĭ�*�FH�(��`&quot; �#1�3C1�\�P�Z
+5N3h�gC�0�.!F�9�F¸���G���J���;L�;����i�La�_���+h��Qe_i�x��p	n�*L����:W��Q��(xe^ ����&lt;��+��z� ��z8�к~��U��搎:!�Aݡ,Z7&#39;�D7 �,?���Χ��1�JB�X��&quot;�1V|�ck�1|u�4�pI�3���L�B����գǢ��(=	�������	P%�ޯ�5�ڶ��J}xo�h|n�g��^L�H�4���A�o�=��(S�v�P
+�&amp;Z]���h����Ugz҈f�Ե��8�����\�=L�k��	`lk�9�s�;X��ޣY�=輻��� =�kc�FP    IEND�B`�</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/dart-angular-heros-demo/blob/master/web/main.dart" target="_blank" title="show github file">main.dart</a>
+        </div>
+        <div class="path">web/main.dart</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="dart">import &#39;package:angular/angular.dart&#39;;
+import &#39;package:angular_router/angular_router.dart&#39;;
+import &#39;package:angular_tour_of_heroes/app_component.dart&#39;;
+import &#39;package:angular_tour_of_heroes/in_memory_data_service.dart&#39;;
+import &#39;package:http/http.dart&#39;;
+
+void main() {
+  bootstrap(AppComponent, [
+    ROUTER_PROVIDERS,
+    // Remove next line in production
+    provide(LocationStrategy, useClass: HashLocationStrategy),
+    provide(Client, useClass: InMemoryDataService),
+    // Using a real back end?
+    // Import browser_client.dart and change the above to:
+    // [provide(Client, useFactory: () =&gt; new BrowserClient(), deps: [])]
+  ]);
+}
+/*
+import &#39;package:http/browser_client.dart&#39;;
+
+void main() {
+  bootstrap(AppComponent, [
+    ROUTER_PROVIDERS,
+    // Remove next line in production
+    provide(LocationStrategy, useClass: HashLocationStrategy),
+    provide(BrowserClient, useFactory: () =&gt; new BrowserClient(), deps: [])
+  ]);
+}
+*/
+</code></pre>
+    </div>
+</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">

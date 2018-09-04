@@ -82,6 +82,66 @@ val p = project {
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobalt/wrapper/kobalt-wrapper.properties" target="_blank" title="show github file">kobalt-wrapper.properties</a>
+        </div>
+        <div class="path">kobalt/wrapper/kobalt-wrapper.properties</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="properties">kobalt.version=1.0.114</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobalt/Build.kt.iml" target="_blank" title="show github file">Build.kt.iml</a>
+        </div>
+        <div class="path">kobalt/Build.kt.iml</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="iml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;module external.linked.project.id=&quot;Build.kt&quot; external.linked.project.path=&quot;$MODULE_DIR$/..&quot; external.root.project.path=&quot;$MODULE_DIR$/..&quot; external.system.id=&quot;KOBALT&quot; type=&quot;JAVA_MODULE&quot; version=&quot;4&quot;&gt;
+  &lt;component name=&quot;NewModuleRootManager&quot;&gt;
+    &lt;output url=&quot;file://$MODULE_DIR$/out/classes&quot; /&gt;
+    &lt;output-test url=&quot;file://$MODULE_DIR$/out/test-classes&quot; /&gt;
+    &lt;exclude-output /&gt;
+    &lt;content url=&quot;file://$MODULE_DIR$&quot;&gt;
+      &lt;sourceFolder url=&quot;file://$MODULE_DIR$/src&quot; isTestSource=&quot;false&quot; /&gt;
+    &lt;/content&gt;
+    &lt;orderEntry type=&quot;inheritedJdk&quot; /&gt;
+    &lt;orderEntry type=&quot;sourceFolder&quot; forTests=&quot;false&quot; /&gt;
+    &lt;orderEntry type=&quot;module-library&quot;&gt;
+      &lt;library name=&quot;Kobalt: com.beust.kobalt:kobalt:jar:1.0.114&quot;&gt;
+        &lt;CLASSES&gt;
+          &lt;root url=&quot;jar://$USER_HOME$/.kobalt/wrapper/dist/kobalt-1.0.114/kobalt/wrapper/kobalt-1.0.114.jar!/&quot; /&gt;
+        &lt;/CLASSES&gt;
+        &lt;JAVADOC /&gt;
+        &lt;SOURCES&gt;
+          &lt;root url=&quot;jar://$USER_HOME$/.kobalt/wrapper/dist/kobalt-1.0.114/kobalt/wrapper/kobalt-1.0.114-sources.jar!/&quot; /&gt;
+        &lt;/SOURCES&gt;
+      &lt;/library&gt;
+    &lt;/orderEntry&gt;
+  &lt;/component&gt;
+&lt;/module&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobaltw.bat" target="_blank" title="show github file">kobaltw.bat</a>
+        </div>
+        <div class="path">kobaltw.bat</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="bat">@echo off
+set DIRNAME=%~dp0
+if &quot;%DIRNAME%&quot; == &quot;&quot; set DIRNAME=.
+java -jar &quot;%DIRNAME%/kobalt/wrapper/kobalt-wrapper.jar&quot; %*
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/.kobalt/wrapperVersion.txt" target="_blank" title="show github file">wrapperVersion.txt</a>
         </div>
         <div class="path">.kobalt/wrapperVersion.txt</div>
@@ -168,6 +228,19 @@ val p = project {
         mainClass = &quot;com.example.MainKt&quot;
     }
 }</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/kotlin-build-tool-kobalt-demo/blob/master/kobaltw" target="_blank" title="show github file">kobaltw</a>
+        </div>
+        <div class="path">kobaltw</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="kobaltw">#!/usr/bin/env sh
+java -jar &quot;`dirname &quot;$0&quot;`/kobalt/wrapper/kobalt-wrapper.jar&quot; $*
+</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">

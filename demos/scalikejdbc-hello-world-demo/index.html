@@ -31,6 +31,44 @@ You will see the data inserted and retrieved from database, and sql execution in
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/scalikejdbc-hello-world-demo/blob/master/project/build.properties" target="_blank" title="show github file">build.properties</a>
+        </div>
+        <div class="path">project/build.properties</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="properties">sbt.version=1.1.0
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/scalikejdbc-hello-world-demo/blob/master/build.sbt" target="_blank" title="show github file">build.sbt</a>
+        </div>
+        <div class="path">build.sbt</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="sbt">name := &quot;hello&quot;
+
+version := &quot;1.0&quot;
+
+organization := &quot;org.my&quot;
+
+scalaVersion := &quot;2.12.4&quot;
+
+sbtVersion := &quot;1.1.0&quot;
+
+libraryDependencies ++= Seq(
+  &quot;org.scalikejdbc&quot; %% &quot;scalikejdbc&quot; % &quot;3.2.0&quot;,
+  &quot;com.h2database&quot; % &quot;h2&quot; % &quot;1.4.196&quot;,
+  &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.2.3&quot;,
+  &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.4&quot; % &quot;test&quot;
+)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/scalikejdbc-hello-world-demo/blob/master/src/main/scala/my/Hello.scala" target="_blank" title="show github file">Hello.scala</a>
         </div>
         <div class="path">src/main/scala/my/Hello.scala</div>

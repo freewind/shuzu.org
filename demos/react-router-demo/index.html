@@ -30,6 +30,101 @@ Then open `index.html` in your browser.    </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-demo/blob/master/app/app.jsx" target="_blank" title="show github file">app.jsx</a>
+        </div>
+        <div class="path">app/app.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+
+export default class App extends Component {
+  render() {
+    return &lt;div&gt;{this.props.children}&lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-demo/blob/master/app/previewer.jsx" target="_blank" title="show github file">previewer.jsx</a>
+        </div>
+        <div class="path">app/previewer.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+
+export default class Previewer extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;div&gt;Previewer&lt;/div&gt;
+      &lt;div&gt;
+        &lt;div&gt;This is the previewer&lt;/div&gt;
+        &lt;div&gt;&lt;Link to=&#39;/editor&#39;&gt;to editor&lt;/Link&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-demo/blob/master/app/entry.jsx" target="_blank" title="show github file">entry.jsx</a>
+        </div>
+        <div class="path">app/entry.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import {Router, Route, IndexRoute, hashHistory} from &#39;react-router&#39;;
+import App from &#39;./app.jsx&#39;;
+import Editor from &#39;./editor.jsx&#39;;
+import Previewer from &#39;./previewer.jsx&#39;;
+import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+
+const router = &lt;Router history={hashHistory}&gt;
+  &lt;Route path=&#39;/&#39; component={App}&gt;
+    &lt;IndexRoute component={Editor} /&gt;
+  	&lt;Route path=&#39;editor&#39; component={Editor} /&gt;
+  	&lt;Route path=&#39;previewer&#39; component={Previewer} /&gt;
+  &lt;/Route&gt;
+&lt;/Router&gt;;
+
+ReactDOM.render(
+  router,
+  document.getElementById(&#39;content&#39;)
+);
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/react-router-demo/blob/master/app/editor.jsx" target="_blank" title="show github file">editor.jsx</a>
+        </div>
+        <div class="path">app/editor.jsx</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="jsx">import React, {Component} from &#39;react&#39;;
+import {Link} from &#39;react-router&#39;;
+
+export default class Editor extends Component {
+  render() {
+    return &lt;div&gt;
+      &lt;div&gt;Editor&lt;/div&gt;
+      &lt;div&gt;
+        &lt;div&gt;This is the editor&lt;/div&gt;
+        &lt;div&gt;&lt;Link to=&#39;/previewer&#39;&gt;to previewer&lt;/Link&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;;
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/react-router-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
         </div>
         <div class="path">index.css</div>

@@ -36,6 +36,27 @@ Reference
 1. &lt;http://www.blogjava.net/BlueSUN/archive/2008/02/16/180202.html&gt;    </div>
 </div>
 
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/gant-helloworld/blob/master/build.gant" target="_blank" title="show github file">build.gant</a>
+        </div>
+        <div class="path">build.gant</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="gant">target(init: &#39;init&#39;) {
+	echo(&#39;preparing something&#39;)
+}
+
+target(hello: &#39;say hello&#39;) {
+  depends(init)
+  echo(&quot;Hello Gant!&quot;)	
+}
+
+setDefaultTarget(hello)
+</code></pre>
+    </div>
+</div>
 
 <div class="github center-in-page markdown-body">
     <span class="github-icon"><img src="../../images/github.jpg"></span>

@@ -39,6 +39,25 @@
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/run_prod" target="_blank" title="show github file">run_prod</a>
+        </div>
+        <div class="path">run_prod</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="run_prod">#!/bin/sh
+if [ ! -f target/dist/start ]; then
+    mvn clean package
+    cd target/dist
+    unzip *.zip
+else
+    cd target/dist
+fi
+./run $*</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
             <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
         </div>
         <div class="path">pom.xml</div>
@@ -114,6 +133,18 @@ public class HelloWorldApp {
 &lt;h1&gt;Hello @who!&lt;/h1&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <div class="name">
+            <a href="https://github.com/freewind-demos/act-framework-hello-world-demo/blob/master/run_dev" target="_blank" title="show github file">run_dev</a>
+        </div>
+        <div class="path">run_dev</div>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="run_dev">#!/bin/sh
+mvn clean compile exec:exec</code></pre>
     </div>
 </div>
 
