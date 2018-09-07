@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>javascript-es6-promise-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-es6-promise-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-es6-promise-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-es6-promise-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript ES6 Promise Demo
+============================
+
+刚明白ES6和ES2015指的是同一个规范，`Promise`是在这一个规范中增加的。
+
+```
+npm install
+npm run demo
+```
+
+It will print:
+
+```
+Promise { &lt;pending&gt; }
+promise is created.
+promise result: 3
+```
+
+需要注意的是：`promise is created.`这一行输出完3秒钟以后，才输出`promise result: 3`这一行。
+
+Resources
+---------
+
+- ES5, ES6, ES2016, ES.Next: JavaScript 的版本是怎么回事？「译」: https://huangxuan.me/2015/09/22/js-version/    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-es6-promise-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const promise = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+        resolve(1 + 2)
+    }, 3000)
+})
+
+console.log(promise)
+console.log(&#39;promise is created.&#39;)
+
+promise.then(function (data) {
+    console.log(&#39;promise result: &#39; + data)
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-es6-promise-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;node hello.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-es6-promise-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-es6-promise-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

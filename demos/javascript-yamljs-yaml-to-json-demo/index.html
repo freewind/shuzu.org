@@ -1,0 +1,215 @@
+<html>
+<head>
+    <title>javascript-yamljs-yaml-to-json-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-yamljs-yaml-to-json-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Yamljs Yaml to Json Demo
+===================================
+
+```
+npm install
+npm run demo
+```
+
+It will print:
+
+```
+Hello, Javascript
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/blob/master/yaml-to-json.js" target="_blank" title="show github file">yaml-to-json.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const YAML = require(&#39;yamljs&#39;)
+
+const yamlObj = YAML.load(&#39;hello-yaml.yaml&#39;)
+console.log(&#39;-------------- parsed yaml object -------------&#39;)
+console.log(yamlObj)
+
+const json = JSON.stringify(yamlObj, null, 2)
+console.log(&#39;-------------- converted JSON --------------&#39;)
+console.log(json)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/blob/master/hello-json.json" target="_blank" title="show github file">hello-json.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;name&quot;: &quot;YAML &amp; JSON&quot;,
+  &quot;keywords&quot;: [
+    &quot;JavaScript&quot;,
+    &quot;YamlJS&quot;,
+    {
+      &quot;formats&quot;: [
+        &quot;YAML&quot;,
+        &quot;JSON&quot;
+      ]
+    }
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/blob/master/json-to-yaml.js" target="_blank" title="show github file">json-to-yaml.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const YAML = require(&#39;yamljs&#39;)
+const fs = require(&#39;fs&#39;)
+
+const jsonStr = fs.readFileSync(&#39;hello-json.json&#39;, &#39;utf-8&#39;)
+console.log(&#39;--------------- JSON str ------------------&#39;)
+console.log(jsonStr)
+
+const jsonObj = JSON.parse(jsonStr)
+console.log(&#39;--------------- JSON obj -------------------&#39;)
+console.log(jsonObj)
+
+const yaml = YAML.dump(jsonObj)
+console.log(&#39;------------- converted YAML --------------&#39;)
+console.log(yaml)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/blob/master/hello-yaml.yaml" target="_blank" title="show github file">hello-yaml.yaml</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="yaml">name: YAML &amp; JSON
+keywords:
+  - JavaScript
+  - YamlJS
+  - formats:
+      - YAML
+      - JSON
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;,
+    &quot;yamljs&quot;: &quot;^0.3.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    ```
+$ node json-to-yaml.js
+```
+
+输出
+
+```
+{
+  &quot;name&quot;: &quot;YAML &amp; JSON&quot;,
+  &quot;keywords&quot;: [
+    &quot;JavaScript&quot;,
+    &quot;YamlJS&quot;,
+    {
+      &quot;formats&quot;: [
+        &quot;YAML&quot;,
+        &quot;JSON&quot;
+      ]
+    }
+  ]
+}
+--------------- JSON obj -------------------
+{ name: &#39;YAML &amp; JSON&#39;,
+  keywords: [ &#39;JavaScript&#39;, &#39;YamlJS&#39;, { formats: [Array] } ] }
+------------- converted YAML --------------
+name: &#39;YAML &amp; JSON&#39;
+keywords:
+    - JavaScript
+    - YamlJS
+    - {formats: [YAML, JSON]}
+```</div>
+<div class="markdown markdown-body center-in-page">
+    ```
+$ node yaml-to-json.js
+```
+
+输出：
+
+```
+-------------- parsed yaml object -------------
+{ name: &#39;YAML &amp; JSON&#39;,
+  keywords: [ &#39;JavaScript&#39;, &#39;YamlJS&#39;, { formats: [Array] } ] }
+-------------- converted JSON --------------
+{
+  &quot;name&quot;: &quot;YAML &amp; JSON&quot;,
+  &quot;keywords&quot;: [
+    &quot;JavaScript&quot;,
+    &quot;YamlJS&quot;,
+    {
+      &quot;formats&quot;: [
+        &quot;YAML&quot;,
+        &quot;JSON&quot;
+      ]
+    }
+  ]
+}
+```</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-yamljs-yaml-to-json-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

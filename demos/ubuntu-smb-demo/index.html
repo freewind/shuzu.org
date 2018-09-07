@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>ubuntu-smb-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">ubuntu-smb-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/ubuntu-smb-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/ubuntu-smb-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        ```
+sudo vi /etc/samba/smb.conf
+```
+
+Then add:
+
+```
+[思维导图]
+  path = /some/path
+```
+
+Then:
+
+```
+sudo smbcontrol all reload-config
+```
+
+刷新Finder，可以看到已经生效:
+
+![demo](./images/demo.jpg)
+
+
+    </div>
+</div>
+
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/ubuntu-smb-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/ubuntu-smb-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

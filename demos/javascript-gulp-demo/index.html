@@ -1,0 +1,108 @@
+<html>
+<head>
+    <title>javascript-gulp-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-gulp-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-gulp-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-gulp-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Gulp Demo
+====================
+
+Gulp是JavaScript中一个构建工具，特点是通过pipe将各功能串起来，不像Grunt那样是基于配置。
+
+```
+npm install
+npm run demo
+```
+
+将会在`build`目录下生成相应的文件。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-gulp-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function hello() {
+    console.log(&#39;Hello, gulp&#39;)
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-gulp-demo/blob/master/gulpfile.js" target="_blank" title="show github file">gulpfile.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const gulp = require(&#39;gulp&#39;)
+const minify = require(&#39;gulp-minify&#39;)
+
+gulp.task(&#39;default&#39;, function () {
+    gulp.src(&#39;hello.js&#39;)
+        .pipe(minify())
+        .pipe(gulp.dest(&#39;build/&#39;))
+})
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-gulp-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;gulp&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;gulp&quot;: &quot;^3.9.1&quot;,
+    &quot;gulp-cli&quot;: &quot;^2.0.1&quot;,
+    &quot;gulp-minify&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-gulp-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-gulp-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

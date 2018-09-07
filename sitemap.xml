@@ -328,6 +328,24 @@
     <loc>http://shuzu.org/demos/dart_vue_cli_new_project_demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/docker-cmd-ls-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/docker-nginx-map-port-dir-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/docker-run-bash-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/docker-run-uname-all-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/dockerfile-hello-world-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/dockerfile-use-nodejs-with-specified-version-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/editorconfig-demo/index.html</loc>
   </url>
   <url>
@@ -709,12 +727,6 @@
     <loc>http://shuzu.org/demos/idea-plugin-simulate-key-pressing-demo/index.html</loc>
   </url>
   <url>
-    <loc>http://shuzu.org/demos/jasmine-debug-in-webstorm/index.html</loc>
-  </url>
-  <url>
-    <loc>http://shuzu.org/demos/jasmine-demo/index.html</loc>
-  </url>
-  <url>
     <loc>http://shuzu.org/demos/jasmine-es6-import-export-demo/index.html</loc>
   </url>
   <url>
@@ -722,6 +734,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/jasmine-multiple-config-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/java-apache-thrift-server-client-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/java-apply-with-lambda-demo/index.html</loc>
@@ -952,6 +967,9 @@
     <loc>http://shuzu.org/demos/java-spark-redirect-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/java-swagger-ui-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/java-travis-demo/index.html</loc>
   </url>
   <url>
@@ -1051,6 +1069,9 @@
     <loc>http://shuzu.org/demos/javafx-vertical-tab-horizental-text-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-backend-hello-world-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-compare-strings-demo/index.html</loc>
   </url>
   <url>
@@ -1060,13 +1081,43 @@
     <loc>http://shuzu.org/demos/javascript-es6-class-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-es6-promise-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-es6-promise-reject-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-es7-async-await-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-eslint-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-frontend-hello-world-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-grunt-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-gulp-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-hapijs-server-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-jasmine-debug-in-webstorm/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-jasmine-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-jspm-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-karma-browserify-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-karma-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-lodash-split-by-string-demo/index.html</loc>
@@ -1078,6 +1129,42 @@
     <loc>http://shuzu.org/demos/javascript-mocha-webpack-test-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-node-passing-args-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-nodegit-clone-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-nodegit-clone-from-bitbucket-with-username-password-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-nodegit-clone-infinite-retry-fix-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-npm-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-npm-invoke-another-script-in-scripts-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-npm-update-dependencies-to-latest-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-nvm-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-pnpm-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-postcss-config-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-postcss-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-postcss-webpack-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-react-es6-webpack-demo/index.html</loc>
   </url>
   <url>
@@ -1085,6 +1172,27 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-requirejs-load-amd-module-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-amd-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-cjs-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-iife-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-umd-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-rollup-vs-webpack-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-simple-git-clone-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-split-by-regex-with-capture-group-demo/index.html</loc>
@@ -1096,10 +1204,19 @@
     <loc>http://shuzu.org/demos/javascript-split-by-the-first-only-using-regex-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-stylelint-config-js-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-stylelint-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-superagent-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-superagent-logger-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-swagger-ui-server-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-systemjs-demo/index.html</loc>
@@ -1126,6 +1243,9 @@
     <loc>http://shuzu.org/demos/javascript-webpack-dev-server-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-webpack-exclude-external-dependencies-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-webpack-hello-world-demo/index.html</loc>
   </url>
   <url>
@@ -1139,6 +1259,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-webpack-sourcemap-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-yamljs-yaml-to-json-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/jdb-debugging-demo/index.html</loc>
@@ -1531,6 +1654,12 @@
     <loc>http://shuzu.org/demos/logging-filter-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/mac-docker-hello-world-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/mac-docker-machine-information-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/mars-rover-with-enum-demo/index.html</loc>
   </url>
   <url>
@@ -1664,6 +1793,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/npm-publish-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/os-disk-file-hard-soft-link-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/path-to-regexp-demo/index.html</loc>
@@ -1960,9 +2092,6 @@
     <loc>http://shuzu.org/demos/swagger-jaxrs-demo/index.html</loc>
   </url>
   <url>
-    <loc>http://shuzu.org/demos/swagger-ui-demo/index.html</loc>
-  </url>
-  <url>
     <loc>http://shuzu.org/demos/swift-demos/index.html</loc>
   </url>
   <url>
@@ -2140,6 +2269,12 @@
     <loc>http://shuzu.org/demos/typescript-type-of-for-in-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/ubuntu-docker-hello-world-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/ubuntu-smb-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/virtual-dom-diff-demo/index.html</loc>
   </url>
   <url>
@@ -2222,5 +2357,8 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/webstorm-typescript-lodash-completion-issue-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/yaml-demo/index.html</loc>
   </url>
 </urlset>

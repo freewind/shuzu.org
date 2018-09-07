@@ -1,0 +1,110 @@
+<html>
+<head>
+    <title>javascript-npm-invoke-another-script-in-scripts-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-npm-invoke-another-script-in-scripts-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Npm Invoke Another Script in &quot;scripts&quot; Demo
+======================================================
+
+```
+npm install
+npm run hello
+```
+
+You will see:
+
+```
+$ npm run hello
+
+&gt; @ hello /Users/freewind/workspace/javascript-npm-invoke-another-script-in-scripts-demo
+&gt; node hello.js
+
+Hello, Javascript
+```
+
+You will see:
+
+```
+$ npm run demo
+
+&gt; @ demo /Users/freewind/workspace/javascript-npm-invoke-another-script-in-scripts-demo
+&gt; npm run hello &amp;&amp; echo OK
+
+
+&gt; @ hello /Users/freewind/workspace/javascript-npm-invoke-another-script-in-scripts-demo
+&gt; node hello.js
+
+Hello, Javascript
+OK
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const _ = require(&#39;lodash&#39;)
+
+console.log(&#39;Hello, &#39; + _.capitalize(&#39;javascript&#39;))</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;hello&quot;: &quot;node hello.js&quot;,
+    &quot;demo&quot;: &quot;npm run hello &amp;&amp; echo OK&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-npm-invoke-another-script-in-scripts-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

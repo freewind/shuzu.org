@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>javascript-stylelint-config-js-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-stylelint-config-js-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Stylelint &quot;stylelint.config.js&quot; Demo
+===============================================
+
+在Stylelint中使用配置文件`stylelint.config.js`。
+
+使用`.js`格式的配置文件，可以让我们在配置时使用JS语法从而获得更大的灵活性。
+
+```
+npm install
+npm run demo
+```
+
+```
+index.css
+ 2:12  ✖  Unexpected invalid hex color &quot;#1122334455&quot;   color-no-invalid-hex
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">p {
+    color: #1122334455;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;stylelint index.css || true&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;stylelint&quot;: &quot;^9.5.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo/blob/master/stylelint.config.js" target="_blank" title="show github file">stylelint.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+    &#39;rules&#39;: {
+        &#39;color-no-invalid-hex&#39;: true
+    }
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-stylelint-config-js-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

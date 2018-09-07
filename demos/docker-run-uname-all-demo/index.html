@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>docker-run-uname-all-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">docker-run-uname-all-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/docker-run-uname-all-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/docker-run-uname-all-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Docker Run &quot;uname --all&quot; Demo
+=============================
+
+```
+docker build -t docker-run-uname-all-demo .
+docker run docker-run-uname-all-demo
+```
+
+将会输出：
+
+```
+Linux 11ec3bc810d0 4.4.0-128-generic #154-Ubuntu SMP Fri May 25 14:15:18 UTC 2018 x86_64 GNU/Linux
+```
+
+注意点
+---
+
+1. `uname`：也可以写完整路径`/bin/uname`
+2. `[&quot;uname&quot;, &quot;--all&quot;]`：这种数组形式是推荐的形式。如果写成`&quot;uname --all&quot;`，会报错，会把后面的`--all`当作一个单独的命令。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/docker-run-uname-all-demo/blob/master/Dockerfile" target="_blank" title="show github file">Dockerfile</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="Dockerfile">FROM ubuntu
+CMD [&quot;uname&quot;, &quot;--all&quot;]
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/docker-run-uname-all-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/docker-run-uname-all-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

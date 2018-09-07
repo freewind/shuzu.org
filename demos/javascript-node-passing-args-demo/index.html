@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title>javascript-node-passing-args-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-node-passing-args-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript NodeJS Passing Args Demo
+===================================
+
+使用node执行一个.js文件时，如何传参数。
+
+```
+npm install
+node hello.js NodeJS
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">console.log(&#39;------------ args ----------------&#39;)
+console.log(process.argv)
+
+const name = process.argv[2]
+console.log(&#39;Hello, &#39; + name)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    ```
+$ node hello.js javascript
+```
+
+输出：
+
+```
+------------ args ----------------
+[ &#39;/Users/freewind/.nvm/versions/node/v8.11.2/bin/node&#39;,
+  &#39;/Users/freewind/workspace/javascript-node-passing-args-demo/hello.js&#39;,
+  &#39;javascript&#39; ]
+Hello, javascript
+```</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-node-passing-args-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+<head>
+    <title>javascript-postcss-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-postcss-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-postcss-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-postcss-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript PostCSS Demo
+=======================
+
+PostCSS是一个对CSS进行各种转换的工具。
+
+通过各种插件，我们可以对css文件进行各种花样的转换。
+
+本Demo用到的是`autoprefixer`插件，可以在让我们标准（但可能还没有被浏览器支持）的css属性，然后由该插件给它加上各种前缀，让它被各浏览器使用各自的方言来支持。
+
+```
+npm install
+npm run demo
+```
+
+它将会在`build`目录下生成经过转换之后的`hello.css`。
+    </div>
+</div>
+
+<div class="markdown markdown-body center-in-page">
+    ```
+$ npm run demo
+```
+
+```
+.example {
+    display: grid;
+    transition: all .5s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background: linear-gradient(to bottom, white, black);
+}
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2hlbGxvLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGNBQWM7SUFDZCxvQkFBb0I7SUFDcEIsMEJBQWtCO09BQWxCLHVCQUFrQjtRQUFsQixzQkFBa0I7WUFBbEIsa0JBQWtCO0lBQ2xCLHFEQUFxRDtDQUN4RCIsImZpbGUiOiJoZWxsby5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhhbXBsZSB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICB0cmFuc2l0aW9uOiBhbGwgLjVzO1xuICAgIHVzZXItc2VsZWN0OiBub25lO1xuICAgIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCh0byBib3R0b20sIHdoaXRlLCBibGFjayk7XG59XG5cbiJdfQ== */
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-demo/blob/master/hello.css" target="_blank" title="show github file">hello.css</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">.example {
+    display: grid;
+    transition: all .5s;
+    user-select: none;
+    background: linear-gradient(to bottom, white, black);
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;postcss hello.css --use autoprefixer -d ./build/&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;autoprefixer&quot;: &quot;^9.1.5&quot;,
+    &quot;postcss-cli&quot;: &quot;^6.0.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-postcss-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-postcss-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

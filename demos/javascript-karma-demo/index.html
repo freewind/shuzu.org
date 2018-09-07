@@ -1,0 +1,266 @@
+<html>
+<head>
+    <title>javascript-karma-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-karma-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-karma-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-karma-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Karma Demo
+=====================
+
+Karma不是一个测试框架，而是一个用于将代码与具体的某个测试框架以及测试环境（如浏览器）等连接起来的桥梁。
+
+```
+npm install
+npm run demo
+```
+
+根据我们在`karma.conf.js`中的配置，它会打开一个似乎什么也不做的浏览器:
+
+![demo](./images/demo.jpg)
+
+而实际上，karma会在后台把js文件传过去，在浏览器运行完以后，再把结果拿出来输出到控制台上。
+
+注意
+---
+
+`karma.conf.js`中的`files`：
+
+- 如果没有使用第三方插件（比如`karma-browserify`）处理，这里应该同时包含功能代码和测试代码。
+- 如果使用了第三方插件，需要根据情况处理，比如使用`karma-browserify`，那么这里就不需要包含功能代码，只包含测试代码即可。
+    </div>
+</div>
+
+<div class="markdown markdown-body center-in-page">
+    `karma.conf.js`是如何产生的：
+
+```
+$ npx karma init
+```
+
+```
+Which testing framework do you want to use ?
+Press tab to list possible options. Enter to move to the next question.
+&gt; jasmine
+
+Do you want to use Require.js ?
+This will add Require.js plugin.
+Press tab to list possible options. Enter to move to the next question.
+&gt; no
+
+Do you want to capture any browsers automatically ?
+Press tab to list possible options. Enter empty string to move to the next question.
+&gt; Chrome
+&gt;
+
+What is the location of your source and test files ?
+You can use glob patterns, eg. &quot;js/*.js&quot; or &quot;test/**/*Spec.js&quot;.
+Enter empty string to move to the next question.
+&gt;
+
+Should any of the files included by the previous patterns be excluded ?
+You can use glob patterns, eg. &quot;**/*.swp&quot;.
+Enter empty string to move to the next question.
+&gt;
+
+Do you want Karma to watch all the files and run the tests on change ?
+Press tab to list possible options.
+&gt; yes
+
+
+Config file generated at &quot;/Users/freewind/workspace/javascript-karma-demo/karma.conf.js&quot;.
+```</div>
+<div class="markdown markdown-body center-in-page">
+    ```
+$ npm run test
+```
+
+```
+&gt; @ test /Users/freewind/workspace/javascript-karma-demo
+&gt; karma start karma.conf.js
+
+04 09 2018 14:17:24.861:WARN [karma]: No captured browser, open http://localhost:9876/
+04 09 2018 14:17:24.869:INFO [karma]: Karma v3.0.0 server started at http://0.0.0.0:9876/
+04 09 2018 14:17:24.869:INFO [launcher]: Launching browser Chrome with unlimited concurrency
+04 09 2018 14:17:24.877:INFO [launcher]: Starting browser Chrome
+04 09 2018 14:17:25.708:INFO [Chrome 68.0.3440 (Mac OS X 10.13.3)]: Connected on socket Cvrmsf-29nyVC4jQAAAA with id 78737245
+Chrome 68.0.3440 (Mac OS X 10.13.3): Executed 1 of 1 SUCCESS (0.003 secs / 0.001 secs)
+TOTAL: 1 SUCCESS
+04 09 2018 14:18:45.950:INFO [watcher]: Changed file &quot;/Users/freewind/workspace/javascript-karma-demo/src/hello-test.js&quot;.
+Chrome 68.0.3440 (Mac OS X 10.13.3) hello should return hello words for a given name FAILED
+        Expected &#39;Hello, karma!&#39; to be &#39;Hello, javascript!&#39;.
+            at &lt;Jasmine&gt;
+            at UserContext.&lt;anonymous&gt; (src/hello-test.js:4:32)
+            at &lt;Jasmine&gt;
+Chrome 68.0.3440 (Mac OS X 10.13.3): Executed 1 of 1 (1 FAILED) ERROR (0.006 secs / 0.002 secs)
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-demo/blob/master/src/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function hello(name) {
+    return &#39;Hello, &#39; + name + &#39;!&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-demo/blob/master/src/hello-test.js" target="_blank" title="show github file">hello-test.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">describe(&#39;hello&#39;, function () {
+
+    it(&#39;should return hello words for a given name&#39;, function () {
+        expect(hello(&#39;karma&#39;)).toBe(&#39;Hello, javascript!&#39;)
+    })
+
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-demo/blob/master/karma.conf.js" target="_blank" title="show github file">karma.conf.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Karma configuration
+// Generated on Tue Sep 04 2018 13:54:40 GMT+0800 (China Standard Time)
+
+module.exports = function(config) {
+  config.set({
+
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: &#39;&#39;,
+
+
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: [&#39;jasmine&#39;],
+
+
+    // list of files / patterns to load in the browser
+    files: [
+        &quot;src/**.js&quot;
+    ],
+
+
+    // list of files / patterns to exclude
+    exclude: [
+    ],
+
+
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    preprocessors: {
+    },
+
+
+    // test results reporter to use
+    // possible values: &#39;dots&#39;, &#39;progress&#39;
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    reporters: [&#39;progress&#39;],
+
+
+    // web server port
+    port: 9876,
+
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+
+
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: [&#39;Chrome&#39;],
+
+
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: false,
+
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity
+  })
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;node hello.js&quot;,
+    &quot;test&quot;: &quot;karma start karma.conf.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;jasmine&quot;: &quot;^3.2.0&quot;,
+    &quot;karma&quot;: &quot;^3.0.0&quot;,
+    &quot;karma-chrome-launcher&quot;: &quot;^2.2.0&quot;,
+    &quot;karma-jasmine&quot;: &quot;^1.1.2&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-karma-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-karma-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

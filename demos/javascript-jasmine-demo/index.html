@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>jasmine-demo - 数组网</title>
+    <title>javascript-jasmine-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,50 +8,37 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">jasmine-demo</div>
+    <div class="site-slogan">javascript-jasmine-demo</div>
 </div>
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/jasmine-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-jasmine-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/jasmine-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-jasmine-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        Jasmine Demo
-============
+        JavaScript Jasmine Demo
+=======================
 
-A very simple jasmine demo and how to run it in command line
+在命令行中运行`Jasmine`跑测试
 
 ```
 npm install
-```
-
-Run test:
-
-```
 npm test
 ```
-
-How to create the `jasmine.json`
---------------------------------
-
-```
-jasmine init
-```
-
-It will create `spec/support/jasmine.json` with default content.    </div>
+    </div>
 </div>
 
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <span class="parent-path">spec/</span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
+            <a href="https://github.com/freewind-demos/javascript-jasmine-demo/blob/master/spec/hello-spec.js" target="_blank" title="show github file">hello-spec.js</a>
         </span>
     </div>
     <div class="body">
@@ -68,7 +55,7 @@ describe(&quot;A suite&quot;, function () {
     <div class="header">
         <span class="parent-path">spec/support/</span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
+            <a href="https://github.com/freewind-demos/javascript-jasmine-demo/blob/master/spec/support/jasmine.json" target="_blank" title="show github file">jasmine.json</a>
         </span>
     </div>
     <div class="body">
@@ -86,11 +73,20 @@ describe(&quot;A suite&quot;, function () {
 </code></pre>
     </div>
 </div>
+<div class="markdown markdown-body center-in-page">
+    How to create the `jasmine.json`
+--------------------------------
+
+```
+jasmine init
+```
+
+It will create `spec/support/jasmine.json` with default content.</div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <span class="parent-path">src/</span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/src/core.js" target="_blank" title="show github file">core.js</a>
+            <a href="https://github.com/freewind-demos/javascript-jasmine-demo/blob/master/src/core.js" target="_blank" title="show github file">core.js</a>
         </span>
     </div>
     <div class="body">
@@ -103,11 +99,11 @@ describe(&quot;A suite&quot;, function () {
     <div class="header">
         <span class="parent-path">src/</span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/src/hello.js" target="_blank" title="show github file">hello.js</a>
+            <a href="https://github.com/freewind-demos/javascript-jasmine-demo/blob/master/src/hello.js" target="_blank" title="show github file">hello.js</a>
         </span>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">let core = require(&#39;./core&#39;);
+        <pre class="content"><code class="js">const core = require(&#39;./core&#39;);
 
 module.exports = function () {
   core();
@@ -122,22 +118,16 @@ module.exports = function () {
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/jasmine-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-jasmine-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
-  &quot;name&quot;: &quot;jasmine-demo&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
   &quot;scripts&quot;: {
     &quot;test&quot;: &quot;jasmine&quot;
   },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
   &quot;devDependencies&quot;: {
-    &quot;jasmine&quot;: &quot;^2.4.1&quot;
+    &quot;jasmine&quot;: &quot;^3.2.0&quot;
   }
 }
 </code></pre>
@@ -146,10 +136,10 @@ module.exports = function () {
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/jasmine-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-jasmine-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/jasmine-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-jasmine-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

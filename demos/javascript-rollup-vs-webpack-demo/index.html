@@ -1,0 +1,302 @@
+<html>
+<head>
+    <title>javascript-rollup-vs-webpack-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-rollup-vs-webpack-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Rollup vs Webpack Demo
+=================================
+
+Rollup和Webpack都是打包工具。在Webpack已经快一统江湖的时候，为什么还有人愿意使用rollup呢？
+
+我想原因是：有的时候，比如写一个js库，在所有东西可控的情况下，我们只需要生成紧凑单一的最终文件，不需要处理复杂的模块，这时使用rollup就很合适。
+
+而webpack始终考虑周全，在生成的代码中包含很多在这种情况下就显得有点多虑。
+
+这个Demo里同时使用rollup和webpack对同一份代码进行打包，看一下最终产生的代码就明白了。
+
+```
+npm install
+npm run rollup
+npm run webpack
+```
+
+将会生成`bundle-rollup.js`和`bundle-webpack.js`文件。
+
+Resources
+---------
+
+- Rollup vs Webpack (JavaScript bundling in 2018): &lt;https://medium.com/jsdownunder/rollup-vs-webpack-javascript-bundling-in-2018-b35758a2268&gt;
+- Webpack、Rollup相爱相杀的那些事: &lt;https://www.w3ctech.com/topic/1996&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {capitalize} from &#39;lodash&#39;
+
+export default function (name) {
+    return &#39;Hello, &#39; + capitalize(name) + &#39;!&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+    mode: &#39;development&#39;,
+    entry: &#39;./main.js&#39;,
+    output: {
+        path: __dirname,
+        filename: &#39;bundle-webpack.js&#39;
+    },
+    externals: {
+        &#39;lodash&#39;: &#39;_&#39;
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="markdown markdown-body center-in-page">
+    `rollup`编译出来的`bundle-rollup.js`:
+--------------------------------
+
+```
+&#39;use strict&#39;;
+
+var lodash = require(&#39;lodash&#39;);
+
+function hello (name) {
+    return &#39;Hello, &#39; + lodash.capitalize(name) + &#39;!&#39;
+}
+
+hello(&#39;rollup&#39;);
+```
+
+`webpack`编译出来的`bundle-webpack.js`:
+----------------------------------
+
+```
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== &#39;undefined&#39; &amp;&amp; Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: &#39;Module&#39; });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, &#39;__esModule&#39;, { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode &amp; 1: value is a module id, require it
+/******/ 	// mode &amp; 2: merge all properties of value into the ns
+/******/ 	// mode &amp; 4: return value when already ns object
+/******/ 	// mode &amp; 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode &amp; 1) value = __webpack_require__(value);
+/******/ 		if(mode &amp; 8) return value;
+/******/ 		if((mode &amp; 4) &amp;&amp; typeof value === &#39;object&#39; &amp;&amp; value &amp;&amp; value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, &#39;default&#39;, { enumerable: true, value: value });
+/******/ 		if(mode &amp; 2 &amp;&amp; typeof value != &#39;string&#39;) for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module &amp;&amp; module.__esModule ?
+/******/ 			function getDefault() { return module[&#39;default&#39;]; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, &#39;a&#39;, getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = &quot;&quot;;
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = &quot;./main.js&quot;);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ &quot;./hello.js&quot;:
+/*!******************!*\
+  !*** ./hello.js ***!
+  \******************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+&quot;use strict&quot;;
+eval(&quot;__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ \&quot;lodash\&quot;);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);\n\n\n/* harmony default export */ __webpack_exports__[\&quot;default\&quot;] = (function (name) {\n    return &#39;Hello, &#39; + Object(lodash__WEBPACK_IMPORTED_MODULE_0__[\&quot;capitalize\&quot;])(name) + &#39;!&#39;\n});\n\n//# sourceURL=webpack:///./hello.js?&quot;);
+
+/***/ }),
+
+/***/ &quot;./main.js&quot;:
+/*!*****************!*\
+  !*** ./main.js ***!
+  \*****************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+&quot;use strict&quot;;
+eval(&quot;__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hello__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hello */ \&quot;./hello.js\&quot;);\n\n\nObject(_hello__WEBPACK_IMPORTED_MODULE_0__[\&quot;default\&quot;])(&#39;rollup&#39;)\n\n//# sourceURL=webpack:///./main.js?&quot;);
+
+/***/ }),
+
+/***/ &quot;lodash&quot;:
+/*!********************!*\
+  !*** external &quot;_&quot; ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval(&quot;module.exports = _;\n\n//# sourceURL=webpack:///external_%22_%22?&quot;);
+
+/***/ })
+
+/******/ });
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;rollup&quot;: &quot;rollup -c&quot;,
+    &quot;webpack&quot;: &quot;webpack&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;rollup&quot;: &quot;^0.65.0&quot;,
+    &quot;webpack&quot;: &quot;^4.17.1&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/blob/master/rollup.config.js" target="_blank" title="show github file">rollup.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export default {
+    entry: &#39;main.js&#39;,
+    dest: &#39;bundle-rollup.js&#39;,
+    format: &#39;cjs&#39;,
+    external: [&#39;lodash&#39;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/blob/master/main.js" target="_blank" title="show github file">main.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import hello from &#39;./hello&#39;
+
+hello(&#39;rollup&#39;)</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-rollup-vs-webpack-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

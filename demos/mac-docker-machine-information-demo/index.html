@@ -1,0 +1,584 @@
+<html>
+<head>
+    <title>mac-docker-machine-information-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">mac-docker-machine-information-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mac-docker-machine-information-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mac-docker-machine-information-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Mac &quot;docker-machine&quot; Information Demo
+=====================================
+
+在Mac上，由于操作系统不支持docker所需要的一些功能，所以要运行docker，必须先使用`docker-machine`相关的命令，在Mac上创建一个Linux虚拟机，在它里面执行docker命令。
+
+这个docker machine实际上是运行于Virtual Box上的一个Linux。
+由于它的存在，使得我们在Mac上使用docker有很多不便，特别是与路径相关的。
+比如说，docker输出中有一些路径，我们在Mac本机上怎么也找不到，也不知道去哪里找。
+我们必须了解关于Docker Machine更多的一些信息，才能帮助我们快速定位问题。
+
+docker-machine创建的虚拟机在哪里
+-----------------------
+
+```
+$ tree ~/.docker
+```
+
+输出：
+
+```
+tree ~/.docker/machine
+/Users/freewind/.docker/machine
+├── cache
+│   └── boot2docker.iso
+├── certs
+│   ├── ca-key.pem
+│   ├── ca.pem
+│   ├── cert.pem
+│   └── key.pem
+└── machines
+    └── default
+        ├── boot2docker.iso
+        ├── ca.pem
+        ├── cert.pem
+        ├── config.json
+        ├── default
+        │   ├── Logs
+        │   │   └── VBox.log
+        │   ├── default.vbox
+        │   └── default.vbox-prev
+        ├── disk.vmdk
+        ├── id_rsa
+        ├── id_rsa.pub
+        ├── key.pem
+        ├── server-key.pem
+        └── server.pem
+
+6 directories, 18 files
+```
+
+可以看到`machines`下有一个`default`，这就是我们创建的名为`default`的docker machine对应的文件。
+
+查看目录大小
+------
+
+```
+du -sh ~/.docker/machine
+348M	/Users/freewind/.docker/machine
+```
+
+这个大小是不断增长的。每当我们的docker下载了新的image，它就会变大。
+
+查看文件大小
+------
+
+```
+$ cd ~/.docker/machine/machines/default
+$ ls -ahlF
+```
+
+输出
+
+```
+drwx------  13 freewind  staff   442B Sep  6 19:42 ./
+drwx------   3 freewind  staff   102B Sep  6 19:41 ../
+-rw-r--r--   1 freewind  staff    48M Sep  6 19:41 boot2docker.iso
+-rw-r--r--   1 freewind  staff   1.0K Sep  6 19:42 ca.pem
+-rw-r--r--   1 freewind  staff   1.1K Sep  6 19:42 cert.pem
+-rw-------   1 freewind  staff   2.8K Sep  6 19:42 config.json
+drwx------   5 freewind  staff   170B Sep  6 19:41 default/
+-rw-------   1 freewind  staff   252M Sep  6 20:53 disk.vmdk
+-rw-------   1 freewind  staff   1.6K Sep  6 19:41 id_rsa
+-rw-------   1 freewind  staff   381B Sep  6 19:41 id_rsa.pub
+-rw-------   1 freewind  staff   1.6K Sep  6 19:42 key.pem
+-rw-------   1 freewind  staff   1.6K Sep  6 19:42 server-key.pem
+-rw-r--r--   1 freewind  staff   1.1K Sep  6 19:42 server.pem
+```
+
+可以看到最大的是`disk.vmdk`，它相当于是虚拟机的硬盘。
+在mac下，我们使用`docker pull`命令下载的image，实际上是保存在它内部的，难怪我们找不到。
+
+docker-machine环境信息
+------------------
+
+```
+$ docker-machine env default
+```
+
+输出
+
+```
+set -gx DOCKER_TLS_VERIFY &quot;1&quot;;
+set -gx DOCKER_HOST &quot;tcp://192.168.99.100:2376&quot;;
+set -gx DOCKER_CERT_PATH &quot;/Users/freewind/.docker/machine/machines/default&quot;;
+set -gx DOCKER_MACHINE_NAME &quot;default&quot;;
+# Run this command to configure your shell:
+# eval (docker-machine env default)
+```
+
+它既告诉了我们一些信息，又同时是将这些信息设置到shell环境变量中的脚本。
+
+`docker-machine inspect`
+------------------------
+
+如果我们需要更详细的信息，可以运行：
+
+```
+$ docker-machine inspect
+```
+
+输出：
+
+```
+{
+    &quot;ConfigVersion&quot;: 3,
+    &quot;Driver&quot;: {
+        &quot;IPAddress&quot;: &quot;192.168.99.100&quot;,
+        &quot;MachineName&quot;: &quot;default&quot;,
+        &quot;SSHUser&quot;: &quot;docker&quot;,
+        &quot;SSHPort&quot;: 52428,
+        &quot;SSHKeyPath&quot;: &quot;/Users/freewind/.docker/machine/machines/default/id_rsa&quot;,
+        &quot;StorePath&quot;: &quot;/Users/freewind/.docker/machine&quot;,
+        &quot;SwarmMaster&quot;: false,
+        &quot;SwarmHost&quot;: &quot;tcp://0.0.0.0:3376&quot;,
+        &quot;SwarmDiscovery&quot;: &quot;&quot;,
+        &quot;VBoxManager&quot;: {},
+        &quot;HostInterfaces&quot;: {},
+        &quot;CPU&quot;: 1,
+        &quot;Memory&quot;: 1024,
+        &quot;DiskSize&quot;: 20000,
+        &quot;NatNicType&quot;: &quot;82540EM&quot;,
+        &quot;Boot2DockerURL&quot;: &quot;&quot;,
+        &quot;Boot2DockerImportVM&quot;: &quot;&quot;,
+        &quot;HostDNSResolver&quot;: false,
+        &quot;HostOnlyCIDR&quot;: &quot;192.168.99.1/24&quot;,
+        &quot;HostOnlyNicType&quot;: &quot;82540EM&quot;,
+        &quot;HostOnlyPromiscMode&quot;: &quot;deny&quot;,
+        &quot;UIType&quot;: &quot;headless&quot;,
+        &quot;HostOnlyNoDHCP&quot;: false,
+        &quot;NoShare&quot;: false,
+        &quot;DNSProxy&quot;: true,
+        &quot;NoVTXCheck&quot;: false,
+        &quot;ShareFolder&quot;: &quot;&quot;
+    },
+    &quot;DriverName&quot;: &quot;virtualbox&quot;,
+    &quot;HostOptions&quot;: {
+        &quot;Driver&quot;: &quot;&quot;,
+        &quot;Memory&quot;: 0,
+        &quot;Disk&quot;: 0,
+        &quot;EngineOptions&quot;: {
+            &quot;ArbitraryFlags&quot;: [],
+            &quot;Dns&quot;: null,
+            &quot;GraphDir&quot;: &quot;&quot;,
+            &quot;Env&quot;: [],
+            &quot;Ipv6&quot;: false,
+            &quot;InsecureRegistry&quot;: [],
+            &quot;Labels&quot;: [],
+            &quot;LogLevel&quot;: &quot;&quot;,
+            &quot;StorageDriver&quot;: &quot;&quot;,
+            &quot;SelinuxEnabled&quot;: false,
+            &quot;TlsVerify&quot;: true,
+            &quot;RegistryMirror&quot;: [],
+            &quot;InstallURL&quot;: &quot;https://get.docker.com&quot;
+        },
+        &quot;SwarmOptions&quot;: {
+            &quot;IsSwarm&quot;: false,
+            &quot;Address&quot;: &quot;&quot;,
+            &quot;Discovery&quot;: &quot;&quot;,
+            &quot;Agent&quot;: false,
+            &quot;Master&quot;: false,
+            &quot;Host&quot;: &quot;tcp://0.0.0.0:3376&quot;,
+            &quot;Image&quot;: &quot;swarm:latest&quot;,
+            &quot;Strategy&quot;: &quot;spread&quot;,
+            &quot;Heartbeat&quot;: 0,
+            &quot;Overcommit&quot;: 0,
+            &quot;ArbitraryFlags&quot;: [],
+            &quot;ArbitraryJoinFlags&quot;: [],
+            &quot;Env&quot;: null,
+            &quot;IsExperimental&quot;: false
+        },
+        &quot;AuthOptions&quot;: {
+            &quot;CertDir&quot;: &quot;/Users/freewind/.docker/machine/certs&quot;,
+            &quot;CaCertPath&quot;: &quot;/Users/freewind/.docker/machine/certs/ca.pem&quot;,
+            &quot;CaPrivateKeyPath&quot;: &quot;/Users/freewind/.docker/machine/certs/ca-key.pem&quot;,
+            &quot;CaCertRemotePath&quot;: &quot;&quot;,
+            &quot;ServerCertPath&quot;: &quot;/Users/freewind/.docker/machine/machines/default/server.pem&quot;,
+            &quot;ServerKeyPath&quot;: &quot;/Users/freewind/.docker/machine/machines/default/server-key.pem&quot;,
+            &quot;ClientKeyPath&quot;: &quot;/Users/freewind/.docker/machine/certs/key.pem&quot;,
+            &quot;ServerCertRemotePath&quot;: &quot;&quot;,
+            &quot;ServerKeyRemotePath&quot;: &quot;&quot;,
+            &quot;ClientCertPath&quot;: &quot;/Users/freewind/.docker/machine/certs/cert.pem&quot;,
+            &quot;ServerCertSANs&quot;: [],
+            &quot;StorePath&quot;: &quot;/Users/freewind/.docker/machine/machines/default&quot;
+        }
+    },
+    &quot;Name&quot;: &quot;default&quot;
+}
+```
+
+不过它没有告诉我们虚拟机内部文件信息，我们在后面看怎么办。
+
+获取某个docker container的路径信息
+-------------------------
+
+```
+$ docker ps -a
+
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                        PORTS               NAMES
+043f95189bf8        hello-world         &quot;/hello&quot;            44 minutes ago      Exited (0) 44 minutes ago                         jovial_galileo
+```
+
+```
+$ docker inspect 043f95189bf8
+[
+    {
+        &quot;Id&quot;: &quot;043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2&quot;,
+        &quot;Created&quot;: &quot;2018-09-06T12:21:18.278659385Z&quot;,
+        &quot;Path&quot;: &quot;/hello&quot;,
+        &quot;Args&quot;: [],
+        &quot;State&quot;: {
+            &quot;Status&quot;: &quot;exited&quot;,
+            &quot;Running&quot;: false,
+            &quot;Paused&quot;: false,
+            &quot;Restarting&quot;: false,
+            &quot;OOMKilled&quot;: false,
+            &quot;Dead&quot;: false,
+            &quot;Pid&quot;: 0,
+            &quot;ExitCode&quot;: 0,
+            &quot;Error&quot;: &quot;&quot;,
+            &quot;StartedAt&quot;: &quot;2018-09-06T12:21:18.517319168Z&quot;,
+            &quot;FinishedAt&quot;: &quot;2018-09-06T12:21:18.508011783Z&quot;
+        },
+        &quot;Image&quot;: &quot;sha256:2cb0d9787c4dd17ef9eb03e512923bc4db10add190d3f84af63b744e353a9b34&quot;,
+        &quot;ResolvConfPath&quot;: &quot;/mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2/resolv.conf&quot;,
+        &quot;HostnamePath&quot;: &quot;/mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2/hostname&quot;,
+        &quot;HostsPath&quot;: &quot;/mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2/hosts&quot;,
+        &quot;LogPath&quot;: &quot;/mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2-json.log&quot;,
+        &quot;Name&quot;: &quot;/jovial_galileo&quot;,
+        &quot;RestartCount&quot;: 0,
+        &quot;Driver&quot;: &quot;aufs&quot;,
+        &quot;Platform&quot;: &quot;linux&quot;,
+        &quot;MountLabel&quot;: &quot;&quot;,
+        &quot;ProcessLabel&quot;: &quot;&quot;,
+        &quot;AppArmorProfile&quot;: &quot;&quot;,
+        &quot;ExecIDs&quot;: null,
+        &quot;HostConfig&quot;: {
+            &quot;Binds&quot;: null,
+            &quot;ContainerIDFile&quot;: &quot;&quot;,
+            &quot;LogConfig&quot;: {
+                &quot;Type&quot;: &quot;json-file&quot;,
+                &quot;Config&quot;: {}
+            },
+            &quot;NetworkMode&quot;: &quot;default&quot;,
+            &quot;PortBindings&quot;: {},
+            &quot;RestartPolicy&quot;: {
+                &quot;Name&quot;: &quot;no&quot;,
+                &quot;MaximumRetryCount&quot;: 0
+            },
+            &quot;AutoRemove&quot;: false,
+            &quot;VolumeDriver&quot;: &quot;&quot;,
+            &quot;VolumesFrom&quot;: null,
+            &quot;CapAdd&quot;: null,
+            &quot;CapDrop&quot;: null,
+            &quot;Dns&quot;: [],
+            &quot;DnsOptions&quot;: [],
+            &quot;DnsSearch&quot;: [],
+            &quot;ExtraHosts&quot;: null,
+            &quot;GroupAdd&quot;: null,
+            &quot;IpcMode&quot;: &quot;shareable&quot;,
+            &quot;Cgroup&quot;: &quot;&quot;,
+            &quot;Links&quot;: null,
+            &quot;OomScoreAdj&quot;: 0,
+            &quot;PidMode&quot;: &quot;&quot;,
+            &quot;Privileged&quot;: false,
+            &quot;PublishAllPorts&quot;: false,
+            &quot;ReadonlyRootfs&quot;: false,
+            &quot;SecurityOpt&quot;: null,
+            &quot;UTSMode&quot;: &quot;&quot;,
+            &quot;UsernsMode&quot;: &quot;&quot;,
+            &quot;ShmSize&quot;: 67108864,
+            &quot;Runtime&quot;: &quot;runc&quot;,
+            &quot;ConsoleSize&quot;: [
+                0,
+                0
+            ],
+            &quot;Isolation&quot;: &quot;&quot;,
+            &quot;CpuShares&quot;: 0,
+            &quot;Memory&quot;: 0,
+            &quot;NanoCpus&quot;: 0,
+            &quot;CgroupParent&quot;: &quot;&quot;,
+            &quot;BlkioWeight&quot;: 0,
+            &quot;BlkioWeightDevice&quot;: [],
+            &quot;BlkioDeviceReadBps&quot;: null,
+            &quot;BlkioDeviceWriteBps&quot;: null,
+            &quot;BlkioDeviceReadIOps&quot;: null,
+            &quot;BlkioDeviceWriteIOps&quot;: null,
+            &quot;CpuPeriod&quot;: 0,
+            &quot;CpuQuota&quot;: 0,
+            &quot;CpuRealtimePeriod&quot;: 0,
+            &quot;CpuRealtimeRuntime&quot;: 0,
+            &quot;CpusetCpus&quot;: &quot;&quot;,
+            &quot;CpusetMems&quot;: &quot;&quot;,
+            &quot;Devices&quot;: [],
+            &quot;DeviceCgroupRules&quot;: null,
+            &quot;DiskQuota&quot;: 0,
+            &quot;KernelMemory&quot;: 0,
+            &quot;MemoryReservation&quot;: 0,
+            &quot;MemorySwap&quot;: 0,
+            &quot;MemorySwappiness&quot;: null,
+            &quot;OomKillDisable&quot;: false,
+            &quot;PidsLimit&quot;: 0,
+            &quot;Ulimits&quot;: null,
+            &quot;CpuCount&quot;: 0,
+            &quot;CpuPercent&quot;: 0,
+            &quot;IOMaximumIOps&quot;: 0,
+            &quot;IOMaximumBandwidth&quot;: 0,
+            &quot;MaskedPaths&quot;: [
+                &quot;/proc/acpi&quot;,
+                &quot;/proc/kcore&quot;,
+                &quot;/proc/keys&quot;,
+                &quot;/proc/latency_stats&quot;,
+                &quot;/proc/timer_list&quot;,
+                &quot;/proc/timer_stats&quot;,
+                &quot;/proc/sched_debug&quot;,
+                &quot;/proc/scsi&quot;,
+                &quot;/sys/firmware&quot;
+            ],
+            &quot;ReadonlyPaths&quot;: [
+                &quot;/proc/asound&quot;,
+                &quot;/proc/bus&quot;,
+                &quot;/proc/fs&quot;,
+                &quot;/proc/irq&quot;,
+                &quot;/proc/sys&quot;,
+                &quot;/proc/sysrq-trigger&quot;
+            ]
+        },
+        &quot;GraphDriver&quot;: {
+            &quot;Data&quot;: null,
+            &quot;Name&quot;: &quot;aufs&quot;
+        },
+        &quot;Mounts&quot;: [],
+        &quot;Config&quot;: {
+            &quot;Hostname&quot;: &quot;043f95189bf8&quot;,
+            &quot;Domainname&quot;: &quot;&quot;,
+            &quot;User&quot;: &quot;&quot;,
+            &quot;AttachStdin&quot;: false,
+            &quot;AttachStdout&quot;: true,
+            &quot;AttachStderr&quot;: true,
+            &quot;Tty&quot;: false,
+            &quot;OpenStdin&quot;: false,
+            &quot;StdinOnce&quot;: false,
+            &quot;Env&quot;: [
+                &quot;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&quot;
+            ],
+            &quot;Cmd&quot;: [
+                &quot;/hello&quot;
+            ],
+            &quot;ArgsEscaped&quot;: true,
+            &quot;Image&quot;: &quot;hello-world&quot;,
+            &quot;Volumes&quot;: null,
+            &quot;WorkingDir&quot;: &quot;&quot;,
+            &quot;Entrypoint&quot;: null,
+            &quot;OnBuild&quot;: null,
+            &quot;Labels&quot;: {}
+        },
+        &quot;NetworkSettings&quot;: {
+            &quot;Bridge&quot;: &quot;&quot;,
+            &quot;SandboxID&quot;: &quot;af5fab0f52fb50a469a0d7e10b5f01f863662ed24ff4dbceb967ac08f1df4968&quot;,
+            &quot;HairpinMode&quot;: false,
+            &quot;LinkLocalIPv6Address&quot;: &quot;&quot;,
+            &quot;LinkLocalIPv6PrefixLen&quot;: 0,
+            &quot;Ports&quot;: {},
+            &quot;SandboxKey&quot;: &quot;/var/run/docker/netns/af5fab0f52fb&quot;,
+            &quot;SecondaryIPAddresses&quot;: null,
+            &quot;SecondaryIPv6Addresses&quot;: null,
+            &quot;EndpointID&quot;: &quot;&quot;,
+            &quot;Gateway&quot;: &quot;&quot;,
+            &quot;GlobalIPv6Address&quot;: &quot;&quot;,
+            &quot;GlobalIPv6PrefixLen&quot;: 0,
+            &quot;IPAddress&quot;: &quot;&quot;,
+            &quot;IPPrefixLen&quot;: 0,
+            &quot;IPv6Gateway&quot;: &quot;&quot;,
+            &quot;MacAddress&quot;: &quot;&quot;,
+            &quot;Networks&quot;: {
+                &quot;bridge&quot;: {
+                    &quot;IPAMConfig&quot;: null,
+                    &quot;Links&quot;: null,
+                    &quot;Aliases&quot;: null,
+                    &quot;NetworkID&quot;: &quot;ab49635d52626de5458fcea2a5341645a6baf1ed3b39e531e61f0e9853898180&quot;,
+                    &quot;EndpointID&quot;: &quot;&quot;,
+                    &quot;Gateway&quot;: &quot;&quot;,
+                    &quot;IPAddress&quot;: &quot;&quot;,
+                    &quot;IPPrefixLen&quot;: 0,
+                    &quot;IPv6Gateway&quot;: &quot;&quot;,
+                    &quot;GlobalIPv6Address&quot;: &quot;&quot;,
+                    &quot;GlobalIPv6PrefixLen&quot;: 0,
+                    &quot;MacAddress&quot;: &quot;&quot;,
+                    &quot;DriverOpts&quot;: null
+                }
+            }
+        }
+    }
+]
+```
+
+可以看到，在前面它提到了自己的image路径为：
+
+```
+/mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2
+```
+
+然而在mac本机，我们是找不到这个地址的，因为它存在于名为`default`的docker machine中。
+
+登录docker machine
+----------------
+
+通过`docker-machine --help`我们能找到它所支持的很多命令，其中有一个是`ssh`，用于登录到虚拟机中。
+
+```
+$ docker-machine ssh default
+```
+
+输出
+
+```
+                        ##         .
+                  ## ## ##        ==
+               ## ## ## ## ##    ===
+           /&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;\___/ ===
+      ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~
+           \______ o           __/
+             \    \         __/
+              \____\_______/
+ _                 _   ____     _            _
+| |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __
+| &#39;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &#39;__|
+| |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &lt;  __/ |
+|_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|
+Boot2Docker version 18.06.1-ce, build HEAD : c7e5c3e - Wed Aug 22 16:27:42 UTC 2018
+Docker version 18.06.1-ce, build e68fc7a
+docker@default:~$
+```
+
+寻找docker image保存路径
+------------------
+
+首先我们可以查看一下前面的image路径（需要用`sudo`）：
+
+```
+$ sudo ls /mnt/sda1/var/lib/docker/containers/043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2
+```
+
+输出：
+
+```
+043f95189bf8535a0169111d105fdd657326b2ef2afa9083a378be982befc7f2-json.log
+checkpoints
+config.v2.json
+hostconfig.json
+hostname
+hosts
+mounts
+resolv.conf
+resolv.conf.hash
+```
+
+果然是存在的。
+
+同时，通过该路径，我们推断出docker containers应该保存在`/mnt/sda1/var/lib/docker/containers`中，查看一下它的大小：
+
+```
+$ sudo du -sh /mnt/sda1/var/lib/docker/containers
+136.0K	/mnt/sda1/var/lib/docker/containers
+```
+
+太小了，看来不是它。
+
+我们再看一下`/mnt/sda1/var/lib/docker`下有哪些文件：
+
+```
+$ sudo ls -a /mnt/sda1/var/lib/docker
+.           builder     containers  overlay2    swarm       volumes
+..          buildkit    image       plugins     tmp
+aufs        containerd  network     runtimes    trust
+```
+
+它的总大小为：
+
+```
+$ sudo du -sh /mnt/sda1/var/lib/docker
+205.6M	/mnt/sda1/var/lib/docker
+```
+
+由于寻找，发现`aufs`是最大的：
+
+```
+$ sudo du -sh /mnt/sda1/var/lib/docker/aufs
+204.2M	/mnt/sda1/var/lib/docker/aufs
+```
+
+它下面到底有什么文件呢？
+
+由于docker machine里面的linux是最小化的，所以没有`tree`命令，也没有办法安装（里面通过`busybox`提供了简单命令），所以我只能通过`find`命令列出所有文件，再修改一下，变成：
+
+```
+aufs/mnt
+aufs/mnt/bfd8abd884d30a41c4aaad49b89fedff18995143a16b8a0b14dcd7ef6fb10cc9
+aufs/mnt/c15bc3a1bc5388682efa1e98ae4f0055d91b023569d5786d2052d6ef07c2daa7
+aufs/mnt/...
+aufs/layers
+aufs/layers/bfd8abd884d30a41c4aaad49b89fedff18995143a16b8a0b14dcd7ef6fb10cc9
+aufs/layers/c15bc3a1bc5388682efa1e98ae4f0055d91b023569d5786d2052d6ef07c2daa7
+aufs/layers/...
+aufs/diff
+aufs/diff/bfd8abd884d30a41c4aaad49b89fedff18995143a16b8a0b14dcd7ef6fb10cc9
+aufs/diff/bfd8abd884d30a41c4aaad49b89fedff18995143a16b8a0b14dcd7ef6fb10cc9/...
+aufs/diff/87c0e4638699401eb1c66ea5cbe453f98216e18abef26da7b3598ecac6e3871e
+aufs/diff/87c0e4638699401eb1c66ea5cbe453f98216e18abef26da7b3598ecac6e3871e/usr
+aufs/diff/87c0e4638699401eb1c66ea5cbe453f98216e18abef26da7b3598ecac6e3871e/usr/sbin
+aufs/diff/87c0e4638699401eb1c66ea5cbe453f98216e18abef26da7b3598ecac6e3871e/usr/sbin/policy-rc.d
+aufs/diff/87c0e4638699401eb1c66ea5cbe453f98216e18abef26da7b3598ecac6e3871e/sbin
+aufs/diff/.........
+```
+
+这个输出有上万行，我只节选了典型的几个。
+
+从中我们可以看到，docker image的保存并不是一个个单独的文件，而是一堆文件，通过`layers`, `mnt`以及大量的`diff`，使得不同的image之间可以尽可能的重用文件，有点像文件版本控制系统。
+
+随着我们下载的docker image越来越多，这里的文件也会越来越多。
+
+    </div>
+</div>
+
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/mac-docker-machine-information-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/mac-docker-machine-information-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

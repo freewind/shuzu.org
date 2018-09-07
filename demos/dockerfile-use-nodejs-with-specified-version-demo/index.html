@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>dockerfile-use-nodejs-with-specified-version-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">dockerfile-use-nodejs-with-specified-version-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/dockerfile-use-nodejs-with-specified-version-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/dockerfile-use-nodejs-with-specified-version-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Docker Use NodeJS with Specified Version Demo
+=============================================
+
+我们需要让自己的Dockerfile使用指定版本的nodejs，比如`10.9.0`。
+
+可以在`Dockerfile`中指定：
+
+```
+FROM docker run node:10.9.0
+```
+
+Build：
+
+```
+docker build -t dockerfile-use-nodejs-with-specified-version-demo .
+```
+
+运行:
+
+```
+docker run dockerfile-use-nodejs-with-specified-version-demo
+```
+
+输出：
+
+```
+v10.9.0
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/dockerfile-use-nodejs-with-specified-version-demo/blob/master/Dockerfile" target="_blank" title="show github file">Dockerfile</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="Dockerfile">FROM node:10.9.0
+CMD [&quot;node&quot;, &quot;-v&quot;]</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/dockerfile-use-nodejs-with-specified-version-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/dockerfile-use-nodejs-with-specified-version-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

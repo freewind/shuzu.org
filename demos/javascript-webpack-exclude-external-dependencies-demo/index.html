@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>javascript-webpack-config-demo - 数组网</title>
+    <title>javascript-webpack-exclude-external-dependencies-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,31 +8,32 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">javascript-webpack-config-demo</div>
+    <div class="site-slogan">javascript-webpack-exclude-external-dependencies-demo</div>
 </div>
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        Webpack Config File Demo
-========================
+        JavaScript Webpack Exclude External Dependencies Demo
+=====================================================
 
-Put all settings in `webpack.config.js`
+在Webpack打包时，可以通过`externals`声明哪些是外部依赖，这样在打包时，会把它们排除在外。
+
+同时，在html页面中，我们需要手动加入这些外部库的引用才行。
 
 ```
 npm install
 npm run demo
+open index.html
 ```
-
-Then open `index.html` in your browser.
 
 ![demo](./images/demo.jpg)    </div>
 </div>
@@ -41,51 +42,34 @@ Then open `index.html` in your browser.
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
         </span>
     </div>
     <div class="body">
-        <pre class="content"><code class="js">require(&#39;./index.css&#39;)
+        <pre class="content"><code class="js">const $ = require(&#39;jquery&#39;)
 
-document.write(&#39;The body should have a yellow background color now&#39;)</code></pre>
+$(document).ready(function () {
+    $(&quot;#main&quot;).text(&quot;Hello, Webpack (from entry.js)&quot;)
+})</code></pre>
     </div>
 </div>
 <div class="code-file center-in-page panel markdown-body">
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.css" target="_blank" title="show github file">index.css</a>
-        </span>
-    </div>
-    <div class="body">
-        <pre class="content"><code class="css">body {
-  background-color: yellow;
-}</code></pre>
-    </div>
-</div>
-<div class="code-file center-in-page panel markdown-body">
-    <div class="header">
-        <span class="parent-path"></span>
-        <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">module.exports = {
-    mode: &quot;development&quot;,
+    mode: &#39;development&#39;,
     entry: &#39;./entry.js&#39;,
     output: {
         path: __dirname,
         filename: &#39;bundle.js&#39;
     },
-    module: {
-        rules: [{
-            test: /\.css$/,
-            use: [
-                {loader: &#39;style-loader&#39;},
-                {loader: &#39;css-loader&#39;}
-            ]
-        }]
+    externals: {
+        jquery: &#39;jQuery&#39;
     }
 }</code></pre>
     </div>
@@ -94,17 +78,20 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
   &quot;scripts&quot;: {
-    &quot;demo&quot;: &quot;webpack &amp;&amp; open index.html&quot;
+    &quot;demo&quot;: &quot;webpack&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;jquery&quot;: &quot;^3.3.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;
   },
   &quot;devDependencies&quot;: {
-    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
-    &quot;style-loader&quot;: &quot;^0.13.1&quot;
     &quot;webpack&quot;: &quot;^4.17.1&quot;,
     &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
   }
@@ -116,13 +103,18 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+            <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="html">&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;script src=&quot;./node_modules/jquery/dist/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
 &lt;body&gt;
-&lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;main&quot;&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
     </div>
@@ -130,10 +122,10 @@ document.write(&#39;The body should have a yellow background color now&#39;)</co
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/javascript-webpack-config-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-webpack-exclude-external-dependencies-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

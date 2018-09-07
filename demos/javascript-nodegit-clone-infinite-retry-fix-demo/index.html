@@ -1,0 +1,145 @@
+<html>
+<head>
+    <title>javascript-nodegit-clone-infinite-retry-fix-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-nodegit-clone-infinite-retry-fix-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Nodegit Clone Infinite Retries Fix Demo
+==================================================
+
+在Nodegit中有一个问题，当我们使用username/password去clone一个repo时，如果有误，它不会退出，而是进入死循环，一直重试。
+
+这个issue位于: &lt;https://github.com/nodegit/nodegit/issues/1133&gt;
+
+错误原因应该是来自由底层使用的libgit2库：&lt;https://github.com/nodegit/nodegit/issues/1133#issuecomment-271148133&gt;
+
+所以我们只能手动的记录一下重试次数，发现次数过多时，自己throw一个error强迫它退出。
+
+在我们这个Demo里，直接写死了一个错误的用户名和密码，供重现问题：
+
+```
+node demo.js
+```
+
+输出如下：
+
+```
+---------------- credentials (tries: 1)---------------
+---------------- credentials (tries: 2)---------------
+---------------- credentials (tries: 3)---------------
+Authentication is failed with 3 tries, please check your username and password
+{ Error: Method clone has thrown an error. errno: -1, errorFunction: &#39;Clone.clone&#39; }
+```
+
+注意
+---
+
+在Mac下使用nodegit比较麻烦，参考这里的准备工作：&lt;https://github.com/freewind-demos/javascript-nodegit-clone-demo&gt;    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo/blob/master/.nvmrc" target="_blank" title="show github file">.nvmrc</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="nvmrc">v8.11.2</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;rm -rf local-repo &amp; node demo.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;nodegit&quot;: &quot;^0.22.2&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo/blob/master/demo.js" target="_blank" title="show github file">demo.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const Git = require(&#39;nodegit&#39;)
+
+const bitBucketUrl = &#39;https://bitbucket.org/Freewind/java-hello-world-demo.git&#39;
+const localPath = &#39;./local-repo/java-hello-world-demo&#39;
+
+let failedAuthTry = 1
+
+const cloneOptions = {
+    fetchOpts: {
+        callbacks: {
+            credentials: function (url, userName) {
+                console.log(&#39;---------------- credentials (tries: &#39; + failedAuthTry + &#39;)---------------&#39;)
+                // https://github.com/nodegit/nodegit/issues/1133
+                if (failedAuthTry &gt; 2) {
+                    console.warn(&#39;Authentication is failed with &#39; + failedAuthTry + &#39; tries, please check your username and password&#39;)
+                    throw &#39;should not try infinitely&#39;
+                }
+                failedAuthTry += 1
+                return Git.Cred.userpassPlaintextNew(&#39;invalid-username&#39;, &#39;invalid-password&#39;)
+            }
+        }
+    }
+}
+
+Git.Clone(bitBucketUrl, localPath, cloneOptions)
+    .then(function (repo) {
+        console.log(&#39;clone to: &#39; + repo)
+    })
+    .catch(function (error) {
+        console.error(error)
+    })</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-nodegit-clone-infinite-retry-fix-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

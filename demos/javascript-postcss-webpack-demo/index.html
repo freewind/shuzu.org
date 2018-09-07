@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>javascript-postcss-webpack-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-postcss-webpack-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript PostCSS Demo
+=======================
+
+PostCSS是一个对CSS进行各种转换的工具。
+
+通过各种插件，我们可以对css文件进行各种花样的转换。
+
+本Demo用到的是`autoprefixer`插件，可以在让我们标准（但可能还没有被浏览器支持）的css属性，然后由该插件给它加上各种前缀，让它被各浏览器使用各自的方言来支持。
+
+```
+npm install
+npm run demo
+```
+
+它将会在`build`目录下生成经过转换之后的`hello.css`。
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/entry.js" target="_blank" title="show github file">entry.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">require(&#39;./hello.css&#39;)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/webpack.config.js" target="_blank" title="show github file">webpack.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+    mode: &quot;development&quot;,
+    entry: &#39;./entry.js&#39;,
+    output: {
+        path: __dirname,
+        filename: &#39;bundle.js&#39;
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    &#39;style-loader&#39;,
+                    &#39;postcss-loader&#39;
+                ]
+            }
+        ]
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/postcss.config.js" target="_blank" title="show github file">postcss.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">module.exports = {
+    plugins: {
+        &#39;precss&#39;: {}
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/hello.css" target="_blank" title="show github file">hello.css</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="css">$bgColor: yellow;
+
+.hello {
+    background-color: $bgColor;
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;webpack &amp;&amp; open index.html&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;css-loader&quot;: &quot;^0.23.1&quot;,
+    &quot;style-loader&quot;: &quot;^0.13.1&quot;,
+    &quot;postcss-cli&quot;: &quot;^6.0.0&quot;,
+    &quot;postcss-loader&quot;: &quot;^3.0.0&quot;,
+    &quot;precss&quot;: &quot;^3.1.2&quot;,
+    &quot;webpack&quot;: &quot;^4.17.1&quot;,
+    &quot;webpack-cli&quot;: &quot;^3.1.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/blob/master/index.html" target="_blank" title="show github file">index.html</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="html">&lt;html&gt;
+&lt;body&gt;
+&lt;div class=&quot;hello&quot;&gt;Hello, PostCss + Webpack&lt;/div&gt;
+&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-postcss-webpack-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

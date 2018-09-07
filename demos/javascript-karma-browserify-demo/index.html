@@ -1,0 +1,233 @@
+<html>
+<head>
+    <title>javascript-karma-browserify-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-karma-browserify-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Karma Browserify Demo
+================================
+
+如果JS代码中使用了CommonJS规范，那么需要在Karma中使用`browserify`插件才能正常运行。
+
+在跑测试前，`browserify`会自动将测试文件进行转换。
+
+```
+npm install
+npm run demo
+```
+
+注意
+---
+
+当使用`browserify`插件时，`karma.conf.js`中的`files`不应该再包含功能文件，只需要包含测试文件即可，因为`browserify`插件会自动对代码进行转换和打包。
+
+如果包含了功能文件，一是完全没有必要，二是因为如果没有处理好（比如没有使用`browserify`进行预处理），还会产生其它的错误，比如require的module不存在，等等。    </div>
+</div>
+
+<div class="markdown markdown-body center-in-page">
+    ```
+$ npm run test
+```
+
+```
+
+&gt; @ test /Users/freewind/workspace/javascript-karma-browserify-demo
+&gt; karma start karma.conf.js
+
+04 09 2018 15:06:51.974:INFO [framework.browserify]: registering rebuild (autoWatch=true)
+04 09 2018 15:06:53.363:INFO [framework.browserify]: 1400070 bytes written (0.64 seconds)
+04 09 2018 15:06:53.385:INFO [framework.browserify]: bundle built
+04 09 2018 15:06:53.394:WARN [karma]: No captured browser, open http://localhost:9876/
+04 09 2018 15:06:53.397:INFO [karma]: Karma v3.0.0 server started at http://0.0.0.0:9876/
+04 09 2018 15:06:53.398:INFO [launcher]: Launching browser Chrome with unlimited concurrency
+04 09 2018 15:06:53.405:INFO [launcher]: Starting browser Chrome
+04 09 2018 15:06:54.245:INFO [Chrome 68.0.3440 (Mac OS X 10.13.3)]: Connected on socket _F5m1CF_IlXGzPEcAAAA with id 97126419
+Chrome 68.0.3440 (Mac OS X 10.13.3) hello should return hello words for a given name FAILED
+        Expected &#39;Hello, Karma!&#39; to be &#39;Hello, javascript!&#39;.
+            at &lt;Jasmine&gt;
+            at UserContext.&lt;anonymous&gt; (/var/folders/3m/36g2fppj1s5g96jymg7hh9n40000gn/T/src/hello-test.js:6 &lt;- /var/folders/3m/36g2fppj1s5g96jymg7hh9n40000gn/T/6b2cf564e8daa9b893685cddc80792b0.browserify:17117:32)
+            at &lt;Jasmine&gt;
+Chrome 68.0.3440 (Mac OS X 10.13.3): Executed 1 of 1 (1 FAILED) ERROR (0.049 secs / 0.005 secs)
+
+```</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/blob/master/src/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const _ = require(&#39;lodash&#39;)
+
+module.exports = function (name) {
+    return &#39;Hello, &#39; + _.capitalize(name) + &#39;!&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/blob/master/src/hello-test.js" target="_blank" title="show github file">hello-test.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const hello = require(&#39;./hello&#39;)
+
+describe(&#39;hello&#39;, function () {
+
+    it(&#39;should return hello words for a given name&#39;, function () {
+        expect(hello(&#39;karma&#39;)).toBe(&#39;Hello, javascript!&#39;)
+    })
+
+})</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/blob/master/karma.conf.js" target="_blank" title="show github file">karma.conf.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">// Karma configuration
+// Generated on Tue Sep 04 2018 13:54:40 GMT+0800 (China Standard Time)
+
+module.exports = function (config) {
+    config.set({
+
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: &#39;&#39;,
+
+
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: [&#39;browserify&#39;, &#39;jasmine&#39;],
+
+        // list of files / patterns to load in the browser
+        files: [
+            &#39;src/**/*-test.js&#39;
+        ],
+
+
+        // list of files / patterns to exclude
+        exclude: [],
+
+
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors: {
+            &#39;src/**/*-test.js&#39;: [&#39;browserify&#39;]
+        },
+
+        browserify: {
+            debug: true,
+            modules: [&#39;lodash&#39;]
+        },
+
+
+        // test results reporter to use
+        // possible values: &#39;dots&#39;, &#39;progress&#39;
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: [&#39;progress&#39;],
+
+
+        // web server port
+        port: 9876,
+
+
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
+
+
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
+
+
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
+
+
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: [&#39;Chrome&#39;],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: false,
+
+        // Concurrency level
+        // how many browser should be started simultaneous
+        concurrency: Infinity
+    })
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;karma start karma.conf.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;browserify&quot;: &quot;^16.2.2&quot;,
+    &quot;jasmine&quot;: &quot;^3.2.0&quot;,
+    &quot;karma&quot;: &quot;^3.0.0&quot;,
+    &quot;karma-browserify&quot;: &quot;^5.3.0&quot;,
+    &quot;karma-chrome-launcher&quot;: &quot;^2.2.0&quot;,
+    &quot;karma-jasmine&quot;: &quot;^1.1.2&quot;,
+    &quot;watchify&quot;: &quot;^3.11.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-karma-browserify-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

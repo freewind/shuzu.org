@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>docker-run-bash-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">docker-run-bash-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/docker-run-bash-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/docker-run-bash-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Docker Run &quot;bash&quot; Demo
+======================
+
+```
+$ docker run -it ubuntu bash
+```
+
+将会使用本机缓存中的`ubuntu`或者下载后执行，进入其`bash`:
+
+```
+root@010a01c556fb:/#
+```
+
+我们可以试一试：
+
+```
+root@010a01c556fb:/# pwd
+/
+root@010a01c556fb:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@010a01c556fb:/# uname
+Linux
+root@010a01c556fb:/#
+```
+
+关于参数
+----
+
+- `-i`: `--interactive`, 显示命令的输出
+- `-t`: `--tty`, 显示命令提示符
+
+如果不加`-i`，只会显示`root@010a01c556fb:/#`，而没有命令输出；
+如果不加`-t`，命令的输出正常，但是没有`root@010a01c556fb:/#`
+
+    </div>
+</div>
+
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/docker-run-bash-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/docker-run-bash-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

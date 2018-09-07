@@ -1,0 +1,139 @@
+<html>
+<head>
+    <title>javascript-es7-async-await-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-es7-async-await-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript ES7 &quot;async/await&quot; Demo
+=================================
+
+ES7原来和ES2016是一个规范。
+
+在这个规范里，增加了`async/await`关键字，从语法层面上增强了`promise`，让我们不再需要写那么多的`then`，让Promise更好用，从而更大程度的解决了JavaScript的回调地狱问题。
+
+使用`async`和`await`这两个关键字，在语法层面上，把“异步代码”变成了“同步代码”。
+
+```
+npm install
+npm run demo
+```
+
+It will print:
+
+```
+will calculate: 1 + 2
+result: 3
+```
+
+注意：`result: 3`这一行是在前一行显示3秒后才显示的。    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo/blob/master/hello-async-await.js" target="_blank" title="show github file">hello-async-await.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">async function futureAdd(a, b) {
+    console.log(&#39;will calculate: &#39; + a + &#39; + &#39; + b)
+    return new Promise(resolve =&gt; {
+        setTimeout(function () {
+            resolve(a + b)
+        }, 3000)
+    })
+}
+
+async function run() {
+    const result = await futureAdd(1, 2)
+    console.log(&#39;result: &#39; + result)
+}
+
+run()
+
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo/blob/master/hello-promise.js" target="_blank" title="show github file">hello-promise.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">function futureAdd(a, b) {
+    return new Promise(resolve =&gt; {
+        setTimeout(function () {
+            resolve(a + b)
+        }, 3000)
+    })
+}
+
+function run() {
+    futureAdd(1, 2).then((result) =&gt; {
+        console.log(result)
+    })
+}
+
+run()
+
+
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;node hello-async-await.js&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-es7-async-await-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

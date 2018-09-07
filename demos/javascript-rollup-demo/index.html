@@ -1,0 +1,132 @@
+<html>
+<head>
+    <title>javascript-rollup-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-rollup-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-rollup-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-rollup-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript Rollup Demo
+======================
+
+Rollup是一个打包工具，它假定代码只使用ES6中的`import from`标准，然后把关联的代码打包成指定的模块系统。
+
+```
+npm install
+npm run demo
+```
+
+将会生成`bundle.js`文件。
+
+`rollup.config.js` -&gt; `external`
+--------------------------------
+
+在代码中，如果使用了第三方类库，比如`lodash`，需要在rollup的命令中声明一下`--external lodash`，这样将不会产生下面的警告：
+
+```
+(!) Unresolved dependencies
+https://github.com/rollup/rollup/wiki/Troubleshooting#treating-module-as-external-dependency
+lodash (imported by hello.js)
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import {capitalize} from &#39;lodash&#39;
+
+export default function (name) {
+    return &#39;Hello, &#39; + capitalize(name) + &#39;!&#39;
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;rollup -c&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;rollup&quot;: &quot;^0.65.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-demo/blob/master/rollup.config.js" target="_blank" title="show github file">rollup.config.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">export default {
+    entry: &#39;main.js&#39;,
+    dest: &#39;bundle.js&#39;,
+    format: &#39;cjs&#39;,
+    external: [&#39;lodash&#39;]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-rollup-demo/blob/master/main.js" target="_blank" title="show github file">main.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">import hello from &#39;./hello&#39;
+
+hello(&#39;rollup&#39;)</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-rollup-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-rollup-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

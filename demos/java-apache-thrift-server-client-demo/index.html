@@ -1,0 +1,269 @@
+<html>
+<head>
+    <title>java-apache-thrift-server-client-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">java-apache-thrift-server-client-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Java Apache Thrift Demo
+=======================
+
+```
+brew install thirft
+thrift --gen java -out src/main/java/demo plus.thrift
+```
+
+将会在`src/main/java/demo/thrift_gen`生成相关的Java文件。
+
+需要注意的是，生成的Java代码中，不光包含描述数据结构的代码，还包括Server和Client需要用到的代码，方便我们直接使用它们来创建我们自己的Server/Client.
+
+Server
+------
+
+在IDE中运行`demo.Server`，服务器启动后会监听`9090`端口。
+
+```
+Starting the simple server at 9090 ...
+```
+
+Client
+------
+
+在IDE中运行`demo.Client`，它会连接服务器，并发出请求，得到回应后退出。
+
+```
+plus(1, 2) = 3
+```    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">target/maven-status/maven-compiler-plugin/compile/default-compile/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" target="_blank" title="show github file">inputFiles.lst</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">/Users/freewind/workspace/java-hello-world-demo/src/main/java/demo/Hello.java
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">target/maven-status/maven-compiler-plugin/compile/default-compile/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" target="_blank" title="show github file">createdFiles.lst</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="lst">demo/Hello.class
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/pom.xml" target="_blank" title="show github file">pom.xml</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;groupId&gt;in.freewind&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;maven-demo&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.thrift&lt;/groupId&gt;
+            &lt;artifactId&gt;libthrift&lt;/artifactId&gt;
+            &lt;version&gt;0.11.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-codec&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-codec&lt;/artifactId&gt;
+            &lt;version&gt;1.11&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;commons-io&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+            &lt;version&gt;2.6&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;freewind.github&lt;/groupId&gt;
+            &lt;artifactId&gt;lost-list-creator&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+            &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+            &lt;version&gt;3.10.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/main/java/demo/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/src/main/java/demo/PlusServiceHandler.java" target="_blank" title="show github file">PlusServiceHandler.java</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import demo.thrift_gen.PlusService;
+import org.apache.thrift.TException;
+
+public class PlusServiceHandler implements PlusService.Iface {
+
+    @Override
+    public int plus(int n1, int n2) throws TException {
+        return n1 + n2;
+    }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/main/java/demo/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/src/main/java/demo/Client.java" target="_blank" title="show github file">Client.java</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import demo.thrift_gen.PlusService;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+
+public class Client {
+
+    public static void main(String[] args) throws Exception {
+        TTransport transport = new TSocket(&quot;localhost&quot;, 9090);
+        transport.open();
+
+        TProtocol protocol = new TBinaryProtocol(transport);
+        PlusService.Client client = new PlusService.Client(protocol);
+
+        int result = client.plus(1, 2);
+        System.out.println(&quot;plus(1, 2) = &quot; + result);
+
+        transport.close();
+    }
+
+
+}
+
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path">src/main/java/demo/</span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/src/main/java/demo/Server.java" target="_blank" title="show github file">Server.java</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="java">package demo;
+
+import demo.thrift_gen.PlusService;
+import org.apache.thrift.server.TServer;
+import org.apache.thrift.server.TSimpleServer;
+import org.apache.thrift.transport.TServerSocket;
+import org.apache.thrift.transport.TServerTransport;
+
+
+public class Server {
+
+    public static void main(String[] args) throws Exception {
+        TServerTransport serverTransport = new TServerSocket(9090);
+        PlusServiceHandler handler = new PlusServiceHandler();
+        TServer server = new TSimpleServer(new TServer.Args(serverTransport).processor(new PlusService.Processor&lt;&gt;(handler)));
+
+        System.out.println(&quot;Starting the simple server at 9090 ...&quot;);
+        server.serve();
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/blob/master/plus.thrift" target="_blank" title="show github file">plus.thrift</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="thrift">namespace java thrift_gen
+namespace py thrift_gen
+
+typedef i32 int
+
+service PlusService {
+        int plus(1:int n1, 2:int n2)
+}</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/java-apache-thrift-server-client-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>
