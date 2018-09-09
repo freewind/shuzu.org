@@ -1,0 +1,116 @@
+<html>
+<head>
+    <title>typescript-angle-bracket-type-cast-vs-as-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-angle-bracket-type-cast-vs-as-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript &quot;&lt;type&gt;obj&quot; and &quot;obj as type&quot; Demo
+=============================================
+
+Typescript中，`&lt;type&gt;obj`与`obj as type`这两种形式是等价的，
+只是前者不能用于tsx（支持类似于html的标记），以防止parser太难写。
+而后者`as`就是为了解决这个问题，它可以用在普通的ts以及tsx中。
+
+
+```
+npm install
+npx ts-node hello.ts
+```
+
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo/blob/master/hello.ts" target="_blank" title="show github file">hello.ts</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">type Data = {
+    name: string
+}
+
+function printName(data: Data) {
+    console.log(data.name)
+}
+
+const data1 = &lt;Data&gt;{name: &#39;javascript&#39;, other: &#39;value&#39;}
+const data2 = {name: &#39;typescript&#39;} as Data
+
+printName(data1)
+printName(data2)
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;7.0.0&quot;,
+    &quot;typescript&quot;: &quot;3.0.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-angle-bracket-type-cast-vs-as-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>javascript-simple-git-clone-demo - 数组网</title>
+    <title>javascript-simple-git-shallow-clone-demo - 数组网</title>
     <link rel="stylesheet" href="../../css/site.css">
     <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
     <script src="../../js/showdown-1.8.6.min.js"></script>
@@ -8,24 +8,24 @@
 <body>
 
 <div id="demo-header">
-    <div class="site-slogan">javascript-simple-git-clone-demo</div>
+    <div class="site-slogan">javascript-simple-git-shallow-clone-demo</div>
 </div>
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 
 <div id="readme" class="center-in-page">
     <div class="markdown markdown-body">
-        JavaScript &quot;simple-git&quot; Clone Demo
-==================================
+        JavaScript &quot;simple-git&quot; Shallow Clone Demo
+==========================================
 
-使用&quot;simple-git&quot;将指定的git仓库clone到本地
+&quot;Shallow Clone&quot;是指使用`--depth=1`参数，只取最新的一个commit.
 
 ```
 npm install
@@ -33,6 +33,14 @@ node run demo
 ```
 
 然后就会在`local-repo`目录下看到新clone下来的`demo-project`。
+
+检查一下是不是shallow clone:
+
+```
+$ cd local-repo/demo-project
+$ git rev-list --count master
+1
+```
     </div>
 </div>
 
@@ -40,13 +48,13 @@ node run demo
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+            <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="json">{
   &quot;scripts&quot;: {
-    &quot;demo&quot;: &quot;mkdir local-repo &amp;&amp; node demo.js&quot;
+    &quot;demo&quot;: &quot;rm -rf local-repo &amp;&amp; mkdir local-repo &amp;&amp; node demo.js&quot;
   },
   &quot;dependencies&quot;: {
     &quot;simple-git&quot;: &quot;^1.96.0&quot;
@@ -59,16 +67,16 @@ node run demo
     <div class="header">
         <span class="parent-path"></span>
         <span class="name">
-            <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo/blob/master/demo.js" target="_blank" title="show github file">demo.js</a>
+            <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo/blob/master/demo.js" target="_blank" title="show github file">demo.js</a>
         </span>
     </div>
     <div class="body">
         <pre class="content"><code class="js">const workingDirPath = &#39;./local-repo&#39;
 const simpleGit = require(&#39;simple-git&#39;)(workingDirPath)
 
-simpleGit.clone(&#39;https://github.com/freewind-demos/javascript-frontend-hello-world-demo.git&#39;, &#39;demo-project&#39;)
+simpleGit.clone(&#39;https://github.com/freewind-demos/git-shallow-clone-checkout-remote-branch-demo.git&#39;, &#39;demo-project&#39;, [&#39;--depth=1&#39;])
     .exec(function () {
-        console.log(&#39;cloned to: local-repo/demo-project&#39;)
+        console.log(&#39;shallow cloned to: local-repo/demo-project&#39;)
     })
 </code></pre>
     </div>
@@ -76,10 +84,10 @@ simpleGit.clone(&#39;https://github.com/freewind-demos/javascript-frontend-hello
 
 <div class="github center-in-page markdown-body">
     <span class="repo-url">
-        <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo">打开Github项目地址</a>
+        <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo">打开Github项目地址</a>
     </span>
     <span class="repo-issues">
-        <a href="https://github.com/freewind-demos/javascript-simple-git-clone-demo/issues?q=">有疑问上Github Issues上讨论</a>
+        <a href="https://github.com/freewind-demos/javascript-simple-git-shallow-clone-demo/issues?q=">有疑问上Github Issues上讨论</a>
     </span>
 </div>
 

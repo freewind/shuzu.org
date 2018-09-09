@@ -98,12 +98,13 @@ server.route({
 // Start the server
 async function start() {
     try {
-        await server.start()
+        let started = await server.start()
+        console.log(&#39;Server running at:&#39;, server.info.uri)
+        return started
     } catch (err) {
         console.log(err)
         process.exit(1)
     }
-    console.log(&#39;Server running at:&#39;, server.info.uri)
 }
 
 start()</code></pre>

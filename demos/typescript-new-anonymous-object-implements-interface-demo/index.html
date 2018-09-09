@@ -1,0 +1,115 @@
+<html>
+<head>
+    <title>typescript-new-anonymous-object-implements-interface-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-new-anonymous-object-implements-interface-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript New Anonymous Object Implements Interface Demo
+=========================================================
+
+对于某一个interface，我们在Typescript中不能像Java那样，直接`new SomeInterface {}`来创建它的匿名实例。
+
+不过好在也提供了`new class implements SomeInterface {}`可以做到这样的效果。
+
+```
+npm install
+npx ts-node hello.ts
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo/blob/master/hello.ts" target="_blank" title="show github file">hello.ts</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">interface Runnable {
+    run(): void
+}
+
+const myTask = new class implements Runnable {
+    run(): void {
+        console.log(&#39;Hello, myTask!&#39;)
+    }
+}
+
+myTask.run()
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true
+  }
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;ts-node hello.ts&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;ts-node&quot;: &quot;7.0.0&quot;,
+    &quot;typescript&quot;: &quot;3.0.1&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-new-anonymous-object-implements-interface-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

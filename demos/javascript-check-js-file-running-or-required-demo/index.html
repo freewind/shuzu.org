@@ -1,0 +1,126 @@
+<html>
+<head>
+    <title>javascript-check-js-file-running-or-required-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-check-js-file-running-or-required-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        在一个JS文件中怎么检查自己是被直接被node执行了，还是被别的module require了？
+================================================
+
+关键点就在于`module.parent`这个属性。
+
+```
+npm install
+```
+
+直接执行：
+
+```
+$ node server.js
+Server is started
+```
+
+被别人引用：
+
+```
+$ node hello.js
+Server is required by other module, will not start automatically
+I required server: hello-server
+```
+
+有时候我们需要对某个server进行单元测试，就可以使用这个技术：
+- 如果是在单元测试代码中require了，那么就不自动启动，由单元测试来处理
+- 如果是直接由node执行，那么就启动    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo/blob/master/hello.js" target="_blank" title="show github file">hello.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const server = require(&#39;./server&#39;)
+
+console.log(&#39;I required server: &#39; + server.name)</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;node hello.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;lodash&quot;: &quot;^4.17.10&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo/blob/master/server.js" target="_blank" title="show github file">server.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const server = {
+    name: &#39;hello-server&#39;,
+    start: function () {
+        console.log(&#39;Server is started&#39;)
+    }
+}
+
+if (module.parent) {
+    console.log(&#39;Server is required by other module, will not start automatically&#39;)
+} else {
+    server.start()
+}
+
+module.exports = server</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-check-js-file-running-or-required-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

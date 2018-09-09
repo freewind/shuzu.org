@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>javascript-simple-git-push-commit-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">javascript-simple-git-push-commit-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        JavaScript &quot;simple-git&quot; Push Commit Demo
+========================================
+
+使用&quot;simple-git&quot;来push commit.
+
+```
+npm install
+node run demo
+```
+
+Commits
+-------
+
+- Modified at: Sat Sep 08 2018 23:21:51 GMT+0800 (CST)    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;rm -rf local-repo &amp;&amp; mkdir local-repo &amp;&amp; node demo.js&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;simple-git&quot;: &quot;^1.96.0&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo/blob/master/demo.js" target="_blank" title="show github file">demo.js</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="js">const simpleGit = require(&#39;simple-git&#39;)(&#39;./local-repo&#39;)
+const fs = require(&#39;fs&#39;)
+
+console.log(&#39;---- clone -----&#39;)
+simpleGit.clone(&#39;git@github.com:freewind-demos/javascript-simple-git-push-commit-demo.git&#39;, &#39;demo-project&#39;, () =&gt; console.log(&#39;------ git clone --------&#39;))
+    .exec(() =&gt; {
+        fs.appendFileSync(&#39;local-repo/demo-project/README.md&#39;, &#39;\n- Modified at: &#39; + new Date())
+
+        const git = require(&#39;simple-git&#39;)(&#39;./local-repo/demo-project&#39;)
+        git.add(&#39;.&#39;, () =&gt; console.log(&#39;----- git add . -----&#39;))
+            .commit(&#39;modified by simplegit&#39;, () =&gt; console.log(&#39;------ git commit ------&#39;))
+            .push(&#39;origin&#39;, &#39;master&#39;, () =&gt; console.log(&#39;-------- git push --------&#39;))
+    })
+
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/javascript-simple-git-push-commit-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

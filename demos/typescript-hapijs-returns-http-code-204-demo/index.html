@@ -1,0 +1,154 @@
+<html>
+<head>
+    <title>typescript-hapijs-returns-http-code-204-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-hapijs-returns-http-code-204-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript HapiJS Returns Http Code 204 Demo
+============================================
+
+使用hapijs如何向客户端发回一个http code `204`.
+
+```
+npm install
+npm run demo
+```
+
+将会启动Server:
+
+```
+Server running at: http://localhost:8000
+```
+
+客户端访问：
+
+```
+$ http GET http://localhost:8000/hello
+HTTP/1.1 200 OK
+Connection: keep-alive
+Date: Fri, 07 Sep 2018 12:50:17 GMT
+accept-ranges: bytes
+cache-control: no-cache
+content-length: 3
+content-type: application/json; charset=utf-8
+
+204
+```
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo/blob/master/server.ts" target="_blank" title="show github file">server.ts</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as Hapi from &#39;hapi&#39;
+import {Request, ResponseToolkit} from &#39;hapi&#39;
+
+const server = new Hapi.Server({
+    host: &#39;localhost&#39;,
+    port: 8000
+})
+
+server.route({
+    method: &#39;GET&#39;,
+    path: &#39;/hello&#39;,
+    handler: function (request: Request, h: ResponseToolkit) {
+        console.log(&#39;request /hello&#39;)
+        return 204
+    }
+});
+
+(async () =&gt; {
+    await server.start()
+    console.log(&#39;Server running at:&#39;, server.info.uri)
+})()
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;strict&quot;: true,
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;noImplicitAny&quot;: true,
+    &quot;removeComments&quot;: true,
+    &quot;preserveConstEnums&quot;: true,
+    &quot;sourceMap&quot;: true
+  },
+  &quot;files&quot;: [
+    &quot;hello.ts&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;demo&quot;: &quot;ts-node server.ts&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;hapi&quot;: &quot;^17.5.4&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/hapi&quot;: &quot;^17.0.19&quot;,
+    &quot;ts-node&quot;: &quot;^7.0.1&quot;,
+    &quot;typescript&quot;: &quot;^3.0.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-returns-http-code-204-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

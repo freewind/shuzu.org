@@ -466,6 +466,15 @@
     <loc>http://shuzu.org/demos/gant-helloworld/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/git-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/git-shallow-clone-checkout-remote-branch-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/git-shallow-clone-specify-branch-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/github-rsa-key-generating-demo/index.html</loc>
   </url>
   <url>
@@ -1072,6 +1081,9 @@
     <loc>http://shuzu.org/demos/javascript-backend-hello-world-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-check-js-file-running-or-required-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-compare-strings-demo/index.html</loc>
   </url>
   <url>
@@ -1114,6 +1126,9 @@
     <loc>http://shuzu.org/demos/javascript-jspm-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/javascript-jwt-json-web-token-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/javascript-karma-browserify-demo/index.html</loc>
   </url>
   <url>
@@ -1130,6 +1145,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-node-passing-args-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-node-sha256-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-nodegit-clone-demo/index.html</loc>
@@ -1193,6 +1211,15 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-simple-git-clone-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-simple-git-push-commit-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-simple-git-shallow-clone-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/javascript-simple-git-shallow-clone-specify-branch-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/javascript-split-by-regex-with-capture-group-demo/index.html</loc>
@@ -2164,6 +2191,12 @@
     <loc>http://shuzu.org/demos/ts-node-import-json-file-issue-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/typescript-angle-bracket-type-cast-vs-as-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-async-await-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/typescript-base-demo/index.html</loc>
   </url>
   <url>
@@ -2215,6 +2248,21 @@
     <loc>http://shuzu.org/demos/typescript-generate-type-definition-file-demo/index.html</loc>
   </url>
   <url>
+    <loc>http://shuzu.org/demos/typescript-hapijs-post-json-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-hapijs-returns-http-code-204-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-hapijs-server-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-hapijs-testing-with-mocha-chai-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-hapijs-validate-payload-demo/index.html</loc>
+  </url>
+  <url>
     <loc>http://shuzu.org/demos/typescript-hello-world-demo/index.html</loc>
   </url>
   <url>
@@ -2243,6 +2291,9 @@
   </url>
   <url>
     <loc>http://shuzu.org/demos/typescript-nested-object-literal-with-types-demo/index.html</loc>
+  </url>
+  <url>
+    <loc>http://shuzu.org/demos/typescript-new-anonymous-object-implements-interface-demo/index.html</loc>
   </url>
   <url>
     <loc>http://shuzu.org/demos/typescript-old-version-import-json-file-demo/index.html</loc>

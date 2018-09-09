@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>git-shallow-clone-specify-branch-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">git-shallow-clone-specify-branch-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/git-shallow-clone-specify-branch-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/git-shallow-clone-specify-branch-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        Git Shallow Clone Specify Branch Demo
+=====================================
+
+这个Demo用来测试当git使用&quot;shallow clone&quot;时下载指定的分支。
+
+这个repo有两个远程分支：
+
+- `master`: 默认。特点是`current-branch.txt`内容为`master`
+- `admin`: 特点是`current-branch.txt`内容为`admin`
+
+如果不指定，下载的就是默认分支: `master`:
+
+```
+git clone git@github.com:freewind-demos/git-shallow-clone-specify-branch-demo.git --depth=1
+```
+
+如果指定`admin`分支，可以使用`--branch admin`：
+
+```
+git clone git@github.com:freewind-demos/git-shallow-clone-specify-branch-demo.git --depth=1 --branch=admin
+```
+
+Clone之后，可以使用`cat current-branch.txt`确认一下。
+    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/git-shallow-clone-specify-branch-demo/blob/master/current-branch.txt" target="_blank" title="show github file">current-branch.txt</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="txt">master
+</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/git-shallow-clone-specify-branch-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/git-shallow-clone-specify-branch-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<html>
+<head>
+    <title>typescript-hapijs-testing-with-mocha-chai-demo - 数组网</title>
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/github-markdown-2.10.0.css">
+    <script src="../../js/showdown-1.8.6.min.js"></script>
+</head>
+<body>
+
+<div id="demo-header">
+    <div class="site-slogan">typescript-hapijs-testing-with-mocha-chai-demo</div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<div id="readme" class="center-in-page">
+    <div class="markdown markdown-body">
+        TypeScript HapiJS Testing with Mocha Chai Demo
+==============================================
+
+如何使用Mocha Chai来测试HapiJS Server?
+
+HapiJS有一点做的非常巧妙，它生成的`server`有一个`inject`方法，可以让我们直接传入一些request参数，就能得到结果，不需要启动Server，也不需要基于url来测试。
+然后就利用chai对其response进行验证即可。
+
+另一值得注意的地方是，我们在测试中只需要拿到server不需要它启动，所以在`server.js`中，我们通过`module.parent`来判断该文件是被node执行还是被别人导入。如果是后者就不启动。
+
+```
+npm install
+npm test
+```
+
+将会测试并输出报告：
+
+```
+  server
+    ✓ /hello POST correct payload
+    ✓ /hello POST wrong payload | name too short
+
+
+  2 passing (35ms)
+```
+
+参考
+---
+
+- https://sethlopez.me/article/testing-hapi-js-apis/    </div>
+</div>
+
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/blob/master/server.ts" target="_blank" title="show github file">server.ts</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import * as Hapi from &#39;hapi&#39;
+import * as Joi from &#39;Joi&#39;
+import {Request, ResponseToolkit} from &#39;hapi&#39;
+
+const server = new Hapi.Server({
+    host: &#39;localhost&#39;,
+    port: 8000
+})
+
+server.route({
+    method: &#39;POST&#39;,
+    path: &#39;/hello&#39;,
+    handler: function (request: Request, h: ResponseToolkit) {
+        const payload = request.payload as { name: string }
+        return `Hello, ${payload.name}!`
+    },
+    options: {
+        validate: {
+            payload: {
+                name: Joi.string().required().min(3)
+            }
+        }
+    }
+})
+
+
+async function startServer() {
+    await server.start()
+    console.log(&#39;Server running at:&#39;, server.info.uri)
+}
+
+if (!module.parent) {
+    startServer()
+}
+
+export default server
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/blob/master/tsconfig.json" target="_blank" title="show github file">tsconfig.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;compilerOptions&quot;: {
+    &quot;strict&quot;: true,
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;noImplicitAny&quot;: true,
+    &quot;removeComments&quot;: true,
+    &quot;preserveConstEnums&quot;: true,
+    &quot;sourceMap&quot;: true
+  },
+  &quot;files&quot;: [
+    &quot;hello.ts&quot;
+  ]
+}</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/blob/master/package.json" target="_blank" title="show github file">package.json</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="json">{
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;mocha -r ts-node/register *-test.ts&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;hapi&quot;: &quot;^17.5.4&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/chai&quot;: &quot;^4.1.4&quot;,
+    &quot;@types/hapi&quot;: &quot;^17.0.19&quot;,
+    &quot;@types/mocha&quot;: &quot;^5.2.5&quot;,
+    &quot;chai&quot;: &quot;^4.1.2&quot;,
+    &quot;chai-http&quot;: &quot;^4.2.0&quot;,
+    &quot;mocha&quot;: &quot;^5.2.0&quot;,
+    &quot;ts-node&quot;: &quot;^7.0.1&quot;,
+    &quot;typescript&quot;: &quot;^3.0.3&quot;
+  }
+}
+</code></pre>
+    </div>
+</div>
+<div class="code-file center-in-page panel markdown-body">
+    <div class="header">
+        <span class="parent-path"></span>
+        <span class="name">
+            <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/blob/master/server-test.ts" target="_blank" title="show github file">server-test.ts</a>
+        </span>
+    </div>
+    <div class="body">
+        <pre class="content"><code class="ts">import {expect} from &#39;chai&#39;
+import server from &#39;./server&#39;
+import {ServerInjectOptions} from &#39;hapi&#39;
+
+describe(&#39;server&#39;, () =&gt; {
+    it(&#39;/hello POST correct payload&#39;, () =&gt; {
+        const request: ServerInjectOptions = {
+            method: &#39;POST&#39;,
+            url: &#39;/hello&#39;,
+            payload: {
+                name: &#39;hapijs&#39;
+            }
+        }
+        return server.inject(request)
+            .then(response =&gt; {
+                expect(response.statusCode).eq(200)
+                expect(response.result).eq(&#39;Hello, hapijs!&#39;)
+            })
+    })
+
+    it(&#39;/hello POST wrong payload | name too short&#39;, () =&gt; {
+        const request: ServerInjectOptions = {
+            method: &#39;POST&#39;,
+            url: &#39;/hello&#39;,
+            payload: {
+                name: &#39;a&#39;
+            }
+        }
+        return server.inject(request)
+            .then(response =&gt; {
+                expect(response.statusCode).eq(400)
+            })
+    })
+})</code></pre>
+    </div>
+</div>
+
+<div class="github center-in-page markdown-body">
+    <span class="repo-url">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo">打开Github项目地址</a>
+    </span>
+    <span class="repo-issues">
+        <a href="https://github.com/freewind-demos/typescript-hapijs-testing-with-mocha-chai-demo/issues?q=">有疑问上Github Issues上讨论</a>
+    </span>
+</div>
+
+<script src="../../js/site.js"></script>
+<script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274292847'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1274292847' type='text/javascript'%3E%3C/script%3E"));
+
+</script>
+</body>
+</html>
